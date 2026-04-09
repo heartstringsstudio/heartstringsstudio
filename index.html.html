@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heartstrings Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --charcoal: #1e1a1a;
+    --charcoal-soft: #2a2222;
+    --cream: #faf6f2;
+    --cream-warm: #f4ede6;
+    --rose: #c0455a;
+    --rose-light: #d4637a;
+    --rose-pale: #f2ccd4;
+    --rose-deep: #8b2a3a;
+    --text-body: #3a2e30;
+    --text-muted: #7a6668;
+    --white: #ffffff;
+    --divider: #e8dde0;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Lato', sans-serif; background-color: var(--cream); color: var(--text-body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; margin: -16px -24px -24px -24px; }
+  html { overflow-x: hidden; }
+
+  .btn-ornate {
+    display: inline-block;
+    position: relative;
+    background: transparent;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-decoration: none;
+    padding: 15px 46px;
+    border: 1px solid currentColor;
+    cursor: pointer;
+    transition: background 0.25s, opacity 0.2s, transform 0.15s;
+    text-align: center;
+  }
+  .btn-ornate::before, .btn-ornate::after {
+    content: '';
+    position: absolute;
+    width: 11px; height: 11px;
+    border-style: solid;
+    border-color: currentColor;
+    opacity: 0.6;
+    transition: opacity 0.25s;
+  }
+  .btn-ornate::before { top: 4px; left: 4px; border-width: 1px 0 0 1px; }
+  .btn-ornate::after  { bottom: 4px; right: 4px; border-width: 0 1px 1px 0; }
+  .btn-ornate:hover   { opacity: 0.82; transform: translateY(-1px); }
+  .btn-ornate:hover::before, .btn-ornate:hover::after { opacity: 1; }
+  .btn-dark  { color: #f4e0e4; border-color: rgba(212,99,122,0.55); }
+  .btn-dark:hover { background: rgba(192,69,90,0.15); }
+  .btn-light { color: var(--rose-deep); border-color: var(--rose); }
+  .btn-light:hover { background: rgba(192,69,90,0.07); }
+
+  .hero {
+    position: relative;
+    background-color: #1a1214;
+    color: var(--cream);
+    text-align: center;
+    padding: 90px 24px 82px;
+    overflow: hidden;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(192,69,90,0.28) 0%, transparent 65%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-icon { width: 58px; height: 58px; margin: 0 auto 22px; }
+  .hero-banner-logo { width: 520px; max-width: 90%; margin: 0 auto 28px; }
+  .hero-banner-logo img { width: 100%; height: auto; object-fit: contain; filter: brightness(1.1) saturate(0.8); }
+  .hero-icon img { width: 100%; height: 100%; object-fit: contain; filter: brightness(1.5) saturate(0.6); }
+  .hero-eyebrow { font-size: 10.5px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--rose-light); margin-bottom: 18px; }
+  .hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(38px, 7vw, 64px); font-weight: 700; line-height: 1.12; color: var(--cream); margin-bottom: 10px; }
+  .hero h1 em { font-style: italic; color: var(--rose-light); }
+  .hero-tagline { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: clamp(15px, 2.5vw, 19px); color: rgba(250,246,242,0.68); margin: 22px auto 36px; max-width: 540px; line-height: 1.65; }
+  .hero-sub { margin-top: 20px; font-size: 12.5px; color: rgba(250,246,242,0.38); letter-spacing: 0.05em; }
+  .hero-sub a { color: rgba(212,99,122,0.65); text-decoration: none; transition: color 0.2s; }
+  .hero-sub a:hover { color: var(--rose-light); }
+
+  .proof-banner { background: var(--charcoal-soft); color: var(--cream); text-align: center; padding: 54px 24px; }
+  .proof-stat { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(44px, 9vw, 72px); font-weight: 700; color: var(--rose-light); line-height: 1; }
+  .proof-label { font-size: 11.5px; font-weight: 300; letter-spacing: 0.16em; color: rgba(250,246,242,0.5); margin-top: 8px; text-transform: uppercase; }
+  .proof-quote { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: clamp(14px, 2vw, 17px); color: rgba(250,246,242,0.72); max-width: 540px; margin: 26px auto 0; line-height: 1.72; }
+
+  .section { padding: 72px 24px; max-width: 860px; margin: 0 auto; }
+  .section-center { text-align: center; }
+  .section-label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 14px; }
+  .section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 4vw, 36px); font-weight: 600; line-height: 1.24; color: var(--charcoal); margin-bottom: 20px; }
+  .section h2 em { font-style: italic; color: var(--rose); }
+  .section p { font-size: 16.5px; color: var(--text-body); line-height: 1.82; max-width: 640px; }
+  .section-center p { margin: 0 auto; }
+  .divider { width: 100%; height: 1px; background: var(--divider); max-width: 860px; margin: 0 auto; }
+  .bg-warm { background: var(--cream-warm); }
+  .full-bg { max-width: 100%; }
+
+  .occasions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 32px; }
+  .pill { font-size: 12.5px; letter-spacing: 0.05em; color: var(--rose-deep); border: 1px solid var(--rose); padding: 7px 18px; border-radius: 40px; opacity: 0.88; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 48px; } @media (max-width: 680px) { .steps { grid-template-columns: 1fr; } }
+  .step { text-align: center; }
+  .step-num { font-family: 'Playfair Display', Georgia, serif; font-size: 42px; font-weight: 700; color: var(--rose-pale); line-height: 1; margin-bottom: 14px; }
+  .step h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 600; color: var(--charcoal); margin-bottom: 10px; }
+  .step p { font-size: 15px; color: var(--text-muted); line-height: 1.72; }
+
+  .delivers { list-style: none; margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .delivers li { display: flex; align-items: flex-start; gap: 12px; font-size: 15.5px; color: var(--text-body); line-height: 1.5; }
+  .delivers li::before { content: ''; flex-shrink: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--rose); margin-top: 7px; }
+
+  .featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px; margin-top: 40px; }
+  @media (max-width: 600px) { .featured-grid { grid-template-columns: 1fr; } }
+  .song-card { background: var(--white); border: 1px solid var(--divider); }
+  .song-card iframe { display: block; width: 100%; border: none; }
+  .song-card-body { padding: 20px 22px 24px; }
+  .song-card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 8px; }
+  .song-card-title { font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; line-height: 1.3; }
+  .song-card-desc { font-size: 14px; color: var(--text-muted); line-height: 1.72; }
+
+  .wboy-wrap { margin-top: 40px; }
+  .wboy-wrap iframe { display: block; width: 100%; border: none; }
+  .wboy-caption { margin-top: 14px; font-size: 13.5px; color: var(--text-muted); font-style: italic; text-align: center; }
+
+  .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; margin-top: 48px; }
+  .testimonial { background: var(--white); border: 1px solid var(--divider); padding: 32px 28px; position: relative; }
+  .testimonial::before { display: none; }
+  .testimonial p { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 15px; color: var(--text-body); line-height: 1.8; position: relative; z-index: 1; }
+  .testimonial-name { margin-top: 18px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); }
+
+  .bio-wrap { display: flex; gap: 44px; align-items: flex-start; margin-top: 16px; }
+  @media (max-width: 640px) { .bio-wrap { flex-direction: column; } .bio-img { order: -1; width: 100% !important; } }
+  .bio-img { position: relative; flex-shrink: 0; width: 240px; }
+  .bio-img img { width: 100%; display: block; object-fit: cover; border-radius: 2px; }
+  .bio-img::after { content: ''; position: absolute; bottom: -8px; right: -8px; width: 100%; height: 100%; border: 2px solid var(--rose-pale); z-index: -1; pointer-events: none; }
+  .bio-caption { margin-top: 10px; font-size: 12px; color: var(--text-muted); text-align: center; font-style: italic; line-height: 1.5; }
+  .bio-text p { font-size: 16px; color: var(--text-body); line-height: 1.84; margin-bottom: 18px; }
+  .bio-text h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(24px, 3.5vw, 34px); font-weight: 600; color: var(--charcoal); margin-bottom: 20px; }
+
+  .faq { margin-top: 40px; }
+  .faq-item { border-bottom: 1px solid var(--divider); padding: 22px 0; }
+  .faq-q { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 600; color: var(--charcoal); margin-bottom: 10px; }
+  .faq-a { font-size: 15.5px; color: var(--text-muted); line-height: 1.77; max-width: 680px; }
+
+  .cta-section { background: var(--charcoal); text-align: center; padding: 84px 24px; position: relative; overflow: hidden; }
+  .cta-bg-logo { position: absolute; inset: 0; background-size: contain; background-position: center; background-repeat: no-repeat; opacity: 0.05; }
+  .cta-content { position: relative; z-index: 2; }
+  .cta-section .section-label { color: var(--rose-light); }
+  .cta-section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(28px, 5vw, 46px); font-weight: 700; color: var(--cream); margin-bottom: 16px; line-height: 1.2; }
+  .cta-section h2 em { font-style: italic; color: var(--rose-light); }
+  .cta-section p { font-size: 17px; color: rgba(250,246,242,0.62); max-width: 500px; margin: 0 auto 36px; line-height: 1.77; }
+  .price-note { margin-top: 26px; font-size: 12.5px; color: rgba(250,246,242,0.32); letter-spacing: 0.05em; }
+  .price-note a { color: rgba(212,99,122,0.6); text-decoration: none; }
+  .price-note a:hover { color: var(--rose-light); }
+
+  .footer { background: #130e0f; padding: 38px 24px; text-align: center; }
+  .footer-icon { width: 36px; height: 36px; margin: 0 auto 14px; opacity: 0.55; }
+  .footer-icon img { width: 100%; height: 100%; object-fit: contain; filter: brightness(2) saturate(0.3); }
+  .footer-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 19px; font-weight: 600; color: var(--cream); letter-spacing: 0.04em; margin-bottom: 16px; }
+  .footer-links { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 16px; }
+  .footer-links a { font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(250,246,242,0.38); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--rose-light); }
+  .footer-copy { font-size: 11.5px; color: rgba(250,246,242,0.2); }
+
+
+
+  /* ── COMPREHENSIVE MOBILE ── */
+  @media (max-width: 768px) {
+    body { margin: -8px -12px -12px -12px; }
+
+    .hero { padding: 52px 20px 48px; min-height: auto; }
+    .hero-banner-logo { width: 88% !important; max-width: 88% !important; margin-bottom: 20px; }
+    .hero h1 { font-size: 34px; }
+    .hero-tagline { font-size: 15px; margin: 16px auto 28px; }
+    .btn-ornate { font-size: 13px; padding: 13px 32px; }
+
+    .proof-banner { padding: 36px 20px; }
+    .proof-stat { font-size: 52px; }
+
+    .section { padding: 48px 20px; }
+    .section h2 { font-size: 24px; }
+    .section p { font-size: 15px; }
+
+    .steps { grid-template-columns: 1fr; gap: 32px; }
+    .step { max-width: 340px; margin: 0 auto; }
+
+    .occasions { gap: 8px; }
+    .pill { font-size: 12px; padding: 6px 14px; }
+
+    .featured-grid { grid-template-columns: 1fr; gap: 24px; }
+    .song-card iframe { height: 200px; }
+
+    .wboy-wrap iframe { height: 220px; }
+
+    .delivers { grid-template-columns: 1fr; gap: 10px; }
+
+    .testimonials { grid-template-columns: 1fr; }
+    .testimonial { padding: 24px 20px; }
+
+    .bio-wrap { flex-direction: column; gap: 28px; }
+    .bio-img { width: 100% !important; max-width: 280px; margin: 0 auto; }
+
+    .faq-q { font-size: 15px; }
+    .faq-a { font-size: 14.5px; }
+
+    .cta-section { padding: 60px 20px; }
+    .cta-section h2 { font-size: 28px; }
+    .cta-section p { font-size: 15px; }
+
+    .footer { padding: 28px 20px; }
+    .footer-links { gap: 16px; }
+
+    .hero-eyebrow { font-size: 9px; letter-spacing: 0.16em; }
+    .proof-label { font-size: 10px; letter-spacing: 0.1em; }
+  }
+
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 28px; }
+    .hero-banner-logo { width: 94% !important; }
+    .btn-ornate { padding: 12px 24px; font-size: 12.5px; }
+    .section h2 { font-size: 21px; }
+    .proof-stat { font-size: 44px; }
+  }
+
+
+  /* ── ORDER FORM ── */
+  .form-section { background: var(--charcoal); padding: 80px 24px; }
+  .form-section .section-label { color: var(--rose-light); }
+  .form-section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(26px, 4vw, 38px); font-weight: 600; color: var(--cream); margin: 0 auto 10px; line-height: 1.22; text-align: center; width: 100%; display: block; }
+  .form-section .section-label { text-align: center; display: block; }
+  .form-section h2 em { font-style: italic; color: var(--rose-light); }
+  .form-section .form-sub { font-size: 15px; color: rgba(250,246,242,0.55); margin: 0 auto 40px; max-width: 520px; line-height: 1.7; text-align: center; display: block; }
+  .form-wrap { max-width: 640px; margin: 0 auto; }
+  .form-row { margin-bottom: 22px; }
+  .form-row label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(250,246,242,0.55);
+    margin-bottom: 8px;
+  }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(212,99,122,0.3);
+    color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    padding: 13px 16px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .form-row input::placeholder,
+  .form-row textarea::placeholder { color: rgba(250,246,242,0.28); }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    border-color: rgba(212,99,122,0.75);
+    background: rgba(255,255,255,0.09);
+  }
+  .form-row select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(212,99,122,0.7)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+  .form-row select option { background: #2a2222; color: var(--cream); }
+  .form-row textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+  .form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 540px) { .form-two-col { grid-template-columns: 1fr; } }
+  .form-note { font-size: 12.5px; color: rgba(250,246,242,0.35); margin-top: 6px; line-height: 1.5; }
+  .form-divider { width: 100%; height: 1px; background: rgba(255,255,255,0.08); margin: 28px 0; }
+  .form-submit-wrap { text-align: center; margin-top: 32px; }
+  .form-status { margin-top: 20px; font-size: 14px; text-align: center; min-height: 20px; }
+  .form-status.success { color: #7ecfa0; }
+  .form-status.error { color: #f09595; }
+  @media (max-width: 768px) {
+    .form-section { padding: 56px 20px; }
+  }
+
+</style>
+</head>
+<body>
+
+<section class="hero">
+  
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-banner-logo"><img id="heroIcon" src="" alt="Heartstrings Studio"></div>
+    <p class="hero-eyebrow">Custom Songwriting &nbsp;·&nbsp; Lumberport, West Virginia</p>
+    <h1>Your Story<br>Deserves a <em>Song</em></h1>
+    <p class="hero-tagline">We turn meaningful moments into music — crafted with care and made to last a lifetime.</p>
+    <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">Begin Your Song &rarr;</button>
+    <p class="hero-sub">Or browse the full catalog &nbsp;<a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">on YouTube &rarr;</a></p>
+  </div>
+</section>
+
+<div class="proof-banner">
+  <div class="proof-stat">20,119</div>
+  <div class="proof-label">Views on a single community tribute song</div>
+  <p class="proof-quote">When a song captures what words can't hold, people share it. That's what Heartstrings Studio makes.</p>
+</div>
+
+<div class="divider"></div>
+<section class="section section-center">
+  <p class="section-label">The Difference</p>
+  <h2>A photo shows the moment.<br>A song <em>brings you back</em> into it.</h2>
+  <p>Every song is built from your own memories and words. You're not hearing something generic — you're hearing your story, set to music. The laughter. The ache. The love underneath it all.</p>
+</section>
+<div class="divider"></div>
+
+<section class="section section-center">
+  <p class="section-label">As Seen On</p>
+  <h2>Heartstrings Studio on <em>WBOY 304 Today</em></h2>
+  <div class="wboy-wrap">
+    <iframe src="https://www.youtube.com/embed/j1_HRI6aJU4" height="420" allowfullscreen></iframe>
+  </div>
+  <p class="wboy-caption">Featured on WBOY's 304 Today — West Virginia's own.</p>
+</section>
+<div class="divider"></div>
+
+<section class="section section-center full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
+  <div style="max-width:860px; margin:0 auto;">
+    <p class="section-label">Every Occasion</p>
+    <h2>The moments worth holding onto</h2>
+    <div class="occasions">
+      <span class="pill">Weddings</span>
+      <span class="pill">Memorials &amp; Tributes</span>
+      <span class="pill">Anniversaries</span>
+      <span class="pill">Birthdays</span>
+      <span class="pill">Retirements</span>
+      <span class="pill">Military Tributes</span>
+      <span class="pill">Celebrations of Life</span>
+      <span class="pill">Gratitude &amp; Thank You</span>
+      <span class="pill">Just Because</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section">
+  <p class="section-label">Featured Stories in Song</p>
+  <h2>Listen to what's possible</h2>
+  <div class="featured-grid">
+    <div class="song-card">
+      <iframe src="https://www.youtube.com/embed/fDOgbEE7BX8" height="220" allowfullscreen></iframe>
+      <div class="song-card-body">
+        <div class="song-card-label">Memorial</div>
+        <div class="song-card-title">Forever and a Day</div>
+        <div class="song-card-desc">A deeply personal memorial song honoring a life that left its mark — built to be kept, shared, and returned to for years to come.</div>
+      </div>
+    </div>
+    <div class="song-card">
+      <iframe src="https://www.youtube.com/embed/wsR1FXXuf3w" height="220" allowfullscreen></iframe>
+      <div class="song-card-body">
+        <div class="song-card-label">Community Tribute</div>
+        <div class="song-card-title">We Love You, Mrs. Gaynor</div>
+        <div class="song-card-desc">A tribute to the woman who helped raise generations of Lincoln High Cougars — built from alumni memories spanning decades.</div>
+      </div>
+    </div>
+    
+    <div class="song-card">
+      <iframe src="https://www.youtube.com/embed/jmSfTesTUcw" height="220" allowfullscreen></iframe>
+      <div class="song-card-body">
+        <div class="song-card-label">Military Tribute</div>
+        <div class="song-card-title">Worth Every Mile</div>
+        <div class="song-card-desc">A tribute to the sacrifice, service, and homecoming of those who wear the uniform — and the people who wait for them.</div>
+      </div>
+    </div>
+    <div class="song-card">
+      <iframe src="https://www.youtube.com/embed/OOypcnwpw9A" height="220" allowfullscreen></iframe>
+      <div class="song-card-body">
+        <div class="song-card-label">Memorial</div>
+        <div class="song-card-title">I Still Talk to You</div>
+        <div class="song-card-desc">For anyone who still feels the presence of someone they've lost — the quiet moments, the empty spaces, the conversations that never really stopped.</div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:44px;">
+    <button onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')" class="btn-ornate btn-light">View the Full Catalog on YouTube &rarr;</button>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section section-center">
+  <p class="section-label">The Process</p>
+  <h2>Three steps. One song <em>yours forever.</em></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Tell Your Story</h3>
+      <p>Fill out a short intake form — names, memories, the feeling you want the song to carry. The more detail, the more personal.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>We Create Together</h3>
+      <p>Tim writes the lyrics and produces a fully original song around your story. You'll see the lyrics first and have a round of revisions.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Receive &amp; Share</h3>
+      <p>Delivered within 48–72 hours: MP3, MP4, WAV, album art, and a lyric sheet. Ready to share, keep, or give as a gift.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
+  <div style="max-width:860px; margin:0 auto;">
+    <p class="section-label">What's Included</p>
+    <h2>Everything you need to share it — or keep it close.</h2>
+    <ul class="delivers">
+      <li>One-on-one creative consultation with Tim</li>
+      <li>Fully custom song written for your story</li>
+      <li>One round of lyric revisions before production</li>
+      <li>One round of minor audio adjustments</li>
+      <li>Full delivery: MP3, MP4, WAV files</li>
+      <li>Custom album artwork</li>
+      <li>Lyric sheet</li>
+      <li>Private YouTube link to watch and share</li>
+      <li>Delivered in 48–72 hours</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section">
+  <p class="section-label">Words From Clients</p>
+  <h2>The people who lived the songs</h2>
+  <div class="testimonials">
+    <div class="testimonial">
+      <p>&ldquo;I can't thank Tim enough for writing the perfect song. They were all in awe when they heard it. My daughter cried, as well as I did. I would have him write a hundred songs for me. Give it a try — you won't go wrong.&rdquo;</p>
+      <div class="testimonial-name">— Jane H.</div>
+    </div>
+    <div class="testimonial">
+      <p>&ldquo;That sounds just like my life. I don't cry... but you just had me bawling like a baby. That's so beautiful.&rdquo;</p>
+      <div class="testimonial-name">— Chrissy H.</div>
+    </div>
+    <div class="testimonial">
+      <p>&ldquo;My song has brought so much comfort to me. It reminds me of the wonderful man that came into my life and showed me what true happiness was. Every time I listen to it I realize how blessed I was. I will always remember&hellip; He loved me forever and a day!&rdquo;</p>
+      <div class="testimonial-name">— Dolores B.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
+  <div style="max-width:860px; margin:0 auto;">
+    <div class="bio-wrap">
+      <div class="bio-img">
+        <img id="timPhoto" src="" alt="Tim, founder of Heartstrings Studio">
+        <p class="bio-caption">Tim Harbert<br>Founder, Heartstrings Studio</p>
+      </div>
+      <div class="bio-text">
+        <p class="section-label">The Songwriter</p>
+        <h2>Meet Tim</h2>
+        <p>I'm the founder of Heartstrings Studio. I create custom songs that honor life's meaningful moments — love, loss, gratitude, and the spaces in between.</p>
+        <p>Music carried me through some dark chapters and taught me the power of real connection. Now I help others preserve what matters most through melody and story.</p>
+        <p>When words fall short, a song can hold what needs to be remembered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px; border-top: 1px solid var(--divider);">
+  <div style="max-width:860px; margin:0 auto;">
+    <p class="section-label">Common Questions</p>
+    <h2>Everything you want to know</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">How does it work?</div>
+        <div class="faq-a">Fill out the intake form with your story. Tim writes a fully produced, custom song around your memories — heartfelt, one-of-a-kind, and ready to share forever.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How fast will I get my song?</div>
+        <div class="faq-a">Most songs are delivered within 48–72 hours. Rush delivery is available when timing matters.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I pick the style or mood?</div>
+        <div class="faq-a">Absolutely. You choose the genre and vibe — romantic, funny, emotional, nostalgic, solemn — whatever fits your story best.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I approve the lyrics?</div>
+        <div class="faq-a">Yes. You'll receive the lyrics first with one round of revisions before production begins.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is my song really one-of-a-kind?</div>
+        <div class="faq-a">Always. Every song is built from scratch — no templates, no shortcuts. Your story is yours alone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ORDER FORM -->
+<section class="form-section" id="order-form">
+  <div class="form-wrap">
+    <div style="text-align:center; margin-bottom:40px;">
+      <p class="section-label">Get Started</p>
+      <h2>Tell me your <em>story</em></h2>
+      <p class="form-sub">Fill out the form below and Tim will be in touch within 24 hours to talk through your song.</p>
+    </div>
+
+    <form id="hsForm" action="https://formspree.io/f/xykbvdrb" method="POST">
+
+      <div class="form-two-col">
+        <div class="form-row">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="First and last name" required>
+        </div>
+        <div class="form-row">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-two-col">
+        <div class="form-row">
+          <label for="phone">Phone (optional)</label>
+          <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx">
+        </div>
+        <div class="form-row">
+          <label for="occasion">Occasion</label>
+          <select id="occasion" name="occasion" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Wedding</option>
+            <option>Memorial / Tribute</option>
+            <option>Anniversary</option>
+            <option>Birthday</option>
+            <option>Retirement</option>
+            <option>Military Tribute</option>
+            <option>Celebration of Life</option>
+            <option>Gratitude / Thank You</option>
+            <option>Just Because</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="recipient">Who is the song for?</label>
+        <input type="text" id="recipient" name="recipient" placeholder="Name(s) and relationship to you" required>
+      </div>
+
+      <div class="form-row">
+        <label for="genre">Genre / Mood</label>
+        <select id="genre" name="genre">
+          <option value="" disabled selected>Select one</option>
+          <option>Emotional / Heartfelt</option>
+          <option>Country</option>
+          <option>Pop</option>
+          <option>Folk / Acoustic</option>
+          <option>Rock / Anthem</option>
+          <option>R&amp;B / Soul</option>
+          <option>Upbeat / Celebratory</option>
+          <option>Not sure — Tim's call</option>
+        </select>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <div class="form-row">
+        <label for="story">Your Story</label>
+        <textarea id="story" name="story" placeholder="Share the memories, moments, inside jokes, names, phrases — anything that makes this story theirs. The more detail you give, the more personal the song becomes." required></textarea>
+        <p class="form-note">Don't worry about writing perfectly. Just write like you're telling a friend.</p>
+      </div>
+
+      <div class="form-row">
+        <label for="extras">Anything else Tim should know?</label>
+        <textarea id="extras" name="extras" placeholder="Tone, specific lines you'd love included, delivery deadline, etc." style="min-height:80px;"></textarea>
+      </div>
+
+      <div class="form-submit-wrap">
+        <button type="submit" class="btn-ornate btn-dark">Send My Story to Tim &rarr;</button>
+        <p class="form-note" style="margin-top:16px;">Custom songs from $150 &nbsp;·&nbsp; Delivered in 48–72 hours</p>
+        <p class="form-status" id="formStatus"></p>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-bg-logo" id="ctaBg"></div>
+  <div class="cta-content">
+    <p class="section-label">Ready?</p>
+    <h2>Some moments deserve<br>more than a <em>snapshot.</em></h2>
+    <p>Tell Tim your story. He'll turn it into something you can hold onto forever.</p>
+    <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">Begin Your Song &rarr;</button>
+    <p class="price-note">Custom songs from $150 &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection#0b636e6a797f787f7962656c78787f7e6f62647c7d4b6c666a626725686466"><span class="__cf_email__" data-cfemail="630b060211171017110a0d0410101716070a0c141523040e020a0f4d000c0e">[email&#160;protected]</span></a></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-icon"><img id="footerIcon" src="" alt=""></div>
+  <div class="footer-logo">Heartstrings Studio</div>
+  <div class="footer-links">
+    <a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/profile.php?id=61584734289007','_blank')">Facebook</a>
+    <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">YouTube</a>
+    <a href="javascript:void(0)" onclick="window.open('https://www.tiktok.com/@heartstringsstudiowv','_blank')">TikTok</a>
+    <a href="/cdn-cgi/l/email-protection#7f171a1e0d0b0c0b0d1611180c0c0b0a1b161008093f18121e1613511c1012">Email</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;·&nbsp; Lumberport, West Virginia</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function() {
+  document.getElementById('heroIcon').src   = 'https://drive.google.com/uc?export=view&id=1VEA8haFn3MbvGuS703Fwxn8mV-p103tH';
+  document.getElementById('timPhoto').src   = 'https://drive.google.com/uc?export=view&id=1DxIQT43rygCFE2qnrEsjZFAX4KJKLGZE';
+  document.getElementById('footerIcon').src = 'https://drive.google.com/uc?export=view&id=1wHzagtY-o--TjpnsAk8hPyvxXXWP7uBt';
+  document.getElementById('ctaBg').style.backgroundImage = "url('https://drive.google.com/uc?export=view&id=1wHzagtY-o--TjpnsAk8hPyvxXXWP7uBt')";
+  document.getElementById('heroBg') && (document.getElementById('heroBg').style.backgroundImage = '');
+})();
+
+  // Form submission
+  var form = document.getElementById('hsForm');
+  var status = document.getElementById('formStatus');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var data = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(function(r) {
+        if (r.ok) {
+          status.textContent = 'Your story is on its way. Tim will be in touch within 24 hours.';
+          status.className = 'form-status success';
+          form.reset();
+        } else {
+          status.textContent = 'Something went wrong. Please email heartstringsstudi
