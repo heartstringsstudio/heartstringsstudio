@@ -367,6 +367,62 @@
     .pricing-amount { font-size: 64px; }
   }
 
+  /* ── WEEKLY SONG ── */
+  .weekly-song-section {
+    background: var(--charcoal-soft);
+    padding: 64px 24px;
+  }
+  .weekly-song-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .weekly-badge {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rose-light);
+    border: 1px solid rgba(212,99,122,0.4);
+    padding: 6px 16px;
+    margin-bottom: 22px;
+  }
+  .weekly-song-inner h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.24;
+    margin-bottom: 12px;
+  }
+  .weekly-song-inner h2 em { font-style: italic; color: var(--rose-light); }
+  .weekly-song-inner > p {
+    font-size: 15px;
+    color: #ffffff;
+    max-width: 480px;
+    margin: 0 auto 36px;
+    line-height: 1.75;
+  }
+  .weekly-song-embed {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 responsive */
+    height: 0;
+    margin-bottom: 32px;
+  }
+  .weekly-song-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .weekly-song-section { padding: 48px 20px; }
+  }
+
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB4NQVQ8VZ"></script>
@@ -389,6 +445,7 @@
     <p class="hero-tagline">We turn meaningful moments into music — crafted with care and made to last a lifetime.</p>
     <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">Begin Your Song &rarr;</button>
     <p class="hero-sub">Or browse the full catalog &nbsp;<a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">on YouTube &rarr;</a></p>
+    <p class="hero-sub" style="margin-top:10px;"><a href="#weekly-song" style="color:rgba(212,99,122,0.75);">🎵 Hear this week's song &darr;</a></p>
   </div>
 </section>
 
@@ -405,6 +462,23 @@
   </div>
   <p class="proof-quote">When a song captures what words can't hold, people share it. That's what Heartstrings Studio makes.</p>
 </div>
+
+<!-- ── WEEKLY SONG ── -->
+<section class="weekly-song-section" id="weekly-song">
+  <div class="weekly-song-inner">
+    <div class="weekly-song-header">
+      <span class="weekly-badge">🎵 This Week's Song</span>
+      <h2>Fresh from the studio — <em>just dropped.</em></h2>
+      <p style="color:#f4ede6;">A brand new custom song, written for a real person, delivered this week. This is what your story could sound like.</p>
+    </div>
+    <div class="weekly-song-embed">
+      <iframe src="https://www.youtube.com/embed/DDsbSRCG2Xg" allowfullscreen title="This Week's Song — Heartstrings Studio"></iframe>
+    </div>
+    <div class="weekly-song-cta">
+      <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">Start Your Own Song &rarr;</button>
+    </div>
+  </div>
+</section>
 
 <div style="text-align:center; padding:8px 0; line-height:1;">
   <svg width="160" height="12" viewBox="0 0 160 12" xmlns="http://www.w3.org/2000/svg">
@@ -534,7 +608,7 @@
     <div class="step">
       <div class="step-num">03</div>
       <h3>Receive &amp; Share</h3>
-      <p>Delivered within 48–72 hours: MP3, MP4, WAV, album art, and a lyric sheet. Ready to share, keep, or give as a gift.</p>
+      <p>Delivered within 24–72 hours: MP3, MP4, album art, a lyric sheet, and a private YouTube link to watch and share. Ready to keep, share, or give as a gift.</p>
     </div>
   </div>
 </section>
@@ -555,11 +629,11 @@
       <li>Fully custom song written for your story</li>
       <li>One round of lyric revisions before production</li>
       <li>One round of minor audio adjustments</li>
-      <li>Full delivery: MP3, MP4, WAV files</li>
+      <li>Full delivery: MP3, MP4 files</li>
       <li>Custom album artwork</li>
       <li>Lyric sheet</li>
       <li>Private YouTube link to watch and share</li>
-      <li>Delivered in 48–72 hours</li>
+      <li>Delivered in 24–72 hours</li>
     </ul>
   </div>
 </section>
@@ -585,11 +659,11 @@
       <li>Fully custom song written around your story</li>
       <li>One round of lyric revisions before production</li>
       <li>One round of minor audio adjustments</li>
-      <li>Full delivery — MP3, MP4, WAV files</li>
+      <li>Full delivery — MP3, MP4 files</li>
       <li>Custom album artwork</li>
       <li>Lyric sheet</li>
       <li>Private YouTube link to watch &amp; share</li>
-      <li>Delivered in 48–72 hours</li>
+      <li>Delivered in 24–72 hours</li>
     </ul>
     <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">Begin Your Song &rarr;</button>
     <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery (24-hour guarantee) available for an additional $50</p>
@@ -665,7 +739,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q">How fast will I get my song?</div>
-        <div class="faq-a">Most songs are delivered within 48–72 hours. Rush delivery is available for an additional $50 — your song is guaranteed within 24 hours, provided there is prompt communication between you and Tim throughout the process.</div>
+        <div class="faq-a">Most songs are delivered within 24–72 hours. Rush delivery is available for an additional $50 — your song is guaranteed within 24 hours, provided there is prompt communication between you and Tim throughout the process.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Can I pick the style or mood?</div>
@@ -681,7 +755,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q">How do I share my song once it's delivered?</div>
-        <div class="faq-a">You'll receive a private YouTube link along with your MP3, MP4, and WAV files. The YouTube link is easy to share via text, email, or social media — anyone you send it to can watch and listen instantly. You can also download the files and play them at an event, post them publicly, or keep them just for family.</div>
+        <div class="faq-a">You'll receive a private YouTube link along with your MP3 and MP4 files. The YouTube link is easy to share via text, email, or social media — anyone you send it to can watch and listen instantly. You can also download the files and play them at an event, post them publicly, or keep them just for family.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Is my song really one-of-a-kind?</div>
@@ -772,7 +846,7 @@
 
       <div class="form-submit-wrap">
         <button type="submit" class="btn-ornate btn-dark">Send My Story to Tim &rarr;</button>
-        <p class="form-note" style="margin-top:16px;">Custom songs from $150 &nbsp;·&nbsp; Delivered in 48–72 hours</p>
+        <p class="form-note" style="margin-top:16px;">Custom songs from $150 &nbsp;·&nbsp; Delivered in 24–72 hours</p>
         <p class="form-status" id="formStatus"></p>
       </div>
 
