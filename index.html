@@ -1140,6 +1140,41 @@ body {
 }
 .price-note a:hover { color: var(--rose-light); border-bottom-color: var(--rose-light); }
 
+/* Email copy tooltip */
+.email-link { position: relative; }
+.email-link .email-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--charcoal);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+  border: 1px solid rgba(192,69,90,0.4);
+}
+.email-link .email-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(192,69,90,0.4);
+}
+.email-link.copied .email-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 /* ═══════════════════════════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════════════════════════ */
@@ -1434,7 +1469,7 @@ body {
     </div>
     <p class="hero-sub">Or browse the full catalog&nbsp; <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">on YouTube &rarr;</a></p>
     <p class="hero-sub" style="margin-top:12px;"><a href="#weekly-song">🎵 Hear this week's song &darr;</a></p>
-    <p class="hero-sub" style="margin-top:12px;">Questions? <a href="mailto:heartstringsstudiowv@gmail.com">heartstringsstudiowv&#64;gmail&#46;com</a></p>
+    <p class="hero-sub" style="margin-top:12px;">Questions? <a href="mailto:heartstringsstudiowv@gmail.com" class="email-link" data-email="heartstringsstudiowv@gmail.com">heartstringsstudiowv&#64;gmail&#46;com<span class="email-tooltip">Copied!</span></a></p>
   </div>
   <div class="scroll-cue" aria-hidden="true"><div class="scroll-cue-line"></div></div>
 </section>
@@ -1884,7 +1919,7 @@ body {
       <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
     </button>
     <p class="price-note">Custom songs from $150</p>
-    <p class="price-note" style="margin-top:10px; font-size:14px; color:rgba(250,246,242,0.62);">Questions? Email Tim directly: <a href="mailto:heartstringsstudiowv@gmail.com" style="font-weight:700;">heartstringsstudiowv&#64;gmail&#46;com</a></p>
+    <p class="price-note" style="margin-top:10px; font-size:14px; color:rgba(250,246,242,0.62);">Questions? Email Tim directly: <a href="mailto:heartstringsstudiowv@gmail.com" class="email-link" data-email="heartstringsstudiowv@gmail.com" style="font-weight:700;">heartstringsstudiowv&#64;gmail&#46;com<span class="email-tooltip">Copied!</span></a></p>
   </div>
 </section>
 
@@ -1896,7 +1931,7 @@ body {
     <a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/profile.php?id=61584734289007','_blank')">Facebook</a>
     <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">YouTube</a>
     <a href="javascript:void(0)" onclick="window.open('https://www.tiktok.com/@heartstringsstudiowv','_blank')">TikTok</a>
-    <a href="mailto:heartstringsstudiowv@gmail.com">Email</a>
+    <a href="mailto:heartstringsstudiowv@gmail.com" class="email-link" data-email="heartstringsstudiowv@gmail.com">Email<span class="email-tooltip">Copied!</span></a>
   </div>
   <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;·&nbsp; Lumberport, West Virginia</p>
 </footer>
@@ -1912,6 +1947,34 @@ body {
 </a>
 
 <script>
+/* EMAIL COPY */
+(function() {
+  document.querySelectorAll('.email-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var email = link.getAttribute('data-email');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(function() {
+          showCopied(link);
+        });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = email;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showCopied(link);
+      }
+    });
+  });
+  function showCopied(link) {
+    link.classList.add('copied');
+    setTimeout(function() { link.classList.remove('copied'); }, 2000);
+  }
+})();
+
 /* STICKY NAV */
 (function() {
   var nav = document.getElementById('stickyNav');
