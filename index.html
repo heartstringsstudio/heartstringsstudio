@@ -8,6 +8,7 @@
 <meta property="og:title" content="Heartstrings Studio">
 <meta property="og:description" content="Custom-written songs built from your own memories. Lumberport, West Virginia.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg">
 
 <!-- Refined font pairing: Cormorant Garamond for serif drama, Lato for body -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1251,6 +1252,70 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   STICKY NAV
+═══════════════════════════════════════════════════════════ */
+.sticky-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9000;
+  background: rgba(22, 15, 17, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(192,69,90,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  height: 60px;
+  transform: translateY(-100%);
+  transition: transform 0.45s var(--ease-elegant), box-shadow 0.45s var(--ease-elegant);
+  box-shadow: none;
+}
+.sticky-nav.is-visible {
+  transform: translateY(0);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.28);
+}
+.sticky-nav-logo {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: color 0.3s var(--ease-out);
+}
+.sticky-nav-logo:hover { color: var(--rose-light); }
+.sticky-nav-logo span {
+  color: var(--rose-light);
+}
+.sticky-nav-cta {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: var(--rose);
+  border: none;
+  padding: 10px 22px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.sticky-nav-cta:hover {
+  background: var(--rose-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-rose);
+}
+@media (max-width: 480px) {
+  .sticky-nav { padding: 0 16px; }
+  .sticky-nav-logo { font-size: 15px; }
+  .sticky-nav-cta { font-size: 10.5px; padding: 9px 14px; letter-spacing: 0.08em; }
+}
+
+/* ═══════════════════════════════════════════════════════════
    FLOATING CHAT BUTTON
 ═══════════════════════════════════════════════════════════ */
 .chat-float {
@@ -1340,6 +1405,12 @@ body {
 </head>
 <body>
 
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav" aria-label="Site navigation">
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="sticky-nav-logo">Heartstrings <span>Studio</span></a>
+  <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="sticky-nav-cta">Begin Your Song &rarr;</button>
+</nav>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
@@ -1421,7 +1492,7 @@ body {
   <p class="section-label">As Seen On</p>
   <h2>Heartstrings Studio on <em>WBOY 304 Today</em></h2>
   <div class="wboy-wrap">
-    <iframe src="https://www.youtube.com/embed/j1_HRI6aJU4" height="420" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/j1_HRI6aJU4" height="420" allowfullscreen loading="lazy"></iframe>
   </div>
   <p class="wboy-caption">Featured on WBOY's 304 Today — West Virginia's own.</p>
 </section>
@@ -1469,7 +1540,7 @@ body {
   <h2>Listen to what's possible</h2>
   <div class="featured-grid reveal-stagger">
     <div class="song-card">
-      <iframe src="https://www.youtube.com/embed/wsR1FXXuf3w" height="220" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/wsR1FXXuf3w" height="220" allowfullscreen loading="lazy"></iframe>
       <div class="song-card-body">
         <div class="song-card-label">Proposal</div>
         <div class="song-card-title">The Moment I Knew</div>
@@ -1477,7 +1548,7 @@ body {
       </div>
     </div>
     <div class="song-card">
-      <iframe src="https://www.youtube.com/embed/ppbdNuOdGng" height="220" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/ppbdNuOdGng" height="220" allowfullscreen loading="lazy"></iframe>
       <div class="song-card-body">
         <div class="song-card-label">Community Tribute</div>
         <div class="song-card-title">We Love You, Mrs. Gaynor</div>
@@ -1485,7 +1556,7 @@ body {
       </div>
     </div>
     <div class="song-card">
-      <iframe src="https://www.youtube.com/embed/fDOgbEE7BX8" height="220" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/fDOgbEE7BX8" height="220" allowfullscreen loading="lazy"></iframe>
       <div class="song-card-body">
         <div class="song-card-label">Memorial</div>
         <div class="song-card-title">Forever and a Day</div>
@@ -1493,7 +1564,7 @@ body {
       </div>
     </div>
     <div class="song-card">
-      <iframe src="https://www.youtube.com/embed/OOypcnwpw9A" height="220" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/OOypcnwpw9A" height="220" allowfullscreen loading="lazy"></iframe>
       <div class="song-card-body">
         <div class="song-card-label">Memorial</div>
         <div class="song-card-title">I Still Talk to You</div>
@@ -1829,6 +1900,21 @@ body {
 </a>
 
 <script>
+/* STICKY NAV */
+(function() {
+  var nav = document.getElementById('stickyNav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  function onScroll() {
+    if (window.scrollY > hero.offsetHeight * 0.6) {
+      nav.classList.add('is-visible');
+    } else {
+      nav.classList.remove('is-visible');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
 /* SCROLL REVEAL */
 (function() {
   var observerOptions = { threshold: 0.12, rootMargin: '0px 0px -60px 0px' };
