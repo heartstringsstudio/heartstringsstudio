@@ -57,7 +57,7 @@
   --shadow-rose:   0 14px 40px rgba(192,69,90,0.14);
 }
 
-html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 20px; }
+html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 68px; }
 body {
   font-family: var(--sans);
   background: var(--cream);
@@ -971,6 +971,39 @@ body {
 }
 .faq-a a:hover { border-bottom-color: var(--rose); }
 
+.faq-item { cursor: pointer; }
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  user-select: none;
+}
+.faq-toggle {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(192,69,90,0.35);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--rose);
+  font-size: 15px; line-height: 1;
+  transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out), transform 0.4s var(--ease-elegant);
+}
+.faq-item.open .faq-toggle { background: var(--rose); color: var(--cream); border-color: var(--rose); transform: rotate(45deg); }
+.faq-item:hover .faq-toggle { border-color: var(--rose); }
+.faq-a {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+  transition: max-height 0.45s var(--ease-elegant), opacity 0.35s var(--ease-out), margin-bottom 0.35s var(--ease-out);
+}
+.faq-item.open .faq-a {
+  max-height: 400px;
+  opacity: 1;
+  margin-bottom: 8px;
+}
+
 /* ═══════════════════════════════════════════════════════════
    FORM
 ═══════════════════════════════════════════════════════════ */
@@ -1433,9 +1466,9 @@ body {
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
       </button>
     </div>
-    <p class="hero-sub">Or browse the full catalog&nbsp; <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">on YouTube &rarr;</a></p>
-    <p class="hero-sub" style="margin-top:12px;"><a href="#weekly-song">🎵 Hear this week's song &darr;</a></p>
-    <p class="hero-sub" style="margin-top:12px;">Questions? <a href="https://mail.google.com/mail/?view=cm&fs=1&to=heartstringsstudiowv@gmail.com" target="_blank" rel="noopener">heartstringsstudiowv&#64;gmail&#46;com</a></p>
+    <p class="hero-sub">Or browse the full catalog&nbsp; <a href="https://www.youtube.com/@heartstringsstudiowv" target="_blank" rel="noopener noreferrer">on YouTube &rarr;</a></p>
+    <p class="hero-sub" style="margin-top:12px;"><a href="#weekly-song">Hear this week's song &darr;</a></p>
+    <p class="hero-sub" style="margin-top:12px;">Questions? <a href="mailto:heartstringsstudiowv@gmail.com">heartstringsstudiowv&#64;gmail&#46;com</a></p>
   </div>
   <div class="scroll-cue" aria-hidden="true"><div class="scroll-cue-line"></div></div>
 </section>
@@ -1763,31 +1796,31 @@ body {
     <h2>Everything you want to know</h2>
     <div class="faq">
       <div class="faq-item">
-        <div class="faq-q">How does it work?</div>
+        <div class="faq-q">How does it work? <span class="faq-toggle" aria-hidden="true">+</span></div>
         <div class="faq-a">Fill out the intake form with your story. Tim writes a fully produced, custom song around your memories — heartfelt, one-of-a-kind, and ready to share forever. After submitting, you'll be contacted within 24 hours by email with next steps.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">How fast will I get my song?</div>
+        <div class="faq-q">How fast will I get my song? <span class="faq-toggle" aria-hidden="true">+</span></div>
         <div class="faq-a">Most songs are delivered within 48–72 hours. Rush delivery is available for an additional $50 — your song is guaranteed within 24 hours, provided there is prompt communication between you and Tim throughout the process.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Can I pick the style or mood?</div>
+        <div class="faq-q">Can I pick the style or mood? <span class="faq-toggle" aria-hidden="true">+</span></div>
         <div class="faq-a">Absolutely. You choose the genre and vibe — romantic, funny, emotional, nostalgic, solemn — whatever fits your story best.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Can I approve the lyrics?</div>
+        <div class="faq-q">Can I approve the lyrics? <span class="faq-toggle" aria-hidden="true">+</span></div>
         <div class="faq-a">Yes. You'll receive the lyrics first with one round of revisions before production begins.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Can I give this as a gift?</div>
+        <div class="faq-q">Can I give this as a gift? <span class="faq-toggle" aria-hidden="true">+</span></div>
         <div class="faq-a">Absolutely — a custom song makes one of the most personal and memorable gifts you can give. Many clients order songs as wedding gifts, birthday surprises, anniversary presents, or to honor someone they love. You'll receive all the files to share however you choose — privately or in front of a room full of people.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">How do I share my song once it's delivered?</div>
+        <div class="faq-q">How do I share my song once it's delivered? <span class="faq-toggle" aria-hidden="true">+</span></div>
         <div class="faq-a">You'll receive a private YouTube link along with your MP3 and MP4 files. The YouTube link is easy to share via text, email, or social media — anyone you send it to can watch and listen instantly. You can also download the files and play them at an event, post them publicly, or keep them just for family.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Is my song really one-of-a-kind?</div>
+        <div class="faq-q">Is my song really one-of-a-kind? <span class="faq-toggle" aria-hidden="true">+</span></div>
         <div class="faq-a">Always. Every song is built from scratch — no templates, no shortcuts. Your story is yours alone.</div>
       </div>
     </div>
@@ -1806,17 +1839,17 @@ body {
       <div class="form-two-col">
         <div class="form-row">
           <label for="name">Your Name</label>
-          <input type="text" id="name" name="name" placeholder="First and last name" required>
+          <input type="text" id="name" name="name" placeholder="First and last name" autocomplete="name" required>
         </div>
         <div class="form-row">
           <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required>
         </div>
       </div>
       <div class="form-two-col">
         <div class="form-row">
           <label for="phone">Phone (optional)</label>
-          <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx">
+          <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx" autocomplete="tel">
         </div>
         <div class="form-row">
           <label for="occasion">Occasion</label>
@@ -1885,7 +1918,7 @@ body {
       <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
     </button>
     <p class="price-note">Custom songs from $150</p>
-    <p class="price-note" style="margin-top:10px; font-size:14px; color:rgba(250,246,242,0.62);">Questions? Email Tim directly: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=heartstringsstudiowv@gmail.com" target="_blank" rel="noopener" style="font-weight:700;">heartstringsstudiowv&#64;gmail&#46;com</a></p>
+    <p class="price-note" style="margin-top:10px; font-size:14px; color:rgba(250,246,242,0.62);">Questions? Email Tim directly: <a href="mailto:heartstringsstudiowv@gmail.com" style="font-weight:700;">heartstringsstudiowv&#64;gmail&#46;com</a></p>
   </div>
 </section>
 
@@ -1894,10 +1927,10 @@ body {
   <div class="footer-icon"><img id="footerIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/logo.png" alt="Heartstrings Studio"></div>
   <div class="footer-logo">Heartstrings Studio</div>
   <div class="footer-links">
-    <a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/profile.php?id=61584734289007','_blank')">Facebook</a>
-    <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">YouTube</a>
-    <a href="javascript:void(0)" onclick="window.open('https://www.tiktok.com/@heartstringsstudiowv','_blank')">TikTok</a>
-    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=heartstringsstudiowv@gmail.com" target="_blank" rel="noopener">Email</a>
+    <a href="https://www.facebook.com/profile.php?id=61584734289007" target="_blank" rel="noopener noreferrer">Facebook</a>
+    <a href="https://www.youtube.com/@heartstringsstudiowv" target="_blank" rel="noopener noreferrer">YouTube</a>
+    <a href="https://www.tiktok.com/@heartstringsstudiowv" target="_blank" rel="noopener noreferrer">TikTok</a>
+    <a href="mailto:heartstringsstudiowv@gmail.com">Email</a>
   </div>
   <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;·&nbsp; Lumberport, West Virginia</p>
 </footer>
@@ -1943,6 +1976,54 @@ body {
   document.querySelectorAll('.reveal, .reveal-stagger, .ornament-divider').forEach(function(el) {
     revealObserver.observe(el);
   });
+})();
+
+/* FAQ ACCORDION */
+(function() {
+  document.querySelectorAll('.faq-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(openItem) {
+        openItem.classList.remove('open');
+      });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+  // Open the first item by default
+  var first = document.querySelector('.faq-item');
+  if (first) first.classList.add('open');
+})();
+
+/* PROOF STATS COUNT-UP */
+(function() {
+  var stats = document.querySelectorAll('.proof-stat');
+  if (!stats.length) return;
+  var targets = Array.prototype.map.call(stats, function(el) {
+    return parseInt(el.textContent.replace(/,/g, ''), 10);
+  });
+  function formatNum(n) {
+    return n >= 1000 ? n.toLocaleString() : String(n);
+  }
+  function animateCount(el, target, duration) {
+    var start = 0, startTime = null;
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      var ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = formatNum(Math.round(ease * target));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      stats.forEach(function(el, i) { animateCount(el, targets[i], 1800); });
+      observer.disconnect();
+    });
+  }, { threshold: 0.5 });
+  var banner = document.querySelector('.proof-banner');
+  if (banner) observer.observe(banner);
 })();
 
 /* FORM SUBMISSION */
