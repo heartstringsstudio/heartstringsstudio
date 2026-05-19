@@ -1444,12 +1444,12 @@ body {
 <div class="proof-banner reveal">
   <div class="proof-stats-wrap">
     <div class="proof-item">
-      <div class="proof-stat">20,119</div>
+      <div class="proof-stat" data-count="20119">0</div>
       <div class="proof-label">Views on a single tribute song</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-item">
-      <div class="proof-stat">67</div>
+      <div class="proof-stat" data-count="67">0</div>
       <div class="proof-label">Songs delivered</div>
     </div>
   </div>
@@ -1971,6 +1971,39 @@ body {
       status.className = 'form-status error';
     });
   });
+})();
+
+(function() {
+  var counters = document.querySelectorAll('.proof-stat[data-count]');
+  var animated = false;
+
+  function animateCounters() {
+    if (animated) return;
+    animated = true;
+    counters.forEach(function(el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var duration = 1800;
+      var start = null;
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        var progress = Math.min((timestamp - start) / duration, 1);
+        var ease = 1 - Math.pow(1 - progress, 3);
+        var value = Math.floor(ease * target);
+        el.textContent = value.toLocaleString();
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target.toLocaleString();
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) animateCounters();
+    });
+  }, { threshold: 0.4 });
+
+  counters.forEach(function(el) { observer.observe(el); });
 })();
 </script>
 </body>
