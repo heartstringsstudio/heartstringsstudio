@@ -1575,7 +1575,7 @@ body {
     <div class="hero-banner-logo">
       <img id="heroIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg" alt="Heartstrings Studio">
     </div>
-    <p class="hero-eyebrow">Custom Songwriting &nbsp;&middot;&nbsp; Lumberport, West Virginia</p>
+    <p class="hero-eyebrow">Custom Songwriting &nbsp;·&nbsp; Lumberport, West Virginia</p>
     <h1>Your Story<br>Deserves a <em>Song</em></h1>
     <p class="hero-tagline">We turn meaningful moments into music — crafted with care and made to last a lifetime.</p>
     <div class="hero-cta-wrap">
@@ -1850,7 +1850,7 @@ body {
       <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
       </button>
-      <p class="pricing-note">Commercial licensing available for $100 &nbsp;&middot;&nbsp; Rush delivery (24-hour guarantee) available for an additional $50</p>
+      <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery (24-hour guarantee) available for an additional $50</p>
     </div>
   </div>
 </section>
@@ -2035,7 +2035,7 @@ body {
         <button type="submit" class="btn-ornate btn-dark">
           <span class="btn-sweep"></span><span>Send My Story to Tim &rarr;</span>
         </button>
-        <p class="form-note" style="margin-top:18px;">Custom songs from $150 &nbsp;&middot;&nbsp; Delivered in 48–72 hours</p>
+        <p class="form-note" style="margin-top:18px;">Custom songs from $150 &nbsp;·&nbsp; Delivered in 48–72 hours</p>
         <p class="form-status" id="formStatus"></p>
       </div>
     </form>
@@ -2067,7 +2067,7 @@ body {
     <a href="https://www.tiktok.com/@heartstringsstudiowv" target="_blank" rel="noopener">TikTok</a>
     <a href="mailto:heartstringsstudiowv@gmail.com">Email</a>
   </div>
-  <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;&middot;&nbsp; Lumberport, West Virginia</p>
+  <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;·&nbsp; Lumberport, West Virginia</p>
 </footer>
 
 <!-- FLOATING CHAT BUTTON -->
@@ -2212,6 +2212,18 @@ document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
     if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+/* EMAIL LINKS — mailto on mobile, Gmail compose on desktop */
+(function() {
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile) return;
+  document.querySelectorAll('a[href="mailto:heartstringsstudiowv@gmail.com"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mail.google.com/mail/?view=cm&fs=1&to=heartstringsstudiowv@gmail.com', '_blank');
+    });
+  });
+})();
 
 /* FAQ ACCORDION */
 document.querySelectorAll('.faq-q').forEach(function(q) {
