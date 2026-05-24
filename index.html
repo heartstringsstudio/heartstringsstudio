@@ -525,7 +525,7 @@ body {
   border-radius: 40px;
   background: transparent;
   transition: all 0.35s var(--ease-out);
-  cursor: default;
+  cursor: pointer;
 }
 .pill:hover {
   background: var(--rose); color: var(--cream);
@@ -1624,15 +1624,15 @@ body {
     <p class="section-label">Every Occasion</p>
     <h2>The moments worth holding onto</h2>
     <div class="occasions">
-      <span class="pill">Weddings</span>
-      <span class="pill">Memorials &amp; Tributes</span>
-      <span class="pill">Anniversaries</span>
-      <span class="pill">Birthdays</span>
-      <span class="pill">Retirements</span>
-      <span class="pill">Military Tributes</span>
-      <span class="pill">Celebrations of Life</span>
-      <span class="pill">Gratitude &amp; Thank You</span>
-      <span class="pill">Just Because</span>
+      <span class="pill" data-occasion="Wedding">Weddings</span>
+      <span class="pill" data-occasion="Memorial / Tribute">Memorials &amp; Tributes</span>
+      <span class="pill" data-occasion="Anniversary">Anniversaries</span>
+      <span class="pill" data-occasion="Birthday">Birthdays</span>
+      <span class="pill" data-occasion="Retirement">Retirements</span>
+      <span class="pill" data-occasion="Military Tribute">Military Tributes</span>
+      <span class="pill" data-occasion="Celebration of Life">Celebrations of Life</span>
+      <span class="pill" data-occasion="Gratitude / Thank You">Gratitude &amp; Thank You</span>
+      <span class="pill" data-occasion="Just Because">Just Because</span>
     </div>
   </div>
 </section>
@@ -2135,6 +2135,16 @@ body {
     });
   });
 })();
+</script>
+<script>
+document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
+  pill.addEventListener('click', function() {
+    var select = document.getElementById('occasion');
+    if (select) select.value = this.dataset.occasion;
+    var form = document.getElementById('order-form');
+    if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
 </script>
 </body>
 </html>
