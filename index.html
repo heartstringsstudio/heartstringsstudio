@@ -1039,14 +1039,13 @@ body {
   line-height: 1.82;
   max-width: 700px;
   font-weight: 400;
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s var(--ease-elegant), padding-top 0.4s var(--ease-elegant);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.45s var(--ease-elegant), padding-top 0.4s var(--ease-elegant);
   padding-top: 0;
 }
-.faq-a > span { overflow: hidden; display: block; }
 .faq-item.is-open .faq-a {
-  grid-template-rows: 1fr;
+  max-height: 400px;
   padding-top: 12px;
 }
 .faq-a a {
