@@ -2213,6 +2213,18 @@ document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
   });
 });
 
+/* EMAIL LINKS — mailto on mobile, Gmail compose on desktop */
+(function() {
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile) return;
+  document.querySelectorAll('a[href="mailto:heartstringsstudiowv@gmail.com"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://mail.google.com/mail/?view=cm&fs=1&to=heartstringsstudiowv@gmail.com', '_blank');
+    });
+  });
+})();
+
 /* FAQ ACCORDION */
 document.querySelectorAll('.faq-q').forEach(function(q) {
   q.addEventListener('click', function() {
