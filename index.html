@@ -112,7 +112,7 @@
   --shadow-rose:   0 14px 40px rgba(192,69,90,0.14);
 }
 
-html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 20px; }
+html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 70px; }
 body {
   font-family: var(--sans);
   background: var(--cream);
@@ -531,6 +531,11 @@ body {
   background: var(--rose); color: var(--cream);
   border-color: var(--rose);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-rose);
+}
+.pill.is-selected {
+  background: var(--rose-deep); color: var(--cream);
+  border-color: var(--rose-deep);
   box-shadow: var(--shadow-rose);
 }
 @media (max-width: 500px) { .pill { font-size: 12px; padding: 7px 16px; } }
@@ -1009,14 +1014,39 @@ body {
   margin-bottom: 12px;
   letter-spacing: -0.005em;
   transition: color 0.3s var(--ease-out);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  user-select: none;
 }
 .faq-item:hover .faq-q { color: var(--rose); }
+.faq-q::after {
+  content: '+';
+  font-family: var(--sans);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--rose);
+  flex-shrink: 0;
+  transition: transform 0.35s var(--ease-elegant), color 0.3s var(--ease-out);
+  line-height: 1;
+}
+.faq-item.is-open .faq-q::after { transform: rotate(45deg); }
 .faq-a {
   font-size: 15.5px;
   color: var(--text-muted);
   line-height: 1.82;
   max-width: 700px;
   font-weight: 400;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.45s ease-out, padding-top 0.4s ease-out;
+  padding-top: 0;
+}
+.faq-item.is-open .faq-a {
+  max-height: 400px;
+  padding-top: 12px;
 }
 .faq-a a {
   color: var(--rose);
@@ -1372,6 +1402,23 @@ body {
   transform: translateY(-1px);
   box-shadow: var(--shadow-rose);
 }
+.sticky-nav-links {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+.sticky-nav-links a {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(250,246,242,0.55);
+  text-decoration: none;
+  transition: color 0.3s var(--ease-out);
+  white-space: nowrap;
+}
+.sticky-nav-links a:hover { color: var(--rose-light); }
+@media (max-width: 768px) { .sticky-nav-links { display: none; } }
 @media (max-width: 480px) {
   .sticky-nav { padding: 0 16px; }
   .sticky-nav-logo { font-size: 15px; }
@@ -1513,6 +1560,12 @@ body {
 <!-- STICKY NAV -->
 <nav class="sticky-nav" id="stickyNav" aria-label="Site navigation">
   <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="sticky-nav-logo">Heartstrings <span>Studio</span></a>
+  <div class="sticky-nav-links">
+    <a href="#listen">Listen</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </div>
   <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="sticky-nav-cta">Begin Your Song &rarr;</button>
 </nav>
 
@@ -1522,9 +1575,9 @@ body {
     <div class="hero-banner-logo">
       <img id="heroIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg" alt="Heartstrings Studio">
     </div>
-    <p class="hero-eyebrow">Custom Songwriting &nbsp;·&nbsp; Lumberport, West Virginia</p>
+    <p class="hero-eyebrow">Custom Songwriting &nbsp;&middot;&nbsp; Lumberport, West Virginia</p>
     <h1>Your Story<br>Deserves a <em>Song</em></h1>
-    <p class="hero-tagline">We turn meaningful moments into music — crafted with care and made to last a lifetime.</p>
+    <p class="hero-tagline">We turn meaningful moments into music &mdash; crafted with care and made to last a lifetime.</p>
     <div class="hero-cta-wrap">
       <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
@@ -1557,8 +1610,8 @@ body {
 <section class="weekly-song-section" id="weekly-song">
   <div class="weekly-song-inner reveal">
     <span class="weekly-badge">This Week's Song</span>
-    <h2>Fresh from the studio — <em>just dropped.</em></h2>
-    <p>A brand new original song — written to show you what's possible. This is the kind of song your story could become.</p>
+    <h2>Fresh from the studio &mdash; <em>just dropped.</em></h2>
+    <p>A brand new original song &mdash; written to show you what's possible. This is the kind of song your story could become.</p>
     <div class="weekly-song-embed">
       <div class="yt-facade" data-vid="jmSfTesTUcw" style="aspect-ratio:16/9;">
         <img src="https://i.ytimg.com/vi/jmSfTesTUcw/hqdefault.jpg" alt="This Week's Song — Heartstrings Studio" loading="lazy">
@@ -1584,7 +1637,7 @@ body {
 <section class="section section-center reveal">
   <p class="section-label">The Difference</p>
   <h2>A photo shows the moment.<br>A song <em>brings you back</em> into it.</h2>
-  <p>Every song is built from your own memories and words. You're not hearing something generic — you're hearing your story, set to music. The laughter. The ache. The love underneath it all.</p>
+  <p>Every song is built from your own memories and words. You're not hearing something generic &mdash; you're hearing your story, set to music. The laughter. The ache. The love underneath it all.</p>
 </section>
 
 <!-- ORNAMENT -->
@@ -1606,7 +1659,7 @@ body {
       <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
     </div>
   </div>
-  <p class="wboy-caption">Featured on WBOY's 304 Today — West Virginia's own.</p>
+  <p class="wboy-caption">Featured on WBOY's 304 Today &mdash; West Virginia's own.</p>
 </section>
 
 <!-- ORNAMENT -->
@@ -1647,7 +1700,7 @@ body {
 </div>
 
 <!-- FEATURED SONGS -->
-<section class="section reveal">
+<section class="section reveal" id="listen">
   <p class="section-label">Featured Stories in Song</p>
   <h2>Listen to what's possible</h2>
   <div class="featured-grid reveal-stagger">
@@ -1659,7 +1712,7 @@ body {
       <div class="song-card-body">
         <div class="song-card-label">Proposal</div>
         <div class="song-card-title">The Moment I Knew</div>
-        <div class="song-card-desc">A cinematic proposal ballad built from a real love story — whether it was a quiet moment on a back road or something you'll never stop talking about, this is what it sounds like when your story becomes a song.</div>
+        <div class="song-card-desc">A cinematic proposal ballad built from a real love story &mdash; whether it was a quiet moment on a back road or something you'll never stop talking about, this is what it sounds like when your story becomes a song.</div>
       </div>
     </div>
     <div class="song-card">
@@ -1670,7 +1723,7 @@ body {
       <div class="song-card-body">
         <div class="song-card-label">Community Tribute</div>
         <div class="song-card-title">We Love You, Mrs. Gaynor</div>
-        <div class="song-card-desc">A tribute to the woman who helped raise generations of Lincoln High Cougars — built from alumni memories spanning decades.</div>
+        <div class="song-card-desc">A tribute to the woman who helped raise generations of Lincoln High Cougars &mdash; built from alumni memories spanning decades.</div>
       </div>
     </div>
     <div class="song-card">
@@ -1681,7 +1734,7 @@ body {
       <div class="song-card-body">
         <div class="song-card-label">Memorial</div>
         <div class="song-card-title">Forever and a Day</div>
-        <div class="song-card-desc">A deeply personal memorial song honoring a life that left its mark — built to be kept, shared, and returned to for years to come.</div>
+        <div class="song-card-desc">A deeply personal memorial song honoring a life that left its mark &mdash; built to be kept, shared, and returned to for years to come.</div>
       </div>
     </div>
     <div class="song-card">
@@ -1692,7 +1745,7 @@ body {
       <div class="song-card-body">
         <div class="song-card-label">Memorial</div>
         <div class="song-card-title">I Still Talk to You</div>
-        <div class="song-card-desc">For anyone who still feels the presence of someone they've lost — the quiet moments, the empty spaces, the conversations that never really stopped.</div>
+        <div class="song-card-desc">For anyone who still feels the presence of someone they've lost &mdash; the quiet moments, the empty spaces, the conversations that never really stopped.</div>
       </div>
     </div>
   </div>
@@ -1713,14 +1766,14 @@ body {
 </div>
 
 <!-- PROCESS -->
-<section class="section section-center reveal">
+<section class="section section-center reveal" id="process">
   <p class="section-label">The Process</p>
   <h2>Three steps. One song <em>yours forever.</em></h2>
   <div class="steps reveal-stagger">
     <div class="step">
       <div class="step-num">01</div>
       <h3>Tell Your Story</h3>
-      <p>Fill out a short intake form — names, memories, the feeling you want the song to carry. The more detail, the more personal.</p>
+      <p>Fill out a short intake form &mdash; names, memories, the feeling you want the song to carry. The more detail, the more personal.</p>
     </div>
     <div class="step">
       <div class="step-num">02</div>
@@ -1730,7 +1783,7 @@ body {
     <div class="step">
       <div class="step-num">03</div>
       <h3>Receive &amp; Share</h3>
-      <p>Delivered within 48–72 hours: MP3, MP4, album art, a lyric sheet, and a private YouTube link to watch and share. Ready to keep, share, or give as a gift.</p>
+      <p>Delivered within 48&ndash;72 hours: MP3, MP4, album art, a lyric sheet, and a private YouTube link to watch and share. Ready to keep, share, or give as a gift.</p>
     </div>
   </div>
 </section>
@@ -1748,18 +1801,18 @@ body {
 <section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
   <div class="reveal" style="max-width:860px; margin:0 auto;">
     <p class="section-label">What's Included</p>
-    <h2>Everything you need to share it — or keep it close.</h2>
+    <h2>Everything you need to share it &mdash; or keep it close.</h2>
     <ul class="delivers">
       <li>One-on-one creative consultation with Tim</li>
       <li>Fully custom song written for your story</li>
       <li>One round of lyric revisions before production</li>
-      <li>MP3 (song) — high-quality audio file</li>
-      <li>MP4 (video) — a simple shareable video made for sending to friends, family, and social media</li>
+      <li>MP3 (song) &mdash; high-quality audio file</li>
+      <li>MP4 (video) &mdash; a simple shareable video made for sending to friends, family, and social media</li>
       <li>Custom album artwork</li>
       <li>Lyric sheet</li>
       <li>Private YouTube link to watch and share</li>
-      <li>Delivered in 48–72 hours</li>
-      <li>Remake guarantee — if the finished song misses the mark, Tim starts over from scratch</li>
+      <li>Delivered in 48&ndash;72 hours</li>
+      <li>Remake guarantee &mdash; if the finished song misses the mark, Tim starts over from scratch</li>
     </ul>
   </div>
 </section>
@@ -1774,7 +1827,7 @@ body {
 </div>
 
 <!-- PRICING -->
-<section class="pricing-section">
+<section class="pricing-section" id="pricing">
   <div class="reveal">
     <p class="section-label">Investment</p>
     <h2>One song. One price. <em>One story.</em></h2>
@@ -1786,18 +1839,18 @@ body {
         <li>One-on-one creative consultation with Tim</li>
         <li>Fully custom song written around your story</li>
         <li>One round of lyric revisions before production</li>
-        <li>MP3 (song) — high-quality audio file</li>
-        <li>MP4 (video) — a simple shareable video made for sending to friends, family, and social media</li>
+        <li>MP3 (song) &mdash; high-quality audio file</li>
+        <li>MP4 (video) &mdash; a simple shareable video made for sending to friends, family, and social media</li>
         <li>Custom album artwork</li>
         <li>Lyric sheet</li>
         <li>Private YouTube link to watch &amp; share</li>
-        <li>Delivered in 48–72 hours</li>
-        <li>Remake guarantee — if the finished song misses the mark, Tim starts over from scratch</li>
+        <li>Delivered in 48&ndash;72 hours</li>
+        <li>Remake guarantee &mdash; if the finished song misses the mark, Tim starts over from scratch</li>
       </ul>
       <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
       </button>
-      <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery (24-hour guarantee) available for an additional $50</p>
+      <p class="pricing-note">Commercial licensing available for $100 &nbsp;&middot;&nbsp; Rush delivery (24-hour guarantee) available for an additional $50</p>
     </div>
   </div>
 </section>
@@ -1818,18 +1871,18 @@ body {
   <div class="testimonials reveal-stagger">
     <div class="testimonial">
       <div class="testimonial-stars">★★★★★</div>
-      <p>I can't thank Tim enough for writing the perfect song. They were all in awe when they heard it. My daughter cried, as well as I did. I would have him write a hundred songs for me. Give it a try — you won't go wrong.</p>
-      <div class="testimonial-name">— Jane H.</div>
+      <p>I can't thank Tim enough for writing the perfect song. They were all in awe when they heard it. My daughter cried, as well as I did. I would have him write a hundred songs for me. Give it a try &mdash; you won't go wrong.</p>
+      <div class="testimonial-name">&mdash; Jane H.</div>
     </div>
     <div class="testimonial">
       <div class="testimonial-stars">★★★★★</div>
       <p>That sounds just like my life. I don't cry... but you just had me bawling like a baby. That's so beautiful.</p>
-      <div class="testimonial-name">— Chrissy H.</div>
+      <div class="testimonial-name">&mdash; Chrissy H.</div>
     </div>
     <div class="testimonial">
       <div class="testimonial-stars">★★★★★</div>
-      <p>My song has brought so much comfort to me. It reminds me of the wonderful man that came into my life and showed me what true happiness was. Every time I listen to it I realize how blessed I was. I will always remember… He loved me forever and a day!</p>
-      <div class="testimonial-name">— Dolores B.</div>
+      <p>My song has brought so much comfort to me. It reminds me of the wonderful man that came into my life and showed me what true happiness was. Every time I listen to it I realize how blessed I was. I will always remember&hellip; He loved me forever and a day!</p>
+      <div class="testimonial-name">&mdash; Dolores B.</div>
     </div>
   </div>
 </section>
@@ -1854,7 +1907,7 @@ body {
       <div class="bio-text">
         <p class="section-label">The Songwriter</p>
         <h2>Meet Tim</h2>
-        <p>I'm the founder of Heartstrings Studio. I create custom songs that honor life's meaningful moments — love, loss, gratitude, and the spaces in between.</p>
+        <p>I'm the founder of Heartstrings Studio. I create custom songs that honor life's meaningful moments &mdash; love, loss, gratitude, and the spaces in between.</p>
         <p>Music carried me through some dark chapters and taught me the power of real connection. Now I help others preserve what matters most through melody and story.</p>
         <p>When words fall short, a song can hold what needs to be remembered.</p>
       </div>
@@ -1872,38 +1925,38 @@ body {
 </div>
 
 <!-- FAQ -->
-<section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px; border-top: 1px solid var(--divider);">
+<section class="section full-bg bg-warm" id="faq" style="padding-left:24px; padding-right:24px; border-top: 1px solid var(--divider);">
   <div class="reveal" style="max-width:860px; margin:0 auto;">
     <p class="section-label">Common Questions</p>
     <h2>Everything you want to know</h2>
     <div class="faq">
       <div class="faq-item">
         <div class="faq-q">How does it work?</div>
-        <div class="faq-a">Fill out the intake form with your story. Tim writes a fully produced, custom song around your memories — heartfelt, one-of-a-kind, and ready to share forever. After submitting, you'll be contacted within 24 hours by email with next steps.</div>
+        <div class="faq-a"><span>Fill out the intake form with your story. Tim writes a fully produced, custom song around your memories &mdash; heartfelt, one-of-a-kind, and ready to share forever. After submitting, you'll be contacted within 24 hours by email with next steps.</span></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">How fast will I get my song?</div>
-        <div class="faq-a">Most songs are delivered within 48–72 hours. Rush delivery is available for an additional $50 — your song is guaranteed within 24 hours, provided there is prompt communication between you and Tim throughout the process.</div>
+        <div class="faq-a"><span>Most songs are delivered within 48&ndash;72 hours. Rush delivery is available for an additional $50 &mdash; your song is guaranteed within 24 hours, provided there is prompt communication between you and Tim throughout the process.</span></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Can I pick the style or mood?</div>
-        <div class="faq-a">Absolutely. You choose the genre and vibe — romantic, funny, emotional, nostalgic, solemn — whatever fits your story best.</div>
+        <div class="faq-a"><span>Absolutely. You choose the genre and vibe &mdash; romantic, funny, emotional, nostalgic, solemn &mdash; whatever fits your story best.</span></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Can I approve the lyrics?</div>
-        <div class="faq-a">Yes. You'll receive the lyrics first with one round of revisions before production begins.</div>
+        <div class="faq-a"><span>Yes. You'll receive the lyrics first with one round of revisions before production begins.</span></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Can I give this as a gift?</div>
-        <div class="faq-a">Absolutely — a custom song makes one of the most personal and memorable gifts you can give. Many clients order songs as wedding gifts, birthday surprises, anniversary presents, or to honor someone they love. You'll receive all the files to share however you choose — privately or in front of a room full of people.</div>
+        <div class="faq-a"><span>Absolutely &mdash; a custom song makes one of the most personal and memorable gifts you can give. Many clients order songs as wedding gifts, birthday surprises, anniversary presents, or to honor someone they love. You'll receive all the files to share however you choose &mdash; privately or in front of a room full of people.</span></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">How do I share my song once it's delivered?</div>
-        <div class="faq-a">You'll receive a private YouTube link along with your MP3 and MP4 files. The YouTube link is easy to share via text, email, or social media — anyone you send it to can watch and listen instantly. You can also download the files and play them at an event, post them publicly, or keep them just for family.</div>
+        <div class="faq-a"><span>You'll receive a private YouTube link along with your MP3 and MP4 files. The YouTube link is easy to share via text, email, or social media &mdash; anyone you send it to can watch and listen instantly. You can also download the files and play them at an event, post them publicly, or keep them just for family.</span></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Is my song really one-of-a-kind?</div>
-        <div class="faq-a">Always. Every song is built from scratch — no templates, no shortcuts. Your story is yours alone.</div>
+        <div class="faq-a"><span>Always. Every song is built from scratch &mdash; no templates, no shortcuts. Your story is yours alone.</span></div>
       </div>
     </div>
   </div>
@@ -1965,13 +2018,13 @@ body {
           <option>Rock / Anthem</option>
           <option>R&amp;B / Soul</option>
           <option>Upbeat / Celebratory</option>
-          <option>Not sure — Tim's call</option>
+          <option>Not sure &mdash; Tim's call</option>
         </select>
       </div>
       <div class="form-divider"></div>
       <div class="form-row">
         <label for="story">Your Story</label>
-        <textarea id="story" name="story" placeholder="Share the memories, moments, inside jokes, names, phrases — anything that makes this story theirs. The more detail you give, the more personal the song becomes." required></textarea>
+        <textarea id="story" name="story" placeholder="Share the memories, moments, inside jokes, names, phrases &mdash; anything that makes this story theirs. The more detail you give, the more personal the song becomes." required></textarea>
         <p class="form-note">Don't worry about writing perfectly. Just write like you're telling a friend.</p>
       </div>
       <div class="form-row">
@@ -1982,7 +2035,7 @@ body {
         <button type="submit" class="btn-ornate btn-dark">
           <span class="btn-sweep"></span><span>Send My Story to Tim &rarr;</span>
         </button>
-        <p class="form-note" style="margin-top:18px;">Custom songs from $150 &nbsp;·&nbsp; Delivered in 48–72 hours</p>
+        <p class="form-note" style="margin-top:18px;">Custom songs from $150 &nbsp;&middot;&nbsp; Delivered in 48&ndash;72 hours</p>
         <p class="form-status" id="formStatus"></p>
       </div>
     </form>
@@ -2009,12 +2062,12 @@ body {
   <div class="footer-icon"><img id="footerIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/logo.png" alt="Heartstrings Studio" loading="lazy" width="120" height="120"></div>
   <div class="footer-logo">Heartstrings Studio</div>
   <div class="footer-links">
-    <a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/profile.php?id=61584734289007','_blank')">Facebook</a>
-    <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">YouTube</a>
-    <a href="javascript:void(0)" onclick="window.open('https://www.tiktok.com/@heartstringsstudiowv','_blank')">TikTok</a>
+    <a href="https://www.facebook.com/profile.php?id=61584734289007" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.youtube.com/@heartstringsstudiowv" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.tiktok.com/@heartstringsstudiowv" target="_blank" rel="noopener">TikTok</a>
     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=heartstringsstudiowv@gmail.com" target="_blank" rel="noopener">Email</a>
   </div>
-  <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;·&nbsp; Lumberport, West Virginia</p>
+  <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;&middot;&nbsp; Lumberport, West Virginia</p>
 </footer>
 
 <!-- FLOATING CHAT BUTTON -->
@@ -2067,6 +2120,13 @@ body {
   if (!form) return;
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+    var btn = form.querySelector('[type="submit"]');
+    var btnText = btn.querySelector('span:last-child');
+    var original = btnText.textContent;
+    btn.disabled = true;
+    btnText.textContent = 'Sending…';
+    status.textContent = '';
+    status.className = 'form-status';
     var data = new FormData(form);
     fetch(form.action, {
       method: 'POST',
@@ -2077,6 +2137,7 @@ body {
         status.textContent = 'Your story is on its way. Tim will be in touch within 24 hours.';
         status.className = 'form-status success';
         form.reset();
+        document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('is-selected'); });
       } else {
         status.textContent = 'Something went wrong. Please email heartstringsstudiowv@gmail.com directly.';
         status.className = 'form-status error';
@@ -2084,6 +2145,9 @@ body {
     }).catch(function() {
       status.textContent = 'Something went wrong. Please email heartstringsstudiowv@gmail.com directly.';
       status.className = 'form-status error';
+    }).finally(function() {
+      btn.disabled = false;
+      btnText.textContent = original;
     });
   });
 })();
@@ -2135,14 +2199,26 @@ body {
     });
   });
 })();
-</script>
-<script>
+
+/* OCCASION PILLS */
 document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
   pill.addEventListener('click', function() {
+    document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('is-selected'); });
+    this.classList.add('is-selected');
     var select = document.getElementById('occasion');
     if (select) select.value = this.dataset.occasion;
     var form = document.getElementById('order-form');
     if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+/* FAQ ACCORDION */
+document.querySelectorAll('.faq-q').forEach(function(q) {
+  q.addEventListener('click', function() {
+    var item = this.closest('.faq-item');
+    var isOpen = item.classList.contains('is-open');
+    document.querySelectorAll('.faq-item.is-open').forEach(function(open) { open.classList.remove('is-open'); });
+    if (!isOpen) item.classList.add('is-open');
   });
 });
 </script>
