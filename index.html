@@ -1153,8 +1153,9 @@ body {
   appearance: none;
   -webkit-appearance: none;
   flex-shrink: 0;
-  width: 18px; height: 18px;
-  margin-top: 2px;
+  width: 18px !important; height: 18px;
+  min-width: 18px;
+  margin-top: 0;
   border: 1px solid rgba(212,99,122,0.5);
   background: rgba(255,255,255,0.055);
   cursor: pointer;
@@ -2062,10 +2063,10 @@ body {
         <label for="extras">Anything else Tim should know?</label>
         <textarea id="extras" name="extras" placeholder="Tone, specific lines you'd love included, delivery deadline, etc." style="min-height:80px;"></textarea>
       </div>
-      <div class="form-row" style="display:flex; align-items:flex-start; gap:12px; margin-bottom:28px;">
-        <input type="checkbox" id="rush" name="rush_delivery" value="Yes" class="rush-checkbox">
-        <label for="rush" style="font-size:14px; font-weight:400; letter-spacing:0; text-transform:none; color:rgba(250,246,242,0.82); cursor:pointer; line-height:1.55;">
-          <strong style="color:var(--cream);">Rush Delivery (+$50)</strong> — I need my song within 24 hours, provided there is prompt communication throughout the process.
+      <div style="display:flex; justify-content:center; margin-bottom:28px;">
+        <label for="rush" style="display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:400; letter-spacing:0; text-transform:none; color:rgba(250,246,242,0.82); cursor:pointer; line-height:1.4;">
+          <input type="checkbox" id="rush" name="rush_delivery" value="Yes" class="rush-checkbox">
+          <strong style="color:var(--cream);">Rush Delivery (+$50)</strong><span style="color:rgba(250,246,242,0.7);">— delivered within 24 hours</span>
         </label>
       </div>
       <div class="form-submit-wrap">
