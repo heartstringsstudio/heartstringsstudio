@@ -891,23 +891,85 @@ body {
 /* ═══════════════════════════════════════════════════════════
    TESTIMONIALS
 ═══════════════════════════════════════════════════════════ */
-.testimonials {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
+.testimonial-carousel {
   margin-top: 56px;
+  position: relative;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.testimonials {
+  overflow: hidden;
+}
+.testimonials-track {
+  display: flex;
+  transition: transform 0.7s var(--ease-elegant);
+  will-change: transform;
 }
 .testimonial {
+  flex: 0 0 100%;
+  width: 100%;
+  box-sizing: border-box;
   background: var(--white);
   border: 1px solid var(--divider);
-  padding: 40px 32px 34px;
+  padding: 48px 56px 40px;
   position: relative;
-  transition: transform 0.5s var(--ease-elegant), box-shadow 0.5s var(--ease-elegant), border-color 0.5s var(--ease-elegant);
 }
-.testimonial:hover {
-  transform: translateY(-3px);
+/* Carousel arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--divider);
+  background: var(--white);
+  color: var(--rose);
+  font-size: 20px;
+  line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 3;
   box-shadow: var(--shadow-md);
-  border-color: rgba(192,69,90,0.25);
+  transition: transform 0.4s var(--ease-elegant), color 0.4s var(--ease-elegant), border-color 0.4s var(--ease-elegant), background 0.4s var(--ease-elegant);
+}
+.carousel-arrow:hover {
+  background: var(--rose);
+  color: var(--white);
+  border-color: var(--rose);
+  transform: translateY(-50%) scale(1.08);
+}
+.carousel-arrow:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 3px;
+}
+.carousel-arrow.prev { left: -23px; }
+.carousel-arrow.next { right: -23px; }
+/* Dot indicators */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+.carousel-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--rose-pale);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.4s var(--ease-elegant), border-color 0.4s var(--ease-elegant), transform 0.4s var(--ease-elegant);
+}
+.carousel-dot:hover { border-color: var(--rose); }
+.carousel-dot.is-active {
+  background: var(--rose);
+  border-color: var(--rose);
+  transform: scale(1.15);
+}
+.carousel-dot:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 3px;
 }
 .testimonial::before {
   content: '\201C';
@@ -1366,8 +1428,10 @@ body {
   .wboy-wrap iframe { height: 220px; }
   .wboy-wrap::before { inset: -6px -6px -6px -6px; }
   .delivers { grid-template-columns: 1fr; gap: 12px; }
-  .testimonials { grid-template-columns: 1fr; gap: 22px; }
-  .testimonial { padding: 30px 24px 26px; }
+  .testimonial { padding: 40px 26px 30px; }
+  .carousel-arrow { width: 40px; height: 40px; font-size: 18px; }
+  .carousel-arrow.prev { left: 4px; }
+  .carousel-arrow.next { right: 4px; }
   .bio-wrap { flex-direction: column; gap: 32px; }
   .bio-img { max-width: 280px; margin: 0 auto; }
   .faq-q { font-size: 16.5px; }
@@ -1929,27 +1993,34 @@ body {
     <p class="section-label">Words From Clients</p>
     <h2>The people who lived the songs</h2>
   </div>
-  <div class="testimonials reveal-stagger">
-    <div class="testimonial">
-      <div class="testimonial-stars">★★★★★</div>
-      <p>To my surprise and delight, the experience turned out to be incredibly easy and meaningful. All we needed to do was fill out a thoughtful questionnaire — then Tim took over and crafted a truly remarkable tribute that beautifully honored our dear friend.</p>
-      <div class="testimonial-name">— Susan D. Haning, CEM, CMP | Freeman Company</div>
+  <div class="testimonial-carousel reveal" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
+    <div class="testimonials">
+      <div class="testimonials-track">
+        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="1 of 4">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>To my surprise and delight, the experience turned out to be incredibly easy and meaningful. All we needed to do was fill out a thoughtful questionnaire — then Tim took over and crafted a truly remarkable tribute that beautifully honored our dear friend.</p>
+          <div class="testimonial-name">— Susan D. Haning, CEM, CMP | Freeman Company</div>
+        </div>
+        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="2 of 4">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>My song has brought so much comfort to me. It reminds me of the wonderful man that came into my life and showed me what true happiness was. Every time I listen to it I realize how blessed I was. I will always remember… He loved me forever and a day!</p>
+          <div class="testimonial-name">— Dolores Bristol</div>
+        </div>
+        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="3 of 4">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>I can't thank Tim enough for writing the perfect song. They were all in awe when they heard it. My daughter cried, as well as I did. I would have him write a hundred songs for me. Give it a try — you won't go wrong.</p>
+          <div class="testimonial-name">— Jane Haught</div>
+        </div>
+        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="4 of 4">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>That sounds just like my life. I don't cry... but you just had me bawling like a baby. That's so beautiful.</p>
+          <div class="testimonial-name">— Chrissy Heldreth</div>
+        </div>
+      </div>
     </div>
-    <div class="testimonial">
-      <div class="testimonial-stars">★★★★★</div>
-      <p>My song has brought so much comfort to me. It reminds me of the wonderful man that came into my life and showed me what true happiness was. Every time I listen to it I realize how blessed I was. I will always remember… He loved me forever and a day!</p>
-      <div class="testimonial-name">— Dolores Bristol</div>
-    </div>
-    <div class="testimonial">
-      <div class="testimonial-stars">★★★★★</div>
-      <p>I can't thank Tim enough for writing the perfect song. They were all in awe when they heard it. My daughter cried, as well as I did. I would have him write a hundred songs for me. Give it a try — you won't go wrong.</p>
-      <div class="testimonial-name">— Jane Haught</div>
-    </div>
-    <div class="testimonial">
-      <div class="testimonial-stars">★★★★★</div>
-      <p>That sounds just like my life. I don't cry... but you just had me bawling like a baby. That's so beautiful.</p>
-      <div class="testimonial-name">— Chrissy Heldreth</div>
-    </div>
+    <button class="carousel-arrow prev" type="button" aria-label="Previous testimonial">&#8249;</button>
+    <button class="carousel-arrow next" type="button" aria-label="Next testimonial">&#8250;</button>
+    <div class="carousel-dots" role="tablist" aria-label="Choose testimonial"></div>
   </div>
 </section>
 
@@ -2326,6 +2397,94 @@ document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pill.click(); }
   });
 });
+
+/* TESTIMONIAL CAROUSEL */
+(function() {
+  var carousel = document.querySelector('.testimonial-carousel');
+  if (!carousel) return;
+  var track = carousel.querySelector('.testimonials-track');
+  var slides = Array.prototype.slice.call(carousel.querySelectorAll('.testimonial'));
+  var prevBtn = carousel.querySelector('.carousel-arrow.prev');
+  var nextBtn = carousel.querySelector('.carousel-arrow.next');
+  var dotsWrap = carousel.querySelector('.carousel-dots');
+  if (!track || slides.length === 0) return;
+
+  var index = 0;
+  var count = slides.length;
+  var AUTOPLAY_MS = 6500;
+  var timer = null;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Build dot indicators */
+  var dots = [];
+  for (var i = 0; i < count; i++) {
+    var dot = document.createElement('button');
+    dot.className = 'carousel-dot';
+    dot.type = 'button';
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', 'Go to testimonial ' + (i + 1));
+    (function(n) {
+      dot.addEventListener('click', function() { goTo(n); restart(); });
+    })(i);
+    dotsWrap.appendChild(dot);
+    dots.push(dot);
+  }
+
+  function update() {
+    track.style.transform = 'translateX(' + (-index * 100) + '%)';
+    for (var i = 0; i < count; i++) {
+      var active = i === index;
+      dots[i].classList.toggle('is-active', active);
+      dots[i].setAttribute('aria-selected', active ? 'true' : 'false');
+      slides[i].setAttribute('aria-hidden', active ? 'false' : 'true');
+    }
+  }
+  function goTo(n) { index = (n + count) % count; update(); }
+  function next() { goTo(index + 1); }
+  function prev() { goTo(index - 1); }
+
+  function start() {
+    if (reduceMotion || count < 2) return;
+    stop();
+    timer = setInterval(next, AUTOPLAY_MS);
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  function restart() { stop(); start(); }
+
+  nextBtn.addEventListener('click', function() { next(); restart(); });
+  prevBtn.addEventListener('click', function() { prev(); restart(); });
+
+  /* Pause on hover / focus */
+  carousel.addEventListener('mouseenter', stop);
+  carousel.addEventListener('mouseleave', start);
+  carousel.addEventListener('focusin', stop);
+  carousel.addEventListener('focusout', start);
+
+  /* Keyboard arrows */
+  carousel.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') { prev(); restart(); }
+    else if (e.key === 'ArrowRight') { next(); restart(); }
+  });
+
+  /* Touch / swipe */
+  var touchX = null;
+  carousel.addEventListener('touchstart', function(e) { touchX = e.touches[0].clientX; stop(); }, { passive: true });
+  carousel.addEventListener('touchend', function(e) {
+    if (touchX === null) return;
+    var dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+    touchX = null;
+    start();
+  }, { passive: true });
+
+  /* Pause when tab not visible */
+  document.addEventListener('visibilitychange', function() {
+    document.hidden ? stop() : start();
+  });
+
+  update();
+  start();
+})();
 </script>
 </body>
 </html>
