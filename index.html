@@ -1548,6 +1548,31 @@ body {
 .sticky-nav-logo span {
   color: var(--rose-light);
 }
+.nav-left { display: flex; align-items: center; gap: 12px; }
+/* Hamburger — hidden on desktop, shown on mobile */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  margin-left: -8px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle:focus-visible { outline: 2px solid var(--rose-light); outline-offset: 2px; border-radius: 4px; }
+.nav-toggle-bar {
+  width: 22px; height: 1.5px;
+  background: var(--cream);
+  border-radius: 2px;
+  transition: transform 0.35s var(--ease-elegant), opacity 0.25s var(--ease-out);
+}
+.sticky-nav.menu-open .nav-toggle-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.sticky-nav.menu-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.sticky-nav.menu-open .nav-toggle-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 .sticky-nav-cta {
   display: inline-block;
   font-family: var(--sans);
@@ -1584,7 +1609,41 @@ body {
   white-space: nowrap;
 }
 .sticky-nav-links a:hover { color: var(--rose-light); }
-@media (max-width: 768px) { .sticky-nav-links { display: none; } }
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  /* Links become an absolutely-positioned dropdown under the bar */
+  .sticky-nav-links {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: rgba(22, 15, 17, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(192,69,90,0.2);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.38);
+    padding: 4px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease-elegant), transform 0.3s var(--ease-elegant), visibility 0.3s;
+  }
+  .sticky-nav.menu-open .sticky-nav-links {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .sticky-nav-links a {
+    padding: 15px 28px;
+    font-size: 12px;
+    color: rgba(250,246,242,0.72);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .sticky-nav-links a:last-child { border-bottom: none; }
+}
 @media (max-width: 480px) {
   .sticky-nav { padding: 0 16px; }
   .sticky-nav-logo { font-size: 15px; }
@@ -1725,8 +1784,15 @@ body {
 
 <!-- STICKY NAV -->
 <nav class="sticky-nav" id="stickyNav" aria-label="Site navigation">
-  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="sticky-nav-logo">Heartstrings <span>Studio</span></a>
-  <div class="sticky-nav-links">
+  <div class="nav-left">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="sticky-nav-logo">Heartstrings <span>Studio</span></a>
+  </div>
+  <div class="sticky-nav-links" id="navMenu">
     <a href="#listen">Listen</a>
     <a href="#process">Process</a>
     <a href="#pricing">Pricing</a>
@@ -2352,11 +2418,47 @@ body {
   var nav = document.getElementById('stickyNav');
   var hero = document.querySelector('.hero');
   if (!nav || !hero) return;
+
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('navMenu');
+
+  function closeMenu() {
+    nav.classList.remove('menu-open');
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+    }
+  }
+  function openMenu() {
+    nav.classList.add('menu-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close menu');
+  }
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      nav.classList.contains('menu-open') ? closeMenu() : openMenu();
+    });
+    /* Close after choosing a section */
+    menu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', closeMenu);
+    });
+    /* Close on outside tap or Escape */
+    document.addEventListener('click', function(e) {
+      if (nav.classList.contains('menu-open') && !nav.contains(e.target)) closeMenu();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  }
+
   function onScroll() {
     if (window.scrollY > hero.offsetHeight * 0.6) {
       nav.classList.add('is-visible');
     } else {
       nav.classList.remove('is-visible');
+      closeMenu();
     }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
