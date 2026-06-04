@@ -2472,9 +2472,25 @@ body {
   var panels = document.querySelectorAll('.song-panel');
   if (!tabs.length) return;
 
+  // Reset a facade back to its thumbnail (stops any playing iframe/audio).
+  function resetFacade(facade) {
+    if (!facade || !facade.querySelector('iframe')) return;
+    var vid = facade.getAttribute('data-vid');
+    var titleEl = facade.parentElement.querySelector('.song-card-title');
+    var title = titleEl ? titleEl.textContent : '';
+    facade.innerHTML =
+      '<img src="https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg" alt="' + title + '" loading="lazy">' +
+      '<div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>';
+  }
+
+  function stopAllPlayers() {
+    document.querySelectorAll('.song-panel .yt-facade').forEach(resetFacade);
+  }
+
   tabs.forEach(function(tab) {
     tab.addEventListener('click', function() {
       var target = tab.getAttribute('data-panel');
+      stopAllPlayers();
       tabs.forEach(function(t) {
         var on = t === tab;
         t.classList.toggle('is-active', on);
