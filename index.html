@@ -667,6 +667,60 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   SONG TABS
+═══════════════════════════════════════════════════════════ */
+.song-tabs { margin-top: 48px; }
+.song-tabs-nav {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 10px; margin-bottom: 38px;
+}
+.song-tab {
+  font-family: var(--sans);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--divider);
+  padding: 13px 22px; cursor: pointer;
+  transition: color 0.4s var(--ease-elegant), background 0.4s var(--ease-elegant), border-color 0.4s var(--ease-elegant), transform 0.4s var(--ease-elegant);
+}
+.song-tab:hover { color: var(--charcoal); border-color: rgba(192,69,90,0.4); transform: translateY(-2px); }
+.song-tab.is-active {
+  color: #fff;
+  background: var(--rose);
+  border-color: var(--rose);
+}
+.song-panel { display: none; max-width: 720px; margin: 0 auto; }
+.song-panel.is-active { display: block; }
+.song-select-wrap { position: relative; margin-bottom: 26px; }
+.song-select-wrap::before {
+  content: 'Choose an example';
+  display: block;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--rose); margin-bottom: 10px;
+}
+.song-select {
+  width: 100%;
+  font-family: var(--serif);
+  font-size: 20px; font-weight: 600;
+  color: var(--charcoal);
+  background: var(--white);
+  border: 1px solid var(--divider);
+  padding: 16px 46px 16px 20px;
+  cursor: pointer; outline: none;
+  border-radius: 0;
+  -webkit-appearance: none; appearance: none;
+  transition: border-color 0.35s var(--ease-elegant), box-shadow 0.35s var(--ease-elegant);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c0455a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+}
+.song-select:hover { border-color: rgba(192,69,90,0.45); }
+.song-select:focus { border-color: rgba(192,69,90,0.8); box-shadow: 0 0 0 3px rgba(192,69,90,0.12); }
+.song-select option { font-size: 16px; }
+
+/* ═══════════════════════════════════════════════════════════
    WBOY
 ═══════════════════════════════════════════════════════════ */
 .wboy-wrap { margin-top: 44px; position: relative; }
@@ -1833,49 +1887,115 @@ body {
     <p class="section-label">Featured Stories in Song</p>
     <h2>Listen to what's possible</h2>
   </div>
-  <div class="featured-grid reveal-stagger">
-    <div class="song-card">
-      <div class="yt-facade" data-vid="wsR1FXXuf3w" style="aspect-ratio:16/9;">
-        <img src="https://i.ytimg.com/vi/wsR1FXXuf3w/hqdefault.jpg" alt="The Moment I Knew — Proposal Song" loading="lazy">
-        <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+  <div class="song-tabs reveal">
+    <div class="song-tabs-nav" role="tablist" aria-label="Browse songs by occasion">
+      <button class="song-tab is-active" type="button" role="tab" aria-selected="true" data-panel="memorial">Memorials &amp; Celebrations of Life</button>
+      <button class="song-tab" type="button" role="tab" aria-selected="false" data-panel="military">Military Tributes</button>
+      <button class="song-tab" type="button" role="tab" aria-selected="false" data-panel="wedding">Weddings, Proposals &amp; Anniversaries</button>
+      <button class="song-tab" type="button" role="tab" aria-selected="false" data-panel="birthday">Birthdays &amp; Retirement</button>
+      <button class="song-tab" type="button" role="tab" aria-selected="false" data-panel="justbecause">Just Because</button>
+    </div>
+
+    <!-- MEMORIALS -->
+    <div class="song-panel is-active" data-panel="memorial" role="tabpanel">
+      <div class="song-select-wrap">
+        <select class="song-select" aria-label="Choose a memorial example song">
+          <option value="fDOgbEE7BX8" data-label="Memorial" data-title="Forever and a Day" data-desc="A deeply personal memorial song honoring a life that left its mark — built to be kept, shared, and returned to for years to come.">Forever and a Day</option>
+          <option value="iCzuyECSoFY" data-label="Celebration of Life" data-title="She Left Us a Party" data-desc="A celebration of life that trades grief for gratitude — an upbeat tribute to a spirit who taught everyone around her how to truly live.">She Left Us a Party</option>
+        </select>
       </div>
-      <div class="song-card-body">
-        <div class="song-card-label">Proposal</div>
-        <div class="song-card-title">The Moment I Knew</div>
-        <div class="song-card-desc">A cinematic proposal ballad built from a real love story — whether it was a quiet moment on a back road or something you'll never stop talking about, this is what it sounds like when your story becomes a song.</div>
+      <div class="song-card">
+        <div class="yt-facade" data-vid="fDOgbEE7BX8" style="aspect-ratio:16/9;">
+          <img src="https://i.ytimg.com/vi/fDOgbEE7BX8/hqdefault.jpg" alt="Forever and a Day — Memorial Song" loading="lazy">
+          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="song-card-body">
+          <div class="song-card-label">Memorial</div>
+          <div class="song-card-title">Forever and a Day</div>
+          <div class="song-card-desc">A deeply personal memorial song honoring a life that left its mark — built to be kept, shared, and returned to for years to come.</div>
+        </div>
       </div>
     </div>
-    <div class="song-card">
-      <div class="yt-facade" data-vid="ppbdNuOdGng" style="aspect-ratio:16/9;">
-        <img src="https://i.ytimg.com/vi/ppbdNuOdGng/hqdefault.jpg" alt="We Love You, Mrs. Gaynor — Community Tribute Song" loading="lazy">
-        <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+
+    <!-- MILITARY -->
+    <div class="song-panel" data-panel="military" role="tabpanel">
+      <div class="song-select-wrap">
+        <select class="song-select" aria-label="Choose a military tribute example song">
+          <option value="t33GlLrlqqE" data-label="Military Tribute" data-title="God Kept His Hand on Me" data-desc="A soldier's testimony set to music — the prayers, the close calls, and the faith that carried someone home. A tribute to service and survival.">God Kept His Hand on Me</option>
+          <option value="jmSfTesTUcw" data-label="Military Tribute" data-title="Worth Every Mile" data-desc="An honest tribute to the long road of service and sacrifice — the miles spent away, the cost of duty, and the conviction that it all mattered.">Worth Every Mile</option>
+        </select>
       </div>
-      <div class="song-card-body">
-        <div class="song-card-label">Community Tribute</div>
-        <div class="song-card-title">We Love You, Mrs. Gaynor</div>
-        <div class="song-card-desc">A tribute to the woman who helped raise generations of Lincoln High Cougars — built from alumni memories spanning decades.</div>
+      <div class="song-card">
+        <div class="yt-facade" data-vid="t33GlLrlqqE" style="aspect-ratio:16/9;">
+          <img src="https://i.ytimg.com/vi/t33GlLrlqqE/hqdefault.jpg" alt="God Kept His Hand on Me — Military Tribute Song" loading="lazy">
+          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="song-card-body">
+          <div class="song-card-label">Military Tribute</div>
+          <div class="song-card-title">God Kept His Hand on Me</div>
+          <div class="song-card-desc">A soldier's testimony set to music — the prayers, the close calls, and the faith that carried someone home. A tribute to service and survival.</div>
+        </div>
       </div>
     </div>
-    <div class="song-card">
-      <div class="yt-facade" data-vid="fDOgbEE7BX8" style="aspect-ratio:16/9;">
-        <img src="https://i.ytimg.com/vi/fDOgbEE7BX8/hqdefault.jpg" alt="Forever and a Day — Memorial Song" loading="lazy">
-        <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+
+    <!-- WEDDINGS -->
+    <div class="song-panel" data-panel="wedding" role="tabpanel">
+      <div class="song-select-wrap">
+        <select class="song-select" aria-label="Choose a wedding example song">
+          <option value="wsR1FXXuf3w" data-label="Proposal" data-title="The Moment I Knew" data-desc="A cinematic proposal ballad built from a real love story — whether it was a quiet moment on a back road or something you'll never stop talking about, this is what it sounds like when your story becomes a song.">The Moment I Knew</option>
+        </select>
       </div>
-      <div class="song-card-body">
-        <div class="song-card-label">Memorial</div>
-        <div class="song-card-title">Forever and a Day</div>
-        <div class="song-card-desc">A deeply personal memorial song honoring a life that left its mark — built to be kept, shared, and returned to for years to come.</div>
+      <div class="song-card">
+        <div class="yt-facade" data-vid="wsR1FXXuf3w" style="aspect-ratio:16/9;">
+          <img src="https://i.ytimg.com/vi/wsR1FXXuf3w/hqdefault.jpg" alt="The Moment I Knew — Proposal Song" loading="lazy">
+          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="song-card-body">
+          <div class="song-card-label">Proposal</div>
+          <div class="song-card-title">The Moment I Knew</div>
+          <div class="song-card-desc">A cinematic proposal ballad built from a real love story — whether it was a quiet moment on a back road or something you'll never stop talking about, this is what it sounds like when your story becomes a song.</div>
+        </div>
       </div>
     </div>
-    <div class="song-card">
-      <div class="yt-facade" data-vid="OOypcnwpw9A" style="aspect-ratio:16/9;">
-        <img src="https://i.ytimg.com/vi/OOypcnwpw9A/hqdefault.jpg" alt="I Still Talk to You — Memorial Song" loading="lazy">
-        <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+
+    <!-- BIRTHDAYS -->
+    <div class="song-panel" data-panel="birthday" role="tabpanel">
+      <div class="song-select-wrap">
+        <select class="song-select" aria-label="Choose a birthday example song">
+          <option value="Q65F2exe2JE" data-label="Birthday" data-title="Another Candle, Still You" data-desc="A warm birthday song that celebrates the years without losing the person inside them — proof that another candle just means more of someone worth celebrating.">Another Candle, Still You</option>
+          <option value="qZEWZCqhyYE" data-label="Birthday" data-title="Happy Birthday, Lilly" data-desc="A personalized birthday song made just for Lilly — the kind of one-of-a-kind keepsake that turns an ordinary birthday into a moment she'll never forget.">Happy Birthday, Lilly</option>
+        </select>
       </div>
-      <div class="song-card-body">
-        <div class="song-card-label">Memorial</div>
-        <div class="song-card-title">I Still Talk to You</div>
-        <div class="song-card-desc">For anyone who still feels the presence of someone they've lost — the quiet moments, the empty spaces, the conversations that never really stopped.</div>
+      <div class="song-card">
+        <div class="yt-facade" data-vid="Q65F2exe2JE" style="aspect-ratio:16/9;">
+          <img src="https://i.ytimg.com/vi/Q65F2exe2JE/hqdefault.jpg" alt="Another Candle, Still You — Birthday Song" loading="lazy">
+          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="song-card-body">
+          <div class="song-card-label">Birthday</div>
+          <div class="song-card-title">Another Candle, Still You</div>
+          <div class="song-card-desc">A warm birthday song that celebrates the years without losing the person inside them — proof that another candle just means more of someone worth celebrating.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUST BECAUSE -->
+    <div class="song-panel" data-panel="justbecause" role="tabpanel">
+      <div class="song-select-wrap">
+        <select class="song-select" aria-label="Choose a just-because example song">
+          <option value="ppbdNuOdGng" data-label="Community Tribute" data-title="We Love You, Mrs. Gaynor" data-desc="A tribute to the woman who helped raise generations of Lincoln High Cougars — built from alumni memories spanning decades.">We Love You, Mrs. Gaynor</option>
+        </select>
+      </div>
+      <div class="song-card">
+        <div class="yt-facade" data-vid="ppbdNuOdGng" style="aspect-ratio:16/9;">
+          <img src="https://i.ytimg.com/vi/ppbdNuOdGng/hqdefault.jpg" alt="We Love You, Mrs. Gaynor — Community Tribute Song" loading="lazy">
+          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="song-card-body">
+          <div class="song-card-label">Community Tribute</div>
+          <div class="song-card-title">We Love You, Mrs. Gaynor</div>
+          <div class="song-card-desc">A tribute to the woman who helped raise generations of Lincoln High Cougars — built from alumni memories spanning decades.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -2342,6 +2462,44 @@ body {
       iframe.allowFullscreen = true;
       facade.innerHTML = '';
       facade.appendChild(iframe);
+    });
+  });
+})();
+
+/* SONG TABS */
+(function() {
+  var tabs = document.querySelectorAll('.song-tab');
+  var panels = document.querySelectorAll('.song-panel');
+  if (!tabs.length) return;
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var target = tab.getAttribute('data-panel');
+      tabs.forEach(function(t) {
+        var on = t === tab;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach(function(p) {
+        p.classList.toggle('is-active', p.getAttribute('data-panel') === target);
+      });
+    });
+  });
+
+  document.querySelectorAll('.song-panel .song-select').forEach(function(select) {
+    var panel = select.closest('.song-panel');
+    var facade = panel.querySelector('.yt-facade');
+    select.addEventListener('change', function() {
+      var opt = select.options[select.selectedIndex];
+      var vid = opt.value;
+      var title = opt.getAttribute('data-title');
+      facade.setAttribute('data-vid', vid);
+      facade.innerHTML =
+        '<img src="https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg" alt="' + title + '" loading="lazy">' +
+        '<div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>';
+      panel.querySelector('.song-card-label').textContent = opt.getAttribute('data-label');
+      panel.querySelector('.song-card-title').textContent = title;
+      panel.querySelector('.song-card-desc').textContent = opt.getAttribute('data-desc');
     });
   });
 })();
