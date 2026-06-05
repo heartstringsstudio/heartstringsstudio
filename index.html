@@ -1488,6 +1488,9 @@ body {
   .carousel-arrow.next { right: 4px; }
   .bio-wrap { flex-direction: column; gap: 32px; }
   .bio-img { max-width: 280px; margin: 0 auto; }
+  /* Stacked layout: center the label + heading; keep narrative left-aligned */
+  .bio-text { text-align: center; }
+  .bio-text p:not(.section-label) { text-align: left; }
   .faq-q { font-size: 16.5px; }
   .faq-a { font-size: 14.5px; }
   .cta-section { padding: 72px 20px; }
