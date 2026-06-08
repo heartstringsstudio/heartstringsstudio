@@ -1961,19 +1961,6 @@ body {
   <div class="line"></div>
 </div>
 
-<!-- WBOY -->
-<section class="section section-center reveal">
-  <p class="section-label">As Seen On</p>
-  <h2>Heartstrings Studio on <em>WBOY 304 Today</em></h2>
-  <div class="wboy-wrap">
-    <div class="yt-facade" data-vid="j1_HRI6aJU4" style="aspect-ratio:16/9;">
-      <img src="https://i.ytimg.com/vi/j1_HRI6aJU4/hqdefault.jpg" alt="Heartstrings Studio on WBOY 304 Today" loading="lazy">
-      <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-    </div>
-  </div>
-  <p class="wboy-caption">Featured on WBOY's 304 Today — West Virginia's own.</p>
-</section>
-
 <!-- OCCASIONS -->
 <section class="section section-center full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
   <div class="reveal" style="max-width:860px; margin:0 auto;">
@@ -2162,6 +2149,19 @@ body {
     <button class="carousel-arrow next" type="button" aria-label="Next testimonial">&#8250;</button>
     <div class="carousel-dots" role="tablist" aria-label="Choose testimonial"></div>
   </div>
+</section>
+
+<!-- WBOY -->
+<section class="section section-center reveal">
+  <p class="section-label">As Seen On</p>
+  <h2>Heartstrings Studio on <em>WBOY 304 Today</em></h2>
+  <div class="wboy-wrap">
+    <div class="yt-facade" data-vid="j1_HRI6aJU4" style="aspect-ratio:16/9;">
+      <img src="https://i.ytimg.com/vi/j1_HRI6aJU4/hqdefault.jpg" alt="Heartstrings Studio on WBOY 304 Today" loading="lazy">
+      <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+  </div>
+  <p class="wboy-caption">Featured on WBOY's 304 Today — West Virginia's own.</p>
 </section>
 
 <!-- ORNAMENT -->
@@ -2523,6 +2523,14 @@ body {
       if (r.ok) {
         status.textContent = 'Your story is on its way. Tim will be in touch within 24 hours.';
         status.className = 'form-status success';
+        if (typeof gtag === 'function') {
+          var occ = (data.get('occasion') || '').toString();
+          gtag('event', 'generate_lead', {
+            event_category: 'conversion',
+            event_label: occ || 'unknown',
+            occasion: occ
+          });
+        }
         form.reset();
         document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('is-selected'); });
       } else {
@@ -2779,6 +2787,87 @@ document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
 
   update();
   start();
+})();
+</script>
+
+<!-- ENGAGEMENT TRACKING (scroll depth · section views · CTA clicks) -->
+<script>
+(function () {
+  if (typeof gtag !== 'function') return;
+
+  /* ---- How far down the page people get: 25 / 50 / 75 / 90 / 100% ---- */
+  var marks = [25, 50, 75, 90, 100];
+  var fired = {};
+  function scrollPct() {
+    var doc = document.documentElement, body = document.body;
+    var top = window.pageYOffset || doc.scrollTop || body.scrollTop || 0;
+    var max = Math.max(body.scrollHeight, doc.scrollHeight) - window.innerHeight;
+    if (max <= 0) return 100;
+    return Math.min(100, Math.round((top / max) * 100));
+  }
+  function checkScroll() {
+    var p = scrollPct();
+    for (var i = 0; i < marks.length; i++) {
+      var m = marks[i];
+      if (p >= m && !fired[m]) {
+        fired[m] = true;
+        gtag('event', 'scroll_depth', {
+          percent: m,
+          event_category: 'engagement',
+          event_label: m + '%',
+          non_interaction: true
+        });
+      }
+    }
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () { checkScroll(); ticking = false; });
+  }, { passive: true });
+  checkScroll();
+
+  /* ---- Which sections actually get seen (50% in view) ---- */
+  function sectionName(el) {
+    if (el.id) return el.id;
+    var label = el.querySelector('.section-label, .weekly-badge');
+    if (label && label.textContent.trim()) return label.textContent.trim();
+    var h = el.querySelector('h1, h2');
+    if (h && h.textContent.trim()) return h.textContent.trim().replace(/\s+/g, ' ').slice(0, 60);
+    return 'section';
+  }
+  if ('IntersectionObserver' in window) {
+    var seen = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var name = sectionName(entry.target);
+        if (seen[name]) return;
+        seen[name] = true;
+        gtag('event', 'section_view', {
+          section: name,
+          event_category: 'engagement',
+          event_label: name,
+          non_interaction: true
+        });
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('section').forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---- Primary CTA clicks ---- */
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('button, a');
+    if (!el) return;
+    var txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
+    var onclick = el.getAttribute('onclick') || '';
+    if (onclick.indexOf('order-form') !== -1 || /begin your song|start your (own )?song/i.test(txt)) {
+      gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt.slice(0, 50) });
+    } else if (onclick.indexOf("'listen'") !== -1 || /hear examples/i.test(txt)) {
+      gtag('event', 'cta_click', { cta: 'hear_examples', event_category: 'engagement', event_label: txt.slice(0, 50) });
+    }
+  }, true);
 })();
 </script>
 </body>
