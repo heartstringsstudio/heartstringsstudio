@@ -1826,6 +1826,24 @@ body {
   height: 100%;
   border: none;
 }
+/* Featured (weekly) song — pulsing invite to play */
+.weekly-song-embed .yt-play {
+  animation: ytPlayPulse 2.4s ease-in-out infinite;
+}
+@keyframes ytPlayPulse {
+  0%   { transform: translate(-50%, -50%) scale(1);    box-shadow: 0 0 0 0 rgba(255,0,0,0.5); }
+  70%  { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 0 18px rgba(255,0,0,0); }
+  100% { transform: translate(-50%, -50%) scale(1);    box-shadow: 0 0 0 0 rgba(255,0,0,0); }
+}
+.weekly-song-embed:hover .yt-play { animation: none; }
+.weekly-song-cue {
+  margin: 16px auto 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--cream-warm);
+}
+.weekly-song-cue .cue-tri { color: var(--rose-light); margin-right: 7px; }
 </style>
 
 <!-- Google Analytics -->
@@ -1925,6 +1943,7 @@ body {
         <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
     </div>
+    <p class="weekly-song-cue" id="weeklySongCue"><span class="cue-tri" aria-hidden="true">&#9654;</span>Press play to hear it for yourself</p>
     <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
       <span class="btn-sweep"></span><span>Start Your Own Song &rarr;</span>
     </button>
@@ -2868,6 +2887,17 @@ document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
       gtag('event', 'cta_click', { cta: 'hear_examples', event_category: 'engagement', event_label: txt.slice(0, 50) });
     }
   }, true);
+})();
+</script>
+
+<!-- Hide the featured-song play cue once it starts playing -->
+<script>
+(function () {
+  var facade = document.querySelector('.weekly-song-embed .yt-facade');
+  var cue = document.getElementById('weeklySongCue');
+  if (facade && cue) {
+    facade.addEventListener('click', function () { cue.style.display = 'none'; });
+  }
 })();
 </script>
 </body>
