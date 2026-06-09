@@ -2638,8 +2638,26 @@ body {
 
 /* YOUTUBE FACADES */
 (function() {
+  // Restore a facade to its thumbnail, which removes the iframe and stops playback.
+  function stopFacade(facade) {
+    if (!facade.querySelector('iframe')) return;
+    if (facade._original != null) facade.innerHTML = facade._original;
+    if (offscreenObserver) offscreenObserver.unobserve(facade);
+  }
+
+  // Stop a playing video once it scrolls fully out of view.
+  var offscreenObserver = ('IntersectionObserver' in window)
+    ? new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) stopFacade(entry.target);
+        });
+      }, { threshold: 0 })
+    : null;
+
   document.querySelectorAll('.yt-facade').forEach(function(facade) {
     facade.addEventListener('click', function() {
+      if (facade.querySelector('iframe')) return; // already playing
+      facade._original = facade.innerHTML;
       var vid = facade.getAttribute('data-vid');
       var iframe = document.createElement('iframe');
       iframe.src = 'https://www.youtube.com/embed/' + vid + '?autoplay=1';
@@ -2647,6 +2665,7 @@ body {
       iframe.allowFullscreen = true;
       facade.innerHTML = '';
       facade.appendChild(iframe);
+      if (offscreenObserver) offscreenObserver.observe(facade);
     });
   });
 })();
