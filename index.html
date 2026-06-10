@@ -10,8 +10,8 @@
 <link rel="canonical" href="https://heartstringsstudio.github.io/heartstringsstudio/">
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="https://heartstringsstudio.github.io/heartstringsstudio/favicon.png">
-<link rel="apple-touch-icon" href="https://heartstringsstudio.github.io/heartstringsstudio/favicon.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
 
 <!-- Open Graph -->
 <meta property="og:title" content="Heartstrings Studio — Custom Songs for Life's Meaningful Moments">
@@ -75,7 +75,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://www.youtube.com">
 <link rel="preconnect" href="https://i.ytimg.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
@@ -105,8 +105,8 @@
   --divider:       #e8dde0;
   --divider-soft:  #f0e6ea;
 
-  --serif:         'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --serif-alt:     'Playfair Display', Georgia, serif;
+  --serif:         'Cormorant Garamond', Georgia, serif;
+  --serif-alt:     'Cormorant Garamond', Georgia, serif;
   --sans:          'Lato', system-ui, sans-serif;
 
   --ease-out:      cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -798,8 +798,8 @@ body {
   animation: pulseGlow 2.4s var(--ease-in-out) infinite;
 }
 @keyframes pulseGlow {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(212,99,122,0.5); }
-  50%      { opacity: 0.6; box-shadow: 0 0 0 6px rgba(212,99,122,0); }
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.45; }
 }
 .weekly-song-inner h2 {
   font-family: var(--serif);
@@ -1867,16 +1867,21 @@ body {
   height: 100%;
   border: none;
 }
-/* Featured (weekly) song — pulsing invite to play */
-.weekly-song-embed .yt-play {
-  animation: ytPlayPulse 2.4s ease-in-out infinite;
+/* Featured (weekly) song — pulsing invite to play.
+   The ring animates transform/opacity only, so it composites on the GPU. */
+.weekly-song-embed .yt-play::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  box-shadow: 0 0 0 3px rgba(255,0,0,0.55);
+  animation: ytRing 2.4s ease-out infinite;
 }
-@keyframes ytPlayPulse {
-  0%   { transform: translate(-50%, -50%) scale(1);    box-shadow: 0 0 0 0 rgba(255,0,0,0.5); }
-  70%  { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 0 18px rgba(255,0,0,0); }
-  100% { transform: translate(-50%, -50%) scale(1);    box-shadow: 0 0 0 0 rgba(255,0,0,0); }
+@keyframes ytRing {
+  0%        { transform: scale(1);   opacity: 0.8; }
+  70%, 100% { transform: scale(1.5); opacity: 0; }
 }
-.weekly-song-embed:hover .yt-play { animation: none; }
+.weekly-song-embed:hover .yt-play::after { animation: none; opacity: 0; }
 .weekly-song-cue {
   margin: 16px auto 0;
   font-size: 14px;
@@ -2304,7 +2309,7 @@ body {
   <div class="reveal" style="max-width:860px; margin:0 auto;">
     <div class="bio-wrap">
       <div class="bio-img">
-        <img id="timPhoto" src="https://heartstringsstudio.github.io/heartstringsstudio/timphoto.jpg" alt="Tim Harbert, founder of Heartstrings Studio" loading="lazy" width="600" height="600">
+        <img id="timPhoto" src="timphoto.jpg" alt="Tim Harbert, founder of Heartstrings Studio" loading="lazy" width="600" height="600">
         <p class="bio-caption">Tim Harbert<br>Founder, Heartstrings Studio</p>
       </div>
       <div class="bio-text">
@@ -2460,7 +2465,7 @@ body {
 
 <!-- CTA CLOSE -->
 <section class="cta-section">
-  <div class="cta-bg-logo" id="ctaBg" style="background-image:url('https://heartstringsstudio.github.io/heartstringsstudio/logo.png');"></div>
+  <div class="cta-bg-logo" id="ctaBg" style="background-image:url('logo.png');"></div>
   <div class="cta-content reveal">
     <p class="section-label">Ready?</p>
     <h2>Some moments deserve<br>more than a <em>snapshot.</em></h2>
