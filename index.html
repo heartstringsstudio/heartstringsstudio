@@ -1578,21 +1578,23 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 9000;
-  background: rgba(22, 15, 17, 0.96);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(192,69,90,0.2);
+  background: transparent;
+  border-bottom: 1px solid transparent;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 28px;
   height: 60px;
-  transform: translateY(-100%);
-  transition: transform 0.45s var(--ease-elegant), box-shadow 0.45s var(--ease-elegant);
+  transition: background 0.45s var(--ease-elegant), border-color 0.45s var(--ease-elegant), box-shadow 0.45s var(--ease-elegant);
   box-shadow: none;
 }
-.sticky-nav.is-visible {
-  transform: translateY(0);
+/* Solid once the page is scrolled (or the mobile menu is open) */
+.sticky-nav.is-solid,
+.sticky-nav.menu-open {
+  background: rgba(22, 15, 17, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(192,69,90,0.2);
   box-shadow: 0 4px 24px rgba(0,0,0,0.28);
 }
 .sticky-nav-logo {
@@ -1877,7 +1879,7 @@ body {
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
   </div>
-  <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="sticky-nav-cta">Begin Your Song &rarr;</button>
+  <a href="#order-form" class="sticky-nav-cta">Begin Your Song &rarr;</a>
 </nav>
 
 <!-- HERO -->
@@ -1890,12 +1892,12 @@ body {
     <h1>Your Story<br>Deserves a <em>Song</em></h1>
     <p class="hero-tagline">We turn meaningful moments into music — crafted with care and made to last a lifetime.</p>
     <div class="hero-cta-wrap">
-      <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+      <a href="#order-form" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-      </button>
-      <button onclick="document.getElementById('listen').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-ghost">
+      </a>
+      <a href="#listen" class="btn-ornate btn-ghost">
         <span class="btn-sweep"></span><span>Hear Examples &rarr;</span>
-      </button>
+      </a>
     </div>
     <p class="hero-sub"><a href="https://www.youtube.com/@heartstringsstudiowv" target="_blank" rel="noopener">Browse the full catalog on YouTube &rarr;</a></p>
     <p class="hero-sub" style="margin-top:12px;">Questions? <a href="mailto:heartstringsstudiowv@gmail.com">heartstringsstudiowv&#64;gmail&#46;com</a></p>
@@ -1948,9 +1950,9 @@ body {
       </div>
     </div>
     <p class="weekly-song-cue" id="weeklySongCue"><span class="cue-tri" aria-hidden="true">&#9654;</span>Press play to hear it for yourself</p>
-    <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+    <a href="#order-form" class="btn-ornate btn-dark">
       <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-    </button>
+    </a>
   </div>
 </section>
 
@@ -1960,9 +1962,9 @@ body {
     <h2>Ready to begin <em>your</em> song?</h2>
     <p class="start-strip-price"><strong>$150 flat — one song, one price</strong> &nbsp;·&nbsp; delivered in 48–72 hours</p>
     <div class="start-strip-actions">
-      <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+      <a href="#order-form" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-      </button>
+      </a>
       <a href="#pricing" class="start-strip-link">See everything included &rarr;</a>
     </div>
   </div>
@@ -2122,9 +2124,9 @@ body {
     </div>
   </div>
   <div style="text-align:center; margin-top:52px;">
-    <button onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank','noreferrer')" class="btn-ornate btn-light">
+    <a href="https://www.youtube.com/@heartstringsstudiowv" target="_blank" rel="noopener" class="btn-ornate btn-light">
       <span class="btn-sweep"></span><span>View the Full Catalog on YouTube &rarr;</span>
-    </button>
+    </a>
   </div>
 </section>
 
@@ -2253,9 +2255,9 @@ body {
         <li>Delivered in 48–72 hours</li>
         <li>Remake guarantee — if the finished song misses the mark, Tim starts over from scratch</li>
       </ul>
-      <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+      <a href="#order-form" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-      </button>
+      </a>
       <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery (24-hour guarantee) available for an additional $50 &nbsp;·&nbsp; Memorial &amp; celebration-of-life songs are always delivered within 24 hours at no extra charge</p>
     </div>
   </div>
@@ -2427,9 +2429,9 @@ body {
     <p class="section-label">Ready?</p>
     <h2>Some moments deserve<br>more than a <em>snapshot.</em></h2>
     <p>Tell Tim your story. He'll turn it into something you can hold onto forever.</p>
-    <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+    <a href="#order-form" class="btn-ornate btn-dark">
       <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-    </button>
+    </a>
     <p class="price-note">$150 flat — one song, one price</p>
     <p class="price-note" style="margin-top:10px; font-size:14px; color:rgba(250,246,242,0.82);">Questions? Email Tim directly: <a href="mailto:heartstringsstudiowv@gmail.com" style="font-weight:700;">heartstringsstudiowv&#64;gmail&#46;com</a></p>
   </div>
@@ -2500,15 +2502,16 @@ body {
     });
   }
 
+  /* Nav is always present: transparent over the hero, solid once scrolled */
   function onScroll() {
-    if (window.scrollY > hero.offsetHeight * 0.6) {
-      nav.classList.add('is-visible');
+    if (window.scrollY > 24) {
+      nav.classList.add('is-solid');
     } else {
-      nav.classList.remove('is-visible');
-      closeMenu();
+      nav.classList.remove('is-solid');
     }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 
 /* SCROLL REVEAL */
