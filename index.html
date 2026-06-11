@@ -2600,8 +2600,6 @@ body {
       headers: { 'Accept': 'application/json' }
     }).then(function(r) {
       if (r.ok) {
-        status.textContent = 'Your story is on its way. Tim will be in touch within 24 hours.';
-        status.className = 'form-status success';
         if (typeof gtag === 'function') {
           var occ = (data.get('occasion') || '').toString();
           gtag('event', 'generate_lead', {
@@ -2610,16 +2608,16 @@ body {
             occasion: occ
           });
         }
-        form.reset();
-        document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('is-selected'); });
+        window.location.href = 'thank-you.html';
       } else {
         status.textContent = 'Something went wrong. Please email heartstringsstudiowv@gmail.com directly.';
         status.className = 'form-status error';
+        btn.disabled = false;
+        btnText.textContent = original;
       }
     }).catch(function() {
       status.textContent = 'Something went wrong. Please email heartstringsstudiowv@gmail.com directly.';
       status.className = 'form-status error';
-    }).finally(function() {
       btn.disabled = false;
       btnText.textContent = original;
     });
