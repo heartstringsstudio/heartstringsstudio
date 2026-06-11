@@ -177,11 +177,15 @@ body::before {
 .btn-dark:hover { box-shadow: var(--shadow-rose); border-color: rgba(212,99,122,0.85); }
 
 .thanks-logo {
-  width: 84px;
+  width: 160px;
   height: auto;
   margin: 0 auto 26px;
   display: block;
   opacity: 0.95;
+}
+
+@media (max-width: 768px) {
+  .thanks-logo { width: 128px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
