@@ -1748,84 +1748,6 @@ body {
   .sticky-nav-cta { font-size: 10.5px; padding: 9px 14px; letter-spacing: 0.08em; }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   FLOATING CHAT BUTTON
-═══════════════════════════════════════════════════════════ */
-.chat-float {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-  text-decoration: none;
-  animation: chatEntrance 0.8s var(--ease-elegant) 2s both;
-}
-@keyframes chatEntrance {
-  from { opacity: 0; transform: translateY(20px) scale(0.88); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-.chat-float-bubble {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: var(--rose);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 24px rgba(192,69,90,0.45), 0 2px 8px rgba(0,0,0,0.18);
-  transition: transform 0.35s var(--ease-elegant), box-shadow 0.35s var(--ease-elegant), background 0.35s var(--ease-out);
-  position: relative;
-}
-.chat-float-bubble::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(192,69,90,0.35);
-  transition: inset 0.35s var(--ease-elegant), opacity 0.35s var(--ease-out);
-  opacity: 0;
-}
-.chat-float:hover .chat-float-bubble {
-  transform: translateY(-3px) scale(1.06);
-  box-shadow: 0 12px 36px rgba(192,69,90,0.55), 0 4px 12px rgba(0,0,0,0.22);
-  background: var(--rose-light);
-}
-.chat-float:hover .chat-float-bubble::after {
-  inset: -6px;
-  opacity: 1;
-}
-.chat-float-bubble svg {
-  width: 26px;
-  height: 26px;
-  fill: var(--white);
-}
-.chat-float-label {
-  font-family: var(--sans);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--rose);
-  background: var(--white);
-  padding: 4px 10px;
-  border-radius: 20px;
-  box-shadow: 0 2px 10px rgba(58,46,48,0.12);
-  white-space: nowrap;
-  transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out);
-}
-.chat-float:hover .chat-float-label {
-  background: var(--rose);
-  color: var(--white);
-}
-@media (max-width: 768px) {
-  .chat-float { bottom: 20px; right: 18px; }
-  .chat-float-bubble { width: 52px; height: 52px; }
-  .chat-float-bubble svg { width: 22px; height: 22px; }
-}
-
 /* YouTube facade */
 .yt-facade {
   position: relative;
@@ -2498,16 +2420,6 @@ body {
   <p class="footer-email"><a href="mailto:heartstringsstudiowv@gmail.com">heartstringsstudiowv&#64;gmail&#46;com</a></p>
   <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;·&nbsp; Lumberport, West Virginia</p>
 </footer>
-
-<!-- FLOATING CHAT BUTTON -->
-<a href="https://heartstringsstudio.github.io/dashboard/chat/" target="_blank" rel="noopener" class="chat-float" aria-label="Chat with us">
-  <div class="chat-float-bubble">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M20 2H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h3l3 3 3-3h7a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-2 10H6v-2h12v2zm0-4H6V6h12v2z"/>
-    </svg>
-  </div>
-  <span class="chat-float-label">Chat Now</span>
-</a>
 
 <script>
 
