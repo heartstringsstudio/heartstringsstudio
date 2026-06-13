@@ -539,9 +539,11 @@ body {
 ═══════════════════════════════════════════════════════════ */
 .occasions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 36px; }
 .pill {
+  display: inline-block;
   font-size: 13px; font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--rose-deep);
+  text-decoration: none;
   border: 1px solid rgba(192,69,90,0.4);
   padding: 8px 20px;
   border-radius: 40px;
@@ -554,11 +556,6 @@ body {
   background: var(--rose); color: var(--cream);
   border-color: var(--rose);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-rose);
-}
-.pill.is-selected {
-  background: var(--rose-deep); color: var(--cream);
-  border-color: var(--rose-deep);
   box-shadow: var(--shadow-rose);
 }
 @media (max-width: 500px) { .pill { font-size: 12px; padding: 7px 16px; } }
@@ -1262,144 +1259,6 @@ body {
 .faq-a a:hover { border-bottom-color: var(--rose); }
 
 /* ═══════════════════════════════════════════════════════════
-   FORM
-═══════════════════════════════════════════════════════════ */
-.form-section {
-  background: var(--charcoal);
-  padding: 96px 24px;
-  position: relative; overflow: hidden;
-}
-.form-section::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(192,69,90,0.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-.form-section .section-label { color: var(--rose-light); text-align: center; display: block; }
-.form-section .section-label::before,
-.form-section .section-label::after { background: var(--rose-light); }
-.form-section h2 {
-  font-family: var(--serif);
-  font-size: clamp(28px, 4.5vw, 42px);
-  font-weight: 500;
-  color: var(--cream);
-  margin: 0 auto 12px;
-  line-height: 1.2;
-  text-align: center; width: 100%; display: block;
-  letter-spacing: -0.01em;
-}
-.form-section h2 em { font-style: italic; font-weight: 600; color: var(--rose-light); }
-.form-section .form-sub {
-  font-size: 15.5px;
-  color: rgba(250,246,242,0.82);
-  margin: 0 auto 44px;
-  max-width: 540px;
-  line-height: 1.72;
-  text-align: center; display: block;
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-}
-.form-wrap { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
-.form-row { margin-bottom: 24px; }
-.form-row label {
-  display: block;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(250,246,242,0.82);
-  margin-bottom: 10px;
-}
-.form-row input, .form-row select, .form-row textarea {
-  width: 100%;
-  background: rgba(255,255,255,0.055);
-  border: 1px solid rgba(212,99,122,0.25);
-  color: var(--cream);
-  font-family: var(--sans);
-  font-size: 15px;
-  padding: 14px 18px;
-  outline: none;
-  transition: border-color 0.35s var(--ease-out), background 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
-  border-radius: 0;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.form-row input::placeholder, .form-row textarea::placeholder {
-  color: rgba(250,246,242,0.3);
-  font-style: italic;
-}
-.form-row input:hover, .form-row select:hover, .form-row textarea:hover {
-  border-color: rgba(212,99,122,0.45);
-}
-.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
-  border-color: rgba(212,99,122,0.8);
-  background: rgba(255,255,255,0.085);
-  box-shadow: 0 0 0 3px rgba(192,69,90,0.12);
-}
-.form-row select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(212,99,122,0.75)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 18px center;
-  padding-right: 42px;
-}
-.form-row select option { background: var(--charcoal-mid); color: var(--cream); }
-.form-row textarea { resize: vertical; min-height: 130px; line-height: 1.66; }
-.form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-@media (max-width: 540px) { .form-two-col { grid-template-columns: 1fr; } }
-.form-note {
-  font-size: 12.5px;
-  color: rgba(250,246,242,0.82);
-  margin-top: 8px;
-  line-height: 1.55;
-}
-.rush-checkbox {
-  appearance: none;
-  -webkit-appearance: none;
-  flex-shrink: 0;
-  width: 18px !important; height: 18px;
-  min-width: 18px;
-  margin-top: 0;
-  border: 1px solid rgba(212,99,122,0.5);
-  background: rgba(255,255,255,0.055);
-  cursor: pointer;
-  position: relative;
-  transition: border-color 0.25s var(--ease-out), background 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
-}
-.rush-checkbox:hover { border-color: rgba(212,99,122,0.8); }
-.rush-checkbox:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
-.rush-checkbox:checked {
-  background: var(--rose);
-  border-color: var(--rose);
-  box-shadow: 0 0 0 3px rgba(192,69,90,0.2);
-}
-.rush-checkbox:checked::after {
-  content: '';
-  position: absolute;
-  left: 5px; top: 2px;
-  width: 5px; height: 9px;
-  border: 2px solid #fff;
-  border-top: none;
-  border-left: none;
-  transform: rotate(45deg);
-}
-.form-divider {
-  width: 100%; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  margin: 32px 0;
-}
-.form-submit-wrap { text-align: center; margin-top: 36px; }
-.form-status {
-  margin-top: 22px;
-  font-size: 14px;
-  text-align: center;
-  min-height: 20px;
-  font-family: var(--serif);
-  font-style: italic;
-}
-.form-status.success { color: #7ecfa0; }
-.form-status.error   { color: #f09595; }
-
-/* ═══════════════════════════════════════════════════════════
    CTA CLOSE
 ═══════════════════════════════════════════════════════════ */
 .cta-section {
@@ -1591,7 +1450,6 @@ body {
   .cta-section p { font-size: 15.5px; }
   .footer { padding: 36px 20px 30px; }
   .footer-links { gap: 18px; }
-  .form-section { padding: 64px 20px; }
   .pricing-section { padding: 64px 20px; }
   .pricing-card { padding: 40px 28px; }
   .pricing-amount { font-size: 70px; }
@@ -2282,15 +2140,15 @@ body {
     <p class="section-label">Every Occasion</p>
     <h2>The moments worth holding onto</h2>
     <div class="occasions">
-      <span class="pill" role="button" tabindex="0" data-occasion="Wedding">Weddings</span>
-      <span class="pill" role="button" tabindex="0" data-occasion="Memorial / Tribute">Memorials &amp; Tributes</span>
-      <span class="pill" role="button" tabindex="0" data-occasion="Anniversary">Anniversaries</span>
-      <span class="pill" role="button" tabindex="0" data-occasion="Birthday">Birthdays</span>
-      <span class="pill" role="button" tabindex="0" data-occasion="Retirement">Retirements</span>
-      <span class="pill" role="button" tabindex="0" data-occasion="Military Tribute">Military Tributes</span>
-      <span class="pill" role="button" tabindex="0" data-occasion="Celebration of Life">Celebrations of Life</span>
-      <span class="pill" role="button" tabindex="0" data-occasion="Gratitude / Thank You">Gratitude &amp; Thank You</span>
-      <span class="pill" role="button" tabindex="0" data-occasion="Just Because">Just Because</span>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Wedding">Weddings</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Memorial%20%2F%20Tribute">Memorials &amp; Tributes</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Anniversary">Anniversaries</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Birthday">Birthdays</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Retirement">Retirements</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Military%20Tribute">Military Tributes</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Celebration%20of%20Life">Celebrations of Life</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Gratitude%20%2F%20Thank%20You">Gratitude &amp; Thank You</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Just%20Because">Just Because</a>
     </div>
   </div>
 </section>
@@ -2545,15 +2403,6 @@ body {
 })();
 </script>
 <script>
-/* OCCASION PILLS */
-document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
-  pill.addEventListener('click', function() {
-    document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('is-selected'); });
-    this.classList.add('is-selected');
-    window.location.href = 'https://heartstringsstudio.github.io/intake/';
-  });
-});
-
 /* FAQ ACCORDION */
 document.querySelectorAll('.faq-q').forEach(function(q) {
   function toggle() {
@@ -2571,13 +2420,6 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
   q.addEventListener('click', toggle);
   q.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-  });
-});
-
-/* OCCASION PILLS — keyboard support */
-document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
-  pill.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pill.click(); }
   });
 });
 
@@ -2741,10 +2583,18 @@ document.querySelectorAll('.pill[data-occasion]').forEach(function(pill) {
     var el = e.target.closest('button, a');
     if (!el) return;
     var txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
-    var onclick = el.getAttribute('onclick') || '';
-    if (onclick.indexOf('order-form') !== -1 || /begin your song|start your (own )?song/i.test(txt)) {
+    var href = el.getAttribute('href') || '';
+    if (href.indexOf('/intake/') !== -1) {
       gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt.slice(0, 50) });
-    } else if (onclick.indexOf("'listen'") !== -1 || /hear examples/i.test(txt)) {
+      /* The intake form lives off-site, so GA can't observe the submit —
+         a click through to intake is the closest conversion signal we have. */
+      var occ = (href.split('occasion=')[1] || '').split('&')[0];
+      gtag('event', 'generate_lead', {
+        event_category: 'conversion',
+        event_label: txt.slice(0, 50),
+        occasion: occ ? decodeURIComponent(occ) : 'unspecified'
+      });
+    } else if (/hear examples/i.test(txt)) {
       gtag('event', 'cta_click', { cta: 'hear_examples', event_category: 'engagement', event_label: txt.slice(0, 50) });
     }
   }, true);
