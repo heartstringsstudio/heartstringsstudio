@@ -238,9 +238,10 @@
       </div>
 
       <div class="field">
-        <label for="youtube">YouTube video ID</label>
-        <span class="hint">Just the id (the part after v=). Leave blank to hold a clear placeholder.</span>
-        <input type="text" id="youtube" placeholder="dQw4w9WgXcQ" />
+        <label for="youtube">YouTube link</label>
+        <span class="hint">Paste the whole share link — the video is pulled out for you. Leave blank to hold a clear placeholder.</span>
+        <input type="text" id="youtube" placeholder="https://youtu.be/dQw4w9WgXcQ" />
+        <span class="hint" id="ytInfo" style="font-style: normal; color: var(--brass);"></span>
       </div>
 
       <div class="field">
@@ -313,6 +314,21 @@
         .replace(/^-+|-+$/g, '') || 'song';
     }
 
+    /* Pull the 11-character video id out of a pasted YouTube link — handles
+       watch?v=, youtu.be/, /embed/, /shorts/, /live/, /v/, extra params, and
+       a plain id pasted on its own. Returns '' if nothing id-shaped is found. */
+    function youTubeId(input) {
+      var s = String(input).trim();
+      if (!s) return '';
+      if (/^[A-Za-z0-9_-]{11}$/.test(s)) return s;            // already a bare id
+      var m = s.match(/[?&]v=([A-Za-z0-9_-]{11})/);           // ...watch?v=ID
+      if (m) return m[1];
+      m = s.match(/(?:youtu\.be\/|\/embed\/|\/shorts\/|\/live\/|\/v\/)([A-Za-z0-9_-]{11})/);
+      if (m) return m[1];
+      m = s.match(/[A-Za-z0-9_-]{11}/);                       // last-resort token
+      return m ? m[0] : '';
+    }
+
     /* Story body -> <p> paragraphs (blank line = new paragraph;
        single newline -> <br />). Returns indented HTML lines.       */
     function buildStory(text) {
@@ -363,7 +379,7 @@
 
       var occasion = d.occasion;
 
-      var ytId = d.youtube.trim();
+      var ytId = youTubeId(d.youtube);
       var videoSrc = ytId
         ? 'https://www.youtube.com/embed/' + ytId + '?rel=0'
         : 'https://www.youtube.com/embed/YOUTUBE_ID?rel=0';
@@ -458,7 +474,18 @@
       var html = buildPage(collect());
       previewFrame.srcdoc = html;
       filenameEl.textContent = currentFilename();
+      updateYtInfo();
       return html;
+    }
+
+    var ytInfoEl = document.getElementById('ytInfo');
+    function updateYtInfo() {
+      var raw = els.youtube.value.trim();
+      if (!raw) { ytInfoEl.textContent = ''; return; }
+      var id = youTubeId(raw);
+      ytInfoEl.textContent = id
+        ? 'Found video: ' + id
+        : "Couldn't find a video in that — paste the full YouTube share link.";
     }
 
     ids.forEach(function (id) {
