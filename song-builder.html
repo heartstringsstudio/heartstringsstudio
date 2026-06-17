@@ -245,7 +245,7 @@
 
       <div class="field">
         <label for="art">Album art file path</label>
-        <span class="hint">A file name drops into the images/ folder, e.g. she-left-us-a-party.webp</span>
+        <span class="hint">Just the file name, e.g. she-left-us-a-party.webp — keep this image next to the page on your site.</span>
         <input type="text" id="art" placeholder="she-left-us-a-party.webp" />
       </div>
 
@@ -368,14 +368,7 @@
         : 'https://www.youtube.com/embed/YOUTUBE_ID?rel=0';
 
       var art = d.art.trim();
-      var artSrc;
-      if (!art) {
-        artSrc = 'images/PLACEHOLDER-album-art.webp';
-      } else if (art.indexOf('/') !== -1 || /^https?:/i.test(art)) {
-        artSrc = art;
-      } else {
-        artSrc = 'images/' + art;
-      }
+      var artSrc = art || 'PLACEHOLDER-album-art.webp';
       var artAlt = d.alt.trim() || 'Album art for the song.';
 
       var storyOpen = d.storyOpen.trim() || "They didn't want the eulogy version — they wanted the everyday one.";
