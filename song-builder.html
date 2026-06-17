@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================= -->
+  <!--  HEARTSTRINGS STUDIO · SONG BUILDER (private utility)          -->
+  <!--  Lumberport, WV                                               -->
+  <!--                                                               -->
+  <!--  Fill in the form on the left, watch the live preview on the  -->
+  <!--  right, then download (or copy) the finished keepsake page.    -->
+  <!--  You never hand-edit the keepsake page's code.                 -->
+  <!--                                                               -->
+  <!--  This file is a tool for studio use only. It is NOT part of    -->
+  <!--  the public site and should not be linked or published.        -->
+  <!-- ============================================================= -->
+
+  <title>Song Builder · Heartstrings Studio</title>
+
+  <!-- Same fonts as the keepsake pages: Fraunces (display) + Newsreader (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ---- Builder UI palette (same paper/ink/brass family, kept utilitarian) ---- */
+    :root {
+      --paper:    #EEE6D3;
+      --inset:    #F6F0E2;
+      --ink:      #1F3A2E;
+      --ink-soft: #5A5043;
+      --brass:    #A6803B;
+      --footer:   #16271F;
+      --line:     rgba(31,58,46,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(circle at 18% 10%, rgba(166,128,59,0.05), transparent 55%),
+        radial-gradient(circle at 88% 86%, rgba(31,58,46,0.04), transparent 50%);
+      color: var(--ink);
+      font-family: "Newsreader", Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      padding: 1rem clamp(1rem, 3vw, 2rem);
+      display: flex;
+      align-items: baseline;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+    .topbar h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 500;
+      font-size: 1.4rem;
+      margin: 0;
+    }
+    .topbar .tag {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.62rem;
+      color: var(--brass);
+      border: 1px solid var(--brass);
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+    }
+    .topbar .note {
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+      margin-left: auto;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(320px, 460px) 1fr;
+      gap: 0;
+      min-height: calc(100vh - 60px);
+    }
+    @media (max-width: 880px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    /* ---- Form column ---- */
+    .form {
+      padding: clamp(1rem, 3vw, 1.75rem);
+      border-right: 1px solid var(--line);
+      overflow-y: auto;
+    }
+    @media (max-width: 880px) {
+      .form { border-right: none; border-bottom: 1px solid var(--line); }
+    }
+
+    .field { margin-bottom: 1.15rem; }
+    .field label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+    }
+    .field .hint {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 0.78rem;
+      margin-bottom: 0.4rem;
+      font-style: italic;
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--inset);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 0.55rem 0.65rem;
+      line-height: 1.45;
+    }
+    .field textarea { resize: vertical; }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: 2px solid var(--brass);
+      outline-offset: 1px;
+      border-color: var(--brass);
+    }
+
+    .optional { color: var(--brass); font-size: 0.78rem; font-weight: 500; }
+
+    /* ---- Buttons ---- */
+    .actions {
+      position: sticky;
+      bottom: 0;
+      background: linear-gradient(transparent, var(--paper) 22%);
+      padding-top: 1.25rem;
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    button {
+      font-family: "Newsreader", Georgia, serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.82rem;
+      cursor: pointer;
+      border-radius: 5px;
+      padding: 0.7rem 1.2rem;
+      border: 1px solid var(--brass);
+      transition: transform 140ms ease, background-color 140ms ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    button:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+    .btn-primary { background: var(--brass); color: var(--footer); }
+    .btn-primary:hover { background: #b88f44; }
+    .btn-secondary { background: var(--inset); color: var(--ink); }
+    #status {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      align-self: center;
+      min-height: 1em;
+    }
+
+    /* ---- Preview column ---- */
+    .preview {
+      display: flex;
+      flex-direction: column;
+      background: #d9cfb6;
+    }
+    .preview .preview-bar {
+      padding: 0.6rem clamp(1rem, 3vw, 1.5rem);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .preview .preview-bar .filename {
+      color: var(--ink);
+      text-transform: none;
+      letter-spacing: 0;
+      font-style: italic;
+    }
+    .preview iframe {
+      flex: 1;
+      width: 100%;
+      border: 0;
+      background: #EEE6D3;
+      min-height: 70vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <h1>Song Builder</h1>
+    <span class="tag">Studio use only</span>
+    <span class="note">Fill in the song · download the finished keepsake page</span>
+  </div>
+
+  <div class="layout">
+    <!-- ============================ FORM ============================ -->
+    <form class="form" id="form" autocomplete="off">
+
+      <div class="field">
+        <label for="title">Song title</label>
+        <span class="hint">Becomes the page heading and the downloaded file name.</span>
+        <input type="text" id="title" placeholder="She Left Us a Party" />
+      </div>
+
+      <div class="field">
+        <label for="dedication">Dedication line</label>
+        <span class="hint">Who it's for, in one line.</span>
+        <input type="text" id="dedication" placeholder="For Susan — about her mother, Lenay." />
+      </div>
+
+      <div class="field">
+        <label for="occasion">Occasion</label>
+        <span class="hint">Saved as a quiet note in the page; nudges the tone only.</span>
+        <select id="occasion">
+          <option value="memorial">Memorial</option>
+          <option value="wedding">Wedding</option>
+          <option value="milestone">Milestone</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="youtube">YouTube video ID</label>
+        <span class="hint">Just the id (the part after v=). Leave blank to hold a clear placeholder.</span>
+        <input type="text" id="youtube" placeholder="dQw4w9WgXcQ" />
+      </div>
+
+      <div class="field">
+        <label for="art">Album art file path</label>
+        <span class="hint">A file name drops into the images/ folder, e.g. she-left-us-a-party.webp</span>
+        <input type="text" id="art" placeholder="she-left-us-a-party.webp" />
+      </div>
+
+      <div class="field">
+        <label for="alt">Album art description (alt text)</label>
+        <span class="hint">Describe the picture itself — no instruments.</span>
+        <input type="text" id="alt" placeholder="A kitchen table in morning light, two coffee cups, a window beyond." />
+      </div>
+
+      <div class="field">
+        <label for="storyOpen">Story opening line</label>
+        <span class="hint">Set large, in italic. One vivid sentence.</span>
+        <textarea id="storyOpen" rows="2" placeholder="They didn't want the eulogy version of her — they wanted the Tuesday-morning one."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="storyBody">The rest of the story</label>
+        <span class="hint">Leave a blank line between paragraphs.</span>
+        <textarea id="storyBody" rows="6" placeholder="So that's where I started: not at the funeral, but at a kitchen table..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="lyrics">Lyrics <span class="optional">· optional</span></label>
+        <span class="hint">One line per line. Blank line between stanzas. Leave empty to omit the lyrics section entirely.</span>
+        <textarea id="lyrics" rows="8" placeholder="First line of the first stanza&#10;Second line&#10;&#10;First line of the second stanza&#10;Second line"></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-primary" id="download">Download finished page</button>
+        <button type="button" class="btn-secondary" id="copy">Copy HTML</button>
+        <span id="status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+
+    <!-- ============================ PREVIEW ============================ -->
+    <div class="preview">
+      <div class="preview-bar">
+        <span>Live preview</span>
+        <span class="filename" id="filename">song.html</span>
+      </div>
+      <iframe id="preview" title="Live preview of the finished keepsake page"></iframe>
+    </div>
+  </div>
+
+  <script>
+    /* ===========================================================
+       Escaping helpers — keep user text from breaking the markup.
+       =========================================================== */
+    function escHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+    function escAttr(s) {
+      return escHtml(s).replace(/"/g, '&quot;');
+    }
+
+    function slugify(s) {
+      return String(s)
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '') || 'song';
+    }
+
+    /* Story body -> <p> paragraphs (blank line = new paragraph;
+       single newline -> <br />). Returns indented HTML lines.       */
+    function buildStory(text) {
+      var blocks = String(text).replace(/\r\n/g, '\n').trim().split(/\n[ \t]*\n+/);
+      return blocks
+        .filter(function (b) { return b.trim() !== ''; })
+        .map(function (b) {
+          var inner = b.trim().split(/\n/).map(escHtml).join('<br />');
+          return '        <p>' + inner + '</p>';
+        })
+        .join('\n');
+    }
+
+    /* Lyrics -> <p class="stanza"> blocks. Empty input -> '' (signals
+       the whole lyrics section should be omitted).                   */
+    function buildLyrics(text) {
+      var raw = String(text).replace(/\r\n/g, '\n').trim();
+      if (raw === '') return '';
+      var stanzas = raw.split(/\n[ \t]*\n+/);
+      return stanzas
+        .filter(function (s) { return s.trim() !== ''; })
+        .map(function (s) {
+          var inner = s.replace(/^\n+|\n+$/g, '').split(/\n/).map(escHtml).join('<br />');
+          return '          <p class="stanza">' + inner + '</p>';
+        })
+        .join('\n');
+    }
+
+    /* ===========================================================
+       Build the finished keepsake page. This mirrors
+       keepsaketemplate.html exactly — same CSS, fonts, palette,
+       GA4 snippet, ridgeline divider, letter-inset story section,
+       footer CTA, and fade-up script — with the per-song values
+       dropped into the marked slots.
+
+       NOTE: every closing script tag below is written <\/script>
+       so it can't prematurely close THIS tool's <script> block.
+       =========================================================== */
+    function buildPage(d) {
+      var title = d.title.trim() || 'Untitled Song';
+      var titleHtml = escHtml(title);
+      var titleAttr = escAttr(title);
+
+      var dedication = d.dedication.trim();
+      var dedicationHtml = dedication
+        ? '\n      <p class="dedication">' + escHtml(dedication) + '</p>'
+        : '';
+
+      var occasion = d.occasion;
+
+      var ytId = d.youtube.trim();
+      var videoSrc = ytId
+        ? 'https://www.youtube.com/embed/' + ytId + '?rel=0'
+        : 'https://www.youtube.com/embed/YOUTUBE_ID?rel=0';
+
+      var art = d.art.trim();
+      var artSrc;
+      if (!art) {
+        artSrc = 'images/PLACEHOLDER-album-art.webp';
+      } else if (art.indexOf('/') !== -1 || /^https?:/i.test(art)) {
+        artSrc = art;
+      } else {
+        artSrc = 'images/' + art;
+      }
+      var artAlt = d.alt.trim() || 'Album art for the song.';
+
+      var storyOpen = d.storyOpen.trim() || "They didn't want the eulogy version — they wanted the everyday one.";
+      var storyParas = buildStory(d.storyBody);
+      var storyBodyBlock = storyParas
+        ? '\n\n        <!-- VARIABLE: STORY_BEHIND_IT — the body (2–4 more sentences) -->\n' + storyParas
+        : '';
+
+      var lyricsStanzas = buildLyrics(d.lyrics);
+      var lyricsSection = lyricsStanzas
+        ? '\n\n    <!-- ================= LYRICS (OPTIONAL) ================= -->\n'
+          + '    <section class="section reveal" aria-labelledby="lyrics-heading">\n'
+          + '      <details class="lyrics">\n'
+          + '        <summary id="lyrics-heading">Lyrics</summary>\n'
+          + '        <div class="lyrics-sheet">\n'
+          + lyricsStanzas + '\n'
+          + '        </div>\n'
+          + '      </details>\n'
+          + '    </section>'
+        : '';
+
+      return '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8" />\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n\n  <!-- ============================================================= -->\n  <!--  HEARTSTRINGS STUDIO · KEEPSAKE PAGE                           -->\n  <!--  Lumberport, WV                                               -->\n  <!-- ============================================================= -->\n\n  <!-- VARIABLE: SONG_TITLE -->\n  <title>' +
+        titleHtml +
+        ' · Heartstrings Studio</title>\n  <meta name="description" content="A custom song from Heartstrings Studio, written by hand for the people it\'s for." />\n\n  <!-- ===== Google Fonts: Fraunces (display) + Newsreader (body) ===== -->\n  <link rel="preconnect" href="https://fonts.googleapis.com" />\n  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />\n\n  <!-- ===== Google Analytics (GA4) ===== -->\n  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB4NQVQ8VZ"><\/script>\n  <script>\n    window.dataLayer = window.dataLayer || [];\n    function gtag(){dataLayer.push(arguments);}\n    gtag(\'js\', new Date());\n    gtag(\'config\', \'G-TB4NQVQ8VZ\');\n  <\/script>\n\n  <style>\n    /* ============================================================= */\n    /*  PALETTE — do not drift to defaults                            */\n    /* ============================================================= */\n    :root {\n      --paper:       #EEE6D3; /* warm aged paper                     */\n      --inset:       #F6F0E2; /* card / inset paper, slightly lighter */\n      --ink:         #1F3A2E; /* deep ironwood pine green (near-black)*/\n      --ink-soft:    #5A5043; /* warm brown-gray secondary text      */\n      --brass:       #A6803B; /* heirloom brass/gold — rules & links  */\n      --footer:      #16271F; /* deep footer tone                    */\n      --measure:     62ch;    /* comfortable reading measure         */\n    }\n\n    *, *::before, *::after { box-sizing: border-box; }\n\n    html { -webkit-text-size-adjust: 100%; }\n\n    body {\n      margin: 0;\n      background-color: var(--paper);\n      color: var(--ink);\n      font-family: "Newsreader", Georgia, "Times New Roman", serif;\n      font-size: 1.125rem;\n      line-height: 1.7;\n      font-optical-sizing: auto;\n      -webkit-font-smoothing: antialiased;\n      text-rendering: optimizeLegibility;\n    }\n\n    /* A faint, irregular paper feel without imagery */\n    body {\n      background-image:\n        radial-gradient(circle at 20% 12%, rgba(166,128,59,0.05), transparent 55%),\n        radial-gradient(circle at 85% 80%, rgba(31,58,46,0.04), transparent 50%);\n    }\n\n    h1, h2, h3 {\n      font-family: "Fraunces", Georgia, serif;\n      font-weight: 400;\n      color: var(--ink);\n      line-height: 1.15;\n      margin: 0;\n    }\n\n    p { margin: 0 0 1.1em; }\n\n    a {\n      color: var(--ink);\n      text-decoration: underline;\n      text-decoration-color: var(--brass);\n      text-decoration-thickness: 1px;\n      text-underline-offset: 3px;\n    }\n    a:hover { text-decoration-thickness: 2px; }\n\n    /* Visible keyboard focus everywhere */\n    a:focus-visible,\n    button:focus-visible,\n    summary:focus-visible,\n    .cta:focus-visible {\n      outline: 2px solid var(--brass);\n      outline-offset: 3px;\n      border-radius: 2px;\n    }\n\n    /* ============================================================= */\n    /*  LAYOUT                                                        */\n    /* ============================================================= */\n    .page {\n      max-width: 760px;\n      margin: 0 auto;\n      padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 5vw, 2.5rem) 0;\n    }\n\n    .eyebrow {\n      font-family: "Newsreader", Georgia, serif;\n      text-transform: uppercase;\n      letter-spacing: 0.18em;\n      font-size: 0.72rem;\n      color: var(--brass);\n      margin: 0 0 1.4rem;\n      font-weight: 500;\n    }\n\n    /* ---------- Hero ---------- */\n    .hero { text-align: center; }\n\n    .hero h1 {\n      font-size: clamp(2.4rem, 8vw, 3.9rem);\n      font-weight: 500;\n      letter-spacing: -0.01em;\n      margin: 0 0 0.5rem;\n    }\n\n    .dedication {\n      font-family: "Fraunces", Georgia, serif;\n      font-style: italic;\n      font-weight: 400;\n      font-size: clamp(1.05rem, 3.5vw, 1.3rem);\n      color: var(--ink-soft);\n      margin: 0 0 2.5rem;\n    }\n\n    .album-art {\n      width: min(360px, 78%);\n      aspect-ratio: 1 / 1;\n      margin: 0 auto;\n      display: block;\n      border-radius: 4px;\n      object-fit: cover;\n      /* a simple framed-in-a-keepsake look */\n      background: var(--inset);\n      padding: 10px;\n      border: 1px solid rgba(166,128,59,0.35);\n      box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset,\n                  0 14px 34px -20px rgba(22,39,31,0.55);\n    }\n\n    /* ---------- Section scaffolding ---------- */\n    .section { margin-top: clamp(3rem, 9vw, 5rem); }\n\n    .section-label {\n      font-family: "Newsreader", Georgia, serif;\n      text-transform: uppercase;\n      letter-spacing: 0.18em;\n      font-size: 0.72rem;\n      color: var(--brass);\n      text-align: center;\n      margin: 0 0 1.5rem;\n      font-weight: 500;\n    }\n\n    /* ---------- The song: responsive YouTube ---------- */\n    .video-frame {\n      max-width: 640px;\n      margin: 0 auto;\n    }\n    .video-frame .ratio {\n      position: relative;\n      width: 100%;\n      aspect-ratio: 16 / 9;\n      border-radius: 6px;\n      overflow: hidden;\n      background: var(--ink);\n      box-shadow: 0 14px 34px -22px rgba(22,39,31,0.6);\n    }\n    .video-frame iframe {\n      position: absolute;\n      inset: 0;\n      width: 100%;\n      height: 100%;\n      border: 0;\n    }\n\n    /* ---------- Ridgeline divider (signature supporting motif) ---------- */\n    .ridgeline {\n      display: block;\n      width: min(420px, 70%);\n      height: auto;\n      margin: clamp(3rem, 9vw, 4.5rem) auto;\n      opacity: 0.5;\n    }\n    .ridgeline path { fill: var(--brass); }\n\n    /* ============================================================= */\n    /*  SIGNATURE ELEMENT — "The story behind it" letter inset       */\n    /* ============================================================= */\n    .story {\n      background: var(--inset);\n      border-left: 3px solid var(--brass);\n      padding: clamp(1.75rem, 5vw, 2.75rem) clamp(1.5rem, 5vw, 2.75rem);\n      border-radius: 0 6px 6px 0;\n      max-width: 56ch;          /* narrower measure, like a letter */\n      margin: 0 auto;\n      box-shadow: 0 12px 30px -24px rgba(22,39,31,0.55);\n    }\n    .story .section-label { text-align: left; }\n    .story p { color: var(--ink); }\n    .story p:last-child { margin-bottom: 0; }\n\n    /* Fraunces-italic opening line */\n    .story-open {\n      font-family: "Fraunces", Georgia, serif;\n      font-style: italic;\n      font-size: clamp(1.2rem, 4vw, 1.5rem);\n      line-height: 1.4;\n      color: var(--ink);\n      margin-bottom: 1.1rem;\n    }\n\n    /* ---------- Lyrics (optional, collapsible keepsake sheet) ---------- */\n    .lyrics {\n      max-width: 48ch;\n      margin: 0 auto;\n      text-align: center;\n    }\n    .lyrics > summary {\n      list-style: none;\n      cursor: pointer;\n      font-family: "Newsreader", Georgia, serif;\n      text-transform: uppercase;\n      letter-spacing: 0.18em;\n      font-size: 0.72rem;\n      color: var(--brass);\n      text-align: center;\n      font-weight: 500;\n      padding: 0.5rem 0;\n      display: inline-flex;\n      align-items: center;\n      gap: 0.5rem;\n    }\n    .lyrics > summary::-webkit-details-marker { display: none; }\n    .lyrics > summary::after {\n      content: "＋";\n      font-size: 0.9rem;\n      line-height: 1;\n    }\n    .lyrics[open] > summary::after { content: "－"; }\n    .lyrics-sheet {\n      margin-top: 1.5rem;\n      line-height: 2.05;\n      font-size: 1.08rem;\n      color: var(--ink);\n    }\n    .lyrics-sheet .stanza { margin-bottom: 1.4rem; }\n\n    /* ---------- Footer CTA ---------- */\n    .site-footer {\n      margin-top: clamp(4rem, 10vw, 6rem);\n      background: var(--footer);\n      color: var(--inset);\n      text-align: center;\n      padding: clamp(3rem, 9vw, 4.5rem) 1.5rem clamp(2.5rem, 7vw, 3.5rem);\n    }\n    .site-footer h2 {\n      color: var(--inset);\n      font-weight: 400;\n      font-size: clamp(1.6rem, 6vw, 2.3rem);\n      margin: 0 0 1.75rem;\n    }\n    .cta {\n      display: inline-block;\n      font-family: "Newsreader", Georgia, serif;\n      text-transform: uppercase;\n      letter-spacing: 0.14em;\n      font-size: 0.85rem;\n      color: var(--footer);\n      background: var(--brass);\n      text-decoration: none;\n      padding: 0.85rem 1.9rem;\n      border-radius: 4px;\n      transition: transform 160ms ease, background-color 160ms ease;\n    }\n    .cta:hover { background: #b88f44; transform: translateY(-1px); }\n    .studio-mark {\n      margin-top: 1.9rem;\n      font-family: "Newsreader", Georgia, serif;\n      text-transform: uppercase;\n      letter-spacing: 0.18em;\n      font-size: 0.68rem;\n      color: rgba(246,240,226,0.6);\n    }\n\n    /* ============================================================= */\n    /*  MOTION — gentle fade-up, respects reduced-motion             */\n    /* ============================================================= */\n    .reveal {\n      opacity: 0;\n      transform: translateY(18px);\n      transition: opacity 800ms ease, transform 800ms ease;\n    }\n    .reveal.is-visible {\n      opacity: 1;\n      transform: none;\n    }\n    @media (prefers-reduced-motion: reduce) {\n      .reveal { opacity: 1; transform: none; transition: none; }\n      .cta { transition: none; }\n      html { scroll-behavior: auto; }\n    }\n  </style>\n</head>\n\n<body>\n  <main class="page">\n\n    <!-- ========================== HERO ========================== -->\n    <header class="hero reveal">\n      <p class="eyebrow">Heartstrings Studio · Lumberport, WV</p>\n\n      <!-- VARIABLE: SONG_TITLE -->\n      <h1>' +
+        titleHtml +
+        '</h1>\n\n      <!-- VARIABLE: DEDICATION -->\n      <!-- VARIABLE: OCCASION = ' +
+        occasion +
+        ' -->' +
+        dedicationHtml +
+        '\n\n      <!-- VARIABLE: ALBUM_ART — swap src + alt. Describe the image honestly.\n           Keep alt text to the image itself — no instruments. -->\n      <img\n        class="album-art"\n        src="' +
+        escAttr(artSrc) +
+        '"\n        alt="' +
+        escAttr(artAlt) +
+        '"\n        width="360" height="360"\n      />\n    </header>\n\n    <!-- ========================== THE SONG ========================== -->\n    <section class="section reveal" aria-labelledby="song-heading">\n      <h2 id="song-heading" class="section-label">The song</h2>\n      <div class="video-frame">\n        <div class="ratio">\n          <!-- VARIABLE: YOUTUBE_ID — paste the video ID only (the part after v=) -->\n          <iframe\n            src="' +
+        escAttr(videoSrc) +
+        '"\n            title="Listen: ' +
+        titleAttr +
+        '"\n            loading="lazy"\n            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"\n            allowfullscreen\n          ></iframe>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Ridgeline divider — used ONCE, here, between song and story ===== -->\n    <svg class="ridgeline reveal" viewBox="0 0 420 60" role="img" aria-label="A simple ridgeline of West Virginia hills." preserveAspectRatio="xMidYMax meet">\n      <path d="M0,60 L0,42 L40,26 L78,38 L118,18 L150,30 L196,10 L236,32 L280,20 L322,40 L360,24 L420,46 L420,60 Z" />\n    </svg>\n\n    <!-- ================= THE STORY BEHIND IT (signature) ================= -->\n    <section class="section reveal" aria-labelledby="story-heading">\n      <div class="story">\n        <h2 id="story-heading" class="section-label">The story behind it</h2>\n\n        <!-- VARIABLE: STORY_BEHIND_IT — opening line (Fraunces italic) -->\n        <p class="story-open">' +
+        escHtml(storyOpen) +
+        '</p>' +
+        storyBodyBlock +
+        '\n      </div>\n    </section>' +
+        lyricsSection +
+        '\n\n  </main>\n\n  <!-- ===================== FOOTER · SINGLE CTA ===================== -->\n  <footer class="site-footer reveal">\n    <h2>Have someone worth a song?</h2>\n    <!-- The ONE call to action on the page. Do not add others. -->\n    <a class="cta" href="https://tinyurl.com/heartstringswv">Start a song</a>\n    <p class="studio-mark">Heartstrings Studio · Lumberport, West Virginia</p>\n  </footer>\n\n  <script>\n    // Gentle fade-up on scroll. Skipped entirely under reduced-motion.\n    (function () {\n      var reduce = window.matchMedia(\'(prefers-reduced-motion: reduce)\').matches;\n      var items = document.querySelectorAll(\'.reveal\');\n      if (reduce || !(\'IntersectionObserver\' in window)) {\n        items.forEach(function (el) { el.classList.add(\'is-visible\'); });\n        return;\n      }\n      var io = new IntersectionObserver(function (entries) {\n        entries.forEach(function (entry) {\n          if (entry.isIntersecting) {\n            entry.target.classList.add(\'is-visible\');\n            io.unobserve(entry.target);\n          }\n        });\n      }, { threshold: 0.12, rootMargin: \'0px 0px -8% 0px\' });\n      items.forEach(function (el) { io.observe(el); });\n    })();\n  <\/script>\n</body>\n</html>\n';
+    }
+
+    /* ===========================================================
+       Wire up the form: collect values, render, preview, export.
+       =========================================================== */
+    var ids = ['title', 'dedication', 'occasion', 'youtube', 'art', 'alt', 'storyOpen', 'storyBody', 'lyrics'];
+    var els = {};
+    ids.forEach(function (id) { els[id] = document.getElementById(id); });
+
+    var previewFrame = document.getElementById('preview');
+    var filenameEl = document.getElementById('filename');
+    var statusEl = document.getElementById('status');
+
+    function collect() {
+      return {
+        title: els.title.value,
+        dedication: els.dedication.value,
+        occasion: els.occasion.value,
+        youtube: els.youtube.value,
+        art: els.art.value,
+        alt: els.alt.value,
+        storyOpen: els.storyOpen.value,
+        storyBody: els.storyBody.value,
+        lyrics: els.lyrics.value
+      };
+    }
+
+    function currentFilename() {
+      return slugify(els.title.value) + '.html';
+    }
+
+    function render() {
+      var html = buildPage(collect());
+      previewFrame.srcdoc = html;
+      filenameEl.textContent = currentFilename();
+      return html;
+    }
+
+    ids.forEach(function (id) {
+      els[id].addEventListener('input', render);
+      els[id].addEventListener('change', render);
+    });
+
+    function flash(msg) {
+      statusEl.textContent = msg;
+      window.setTimeout(function () { statusEl.textContent = ''; }, 2600);
+    }
+
+    document.getElementById('download').addEventListener('click', function () {
+      var html = render();
+      var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = currentFilename();
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      flash('Downloaded ' + currentFilename());
+    });
+
+    document.getElementById('copy').addEventListener('click', function () {
+      var html = render();
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = html;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); flash('HTML copied to clipboard'); }
+        catch (e) { flash('Copy failed — select and copy manually'); }
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(html).then(
+          function () { flash('HTML copied to clipboard'); },
+          fallback
+        );
+      } else {
+        fallback();
+      }
+    });
+
+    // First paint.
+    render();
+  </script>
+</body>
+</html>
