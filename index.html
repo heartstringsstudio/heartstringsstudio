@@ -4,78 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Heartstrings Studio — Custom Songs for Life's Meaningful Moments</title>
-
-<meta name="description" content="Heartstrings Studio creates custom wedding songs, memorial tributes, birthday songs, and personalized music gifts — fully produced and delivered in 48–72 hours. Your story, set to music forever.">
-<meta name="theme-color" content="#160f11">
-<link rel="canonical" href="https://heartstringsstudio.github.io/heartstringsstudio/">
-
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Heartstrings Studio — Custom Songs for Life's Meaningful Moments">
-<meta property="og:description" content="Heartstrings Studio creates custom wedding songs, memorial tributes, birthday songs, and personalized music gifts — fully produced and delivered in 48–72 hours. Your story, set to music forever.">
+<meta name="description" content="Custom-written, fully produced songs built from your own memories. Heartstrings Studio turns life's meaningful moments into music you'll keep forever.">
+<meta property="og:title" content="Heartstrings Studio">
+<meta property="og:description" content="Custom-written songs built from your own memories. Lumberport, West Virginia.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://heartstringsstudio.github.io/heartstringsstudio/">
-<meta property="og:image" content="https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg">
-<meta property="og:image:width" content="1920">
-<meta property="og:image:height" content="600">
-
-<!-- Twitter / X Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Heartstrings Studio — Custom Songs for Life's Meaningful Moments">
-<meta name="twitter:description" content="Heartstrings Studio creates custom wedding songs, memorial tributes, birthday songs, and personalized music gifts — fully produced and delivered in 48–72 hours. Your story, set to music forever.">
-<meta name="twitter:image" content="https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg">
-
-<!-- Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Heartstrings Studio",
-  "description": "Custom-written, fully produced songs built from your own memories. Heartstrings Studio turns life's meaningful moments into music you'll keep forever.",
-  "url": "https://heartstringsstudio.github.io/heartstringsstudio/",
-  "image": "https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg",
-  "email": "heartstringsstudiowv@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Lumberport",
-    "addressRegion": "WV",
-    "addressCountry": "US"
-  },
-  "founder": {
-    "@type": "Person",
-    "name": "Tim Harbert"
-  },
-  "priceRange": "$150",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Custom Songwriting Services",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "name": "Custom Song",
-        "price": "150",
-        "priceCurrency": "USD",
-        "description": "Fully produced custom song written from your memories, delivered in 48–72 hours as MP3, MP4, album art, lyric sheet, and private YouTube link."
-      }
-    ]
-  },
-  "sameAs": [
-    "https://www.facebook.com/profile.php?id=61584734289007",
-    "https://www.youtube.com/@heartstringsstudiowv",
-    "https://www.tiktok.com/@heartstringsstudiowv"
-  ]
-}
-</script>
 
 <!-- Refined font pairing: Cormorant Garamond for serif drama, Lato for body -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.youtube.com">
-<link rel="preconnect" href="https://i.ytimg.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
@@ -105,8 +42,8 @@
   --divider:       #e8dde0;
   --divider-soft:  #f0e6ea;
 
-  --serif:         'Cormorant Garamond', Georgia, serif;
-  --serif-alt:     'Cormorant Garamond', Georgia, serif;
+  --serif:         'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --serif-alt:     'Playfair Display', Georgia, serif;
   --sans:          'Lato', system-ui, sans-serif;
 
   --ease-out:      cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -119,7 +56,7 @@
   --shadow-rose:   0 14px 40px rgba(192,69,90,0.14);
 }
 
-html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 70px; }
+html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 20px; }
 body {
   font-family: var(--sans);
   background: var(--cream);
@@ -129,7 +66,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  margin: 0;
+  margin: -16px -24px -24px -24px;
 }
 
 ::selection { background: rgba(192,69,90,0.18); color: var(--charcoal); }
@@ -260,31 +197,19 @@ body {
 }
 
 .hero-content { position: relative; z-index: 3; max-width: 720px; margin: 0 auto; }
-.hero-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto 30px;
+.hero-banner-logo {
+  width: 520px; max-width: 90%;
+  margin: 0 auto 32px;
   opacity: 0;
   animation: heroFadeUp 1.4s var(--ease-elegant) 0.1s forwards;
 }
-.hero-brand img {
-  width: 160px; height: auto;
-  filter: drop-shadow(0 6px 22px rgba(192,69,90,0.35));
+.hero-banner-logo img {
+  width: 100%; height: auto;
+  object-fit: contain;
+  filter: brightness(1.1) saturate(0.82) drop-shadow(0 4px 20px rgba(0,0,0,0.3));
 }
-.hero-wordmark {
-  font-family: var(--serif);
-  font-size: clamp(22px, 4vw, 30px);
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--cream);
-  margin-top: 16px;
-  white-space: nowrap;
-}
-.hero-wordmark span { color: var(--rose-light); }
 .hero-eyebrow {
-  font-size: 11.5px; font-weight: 700;
+  font-size: 10.5px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--rose-light);
   margin-bottom: 22px;
@@ -330,20 +255,17 @@ body {
   opacity: 0;
   animation: heroFadeUp 1.6s var(--ease-elegant) 0.75s forwards;
 }
-.hero-cta-wrap { display: flex; flex-wrap: wrap; gap: 14px 18px; justify-content: center; align-items: center; opacity: 0; animation: heroFadeUp 1.6s var(--ease-elegant) 0.95s forwards; }
-/* Secondary "ghost" button — subordinate to the primary on dark backgrounds */
-.btn-ghost { color: rgba(250,246,242,0.6); border-color: rgba(250,246,242,0.22); }
-.btn-ghost:hover { color: var(--cream); border-color: rgba(250,246,242,0.48); box-shadow: 0 10px 30px rgba(0,0,0,0.18); }
+.hero-cta-wrap { opacity: 0; animation: heroFadeUp 1.6s var(--ease-elegant) 0.95s forwards; }
 .hero-sub {
   margin-top: 22px;
-  font-size: 13.5px;
-  color: rgba(250,246,242,0.82);
+  font-size: 12.5px;
+  color: rgba(250,246,242,0.42);
   letter-spacing: 0.05em;
   opacity: 0;
   animation: heroFadeUp 1.6s var(--ease-elegant) 1.15s forwards;
 }
 .hero-sub a {
-  color: rgba(212,99,122,0.92);
+  color: rgba(212,99,122,0.72);
   text-decoration: none;
   transition: color 0.3s var(--ease-out);
   position: relative;
@@ -422,7 +344,7 @@ body {
 .proof-label {
   font-size: 11px; font-weight: 400;
   letter-spacing: 0.18em;
-  color: rgba(250,246,242,0.82);
+  color: rgba(250,246,242,0.52);
   margin-top: 10px; text-transform: uppercase;
 }
 .proof-divider {
@@ -451,7 +373,7 @@ body {
 .section { padding: 96px 24px; max-width: 880px; margin: 0 auto; }
 .section-center { text-align: center; }
 .section-label {
-  font-size: 11.5px; font-weight: 700;
+  font-size: 10.5px; font-weight: 700;
   letter-spacing: 0.26em; text-transform: uppercase;
   color: var(--rose);
   margin-bottom: 18px;
@@ -539,19 +461,16 @@ body {
 ═══════════════════════════════════════════════════════════ */
 .occasions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 36px; }
 .pill {
-  display: inline-block;
   font-size: 13px; font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--rose-deep);
-  text-decoration: none;
   border: 1px solid rgba(192,69,90,0.4);
   padding: 8px 20px;
   border-radius: 40px;
   background: transparent;
   transition: all 0.35s var(--ease-out);
-  cursor: pointer;
+  cursor: default;
 }
-.pill:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
 .pill:hover {
   background: var(--rose); color: var(--cream);
   border-color: var(--rose);
@@ -666,7 +585,7 @@ body {
 }
 .song-card:hover .song-card-body::before { transform: scaleX(1); }
 .song-card-label {
-  font-size: 11px; font-weight: 700;
+  font-size: 10px; font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--rose); margin-bottom: 10px;
 }
@@ -682,60 +601,6 @@ body {
   color: var(--text-muted);
   line-height: 1.72;
 }
-
-/* ═══════════════════════════════════════════════════════════
-   SONG TABS
-═══════════════════════════════════════════════════════════ */
-.song-tabs { margin-top: 48px; }
-.song-tabs-nav {
-  display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 10px; margin-bottom: 38px;
-}
-.song-tab {
-  font-family: var(--sans);
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--text-muted);
-  background: transparent;
-  border: 1px solid var(--divider);
-  padding: 13px 22px; cursor: pointer;
-  transition: color 0.4s var(--ease-elegant), background 0.4s var(--ease-elegant), border-color 0.4s var(--ease-elegant), transform 0.4s var(--ease-elegant);
-}
-.song-tab:hover { color: var(--charcoal); border-color: rgba(192,69,90,0.4); transform: translateY(-2px); }
-.song-tab.is-active {
-  color: #fff;
-  background: var(--rose);
-  border-color: var(--rose);
-}
-.song-panel { display: none; max-width: 720px; margin: 0 auto; }
-.song-panel.is-active { display: block; }
-.song-select-wrap { position: relative; margin-bottom: 26px; }
-.song-select-wrap::before {
-  content: 'Choose an example';
-  display: block;
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--rose); margin-bottom: 10px;
-}
-.song-select {
-  width: 100%;
-  font-family: var(--serif);
-  font-size: 20px; font-weight: 600;
-  color: var(--charcoal);
-  background: var(--white);
-  border: 1px solid var(--divider);
-  padding: 16px 46px 16px 20px;
-  cursor: pointer; outline: none;
-  border-radius: 0;
-  -webkit-appearance: none; appearance: none;
-  transition: border-color 0.35s var(--ease-elegant), box-shadow 0.35s var(--ease-elegant);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c0455a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 20px center;
-}
-.song-select:hover { border-color: rgba(192,69,90,0.45); }
-.song-select:focus { border-color: rgba(192,69,90,0.8); box-shadow: 0 0 0 3px rgba(192,69,90,0.12); }
-.song-select option { font-size: 16px; }
 
 /* ═══════════════════════════════════════════════════════════
    WBOY
@@ -795,8 +660,8 @@ body {
   animation: pulseGlow 2.4s var(--ease-in-out) infinite;
 }
 @keyframes pulseGlow {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.45; }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(212,99,122,0.5); }
+  50%      { opacity: 0.6; box-shadow: 0 0 0 6px rgba(212,99,122,0); }
 }
 .weekly-song-inner h2 {
   font-family: var(--serif);
@@ -818,15 +683,6 @@ body {
   font-style: italic;
   font-weight: 400;
 }
-.weekly-song-title {
-  font-size: clamp(42px, 6vw, 64px) !important;
-  font-style: normal !important;
-  font-weight: 700 !important;
-  color: var(--cream) !important;
-  letter-spacing: -0.02em;
-  margin-bottom: 20px !important;
-  line-height: 1.1 !important;
-}
 .weekly-song-embed {
   position: relative;
   width: 100%;
@@ -840,57 +696,6 @@ body {
   width: 100%; height: 100%;
   border: none; display: block;
 }
-
-/* ═══════════════════════════════════════════════════════════
-   START YOUR SONG — early mini on-ramp
-═══════════════════════════════════════════════════════════ */
-.start-strip {
-  background: var(--charcoal);
-  padding: 52px 24px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  border-top: 1px solid rgba(255,255,255,0.04);
-}
-.start-strip::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 55% 70% at 50% 50%, rgba(192,69,90,0.10) 0%, transparent 70%);
-  pointer-events: none;
-}
-.start-strip-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
-.start-strip h2 {
-  font-family: var(--serif);
-  font-size: clamp(24px, 3.6vw, 34px);
-  font-weight: 500;
-  color: var(--cream);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  margin-bottom: 12px;
-}
-.start-strip h2 em { font-style: italic; font-weight: 600; color: var(--rose-light); }
-.start-strip-price {
-  font-size: 14px;
-  letter-spacing: 0.04em;
-  color: rgba(250,246,242,0.82);
-  margin-bottom: 30px;
-}
-.start-strip-price strong { color: var(--cream); font-weight: 700; }
-.start-strip-actions {
-  display: flex; flex-wrap: wrap;
-  gap: 12px 18px;
-  justify-content: center; align-items: center;
-}
-.start-strip-link {
-  font-family: var(--serif-alt);
-  font-style: italic;
-  font-size: 14px;
-  color: rgba(212,99,122,0.8);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(212,99,122,0.3);
-  transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
-}
-.start-strip-link:hover { color: var(--rose-light); border-bottom-color: var(--rose-light); }
 
 /* ═══════════════════════════════════════════════════════════
    PRICING
@@ -967,7 +772,7 @@ body {
   font-family: var(--serif);
   font-style: italic;
   font-size: 16px;
-  color: rgba(250,246,242,0.82);
+  color: rgba(250,246,242,0.58);
   margin-bottom: 36px;
   letter-spacing: 0.02em;
 }
@@ -1004,7 +809,7 @@ body {
 }
 .pricing-note {
   font-size: 12px;
-  color: rgba(250,246,242,0.82);
+  color: rgba(250,246,242,0.38);
   margin-top: 22px;
   line-height: 1.65;
   letter-spacing: 0.02em;
@@ -1013,85 +818,23 @@ body {
 /* ═══════════════════════════════════════════════════════════
    TESTIMONIALS
 ═══════════════════════════════════════════════════════════ */
-.testimonial-carousel {
-  margin-top: 56px;
-  position: relative;
-  max-width: 760px;
-  margin-left: auto;
-  margin-right: auto;
-}
 .testimonials {
-  overflow: hidden;
-}
-.testimonials-track {
-  display: flex;
-  transition: transform 0.7s var(--ease-elegant);
-  will-change: transform;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-top: 56px;
 }
 .testimonial {
-  flex: 0 0 100%;
-  width: 100%;
-  box-sizing: border-box;
   background: var(--white);
   border: 1px solid var(--divider);
-  padding: 48px 56px 40px;
+  padding: 40px 32px 34px;
   position: relative;
+  transition: transform 0.5s var(--ease-elegant), box-shadow 0.5s var(--ease-elegant), border-color 0.5s var(--ease-elegant);
 }
-/* Carousel arrows */
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 46px; height: 46px;
-  border-radius: 50%;
-  border: 1px solid var(--divider);
-  background: var(--white);
-  color: var(--rose);
-  font-size: 20px;
-  line-height: 1;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  z-index: 3;
+.testimonial:hover {
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
-  transition: transform 0.4s var(--ease-elegant), color 0.4s var(--ease-elegant), border-color 0.4s var(--ease-elegant), background 0.4s var(--ease-elegant);
-}
-.carousel-arrow:hover {
-  background: var(--rose);
-  color: var(--white);
-  border-color: var(--rose);
-  transform: translateY(-50%) scale(1.08);
-}
-.carousel-arrow:focus-visible {
-  outline: 2px solid var(--rose);
-  outline-offset: 3px;
-}
-.carousel-arrow.prev { left: -23px; }
-.carousel-arrow.next { right: -23px; }
-/* Dot indicators */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 30px;
-}
-.carousel-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  border: 1px solid var(--rose-pale);
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
-  transition: background 0.4s var(--ease-elegant), border-color 0.4s var(--ease-elegant), transform 0.4s var(--ease-elegant);
-}
-.carousel-dot:hover { border-color: var(--rose); }
-.carousel-dot.is-active {
-  background: var(--rose);
-  border-color: var(--rose);
-  transform: scale(1.15);
-}
-.carousel-dot:focus-visible {
-  outline: 2px solid var(--rose);
-  outline-offset: 3px;
+  border-color: rgba(192,69,90,0.25);
 }
 .testimonial::before {
   content: '\201C';
@@ -1114,23 +857,11 @@ body {
   position: relative; z-index: 1;
   padding-top: 14px;
 }
-.testimonial-stars {
-  color: var(--gold);
-  font-size: 16px;
-  letter-spacing: 0.12em;
-  margin-bottom: 10px;
-  position: relative; z-index: 1;
-}
 .testimonial-name {
   margin-top: 22px;
   font-size: 11px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--rose);
-  line-height: 1.6;
-  word-break: break-word;
-}
-@media (max-width: 768px) {
-  .testimonial-name { letter-spacing: 0.08em; font-size: 10.5px; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1215,40 +946,14 @@ body {
   margin-bottom: 12px;
   letter-spacing: -0.005em;
   transition: color 0.3s var(--ease-out);
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  user-select: none;
 }
 .faq-item:hover .faq-q { color: var(--rose); }
-.faq-q:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; border-radius: 2px; }
-.faq-q::after {
-  content: '+';
-  font-family: var(--sans);
-  font-size: 22px;
-  font-weight: 300;
-  color: var(--rose);
-  flex-shrink: 0;
-  transition: transform 0.35s var(--ease-elegant), color 0.3s var(--ease-out);
-  line-height: 1;
-}
-.faq-item.is-open .faq-q::after { transform: rotate(45deg); }
 .faq-a {
   font-size: 15.5px;
   color: var(--text-muted);
   line-height: 1.82;
   max-width: 700px;
   font-weight: 400;
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.45s var(--ease-elegant), padding-top 0.4s var(--ease-elegant);
-  padding-top: 0;
-}
-.faq-item.is-open .faq-a {
-  max-height: 800px;
-  padding-top: 12px;
 }
 .faq-a a {
   color: var(--rose);
@@ -1257,6 +962,114 @@ body {
   transition: border-color 0.3s var(--ease-out);
 }
 .faq-a a:hover { border-bottom-color: var(--rose); }
+
+/* ═══════════════════════════════════════════════════════════
+   FORM
+═══════════════════════════════════════════════════════════ */
+.form-section {
+  background: var(--charcoal);
+  padding: 96px 24px;
+  position: relative; overflow: hidden;
+}
+.form-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(192,69,90,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.form-section .section-label { color: var(--rose-light); text-align: center; display: block; }
+.form-section .section-label::before,
+.form-section .section-label::after { background: var(--rose-light); }
+.form-section h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4.5vw, 42px);
+  font-weight: 500;
+  color: var(--cream);
+  margin: 0 auto 12px;
+  line-height: 1.2;
+  text-align: center; width: 100%; display: block;
+  letter-spacing: -0.01em;
+}
+.form-section h2 em { font-style: italic; font-weight: 600; color: var(--rose-light); }
+.form-section .form-sub {
+  font-size: 15.5px;
+  color: rgba(250,246,242,0.62);
+  margin: 0 auto 44px;
+  max-width: 540px;
+  line-height: 1.72;
+  text-align: center; display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+}
+.form-wrap { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+.form-row { margin-bottom: 24px; }
+.form-row label {
+  display: block;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(250,246,242,0.62);
+  margin-bottom: 10px;
+}
+.form-row input, .form-row select, .form-row textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.055);
+  border: 1px solid rgba(212,99,122,0.25);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 15px;
+  padding: 14px 18px;
+  outline: none;
+  transition: border-color 0.35s var(--ease-out), background 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-row input::placeholder, .form-row textarea::placeholder {
+  color: rgba(250,246,242,0.3);
+  font-style: italic;
+}
+.form-row input:hover, .form-row select:hover, .form-row textarea:hover {
+  border-color: rgba(212,99,122,0.45);
+}
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+  border-color: rgba(212,99,122,0.8);
+  background: rgba(255,255,255,0.085);
+  box-shadow: 0 0 0 3px rgba(192,69,90,0.12);
+}
+.form-row select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(212,99,122,0.75)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  padding-right: 42px;
+}
+.form-row select option { background: var(--charcoal-mid); color: var(--cream); }
+.form-row textarea { resize: vertical; min-height: 130px; line-height: 1.66; }
+.form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 540px) { .form-two-col { grid-template-columns: 1fr; } }
+.form-note {
+  font-size: 12.5px;
+  color: rgba(250,246,242,0.4);
+  margin-top: 8px;
+  line-height: 1.55;
+}
+.form-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  margin: 32px 0;
+}
+.form-submit-wrap { text-align: center; margin-top: 36px; }
+.form-status {
+  margin-top: 22px;
+  font-size: 14px;
+  text-align: center;
+  min-height: 20px;
+  font-family: var(--serif);
+  font-style: italic;
+}
+.form-status.success { color: #7ecfa0; }
+.form-status.error   { color: #f09595; }
 
 /* ═══════════════════════════════════════════════════════════
    CTA CLOSE
@@ -1271,7 +1084,8 @@ body {
 .cta-bg-logo {
   position: absolute; inset: 0;
   background-size: contain; background-position: center; background-repeat: no-repeat;
-  opacity: 0.12;
+  opacity: 0.045;
+  animation: slowSpin 120s linear infinite;
 }
 @keyframes slowSpin {
   from { transform: rotate(0deg); }
@@ -1298,7 +1112,7 @@ body {
 .cta-section h2 em { font-style: italic; font-weight: 600; color: var(--rose-light); }
 .cta-section p {
   font-size: 17.5px;
-  color: rgba(250,246,242,0.82);
+  color: rgba(250,246,242,0.66);
   max-width: 520px;
   margin: 0 auto 40px;
   line-height: 1.78;
@@ -1308,7 +1122,7 @@ body {
 .price-note {
   margin-top: 28px;
   font-size: 12.5px;
-  color: rgba(250,246,242,0.8);
+  color: rgba(250,246,242,0.38);
   letter-spacing: 0.04em;
 }
 .price-note a {
@@ -1318,7 +1132,6 @@ body {
   transition: border-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
 }
 .price-note a:hover { color: var(--rose-light); border-bottom-color: var(--rose-light); }
-
 
 /* ═══════════════════════════════════════════════════════════
    FOOTER
@@ -1338,15 +1151,16 @@ body {
   background: linear-gradient(90deg, transparent, var(--rose), transparent);
 }
 .footer-icon {
-  width: 72px; height: 72px;
+  width: 40px; height: 40px;
   margin: 0 auto 16px;
-  opacity: 0.7;
+  opacity: 0.6;
   transition: opacity 0.3s var(--ease-out), transform 0.5s var(--ease-elegant);
 }
 .footer-icon:hover { opacity: 1; transform: scale(1.08); }
 .footer-icon img {
   width: 100%; height: 100%;
   object-fit: contain;
+  filter: brightness(2) saturate(0.3);
 }
 .footer-logo {
   font-family: var(--serif);
@@ -1354,41 +1168,19 @@ body {
   font-weight: 500;
   color: var(--cream);
   letter-spacing: 0.04em;
-  margin-bottom: 8px;
+  margin-bottom: 18px;
   font-style: italic;
-}
-.footer-tagline {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 14px;
-  color: rgba(250,246,242,0.66);
-  margin: 0 auto 26px;
-  max-width: 420px;
-  line-height: 1.6;
 }
 .footer-links {
   display: flex; justify-content: center;
   gap: 30px; flex-wrap: wrap;
   margin-bottom: 20px;
 }
-.footer-nav { margin-bottom: 14px; }
-.footer-email {
-  font-size: 13px;
-  margin-bottom: 20px;
-  letter-spacing: 0.03em;
-}
-.footer-email a {
-  color: rgba(212,99,122,0.92);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(212,99,122,0.35);
-  transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
-}
-.footer-email a:hover { color: var(--rose-light); border-bottom-color: var(--rose-light); }
 .footer-links a {
-  font-size: 12px;
+  font-size: 11.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(250,246,242,0.82);
+  color: rgba(250,246,242,0.44);
   text-decoration: none;
   transition: color 0.3s var(--ease-out);
   position: relative;
@@ -1406,7 +1198,7 @@ body {
 .footer-links a:hover::after { transform: scaleX(1); transform-origin: left; }
 .footer-copy {
   font-size: 11.5px;
-  color: rgba(250,246,242,0.82);
+  color: rgba(250,246,242,0.24);
   letter-spacing: 0.04em;
 }
 
@@ -1414,10 +1206,9 @@ body {
    MOBILE
 ═══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .hero { padding: 84px 20px 72px; min-height: 540px; }
-  .hero-brand { margin-bottom: 22px; }
-  .hero-brand img { width: 128px; }
-  .hero-wordmark { font-size: 20px; }
+  body { margin: -8px -12px -12px -12px; }
+  .hero { padding: 64px 20px 72px; min-height: 540px; }
+  .hero-banner-logo { width: 88%; max-width: 88%; margin-bottom: 22px; }
   .hero h1 { font-size: 38px; }
   .hero-tagline { font-size: 16px; margin: 18px auto 30px; }
   .btn-ornate { font-size: 13.5px; padding: 14px 36px; }
@@ -1434,15 +1225,10 @@ body {
   .wboy-wrap iframe { height: 220px; }
   .wboy-wrap::before { inset: -6px -6px -6px -6px; }
   .delivers { grid-template-columns: 1fr; gap: 12px; }
-  .testimonial { padding: 40px 26px 30px; }
-  .carousel-arrow { width: 40px; height: 40px; font-size: 18px; }
-  .carousel-arrow.prev { left: 4px; }
-  .carousel-arrow.next { right: 4px; }
+  .testimonials { grid-template-columns: 1fr; gap: 22px; }
+  .testimonial { padding: 30px 24px 26px; }
   .bio-wrap { flex-direction: column; gap: 32px; }
   .bio-img { max-width: 280px; margin: 0 auto; }
-  /* Stacked layout: center the label + heading; keep narrative left-aligned */
-  .bio-text { text-align: center; }
-  .bio-text p:not(.section-label) { text-align: left; }
   .faq-q { font-size: 16.5px; }
   .faq-a { font-size: 14.5px; }
   .cta-section { padding: 72px 20px; }
@@ -1450,6 +1236,7 @@ body {
   .cta-section p { font-size: 15.5px; }
   .footer { padding: 36px 20px 30px; }
   .footer-links { gap: 18px; }
+  .form-section { padding: 64px 20px; }
   .pricing-section { padding: 64px 20px; }
   .pricing-card { padding: 40px 28px; }
   .pricing-amount { font-size: 70px; }
@@ -1463,213 +1250,6 @@ body {
   .section h2 { font-size: 24px; }
   .proof-stat { font-size: 46px; }
 }
-
-/* ═══════════════════════════════════════════════════════════
-   STICKY NAV
-═══════════════════════════════════════════════════════════ */
-.sticky-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 9000;
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 28px;
-  height: 60px;
-  transition: background 0.45s var(--ease-elegant), border-color 0.45s var(--ease-elegant), box-shadow 0.45s var(--ease-elegant);
-  box-shadow: none;
-}
-/* Solid once the page is scrolled (or the mobile menu is open) */
-.sticky-nav.is-solid,
-.sticky-nav.menu-open {
-  background: rgba(22, 15, 17, 0.96);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom-color: rgba(192,69,90,0.2);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.28);
-}
-.sticky-nav-logo {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--cream);
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  transition: color 0.3s var(--ease-out);
-}
-.sticky-nav-logo:hover { color: var(--rose-light); }
-.sticky-nav-logo span {
-  color: var(--rose-light);
-}
-.nav-left { display: flex; align-items: center; gap: 12px; }
-/* Hamburger — hidden on desktop, shown on mobile */
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 40px; height: 40px;
-  margin-left: -8px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-.nav-toggle:focus-visible { outline: 2px solid var(--rose-light); outline-offset: 2px; border-radius: 4px; }
-.nav-toggle-bar {
-  width: 22px; height: 1.5px;
-  background: var(--cream);
-  border-radius: 2px;
-  transition: transform 0.35s var(--ease-elegant), opacity 0.25s var(--ease-out);
-}
-.sticky-nav.menu-open .nav-toggle-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.sticky-nav.menu-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
-.sticky-nav.menu-open .nav-toggle-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-.sticky-nav-cta {
-  display: inline-block;
-  font-family: var(--sans);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--cream);
-  background: var(--rose);
-  border: none;
-  padding: 10px 22px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
-}
-.sticky-nav-cta:hover {
-  background: var(--rose-light);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-rose);
-}
-.sticky-nav-links {
-  display: flex;
-  gap: 22px;
-  align-items: center;
-}
-.sticky-nav-links a {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(250,246,242,0.82);
-  text-decoration: none;
-  transition: color 0.3s var(--ease-out);
-  white-space: nowrap;
-}
-.sticky-nav-links a:hover { color: var(--rose-light); }
-@media (max-width: 768px) {
-  .nav-toggle { display: flex; }
-  /* Links become an absolutely-positioned dropdown under the bar */
-  .sticky-nav-links {
-    position: absolute;
-    top: 100%; left: 0; right: 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    background: rgba(22, 15, 17, 0.98);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(192,69,90,0.2);
-    box-shadow: 0 14px 30px rgba(0,0,0,0.38);
-    padding: 4px 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px);
-    pointer-events: none;
-    transition: opacity 0.3s var(--ease-elegant), transform 0.3s var(--ease-elegant), visibility 0.3s;
-  }
-  .sticky-nav.menu-open .sticky-nav-links {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  .sticky-nav-links a {
-    padding: 15px 28px;
-    font-size: 12px;
-    color: rgba(250,246,242,0.72);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-  .sticky-nav-links a:last-child { border-bottom: none; }
-}
-@media (max-width: 480px) {
-  .sticky-nav { padding: 0 16px; }
-  .sticky-nav-logo { font-size: 15px; }
-  .sticky-nav-cta { font-size: 10.5px; padding: 9px 14px; letter-spacing: 0.08em; }
-}
-
-/* YouTube facade */
-.yt-facade {
-  position: relative;
-  display: block;
-  width: 100%;
-  cursor: pointer;
-  background: #000;
-  overflow: hidden;
-}
-.yt-facade img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.2s;
-}
-.yt-facade:hover img { opacity: 0.8; }
-.yt-facade .yt-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 68px;
-  height: 48px;
-  background: #ff0000;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, transform 0.2s;
-  pointer-events: none;
-}
-.yt-facade:hover .yt-play { background: #cc0000; transform: translate(-50%, -50%) scale(1.08); }
-.yt-facade .yt-play svg { width: 24px; height: 24px; fill: #fff; }
-.yt-facade iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-/* Featured (weekly) song — pulsing invite to play.
-   The ring animates transform/opacity only, so it composites on the GPU. */
-.weekly-song-embed .yt-play::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  box-shadow: 0 0 0 3px rgba(255,0,0,0.55);
-  animation: ytRing 2.4s ease-out infinite;
-}
-@keyframes ytRing {
-  0%        { transform: scale(1);   opacity: 0.8; }
-  70%, 100% { transform: scale(1.5); opacity: 0; }
-}
-.weekly-song-embed:hover .yt-play::after { animation: none; opacity: 0; }
-.weekly-song-cue {
-  margin: 16px auto 0;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--cream-warm);
-}
-.weekly-song-cue .cue-tri { color: var(--rose-light); margin-right: 7px; }
 </style>
 
 <!-- Google Analytics -->
@@ -1683,45 +1263,22 @@ body {
 </head>
 <body>
 
-<!-- STICKY NAV -->
-<nav class="sticky-nav" id="stickyNav" aria-label="Site navigation">
-  <div class="nav-left">
-    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
-      <span class="nav-toggle-bar"></span>
-      <span class="nav-toggle-bar"></span>
-      <span class="nav-toggle-bar"></span>
-    </button>
-    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="sticky-nav-logo">Heartstrings <span>Studio</span></a>
-  </div>
-  <div class="sticky-nav-links" id="navMenu">
-    <a href="#listen">Listen</a>
-    <a href="#process">Process</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
-  </div>
-  <a href="https://heartstringsstudio.github.io/intake/" class="sticky-nav-cta">Begin Your Song &rarr;</a>
-</nav>
-
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-brand">
-      <img id="heroIcon" src="logo.png" alt="" width="512" height="512" fetchpriority="high">
-      <div class="hero-wordmark">Heartstrings <span>Studio</span></div>
+    <div class="hero-banner-logo">
+      <img id="heroIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg" alt="Heartstrings Studio">
     </div>
     <p class="hero-eyebrow">Custom Songwriting &nbsp;·&nbsp; Lumberport, West Virginia</p>
     <h1>Your Story<br>Deserves a <em>Song</em></h1>
     <p class="hero-tagline">We turn meaningful moments into music — crafted with care and made to last a lifetime.</p>
     <div class="hero-cta-wrap">
-      <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
+      <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-      </a>
-      <a href="#listen" class="btn-ornate btn-ghost">
-        <span class="btn-sweep"></span><span>Hear Examples &rarr;</span>
-      </a>
+      </button>
     </div>
-    <p class="hero-sub"><a href="https://www.youtube.com/@heartstringsstudiowv" target="_blank" rel="noopener">Browse the full catalog on YouTube &rarr;</a></p>
-    <p class="hero-sub" style="margin-top:12px;">Questions? <a href="mailto:heartstringsstudiowv@gmail.com">heartstringsstudiowv&#64;gmail&#46;com</a></p>
+    <p class="hero-sub">Or browse the full catalog&nbsp; <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">on YouTube &rarr;</a></p>
+    <p class="hero-sub" style="margin-top:12px;"><a href="#weekly-song">🎵 Hear this week's song &darr;</a></p>
   </div>
   <div class="scroll-cue" aria-hidden="true"><div class="scroll-cue-line"></div></div>
 </section>
@@ -1730,28 +1287,13 @@ body {
 <div class="proof-banner reveal">
   <div class="proof-stats-wrap">
     <div class="proof-item">
-      <div class="proof-stat" data-count="20119">0</div>
+      <div class="proof-stat">20,119</div>
       <div class="proof-label">Views on a single tribute song</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-item">
-      <div class="proof-stat" data-count="103">0</div>
+      <div class="proof-stat">50+</div>
       <div class="proof-label">Songs delivered</div>
-    </div>
-    <div class="proof-divider"></div>
-    <div class="proof-item">
-      <div class="proof-stat">48–72h</div>
-      <div class="proof-label">Delivery &middot; 24h for memorials</div>
-    </div>
-    <div class="proof-divider"></div>
-    <div class="proof-item">
-      <div class="proof-stat">100%</div>
-      <div class="proof-label">Remake guarantee</div>
-    </div>
-    <div class="proof-divider"></div>
-    <div class="proof-item">
-      <div class="proof-stat">★★★★★</div>
-      <div class="proof-label">5-star rated</div>
     </div>
   </div>
   <p class="proof-quote">When a song captures what words can't hold, people share it. That's what Heartstrings Studio makes.</p>
@@ -1762,34 +1304,24 @@ body {
   <div class="weekly-song-inner reveal">
     <span class="weekly-badge">This Week's Song</span>
     <h2>Fresh from the studio — <em>just dropped.</em></h2>
-    <p class="weekly-song-title">&ldquo;She Left Us A Party&rdquo;</p>
     <p>A brand new original song — written to show you what's possible. This is the kind of song your story could become.</p>
     <div class="weekly-song-embed">
-      <div class="yt-facade" data-vid="iCzuyECSoFY" style="aspect-ratio:16/9;">
-        <img src="https://i.ytimg.com/vi/iCzuyECSoFY/hqdefault.jpg" alt="This Week's Song — Heartstrings Studio" loading="lazy">
-        <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-      </div>
+      <iframe src="https://www.youtube.com/embed/NVbH9cPw4RQ" allowfullscreen title="This Week's Song — Heartstrings Studio"></iframe>
     </div>
-    <p class="weekly-song-cue" id="weeklySongCue"><span class="cue-tri" aria-hidden="true">&#9654;</span>Press play to hear it for yourself</p>
-    <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
-      <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-    </a>
+    <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+      <span class="btn-sweep"></span><span>Start Your Own Song &rarr;</span>
+    </button>
   </div>
 </section>
 
-<!-- START YOUR SONG (early on-ramp) -->
-<section class="start-strip" aria-label="Start your song">
-  <div class="start-strip-inner reveal">
-    <h2>Ready to begin <em>your</em> song?</h2>
-    <p class="start-strip-price"><strong>$150 flat — one song, one price</strong> &nbsp;·&nbsp; delivered in 48–72 hours</p>
-    <div class="start-strip-actions">
-      <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
-        <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-      </a>
-      <a href="#pricing" class="start-strip-link">See everything included &rarr;</a>
-    </div>
-  </div>
-</section>
+<!-- ORNAMENT -->
+<div class="ornament-divider reveal">
+  <div class="line"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="diamond"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="line"></div>
+</div>
 
 <!-- THE DIFFERENCE -->
 <section class="section section-center reveal">
@@ -1807,186 +1339,12 @@ body {
   <div class="line"></div>
 </div>
 
-<!-- FEATURED SONGS -->
-<section class="section reveal" id="listen">
-  <div style="text-align:center;">
-    <p class="section-label">Featured Stories in Song</p>
-    <h2>Listen to what's possible</h2>
-  </div>
-  <div class="song-tabs reveal">
-    <div class="song-tabs-nav" role="tablist" aria-label="Browse songs by occasion">
-      <button class="song-tab is-active" type="button" role="tab" id="tab-memorial" aria-controls="panel-memorial" aria-selected="true" tabindex="0" data-panel="memorial">Memorials &amp; Celebrations of Life</button>
-      <button class="song-tab" type="button" role="tab" id="tab-military" aria-controls="panel-military" aria-selected="false" tabindex="-1" data-panel="military">Military Tributes</button>
-      <button class="song-tab" type="button" role="tab" id="tab-wedding" aria-controls="panel-wedding" aria-selected="false" tabindex="-1" data-panel="wedding">Weddings, Proposals &amp; Anniversaries</button>
-      <button class="song-tab" type="button" role="tab" id="tab-birthday" aria-controls="panel-birthday" aria-selected="false" tabindex="-1" data-panel="birthday">Birthdays &amp; Retirement</button>
-      <button class="song-tab" type="button" role="tab" id="tab-justbecause" aria-controls="panel-justbecause" aria-selected="false" tabindex="-1" data-panel="justbecause">Just Because</button>
-    </div>
-
-    <!-- MEMORIALS -->
-    <div class="song-panel is-active" data-panel="memorial" role="tabpanel" id="panel-memorial" aria-labelledby="tab-memorial" tabindex="0">
-      <div class="song-select-wrap">
-        <select class="song-select" aria-label="Choose a memorial example song">
-          <option value="fDOgbEE7BX8" data-label="Memorial" data-title="Forever and a Day" data-desc="A deeply personal memorial song honoring a life that left its mark — built to be kept, shared, and returned to for years to come.">Forever and a Day</option>
-          <option value="iCzuyECSoFY" data-label="Celebration of Life" data-title="She Left Us a Party" data-desc="A celebration of life that trades grief for gratitude — an upbeat tribute to a spirit who taught everyone around her how to truly live.">She Left Us a Party</option>
-        </select>
-      </div>
-      <div class="song-card">
-        <div class="yt-facade" data-vid="fDOgbEE7BX8" style="aspect-ratio:16/9;">
-          <img src="https://i.ytimg.com/vi/fDOgbEE7BX8/hqdefault.jpg" alt="Forever and a Day — Memorial Song" loading="lazy">
-          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        </div>
-        <div class="song-card-body">
-          <div class="song-card-label">Memorial</div>
-          <div class="song-card-title">Forever and a Day</div>
-          <div class="song-card-desc">A deeply personal memorial song honoring a life that left its mark — built to be kept, shared, and returned to for years to come.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MILITARY -->
-    <div class="song-panel" data-panel="military" role="tabpanel" id="panel-military" aria-labelledby="tab-military" tabindex="0">
-      <div class="song-select-wrap">
-        <select class="song-select" aria-label="Choose a military tribute example song">
-          <option value="t33GlLrlqqE" data-label="Military Tribute" data-title="God Kept His Hand on Me" data-desc="A soldier's testimony set to music — the prayers, the close calls, and the faith that carried someone home. A tribute to service and survival.">God Kept His Hand on Me</option>
-          <option value="jmSfTesTUcw" data-label="Military Tribute" data-title="Worth Every Mile" data-desc="An honest tribute to the long road of service and sacrifice — the miles spent away, the cost of duty, and the conviction that it all mattered.">Worth Every Mile</option>
-        </select>
-      </div>
-      <div class="song-card">
-        <div class="yt-facade" data-vid="t33GlLrlqqE" style="aspect-ratio:16/9;">
-          <img src="https://i.ytimg.com/vi/t33GlLrlqqE/hqdefault.jpg" alt="God Kept His Hand on Me — Military Tribute Song" loading="lazy">
-          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        </div>
-        <div class="song-card-body">
-          <div class="song-card-label">Military Tribute</div>
-          <div class="song-card-title">God Kept His Hand on Me</div>
-          <div class="song-card-desc">A soldier's testimony set to music — the prayers, the close calls, and the faith that carried someone home. A tribute to service and survival.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- WEDDINGS -->
-    <div class="song-panel" data-panel="wedding" role="tabpanel" id="panel-wedding" aria-labelledby="tab-wedding" tabindex="0">
-      <div class="song-select-wrap">
-        <select class="song-select" aria-label="Choose a wedding example song">
-          <option value="wsR1FXXuf3w" data-label="Proposal" data-title="The Moment I Knew" data-desc="A cinematic proposal ballad built from a real love story — whether it was a quiet moment on a back road or something you'll never stop talking about, this is what it sounds like when your story becomes a song.">The Moment I Knew</option>
-        </select>
-      </div>
-      <div class="song-card">
-        <div class="yt-facade" data-vid="wsR1FXXuf3w" style="aspect-ratio:16/9;">
-          <img src="https://i.ytimg.com/vi/wsR1FXXuf3w/hqdefault.jpg" alt="The Moment I Knew — Proposal Song" loading="lazy">
-          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        </div>
-        <div class="song-card-body">
-          <div class="song-card-label">Proposal</div>
-          <div class="song-card-title">The Moment I Knew</div>
-          <div class="song-card-desc">A cinematic proposal ballad built from a real love story — whether it was a quiet moment on a back road or something you'll never stop talking about, this is what it sounds like when your story becomes a song.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BIRTHDAYS -->
-    <div class="song-panel" data-panel="birthday" role="tabpanel" id="panel-birthday" aria-labelledby="tab-birthday" tabindex="0">
-      <div class="song-select-wrap">
-        <select class="song-select" aria-label="Choose a birthday example song">
-          <option value="Q65F2exe2JE" data-label="Birthday" data-title="Another Candle, Still You" data-desc="A warm birthday song that celebrates the years without losing the person inside them — proof that another candle just means more of someone worth celebrating.">Another Candle, Still You</option>
-          <option value="qZEWZCqhyYE" data-label="Birthday" data-title="Happy Birthday, Lilly" data-desc="A personalized birthday song made just for Lilly — the kind of one-of-a-kind keepsake that turns an ordinary birthday into a moment she'll never forget.">Happy Birthday, Lilly</option>
-        </select>
-      </div>
-      <div class="song-card">
-        <div class="yt-facade" data-vid="Q65F2exe2JE" style="aspect-ratio:16/9;">
-          <img src="https://i.ytimg.com/vi/Q65F2exe2JE/hqdefault.jpg" alt="Another Candle, Still You — Birthday Song" loading="lazy">
-          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        </div>
-        <div class="song-card-body">
-          <div class="song-card-label">Birthday</div>
-          <div class="song-card-title">Another Candle, Still You</div>
-          <div class="song-card-desc">A warm birthday song that celebrates the years without losing the person inside them — proof that another candle just means more of someone worth celebrating.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- JUST BECAUSE -->
-    <div class="song-panel" data-panel="justbecause" role="tabpanel" id="panel-justbecause" aria-labelledby="tab-justbecause" tabindex="0">
-      <div class="song-select-wrap">
-        <select class="song-select" aria-label="Choose a just-because example song">
-          <option value="ppbdNuOdGng" data-label="Community Tribute" data-title="We Love You, Mrs. Gaynor" data-desc="A tribute to the woman who helped raise generations of Lincoln High Cougars — built from alumni memories spanning decades.">We Love You, Mrs. Gaynor</option>
-        </select>
-      </div>
-      <div class="song-card">
-        <div class="yt-facade" data-vid="ppbdNuOdGng" style="aspect-ratio:16/9;">
-          <img src="https://i.ytimg.com/vi/ppbdNuOdGng/hqdefault.jpg" alt="We Love You, Mrs. Gaynor — Community Tribute Song" loading="lazy">
-          <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        </div>
-        <div class="song-card-body">
-          <div class="song-card-label">Community Tribute</div>
-          <div class="song-card-title">We Love You, Mrs. Gaynor</div>
-          <div class="song-card-desc">A tribute to the woman who helped raise generations of Lincoln High Cougars — built from alumni memories spanning decades.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div style="text-align:center; margin-top:52px;">
-    <a href="https://www.youtube.com/@heartstringsstudiowv" target="_blank" rel="noopener" class="btn-ornate btn-light">
-      <span class="btn-sweep"></span><span>View the Full Catalog on YouTube &rarr;</span>
-    </a>
-  </div>
-</section>
-
-<!-- ORNAMENT -->
-<div class="ornament-divider reveal">
-  <div class="line"></div>
-  <div class="flourish"><span></span><span></span><span></span></div>
-  <div class="diamond"></div>
-  <div class="flourish"><span></span><span></span><span></span></div>
-  <div class="line"></div>
-</div>
-
-<!-- TESTIMONIALS -->
-<section class="section reveal">
-  <div style="text-align:center;">
-    <p class="section-label">Words From Clients</p>
-    <h2>The people who lived the songs</h2>
-  </div>
-  <div class="testimonial-carousel reveal" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
-    <div class="testimonials">
-      <div class="testimonials-track">
-        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="1 of 4">
-          <div class="testimonial-stars">★★★★★</div>
-          <p>To my surprise and delight, the experience turned out to be incredibly easy and meaningful. All we needed to do was fill out a thoughtful questionnaire — then Tim took over and crafted a truly remarkable tribute that beautifully honored our dear friend.</p>
-          <div class="testimonial-name">— Susan D. Haning, CEM, CMP | Freeman Company</div>
-        </div>
-        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="2 of 4">
-          <div class="testimonial-stars">★★★★★</div>
-          <p>My song has brought so much comfort to me. It reminds me of the wonderful man that came into my life and showed me what true happiness was. Every time I listen to it I realize how blessed I was. I will always remember… He loved me forever and a day!</p>
-          <div class="testimonial-name">— Dolores Bristol</div>
-        </div>
-        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="3 of 4">
-          <div class="testimonial-stars">★★★★★</div>
-          <p>I can't thank Tim enough for writing the perfect song. They were all in awe when they heard it. My daughter cried, as well as I did. I would have him write a hundred songs for me. Give it a try — you won't go wrong.</p>
-          <div class="testimonial-name">— Jane Haught</div>
-        </div>
-        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="4 of 4">
-          <div class="testimonial-stars">★★★★★</div>
-          <p>That sounds just like my life. I don't cry... but you just had me bawling like a baby. That's so beautiful.</p>
-          <div class="testimonial-name">— Chrissy Heldreth</div>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-arrow prev" type="button" aria-label="Previous testimonial">&#8249;</button>
-    <button class="carousel-arrow next" type="button" aria-label="Next testimonial">&#8250;</button>
-    <div class="carousel-dots" role="tablist" aria-label="Choose testimonial"></div>
-  </div>
-</section>
-
 <!-- WBOY -->
 <section class="section section-center reveal">
   <p class="section-label">As Seen On</p>
   <h2>Heartstrings Studio on <em>WBOY 304 Today</em></h2>
   <div class="wboy-wrap">
-    <div class="yt-facade" data-vid="j1_HRI6aJU4" style="aspect-ratio:16/9;">
-      <img src="https://i.ytimg.com/vi/j1_HRI6aJU4/hqdefault.jpg" alt="Heartstrings Studio on WBOY 304 Today" loading="lazy">
-      <div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-    </div>
+    <iframe src="https://www.youtube.com/embed/j1_HRI6aJU4" height="420" allowfullscreen></iframe>
   </div>
   <p class="wboy-caption">Featured on WBOY's 304 Today — West Virginia's own.</p>
 </section>
@@ -2000,8 +1358,90 @@ body {
   <div class="line"></div>
 </div>
 
+<!-- OCCASIONS -->
+<section class="section section-center full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
+  <div class="reveal" style="max-width:860px; margin:0 auto;">
+    <p class="section-label">Every Occasion</p>
+    <h2>The moments worth holding onto</h2>
+    <div class="occasions">
+      <span class="pill">Weddings</span>
+      <span class="pill">Memorials &amp; Tributes</span>
+      <span class="pill">Anniversaries</span>
+      <span class="pill">Birthdays</span>
+      <span class="pill">Retirements</span>
+      <span class="pill">Military Tributes</span>
+      <span class="pill">Celebrations of Life</span>
+      <span class="pill">Gratitude &amp; Thank You</span>
+      <span class="pill">Just Because</span>
+    </div>
+  </div>
+</section>
+
+<!-- ORNAMENT -->
+<div class="ornament-divider reveal">
+  <div class="line"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="diamond"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="line"></div>
+</div>
+
+<!-- FEATURED SONGS -->
+<section class="section reveal">
+  <p class="section-label">Featured Stories in Song</p>
+  <h2>Listen to what's possible</h2>
+  <div class="featured-grid reveal-stagger">
+    <div class="song-card">
+      <iframe src="https://www.youtube.com/embed/fDOgbEE7BX8" height="220" allowfullscreen></iframe>
+      <div class="song-card-body">
+        <div class="song-card-label">Memorial</div>
+        <div class="song-card-title">Forever and a Day</div>
+        <div class="song-card-desc">A deeply personal memorial song honoring a life that left its mark — built to be kept, shared, and returned to for years to come.</div>
+      </div>
+    </div>
+    <div class="song-card">
+      <iframe src="https://www.youtube.com/embed/ppbdNuOdGng" height="220" allowfullscreen></iframe>
+      <div class="song-card-body">
+        <div class="song-card-label">Community Tribute</div>
+        <div class="song-card-title">We Love You, Mrs. Gaynor</div>
+        <div class="song-card-desc">A tribute to the woman who helped raise generations of Lincoln High Cougars — built from alumni memories spanning decades.</div>
+      </div>
+    </div>
+    <div class="song-card">
+      <iframe src="https://www.youtube.com/embed/jmSfTesTUcw" height="220" allowfullscreen></iframe>
+      <div class="song-card-body">
+        <div class="song-card-label">Military Tribute</div>
+        <div class="song-card-title">Worth Every Mile</div>
+        <div class="song-card-desc">A tribute to the sacrifice, service, and homecoming of those who wear the uniform — and the people who wait for them.</div>
+      </div>
+    </div>
+    <div class="song-card">
+      <iframe src="https://www.youtube.com/embed/OOypcnwpw9A" height="220" allowfullscreen></iframe>
+      <div class="song-card-body">
+        <div class="song-card-label">Memorial</div>
+        <div class="song-card-title">I Still Talk to You</div>
+        <div class="song-card-desc">For anyone who still feels the presence of someone they've lost — the quiet moments, the empty spaces, the conversations that never really stopped.</div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:52px;">
+    <button onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')" class="btn-ornate btn-light">
+      <span class="btn-sweep"></span><span>View the Full Catalog on YouTube &rarr;</span>
+    </button>
+  </div>
+</section>
+
+<!-- ORNAMENT -->
+<div class="ornament-divider reveal">
+  <div class="line"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="diamond"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="line"></div>
+</div>
+
 <!-- PROCESS -->
-<section class="section section-center reveal" id="process">
+<section class="section section-center reveal">
   <p class="section-label">The Process</p>
   <h2>Three steps. One song <em>yours forever.</em></h2>
   <div class="steps reveal-stagger">
@@ -2018,26 +1458,51 @@ body {
     <div class="step">
       <div class="step-num">03</div>
       <h3>Receive &amp; Share</h3>
-      <p>Your finished song arrives within 48–72 hours — within 24 for memorial songs — ready to keep, share, or give as a gift.</p>
+      <p>Delivered within 48–72 hours: MP3, MP4, album art, a lyric sheet, and a private YouTube link to watch and share. Ready to keep, share, or give as a gift.</p>
     </div>
   </div>
 </section>
+
+<!-- ORNAMENT -->
+<div class="ornament-divider reveal">
+  <div class="line"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="diamond"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="line"></div>
+</div>
 
 <!-- WHAT'S INCLUDED -->
 <section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
   <div class="reveal" style="max-width:860px; margin:0 auto;">
-    <div style="text-align:center;">
-      <p class="section-label">What's Included</p>
-      <h2>Everything you need to share it — or keep it close.</h2>
-    </div>
-    <p style="font-size:1.1rem; line-height:1.85; margin:0 auto 1.2em; text-align:left;">It starts with a conversation. Tim sits down with you — just the two of you — to learn the story behind the song: the names, the moments, the details that make it yours. From there he writes every word and melody from scratch, shaped around what you share.</p>
-    <p style="font-size:1.1rem; line-height:1.85; margin:0 auto 1.2em; text-align:left;">Before anything goes into production you'll see the lyrics and have one round of revisions to make sure they feel right. Once you're happy, Tim records and delivers your finished song — everything you need to send it, post it, or simply press play on a birthday morning.</p>
-    <p style="font-size:1.1rem; line-height:1.85; margin:0 auto; text-align:left;">All of it arrives in 48–72 hours — and memorial and celebration-of-life songs are always delivered within 24, because when family is gathering, the song needs to be ready. If the finished song ever misses the mark, Tim starts over from scratch — no questions asked.</p>
+    <p class="section-label">What's Included</p>
+    <h2>Everything you need to share it — or keep it close.</h2>
+    <ul class="delivers">
+      <li>One-on-one creative consultation with Tim</li>
+      <li>Fully custom song written for your story</li>
+      <li>One round of lyric revisions before production</li>
+      <li>MP3 (song) — high-quality audio file</li>
+      <li>MP4 (video) — a simple shareable video made for sending to friends, family, and social media</li>
+      <li>Custom album artwork</li>
+      <li>Lyric sheet</li>
+      <li>Private YouTube link to watch and share</li>
+      <li>Delivered in 48–72 hours</li>
+      <li>Remake guarantee — if the finished song misses the mark, Tim starts over from scratch</li>
+    </ul>
   </div>
 </section>
 
+<!-- ORNAMENT -->
+<div class="ornament-divider reveal">
+  <div class="line"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="diamond"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="line"></div>
+</div>
+
 <!-- PRICING -->
-<section class="pricing-section" id="pricing">
+<section class="pricing-section">
   <div class="reveal">
     <p class="section-label">Investment</p>
     <h2>One song. One price. <em>One story.</em></h2>
@@ -2057,29 +1522,66 @@ body {
         <li>Delivered in 48–72 hours</li>
         <li>Remake guarantee — if the finished song misses the mark, Tim starts over from scratch</li>
       </ul>
-      <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
+      <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-      </a>
-      <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery (24-hour guarantee) available for an additional $50 &nbsp;·&nbsp; Memorial &amp; celebration-of-life songs are always delivered within 24 hours at no extra charge</p>
+      </button>
+      <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery (24-hour guarantee) available for an additional $50</p>
     </div>
   </div>
 </section>
+
+<!-- ORNAMENT -->
+<div class="ornament-divider reveal">
+  <div class="line"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="diamond"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="line"></div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="section reveal">
+  <p class="section-label">Words From Clients</p>
+  <h2>The people who lived the songs</h2>
+  <div class="testimonials reveal-stagger">
+    <div class="testimonial">
+      <p>I can't thank Tim enough for writing the perfect song. They were all in awe when they heard it. My daughter cried, as well as I did. I would have him write a hundred songs for me. Give it a try — you won't go wrong.</p>
+      <div class="testimonial-name">— Jane H.</div>
+    </div>
+    <div class="testimonial">
+      <p>That sounds just like my life. I don't cry... but you just had me bawling like a baby. That's so beautiful.</p>
+      <div class="testimonial-name">— Chrissy H.</div>
+    </div>
+    <div class="testimonial">
+      <p>My song has brought so much comfort to me. It reminds me of the wonderful man that came into my life and showed me what true happiness was. Every time I listen to it I realize how blessed I was. I will always remember… He loved me forever and a day!</p>
+      <div class="testimonial-name">— Dolores B.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ORNAMENT -->
+<div class="ornament-divider reveal">
+  <div class="line"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="diamond"></div>
+  <div class="flourish"><span></span><span></span><span></span></div>
+  <div class="line"></div>
+</div>
 
 <!-- BIO -->
 <section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
   <div class="reveal" style="max-width:860px; margin:0 auto;">
     <div class="bio-wrap">
       <div class="bio-img">
-        <img id="timPhoto" src="timphoto.jpg" alt="Tim Harbert, founder of Heartstrings Studio" loading="lazy" width="600" height="600">
+        <img id="timPhoto" src="https://heartstringsstudio.github.io/heartstringsstudio/timphoto.png" alt="Tim Harbert, founder of Heartstrings Studio">
         <p class="bio-caption">Tim Harbert<br>Founder, Heartstrings Studio</p>
       </div>
       <div class="bio-text">
         <p class="section-label">The Songwriter</p>
         <h2>Meet Tim</h2>
-        <p>I'm Tim Harbert — a West Virginia kid from Lumberport who found music before I found my footing.</p>
-        <p>There was a stretch of years where things got dark. Music didn't fix anything, but it kept me tethered. It gave me a way to feel what I couldn't say out loud. Eventually I got sober, got clear, and started writing — not just for myself, but for the people and moments that deserved to be remembered properly.</p>
-        <p>That's what Heartstrings Studio is. I create custom songs for life's real moments — love, loss, milestones, the people we're not ready to let go of. Every song is built from your story, written to last.</p>
-        <p style="font-family:var(--serif); font-style:italic; font-size:17.5px; color:var(--rose); font-weight:500; line-height:1.7; margin-bottom:0;">When words fall short, a song can hold what needs to be remembered.</p>
+        <p>I'm the founder of Heartstrings Studio. I create custom songs that honor life's meaningful moments — love, loss, gratitude, and the spaces in between.</p>
+        <p>Music carried me through some dark chapters and taught me the power of real connection. Now I help others preserve what matters most through melody and story.</p>
+        <p>When words fall short, a song can hold what needs to be remembered.</p>
       </div>
     </div>
   </div>
@@ -2095,154 +1597,165 @@ body {
 </div>
 
 <!-- FAQ -->
-<section class="section full-bg bg-warm" id="faq" style="padding-left:24px; padding-right:24px; border-top: 1px solid var(--divider);">
+<section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px; border-top: 1px solid var(--divider);">
   <div class="reveal" style="max-width:860px; margin:0 auto;">
-    <div style="text-align:center;">
-      <p class="section-label">Common Questions</p>
-      <h2>Everything you want to know</h2>
-    </div>
+    <p class="section-label">Common Questions</p>
+    <h2>Everything you want to know</h2>
     <div class="faq">
       <div class="faq-item">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How does it work?</div>
-        <div class="faq-a"><span>Fill out the intake form with your story. Tim writes a fully produced, custom song around your memories — heartfelt, one-of-a-kind, and ready to share forever. After submitting, you'll be contacted within 24 hours by email with next steps.</span></div>
+        <div class="faq-q">How does it work?</div>
+        <div class="faq-a">Fill out the intake form with your story. Tim writes a fully produced, custom song around your memories — heartfelt, one-of-a-kind, and ready to share forever. After submitting, you'll be contacted within 24 hours by email with next steps.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How fast will I get my song?</div>
-        <div class="faq-a"><span>Most songs are delivered within 48–72 hours. Memorial and celebration-of-life songs are always delivered within 24 hours at no extra charge — when family is gathering, the song will be ready. For every other occasion, rush delivery is available for an additional $50: your song is guaranteed within 24 hours, provided there is prompt communication between you and Tim throughout the process.</span></div>
+        <div class="faq-q">How fast will I get my song?</div>
+        <div class="faq-a">Most songs are delivered within 48–72 hours. Rush delivery is available for an additional $50 — your song is guaranteed within 24 hours, provided there is prompt communication between you and Tim throughout the process.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Can I pick the style or mood?</div>
-        <div class="faq-a"><span>Absolutely. You choose the genre and vibe — romantic, funny, emotional, nostalgic, solemn — whatever fits your story best.</span></div>
+        <div class="faq-q">Can I pick the style or mood?</div>
+        <div class="faq-a">Absolutely. You choose the genre and vibe — romantic, funny, emotional, nostalgic, solemn — whatever fits your story best.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Can I approve the lyrics?</div>
-        <div class="faq-a"><span>Yes. You'll receive the lyrics first with one round of revisions before production begins.</span></div>
+        <div class="faq-q">Can I approve the lyrics?</div>
+        <div class="faq-a">Yes. You'll receive the lyrics first with one round of revisions before production begins.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Can I give this as a gift?</div>
-        <div class="faq-a"><span>Absolutely — a custom song makes one of the most personal and memorable gifts you can give. Many clients order songs as wedding gifts, birthday surprises, anniversary presents, or to honor someone they love. You'll receive all the files to share however you choose — privately or in front of a room full of people.</span></div>
+        <div class="faq-q">Can I give this as a gift?</div>
+        <div class="faq-a">Absolutely — a custom song makes one of the most personal and memorable gifts you can give. Many clients order songs as wedding gifts, birthday surprises, anniversary presents, or to honor someone they love. You'll receive all the files to share however you choose — privately or in front of a room full of people.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">How do I share my song once it's delivered?</div>
-        <div class="faq-a"><span>You'll receive a private YouTube link along with your MP3 and MP4 files. The YouTube link is easy to share via text, email, or social media — anyone you send it to can watch and listen instantly. You can also download the files and play them at an event, post them publicly, or keep them just for family.</span></div>
+        <div class="faq-q">How do I share my song once it's delivered?</div>
+        <div class="faq-a">You'll receive a private YouTube link along with your MP3 and MP4 files. The YouTube link is easy to share via text, email, or social media — anyone you send it to can watch and listen instantly. You can also download the files and play them at an event, post them publicly, or keep them just for family.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" role="button" tabindex="0" aria-expanded="false">Is my song really one-of-a-kind?</div>
-        <div class="faq-a"><span>Always. Every song is built from scratch — no templates, no shortcuts. Your story is yours alone.</span></div>
+        <div class="faq-q">Is my song really one-of-a-kind?</div>
+        <div class="faq-a">Always. Every song is built from scratch — no templates, no shortcuts. Your story is yours alone.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- OCCASIONS -->
-<section class="section section-center full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
-  <div class="reveal" style="max-width:860px; margin:0 auto;">
-    <p class="section-label">Every Occasion</p>
-    <h2>The moments worth holding onto</h2>
-    <div class="occasions">
-      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Wedding">Weddings</a>
-      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Memorial%20%2F%20Tribute">Memorials &amp; Tributes</a>
-      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Anniversary">Anniversaries</a>
-      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Birthday">Birthdays</a>
-      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Retirement">Retirements</a>
-      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Military%20Tribute">Military Tributes</a>
-      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Celebration%20of%20Life">Celebrations of Life</a>
-      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Gratitude%20%2F%20Thank%20You">Gratitude &amp; Thank You</a>
-      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Just%20Because">Just Because</a>
+<!-- ORDER FORM -->
+<section class="form-section" id="order-form">
+  <div class="form-wrap reveal">
+    <div style="text-align:center; margin-bottom:44px;">
+      <p class="section-label">Get Started</p>
+      <h2>Tell me your <em>story</em></h2>
+      <p class="form-sub">Fill out the form below and Tim will be in touch within 24 hours to talk through your song.</p>
     </div>
+    <form id="hsForm" action="https://formspree.io/f/xykbvdrb" method="POST">
+      <div class="form-two-col">
+        <div class="form-row">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="First and last name" required>
+        </div>
+        <div class="form-row">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+      <div class="form-two-col">
+        <div class="form-row">
+          <label for="phone">Phone (optional)</label>
+          <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx">
+        </div>
+        <div class="form-row">
+          <label for="occasion">Occasion</label>
+          <select id="occasion" name="occasion" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Wedding</option>
+            <option>Memorial / Tribute</option>
+            <option>Anniversary</option>
+            <option>Birthday</option>
+            <option>Retirement</option>
+            <option>Military Tribute</option>
+            <option>Celebration of Life</option>
+            <option>Gratitude / Thank You</option>
+            <option>Just Because</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="recipient">Who is the song for?</label>
+        <input type="text" id="recipient" name="recipient" placeholder="Name(s) and relationship to you" required>
+      </div>
+      <div class="form-row">
+        <label for="genre">Genre / Mood</label>
+        <select id="genre" name="genre">
+          <option value="" disabled selected>Select one</option>
+          <option>Emotional / Heartfelt</option>
+          <option>Country</option>
+          <option>Pop</option>
+          <option>Folk / Acoustic</option>
+          <option>Rock / Anthem</option>
+          <option>R&amp;B / Soul</option>
+          <option>Upbeat / Celebratory</option>
+          <option>Not sure — Tim's call</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="heard">How did you hear about us?</label>
+        <select id="heard" name="heard" required>
+          <option value="" disabled selected>Select one</option>
+          <option>Friend or family told me</option>
+          <option>I already knew Tim</option>
+          <option>Facebook</option>
+          <option>Instagram</option>
+          <option>Heard a Heartstrings song shared online</option>
+          <option>Google / web search</option>
+          <option>Funeral home or service</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-divider"></div>
+      <div class="form-row">
+        <label for="story">Your Story</label>
+        <textarea id="story" name="story" placeholder="Share the memories, moments, inside jokes, names, phrases — anything that makes this story theirs. The more detail you give, the more personal the song becomes." required></textarea>
+        <p class="form-note">Don't worry about writing perfectly. Just write like you're telling a friend.</p>
+      </div>
+      <div class="form-row">
+        <label for="extras">Anything else Tim should know?</label>
+        <textarea id="extras" name="extras" placeholder="Tone, specific lines you'd love included, delivery deadline, etc." style="min-height:80px;"></textarea>
+      </div>
+      <div class="form-submit-wrap">
+        <button type="submit" class="btn-ornate btn-dark">
+          <span class="btn-sweep"></span><span>Send My Story to Tim &rarr;</span>
+        </button>
+        <p class="form-note" style="margin-top:18px;">Custom songs from $150 &nbsp;·&nbsp; Delivered in 48–72 hours</p>
+        <p class="form-status" id="formStatus"></p>
+      </div>
+    </form>
   </div>
 </section>
 
 <!-- CTA CLOSE -->
 <section class="cta-section">
-  <div class="cta-bg-logo" id="ctaBg" style="background-image:url('logo.png');"></div>
+  <div class="cta-bg-logo" id="ctaBg" style="background-image:url('https://heartstringsstudio.github.io/heartstringsstudio/logo.png');"></div>
   <div class="cta-content reveal">
     <p class="section-label">Ready?</p>
     <h2>Some moments deserve<br>more than a <em>snapshot.</em></h2>
     <p>Tell Tim your story. He'll turn it into something you can hold onto forever.</p>
-    <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
+    <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
       <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-    </a>
-    <p class="price-note">$150 flat — one song, one price</p>
-    <p class="price-note" style="margin-top:10px; font-size:14px; color:rgba(250,246,242,0.82);">Questions? Email Tim directly: <a href="mailto:heartstringsstudiowv@gmail.com" style="font-weight:700;">heartstringsstudiowv&#64;gmail&#46;com</a></p>
+    </button>
+    <p class="price-note">Custom songs from $150 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="window.location.href='mailto:'+'heartstringsstudiowv'+'@'+'gmail.com'">heartstringsstudiowv&#64;gmail&#46;com</a></p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-icon"><img id="footerIcon" src="logo.png" alt="" loading="lazy" width="120" height="120"></div>
+  <div class="footer-icon"><img id="footerIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/logo.png" alt="Heartstrings Studio"></div>
   <div class="footer-logo">Heartstrings Studio</div>
-  <p class="footer-tagline">Custom songs, written in Lumberport, West Virginia — $150 flat.</p>
-  <nav class="footer-links footer-nav" aria-label="Footer navigation">
-    <a href="#listen">Listen</a>
-    <a href="#process">Process</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
-    <a href="https://heartstringsstudio.github.io/intake/">Begin Your Song</a>
-  </nav>
   <div class="footer-links">
-    <a href="https://www.facebook.com/profile.php?id=61584734289007" target="_blank" rel="noopener">Facebook</a>
-    <a href="https://www.youtube.com/@heartstringsstudiowv" target="_blank" rel="noopener">YouTube</a>
-    <a href="https://www.tiktok.com/@heartstringsstudiowv" target="_blank" rel="noopener">TikTok</a>
+    <a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/profile.php?id=61584734289007','_blank')">Facebook</a>
+    <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">YouTube</a>
+    <a href="javascript:void(0)" onclick="window.open('https://www.tiktok.com/@heartstringsstudiowv','_blank')">TikTok</a>
+    <a href="javascript:void(0)" onclick="window.location.href='mailto:'+'heartstringsstudiowv'+'@'+'gmail.com'">Email</a>
   </div>
-  <p class="footer-email"><a href="mailto:heartstringsstudiowv@gmail.com">heartstringsstudiowv&#64;gmail&#46;com</a></p>
   <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;·&nbsp; Lumberport, West Virginia</p>
 </footer>
 
 <script>
-
-/* STICKY NAV */
-(function() {
-  var nav = document.getElementById('stickyNav');
-  var hero = document.querySelector('.hero');
-  if (!nav || !hero) return;
-
-  var toggle = document.getElementById('navToggle');
-  var menu = document.getElementById('navMenu');
-
-  function closeMenu() {
-    nav.classList.remove('menu-open');
-    if (toggle) {
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Open menu');
-    }
-  }
-  function openMenu() {
-    nav.classList.add('menu-open');
-    toggle.setAttribute('aria-expanded', 'true');
-    toggle.setAttribute('aria-label', 'Close menu');
-  }
-
-  if (toggle && menu) {
-    toggle.addEventListener('click', function(e) {
-      e.stopPropagation();
-      nav.classList.contains('menu-open') ? closeMenu() : openMenu();
-    });
-    /* Close after choosing a section */
-    menu.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', closeMenu);
-    });
-    /* Close on outside tap or Escape */
-    document.addEventListener('click', function(e) {
-      if (nav.classList.contains('menu-open') && !nav.contains(e.target)) closeMenu();
-    });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeMenu();
-    });
-  }
-
-  /* Nav is always present: transparent over the hero, solid once scrolled */
-  function onScroll() {
-    if (window.scrollY > 24) {
-      nav.classList.add('is-solid');
-    } else {
-      nav.classList.remove('is-solid');
-    }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-
 /* SCROLL REVEAL */
 (function() {
   var observerOptions = { threshold: 0.12, rootMargin: '0px 0px -60px 0px' };
@@ -2259,356 +1772,32 @@ body {
   });
 })();
 
+/* FORM SUBMISSION */
 (function() {
-  var counters = document.querySelectorAll('.proof-stat[data-count]');
-  var animated = false;
-
-  function animateCounters() {
-    if (animated) return;
-    animated = true;
-    counters.forEach(function(el) {
-      var target = parseInt(el.getAttribute('data-count'), 10);
-      var duration = 1800;
-      var start = null;
-      function step(timestamp) {
-        if (!start) start = timestamp;
-        var progress = Math.min((timestamp - start) / duration, 1);
-        var ease = 1 - Math.pow(1 - progress, 3);
-        var value = Math.floor(ease * target);
-        el.textContent = value.toLocaleString();
-        if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = target.toLocaleString();
+  var form = document.getElementById('hsForm');
+  var status = document.getElementById('formStatus');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(r) {
+      if (r.ok) {
+        status.textContent = 'Your story is on its way. Tim will be in touch within 24 hours.';
+        status.className = 'form-status success';
+        form.reset();
+      } else {
+        status.textContent = 'Something went wrong. Please email heartstringsstudiowv@gmail.com directly.';
+        status.className = 'form-status error';
       }
-      requestAnimationFrame(step);
-    });
-  }
-
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) animateCounters();
-    });
-  }, { threshold: 0.4 });
-
-  counters.forEach(function(el) { observer.observe(el); });
-})();
-
-/* YOUTUBE FACADES */
-(function() {
-  // Restore a facade to its thumbnail, which removes the iframe and stops playback.
-  function stopFacade(facade) {
-    if (!facade.querySelector('iframe')) return;
-    if (facade._original != null) facade.innerHTML = facade._original;
-    if (offscreenObserver) offscreenObserver.unobserve(facade);
-  }
-
-  // Stop a playing video once it scrolls fully out of view.
-  var offscreenObserver = ('IntersectionObserver' in window)
-    ? new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (!entry.isIntersecting) stopFacade(entry.target);
-        });
-      }, { threshold: 0 })
-    : null;
-
-  document.querySelectorAll('.yt-facade').forEach(function(facade) {
-    facade.addEventListener('click', function() {
-      if (facade.querySelector('iframe')) return; // already playing
-      facade._original = facade.innerHTML;
-      var vid = facade.getAttribute('data-vid');
-      var thumb = facade.querySelector('img');
-      var iframe = document.createElement('iframe');
-      iframe.src = 'https://www.youtube.com/embed/' + vid + '?autoplay=1';
-      iframe.title = (thumb && thumb.alt) || 'YouTube video player';
-      iframe.allow = 'autoplay; encrypted-media';
-      iframe.allowFullscreen = true;
-      facade.innerHTML = '';
-      facade.appendChild(iframe);
-      if (offscreenObserver) offscreenObserver.observe(facade);
+    }).catch(function() {
+      status.textContent = 'Something went wrong. Please email heartstringsstudiowv@gmail.com directly.';
+      status.className = 'form-status error';
     });
   });
-})();
-
-/* SONG TABS */
-(function() {
-  var tabs = document.querySelectorAll('.song-tab');
-  var panels = document.querySelectorAll('.song-panel');
-  if (!tabs.length) return;
-
-  // Reset a facade back to its thumbnail (stops any playing iframe/audio).
-  function resetFacade(facade) {
-    if (!facade || !facade.querySelector('iframe')) return;
-    var vid = facade.getAttribute('data-vid');
-    var titleEl = facade.parentElement.querySelector('.song-card-title');
-    var title = titleEl ? titleEl.textContent : '';
-    facade.innerHTML =
-      '<img src="https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg" alt="' + title + '" loading="lazy">' +
-      '<div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>';
-  }
-
-  function stopAllPlayers() {
-    document.querySelectorAll('.song-panel .yt-facade').forEach(resetFacade);
-  }
-
-  function activateTab(tab, setFocus) {
-    var target = tab.getAttribute('data-panel');
-    stopAllPlayers();
-    tabs.forEach(function(t) {
-      var on = t === tab;
-      t.classList.toggle('is-active', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-      t.setAttribute('tabindex', on ? '0' : '-1');
-    });
-    panels.forEach(function(p) {
-      p.classList.toggle('is-active', p.getAttribute('data-panel') === target);
-    });
-    if (setFocus) tab.focus();
-  }
-
-  tabs.forEach(function(tab, i) {
-    tab.addEventListener('click', function() { activateTab(tab, false); });
-    /* Arrow / Home / End navigation per WAI-ARIA tabs pattern */
-    tab.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault(); activateTab(tabs[(i + 1) % tabs.length], true);
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault(); activateTab(tabs[(i - 1 + tabs.length) % tabs.length], true);
-      } else if (e.key === 'Home') {
-        e.preventDefault(); activateTab(tabs[0], true);
-      } else if (e.key === 'End') {
-        e.preventDefault(); activateTab(tabs[tabs.length - 1], true);
-      }
-    });
-  });
-
-  document.querySelectorAll('.song-panel .song-select').forEach(function(select) {
-    var panel = select.closest('.song-panel');
-    var facade = panel.querySelector('.yt-facade');
-    /* A "choose an example" control with one choice reads as broken — hide it */
-    if (select.options.length < 2) {
-      select.closest('.song-select-wrap').style.display = 'none';
-    }
-    select.addEventListener('change', function() {
-      var opt = select.options[select.selectedIndex];
-      var vid = opt.value;
-      var title = opt.getAttribute('data-title');
-      facade.setAttribute('data-vid', vid);
-      facade.innerHTML =
-        '<img src="https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg" alt="' + title + '" loading="lazy">' +
-        '<div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>';
-      panel.querySelector('.song-card-label').textContent = opt.getAttribute('data-label');
-      panel.querySelector('.song-card-title').textContent = title;
-      panel.querySelector('.song-card-desc').textContent = opt.getAttribute('data-desc');
-    });
-  });
-})();
-</script>
-<script>
-/* FAQ ACCORDION */
-document.querySelectorAll('.faq-q').forEach(function(q) {
-  function toggle() {
-    var item = q.closest('.faq-item');
-    var isOpen = item.classList.contains('is-open');
-    document.querySelectorAll('.faq-item.is-open').forEach(function(open) {
-      open.classList.remove('is-open');
-      open.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-    });
-    if (!isOpen) {
-      item.classList.add('is-open');
-      q.setAttribute('aria-expanded', 'true');
-    }
-  }
-  q.addEventListener('click', toggle);
-  q.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-  });
-});
-
-/* TESTIMONIAL CAROUSEL */
-(function() {
-  var carousel = document.querySelector('.testimonial-carousel');
-  if (!carousel) return;
-  var track = carousel.querySelector('.testimonials-track');
-  var slides = Array.prototype.slice.call(carousel.querySelectorAll('.testimonial'));
-  var prevBtn = carousel.querySelector('.carousel-arrow.prev');
-  var nextBtn = carousel.querySelector('.carousel-arrow.next');
-  var dotsWrap = carousel.querySelector('.carousel-dots');
-  if (!track || slides.length === 0) return;
-
-  var index = 0;
-  var count = slides.length;
-  var AUTOPLAY_MS = 6500;
-  var timer = null;
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* Build dot indicators */
-  var dots = [];
-  for (var i = 0; i < count; i++) {
-    var dot = document.createElement('button');
-    dot.className = 'carousel-dot';
-    dot.type = 'button';
-    dot.setAttribute('role', 'tab');
-    dot.setAttribute('aria-label', 'Go to testimonial ' + (i + 1));
-    (function(n) {
-      dot.addEventListener('click', function() { goTo(n); restart(); });
-    })(i);
-    dotsWrap.appendChild(dot);
-    dots.push(dot);
-  }
-
-  function update() {
-    track.style.transform = 'translateX(' + (-index * 100) + '%)';
-    for (var i = 0; i < count; i++) {
-      var active = i === index;
-      dots[i].classList.toggle('is-active', active);
-      dots[i].setAttribute('aria-selected', active ? 'true' : 'false');
-      slides[i].setAttribute('aria-hidden', active ? 'false' : 'true');
-    }
-  }
-  function goTo(n) { index = (n + count) % count; update(); }
-  function next() { goTo(index + 1); }
-  function prev() { goTo(index - 1); }
-
-  function start() {
-    if (reduceMotion || count < 2) return;
-    stop();
-    timer = setInterval(next, AUTOPLAY_MS);
-  }
-  function stop() { if (timer) { clearInterval(timer); timer = null; } }
-  function restart() { stop(); start(); }
-
-  nextBtn.addEventListener('click', function() { next(); restart(); });
-  prevBtn.addEventListener('click', function() { prev(); restart(); });
-
-  /* Pause on hover / focus */
-  carousel.addEventListener('mouseenter', stop);
-  carousel.addEventListener('mouseleave', start);
-  carousel.addEventListener('focusin', stop);
-  carousel.addEventListener('focusout', start);
-
-  /* Keyboard arrows */
-  carousel.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowLeft') { prev(); restart(); }
-    else if (e.key === 'ArrowRight') { next(); restart(); }
-  });
-
-  /* Touch / swipe */
-  var touchX = null;
-  carousel.addEventListener('touchstart', function(e) { touchX = e.touches[0].clientX; stop(); }, { passive: true });
-  carousel.addEventListener('touchend', function(e) {
-    if (touchX === null) return;
-    var dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
-    touchX = null;
-    start();
-  }, { passive: true });
-
-  /* Pause when tab not visible */
-  document.addEventListener('visibilitychange', function() {
-    document.hidden ? stop() : start();
-  });
-
-  update();
-  start();
-})();
-</script>
-
-<!-- ENGAGEMENT TRACKING (scroll depth · section views · CTA clicks) -->
-<script>
-(function () {
-  if (typeof gtag !== 'function') return;
-
-  /* ---- How far down the page people get: 25 / 50 / 75 / 90 / 100% ---- */
-  var marks = [25, 50, 75, 90, 100];
-  var fired = {};
-  function scrollPct() {
-    var doc = document.documentElement, body = document.body;
-    var top = window.pageYOffset || doc.scrollTop || body.scrollTop || 0;
-    var max = Math.max(body.scrollHeight, doc.scrollHeight) - window.innerHeight;
-    if (max <= 0) return 100;
-    return Math.min(100, Math.round((top / max) * 100));
-  }
-  function checkScroll() {
-    var p = scrollPct();
-    for (var i = 0; i < marks.length; i++) {
-      var m = marks[i];
-      if (p >= m && !fired[m]) {
-        fired[m] = true;
-        gtag('event', 'scroll_depth', {
-          percent: m,
-          event_category: 'engagement',
-          event_label: m + '%',
-          non_interaction: true
-        });
-      }
-    }
-  }
-  var ticking = false;
-  window.addEventListener('scroll', function () {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(function () { checkScroll(); ticking = false; });
-  }, { passive: true });
-  checkScroll();
-
-  /* ---- Which sections actually get seen (50% in view) ---- */
-  function sectionName(el) {
-    if (el.id) return el.id;
-    var label = el.querySelector('.section-label, .weekly-badge');
-    if (label && label.textContent.trim()) return label.textContent.trim();
-    var h = el.querySelector('h1, h2');
-    if (h && h.textContent.trim()) return h.textContent.trim().replace(/\s+/g, ' ').slice(0, 60);
-    return 'section';
-  }
-  if ('IntersectionObserver' in window) {
-    var seen = {};
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var name = sectionName(entry.target);
-        if (seen[name]) return;
-        seen[name] = true;
-        gtag('event', 'section_view', {
-          section: name,
-          event_category: 'engagement',
-          event_label: name,
-          non_interaction: true
-        });
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('section').forEach(function (el) { io.observe(el); });
-  }
-
-  /* ---- Primary CTA clicks ---- */
-  document.addEventListener('click', function (e) {
-    var el = e.target.closest('button, a');
-    if (!el) return;
-    var txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
-    var href = el.getAttribute('href') || '';
-    if (href.indexOf('/intake/') !== -1) {
-      gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt.slice(0, 50) });
-      /* The intake form lives off-site, so GA can't observe the submit —
-         a click through to intake is the closest conversion signal we have. */
-      var occ = (href.split('occasion=')[1] || '').split('&')[0];
-      gtag('event', 'generate_lead', {
-        event_category: 'conversion',
-        event_label: txt.slice(0, 50),
-        occasion: occ ? decodeURIComponent(occ) : 'unspecified'
-      });
-    } else if (/hear examples/i.test(txt)) {
-      gtag('event', 'cta_click', { cta: 'hear_examples', event_category: 'engagement', event_label: txt.slice(0, 50) });
-    }
-  }, true);
-})();
-</script>
-
-<!-- Hide the featured-song play cue once it starts playing -->
-<script>
-(function () {
-  var facade = document.querySelector('.weekly-song-embed .yt-facade');
-  var cue = document.getElementById('weeklySongCue');
-  if (facade && cue) {
-    facade.addEventListener('click', function () { cue.style.display = 'none'; });
-  }
 })();
 </script>
 </body>
