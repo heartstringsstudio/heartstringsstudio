@@ -12,7 +12,9 @@
 
 - The client intake form lives at `https://heartstringsstudio.github.io/intake/`
   and is served from a **separate source** — it is not in this repo.
-- All main-site CTAs ("Begin Your Song" buttons) and the occasion pills should
-  link to `/intake/` (pills deep-link with `?occasion=...`). There is no inline
-  order form on the page; clicks to `/intake/` are tracked in GA via
-  `cta_click` / `generate_lead` events.
+- **Every** main-site CTA must link to `/intake/` — this includes all wording
+  variants: "Begin Your Song", "Start Your Song", "Start Your Own Song", and the
+  sticky-nav CTA. None of them should point to an inline/on-page form.
+- The occasion pills also link to `/intake/` and deep-link with `?occasion=...`.
+- There is **no inline order form** on the page (it was removed). Clicks through
+  to `/intake/` are tracked in GA via `cta_click` / `generate_lead` events.
