@@ -103,6 +103,7 @@ body {
   .equalizer span { animation: none !important; height: 55%; }
   .equalizer span:nth-child(2), .equalizer span:nth-child(4) { height: 90%; }
   .equalizer span:nth-child(3) { height: 70%; }
+  .t-track { transition: none !important; }
   * { animation-duration: 0.001ms !important; }
 }
 
@@ -878,23 +879,23 @@ body {
 /* ═══════════════════════════════════════════════════════════
    TESTIMONIALS
 ═══════════════════════════════════════════════════════════ */
-.testimonials {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
-  margin-top: 56px;
+.testimonial-carousel {
+  position: relative;
+  max-width: 680px;
+  margin: 56px auto 0;
+}
+.t-viewport { overflow: hidden; }
+.t-track {
+  display: flex;
+  transition: transform 0.6s var(--ease-elegant);
 }
 .testimonial {
+  flex: 0 0 100%;
   background: var(--white);
   border: 1px solid var(--divider);
-  padding: 40px 32px 34px;
+  padding: 44px 40px 36px;
   position: relative;
-  transition: transform 0.5s var(--ease-elegant), box-shadow 0.5s var(--ease-elegant), border-color 0.5s var(--ease-elegant);
-}
-.testimonial:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  border-color: rgba(192,69,90,0.25);
+  transition: border-color 0.5s var(--ease-elegant), box-shadow 0.5s var(--ease-elegant);
 }
 .testimonial::before {
   content: '\201C';
@@ -907,6 +908,13 @@ body {
   line-height: 1;
   opacity: 0.55;
 }
+.testimonial-stars {
+  position: relative; z-index: 1;
+  color: var(--rose);
+  letter-spacing: 3px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
 .testimonial p {
   font-family: var(--serif);
   font-style: italic;
@@ -915,7 +923,6 @@ body {
   line-height: 1.82;
   font-weight: 400;
   position: relative; z-index: 1;
-  padding-top: 14px;
 }
 .testimonial-name {
   margin-top: 22px;
@@ -923,6 +930,33 @@ body {
   letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--rose);
 }
+.t-controls {
+  display: flex; align-items: center; justify-content: center;
+  gap: 18px; margin-top: 30px;
+}
+.carousel-arrow {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--divider);
+  background: var(--white);
+  color: var(--rose);
+  font-size: 24px; line-height: 1;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), transform 0.35s var(--ease-elegant), color 0.35s var(--ease-out);
+}
+.carousel-arrow:hover { border-color: var(--rose); box-shadow: var(--shadow-md); transform: scale(1.07); }
+.carousel-arrow:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.carousel-dots { display: flex; gap: 9px; }
+.carousel-dots button {
+  width: 8px; height: 8px; border-radius: 50%;
+  border: none; padding: 0; cursor: pointer;
+  background: var(--divider);
+  transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.carousel-dots button:hover { background: var(--rose-pale); }
+.carousel-dots button[aria-selected="true"] { background: var(--rose); transform: scale(1.3); }
+.carousel-dots button:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
 
 /* ═══════════════════════════════════════════════════════════
    BIO
@@ -1312,8 +1346,8 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   .wboy-wrap iframe { height: 220px; }
   .wboy-wrap::before { inset: -6px -6px -6px -6px; }
   .delivers { grid-template-columns: 1fr; gap: 12px; }
-  .testimonials { grid-template-columns: 1fr; gap: 22px; }
-  .testimonial { padding: 30px 24px 26px; }
+  .testimonial { padding: 34px 26px 28px; }
+  .carousel-arrow { width: 38px; height: 38px; font-size: 22px; }
   .bio-wrap { flex-direction: column; gap: 32px; }
   .bio-img { max-width: 280px; margin: 0 auto; }
   .faq-q { font-size: 16.5px; }
@@ -1631,18 +1665,35 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 <section class="section reveal">
   <p class="section-label">Words From Clients</p>
   <h2>The people who lived the songs</h2>
-  <div class="testimonials reveal-stagger">
-    <div class="testimonial">
-      <p>I can't thank Tim enough for writing the perfect song. They were all in awe when they heard it. My daughter cried, as well as I did. I would have him write a hundred songs for me. Give it a try — you won't go wrong.</p>
-      <div class="testimonial-name">— Jane H.</div>
+  <div class="testimonial-carousel reveal" role="region" aria-roledescription="carousel" aria-label="Client testimonials" tabindex="0">
+    <div class="t-viewport">
+      <div class="t-track">
+        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="1 of 4">
+          <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
+          <p>To my surprise and delight, the experience turned out to be incredibly easy and meaningful. All we needed to do was fill out a thoughtful questionnaire — then Tim took over and crafted a truly remarkable tribute that beautifully honored our dear friend.</p>
+          <div class="testimonial-name">— Susan D. Haning, CEM, CMP | Freeman Company</div>
+        </div>
+        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="2 of 4">
+          <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
+          <p>My song has brought so much comfort to me. It reminds me of the wonderful man that came into my life and showed me what true happiness was. Every time I listen to it I realize how blessed I was. I will always remember… He loved me forever and a day!</p>
+          <div class="testimonial-name">— Dolores Bristol</div>
+        </div>
+        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="3 of 4">
+          <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
+          <p>I can't thank Tim enough for writing the perfect song. They were all in awe when they heard it. My daughter cried, as well as I did. I would have him write a hundred songs for me. Give it a try — you won't go wrong.</p>
+          <div class="testimonial-name">— Jane Haught</div>
+        </div>
+        <div class="testimonial" role="group" aria-roledescription="slide" aria-label="4 of 4">
+          <div class="testimonial-stars" aria-hidden="true">★★★★★</div>
+          <p>That sounds just like my life. I don't cry... but you just had me bawling like a baby. That's so beautiful.</p>
+          <div class="testimonial-name">— Chrissy Heldreth</div>
+        </div>
+      </div>
     </div>
-    <div class="testimonial">
-      <p>That sounds just like my life. I don't cry... but you just had me bawling like a baby. That's so beautiful.</p>
-      <div class="testimonial-name">— Chrissy H.</div>
-    </div>
-    <div class="testimonial">
-      <p>My song has brought so much comfort to me. It reminds me of the wonderful man that came into my life and showed me what true happiness was. Every time I listen to it I realize how blessed I was. I will always remember… He loved me forever and a day!</p>
-      <div class="testimonial-name">— Dolores B.</div>
+    <div class="t-controls">
+      <button class="carousel-arrow prev" type="button" aria-label="Previous testimonial">&#8249;</button>
+      <div class="carousel-dots" role="tablist" aria-label="Choose testimonial"></div>
+      <button class="carousel-arrow next" type="button" aria-label="Next testimonial">&#8250;</button>
     </div>
   </div>
 </section>
@@ -1946,6 +1997,61 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
       a.style.maxHeight = a.scrollHeight + 'px';
     });
   });
+})();
+
+/* TESTIMONIAL CAROUSEL */
+(function() {
+  var root = document.querySelector('.testimonial-carousel');
+  if (!root) return;
+  var track = root.querySelector('.t-track');
+  var slides = Array.prototype.slice.call(root.querySelectorAll('.testimonial'));
+  var dotsWrap = root.querySelector('.carousel-dots');
+  var prev = root.querySelector('.carousel-arrow.prev');
+  var next = root.querySelector('.carousel-arrow.next');
+  if (!track || slides.length < 2) return;
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var index = 0, timer = null, DELAY = 6500;
+
+  var dots = slides.map(function(_, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'Testimonial ' + (i + 1));
+    b.addEventListener('click', function() { goTo(i); restart(); });
+    dotsWrap.appendChild(b);
+    return b;
+  });
+
+  function update() {
+    track.style.transform = 'translateX(' + (-index * 100) + '%)';
+    dots.forEach(function(d, i) { d.setAttribute('aria-selected', i === index ? 'true' : 'false'); });
+    slides.forEach(function(s, i) { s.setAttribute('aria-hidden', i === index ? 'false' : 'true'); });
+  }
+  function goTo(i) { index = (i + slides.length) % slides.length; update(); }
+  function nextSlide() { goTo(index + 1); }
+  function prevSlide() { goTo(index - 1); }
+
+  function start() { if (!reduce && timer === null) timer = setInterval(nextSlide, DELAY); }
+  function stop() { if (timer !== null) { clearInterval(timer); timer = null; } }
+  function restart() { stop(); start(); }
+
+  next.addEventListener('click', function() { nextSlide(); restart(); });
+  prev.addEventListener('click', function() { prevSlide(); restart(); });
+
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+  root.addEventListener('focusin', stop);
+  root.addEventListener('focusout', start);
+  document.addEventListener('visibilitychange', function() { if (document.hidden) stop(); else start(); });
+
+  root.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); restart(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); nextSlide(); restart(); }
+  });
+
+  update();
+  start();
 })();
 
 /* FORM SUBMISSION */
