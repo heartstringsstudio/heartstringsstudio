@@ -9,6 +9,62 @@
 <meta property="og:title" content="Heartstrings Studio">
 <meta property="og:description" content="Custom-written songs built from your own memories. Lumberport, West Virginia.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://heartstringsstudio.github.io/heartstringsstudio/">
+<meta property="og:image" content="https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="600">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Heartstrings Studio">
+<meta name="twitter:description" content="Custom-written songs built from your own memories. Lumberport, West Virginia.">
+<meta name="twitter:image" content="https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg">
+
+<link rel="canonical" href="https://heartstringsstudio.github.io/heartstringsstudio/">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Heartstrings Studio",
+  "description": "Custom-written, fully produced songs built from your own memories. Heartstrings Studio turns life's meaningful moments into music you'll keep forever.",
+  "url": "https://heartstringsstudio.github.io/heartstringsstudio/",
+  "image": "https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg",
+  "email": "heartstringsstudiowv@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Lumberport",
+    "addressRegion": "WV",
+    "addressCountry": "US"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Tim Harbert"
+  },
+  "priceRange": "$150",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Custom Songwriting Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Custom Song",
+        "price": "150",
+        "priceCurrency": "USD",
+        "description": "Fully produced custom song written from your memories, delivered in 48–72 hours as MP3, MP4, album art, lyric sheet, and private YouTube link."
+      }
+    ]
+  },
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=61584734289007",
+    "https://www.youtube.com/@heartstringsstudiowv",
+    "https://www.tiktok.com/@heartstringsstudiowv"
+  ]
+}
+</script>
 
 <!-- Refined font pairing: Cormorant Garamond for serif drama, Lato for body -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1373,6 +1429,198 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   .section h2 { font-size: 24px; }
   .proof-stat { font-size: 46px; }
 }
+/* ═══════════════════════════════════════════════════════════
+   STICKY NAV
+═══════════════════════════════════════════════════════════ */
+.sticky-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9000;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  height: 60px;
+  transition: background 0.45s var(--ease-elegant), border-color 0.45s var(--ease-elegant), box-shadow 0.45s var(--ease-elegant);
+  box-shadow: none;
+}
+/* Solid once the page is scrolled (or the mobile menu is open) */
+.sticky-nav.is-solid,
+.sticky-nav.menu-open {
+  background: rgba(22, 15, 17, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(192,69,90,0.2);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.28);
+}
+.sticky-nav-logo {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: color 0.3s var(--ease-out);
+}
+.sticky-nav-logo:hover { color: var(--rose-light); }
+.sticky-nav-logo span {
+  color: var(--rose-light);
+}
+.nav-left { display: flex; align-items: center; gap: 12px; }
+/* Hamburger — hidden on desktop, shown on mobile */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  margin-left: -8px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle:focus-visible { outline: 2px solid var(--rose-light); outline-offset: 2px; border-radius: 4px; }
+.nav-toggle-bar {
+  width: 22px; height: 1.5px;
+  background: var(--cream);
+  border-radius: 2px;
+  transition: transform 0.35s var(--ease-elegant), opacity 0.25s var(--ease-out);
+}
+.sticky-nav.menu-open .nav-toggle-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.sticky-nav.menu-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.sticky-nav.menu-open .nav-toggle-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.sticky-nav-cta {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: var(--rose);
+  border: none;
+  padding: 10px 22px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.sticky-nav-cta:hover {
+  background: var(--rose-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-rose);
+}
+.sticky-nav-links {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+.sticky-nav-links a {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(250,246,242,0.82);
+  text-decoration: none;
+  transition: color 0.3s var(--ease-out);
+  white-space: nowrap;
+}
+.sticky-nav-links a:hover { color: var(--rose-light); }
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  /* Links become an absolutely-positioned dropdown under the bar */
+  .sticky-nav-links {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: rgba(22, 15, 17, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(192,69,90,0.2);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.38);
+    padding: 4px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease-elegant), transform 0.3s var(--ease-elegant), visibility 0.3s;
+  }
+  .sticky-nav.menu-open .sticky-nav-links {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .sticky-nav-links a {
+    padding: 15px 28px;
+    font-size: 12px;
+    color: rgba(250,246,242,0.72);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .sticky-nav-links a:last-child { border-bottom: none; }
+}
+@media (max-width: 480px) {
+  .sticky-nav { padding: 0 16px; }
+  .sticky-nav-logo { font-size: 15px; }
+  .sticky-nav-cta { font-size: 10.5px; padding: 9px 14px; letter-spacing: 0.08em; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   START STRIP (early on-ramp)
+═══════════════════════════════════════════════════════════ */
+.start-strip {
+  background: var(--charcoal);
+  padding: 52px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.start-strip::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 70% at 50% 50%, rgba(192,69,90,0.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+.start-strip-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
+.start-strip h2 {
+  font-family: var(--serif);
+  font-size: clamp(24px, 3.6vw, 34px);
+  font-weight: 500;
+  color: var(--cream);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.start-strip h2 em { font-style: italic; font-weight: 600; color: var(--rose-light); }
+.start-strip-price {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: rgba(250,246,242,0.82);
+  margin-bottom: 30px;
+}
+.start-strip-price strong { color: var(--cream); font-weight: 700; }
+.start-strip-actions {
+  display: flex; flex-wrap: wrap;
+  gap: 12px 18px;
+  justify-content: center; align-items: center;
+}
+.start-strip-link {
+  font-family: var(--serif-alt);
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(212,99,122,0.8);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212,99,122,0.3);
+  transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+.start-strip-link:hover { color: var(--rose-light); border-bottom-color: var(--rose-light); }
 </style>
 
 <!-- Google Analytics -->
@@ -1385,6 +1633,25 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 </script>
 </head>
 <body>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav" aria-label="Site navigation">
+  <div class="nav-left">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="sticky-nav-logo">Heartstrings <span>Studio</span></a>
+  </div>
+  <div class="sticky-nav-links" id="navMenu">
+    <a href="#listen">Listen</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="https://heartstringsstudio.github.io/intake/" class="sticky-nav-cta">Begin Your Song &rarr;</a>
+</nav>
 
 <!-- HERO -->
 <section class="hero">
@@ -1497,6 +1764,20 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   <div class="line"></div>
 </div>
 
+<!-- START YOUR SONG (early on-ramp) -->
+<section class="start-strip" aria-label="Start your song">
+  <div class="start-strip-inner reveal">
+    <h2>Ready to begin <em>your</em> song?</h2>
+    <p class="start-strip-price"><strong>$150 flat — one song, one price</strong> &nbsp;·&nbsp; delivered in 48–72 hours</p>
+    <div class="start-strip-actions">
+      <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
+        <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
+      </a>
+      <a href="#pricing" class="start-strip-link">See everything included &rarr;</a>
+    </div>
+  </div>
+</section>
+
 <!-- OCCASIONS -->
 <section class="section section-center full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
   <div class="reveal" style="max-width:860px; margin:0 auto;">
@@ -1526,7 +1807,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 </div>
 
 <!-- FEATURED SONGS -->
-<section class="section reveal">
+<section class="section reveal" id="listen">
   <p class="section-label">Featured Stories in Song</p>
   <h2>Listen to what's possible</h2>
   <div class="featured-grid reveal-stagger">
@@ -1580,7 +1861,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 </div>
 
 <!-- PROCESS -->
-<section class="section section-center reveal">
+<section class="section section-center reveal" id="process">
   <p class="section-label">The Process</p>
   <h2>Three steps. One song <em>yours forever.</em></h2>
   <div class="steps reveal-stagger">
@@ -1641,7 +1922,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 </div>
 
 <!-- PRICING -->
-<section class="pricing-section">
+<section class="pricing-section" id="pricing">
   <div class="reveal">
     <p class="section-label">Investment</p>
     <h2>One song. One price. <em>One story.</em></h2>
@@ -1753,7 +2034,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 </div>
 
 <!-- FAQ -->
-<section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px; border-top: 1px solid var(--divider);">
+<section class="section full-bg bg-warm" id="faq" style="padding-left:24px; padding-right:24px; border-top: 1px solid var(--divider);">
   <div class="reveal" style="max-width:860px; margin:0 auto;">
     <p class="section-label">Common Questions</p>
     <h2>Everything you want to know</h2>
@@ -1977,23 +2258,142 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   start();
 })();
 
-/* INTAKE CTA CONVERSION TRACKING */
+/* STICKY NAV */
 (function() {
-  /* The intake form lives off-site, so GA can't observe the submit —
-     a click through to /intake/ is the closest conversion signal we have. */
-  document.addEventListener('click', function(e) {
-    var el = e.target.closest('a');
-    if (!el) return;
-    var href = el.getAttribute('href') || '';
-    if (href.indexOf('/intake/') === -1) return;
-    var txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
-    gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt.slice(0, 50) });
-    var occ = (href.split('occasion=')[1] || '').split('&')[0];
-    gtag('event', 'generate_lead', {
-      event_category: 'conversion',
-      event_label: txt.slice(0, 50),
-      occasion: occ ? decodeURIComponent(occ) : 'unspecified'
+  var nav = document.getElementById('stickyNav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('navMenu');
+
+  function closeMenu() {
+    nav.classList.remove('menu-open');
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+    }
+  }
+  function openMenu() {
+    nav.classList.add('menu-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close menu');
+  }
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      nav.classList.contains('menu-open') ? closeMenu() : openMenu();
     });
+    /* Close after choosing a section */
+    menu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', closeMenu);
+    });
+    /* Close on outside tap or Escape */
+    document.addEventListener('click', function(e) {
+      if (nav.classList.contains('menu-open') && !nav.contains(e.target)) closeMenu();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  }
+
+  /* Nav is always present: transparent over the hero, solid once scrolled */
+  function onScroll() {
+    if (window.scrollY > 24) {
+      nav.classList.add('is-solid');
+    } else {
+      nav.classList.remove('is-solid');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ENGAGEMENT TRACKING (scroll depth · section views · CTA clicks) */
+(function () {
+  if (typeof gtag !== 'function') return;
+
+  /* ---- How far down the page people get: 25 / 50 / 75 / 90 / 100% ---- */
+  var marks = [25, 50, 75, 90, 100];
+  var fired = {};
+  function scrollPct() {
+    var doc = document.documentElement, body = document.body;
+    var top = window.pageYOffset || doc.scrollTop || body.scrollTop || 0;
+    var max = Math.max(body.scrollHeight, doc.scrollHeight) - window.innerHeight;
+    if (max <= 0) return 100;
+    return Math.min(100, Math.round((top / max) * 100));
+  }
+  function checkScroll() {
+    var p = scrollPct();
+    for (var i = 0; i < marks.length; i++) {
+      var m = marks[i];
+      if (p >= m && !fired[m]) {
+        fired[m] = true;
+        gtag('event', 'scroll_depth', {
+          percent: m,
+          event_category: 'engagement',
+          event_label: m + '%',
+          non_interaction: true
+        });
+      }
+    }
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () { checkScroll(); ticking = false; });
+  }, { passive: true });
+  checkScroll();
+
+  /* ---- Which sections actually get seen (50% in view) ---- */
+  function sectionName(el) {
+    if (el.id) return el.id;
+    var label = el.querySelector('.section-label, .weekly-badge');
+    if (label && label.textContent.trim()) return label.textContent.trim();
+    var h = el.querySelector('h1, h2');
+    if (h && h.textContent.trim()) return h.textContent.trim().replace(/\s+/g, ' ').slice(0, 60);
+    return 'section';
+  }
+  if ('IntersectionObserver' in window) {
+    var seen = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var name = sectionName(entry.target);
+        if (seen[name]) return;
+        seen[name] = true;
+        gtag('event', 'section_view', {
+          section: name,
+          event_category: 'engagement',
+          event_label: name,
+          non_interaction: true
+        });
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('section').forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---- Primary CTA clicks ---- */
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('button, a');
+    if (!el) return;
+    var txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
+    var href = el.getAttribute('href') || '';
+    if (href.indexOf('/intake/') !== -1) {
+      gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt.slice(0, 50) });
+      /* The intake form lives off-site, so GA can't observe the submit —
+         a click through to intake is the closest conversion signal we have. */
+      var occ = (href.split('occasion=')[1] || '').split('&')[0];
+      gtag('event', 'generate_lead', {
+        event_category: 'conversion',
+        event_label: txt.slice(0, 50),
+        occasion: occ ? decodeURIComponent(occ) : 'unspecified'
+      });
+    } else if (/hear examples/i.test(txt)) {
+      gtag('event', 'cta_click', { cta: 'hear_examples', event_category: 'engagement', event_label: txt.slice(0, 50) });
+    }
   }, true);
 })();
 </script>
