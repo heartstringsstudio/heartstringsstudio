@@ -95,6 +95,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .ornament-divider .line, .ornament-divider .flourish span { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .ornament-divider .diamond { opacity: 1 !important; transform: rotate(45deg) !important; transition: none !important; }
   * { animation-duration: 0.001ms !important; }
 }
 
@@ -424,12 +426,17 @@ body {
   background: linear-gradient(90deg, transparent 0%, var(--divider) 30%, var(--gold) 50%, var(--divider) 70%, transparent 100%);
   max-width: 180px;
   position: relative; overflow: hidden;
+  transform: scaleX(0);
+  transition: transform 1.1s var(--ease-elegant) 0.35s;
 }
+.ornament-divider .line:first-child { transform-origin: right center; }
+.ornament-divider .line:last-child  { transform-origin: left center; }
+.ornament-divider.is-visible .line { transform: scaleX(1); }
 .ornament-divider .line::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(90deg, transparent 0%, rgba(192,69,90,0.5) 50%, transparent 100%);
   transform: translateX(-100%);
-  transition: transform 2.2s var(--ease-elegant);
+  transition: transform 2.2s var(--ease-elegant) 1.2s;
 }
 .ornament-divider.is-visible .line::after { transform: translateX(100%); }
 
@@ -437,20 +444,29 @@ body {
   position: relative;
   width: 10px; height: 10px;
   flex-shrink: 0;
-  transform: rotate(45deg);
+  transform: rotate(45deg) scale(0);
+  opacity: 0;
   background: var(--rose);
   box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px rgba(192,69,90,0.25);
-  transition: box-shadow 0.6s var(--ease-elegant);
+  transition: box-shadow 0.6s var(--ease-elegant), transform 0.6s var(--ease-elegant), opacity 0.6s var(--ease-elegant);
 }
 .ornament-divider.is-visible .diamond {
+  transform: rotate(45deg) scale(1);
+  opacity: 1;
   box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px rgba(192,69,90,0.4), 0 0 18px rgba(192,69,90,0.3);
 }
 .ornament-divider .flourish { display: flex; gap: 4px; align-items: center; }
 .ornament-divider .flourish span {
   width: 3px; height: 3px; border-radius: 50%;
   background: var(--rose); opacity: 0.4;
+  transform: scale(0);
+  transition: transform 0.5s var(--ease-elegant);
 }
 .ornament-divider .flourish span:nth-child(2) { opacity: 0.7; }
+.ornament-divider.is-visible .flourish span { transform: scale(1); }
+.ornament-divider.is-visible .flourish span:nth-child(1) { transition-delay: 1.0s; }
+.ornament-divider.is-visible .flourish span:nth-child(2) { transition-delay: 1.12s; }
+.ornament-divider.is-visible .flourish span:nth-child(3) { transition-delay: 1.24s; }
 .bg-warm .ornament-divider .diamond,
 .ornament-divider.on-warm .diamond {
   box-shadow: 0 0 0 3px var(--cream-warm), 0 0 0 4px rgba(192,69,90,0.25);
@@ -1282,12 +1298,12 @@ body {
 <div class="proof-banner reveal">
   <div class="proof-stats-wrap">
     <div class="proof-item">
-      <div class="proof-stat">20,119</div>
+      <div class="proof-stat" data-count="20119">20,119</div>
       <div class="proof-label">Views on a single tribute song</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-item">
-      <div class="proof-stat">50+</div>
+      <div class="proof-stat" data-count="50" data-suffix="+">50+</div>
       <div class="proof-label">Songs delivered</div>
     </div>
   </div>
@@ -1764,6 +1780,45 @@ body {
   }, observerOptions);
   document.querySelectorAll('.reveal, .reveal-stagger, .ornament-divider').forEach(function(el) {
     revealObserver.observe(el);
+  });
+})();
+
+/* STAT COUNT-UP */
+(function() {
+  var stats = document.querySelectorAll('.proof-stat[data-count]');
+  if (!stats.length) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  function format(n, suffix) { return Math.round(n).toLocaleString('en-US') + suffix; }
+
+  function animate(el) {
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    var dur = 1800, start = null;
+    function ease(t) { return 1 - Math.pow(1 - t, 4); } /* easeOutQuart */
+    function step(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = format(target * ease(p), suffix);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = format(target, suffix);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animate(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  stats.forEach(function(el) {
+    el.textContent = format(0, el.getAttribute('data-suffix') || '');
+    obs.observe(el);
   });
 })();
 
