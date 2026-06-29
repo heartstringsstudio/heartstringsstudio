@@ -497,15 +497,17 @@ body {
 ═══════════════════════════════════════════════════════════ */
 .occasions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 36px; }
 .pill {
+  display: inline-block;
   font-size: 13px; font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--rose-deep);
+  text-decoration: none;
   border: 1px solid rgba(192,69,90,0.4);
   padding: 8px 20px;
   border-radius: 40px;
   background: transparent;
   transition: all 0.35s var(--ease-out);
-  cursor: default;
+  cursor: pointer;
 }
 .pill:hover {
   background: var(--rose); color: var(--cream);
@@ -1394,9 +1396,9 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <h1>Your Story<br>Deserves a <em>Song</em></h1>
     <p class="hero-tagline">We turn meaningful moments into music — crafted with care and made to last a lifetime.</p>
     <div class="hero-cta-wrap">
-      <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+      <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-      </button>
+      </a>
     </div>
     <p class="hero-sub">Or browse the full catalog&nbsp; <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">on YouTube &rarr;</a></p>
     <p class="hero-sub" style="margin-top:12px;"><a href="#weekly-song">🎵 Hear this week's song &darr;</a></p>
@@ -1430,9 +1432,9 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <div class="weekly-song-embed">
       <iframe src="https://www.youtube.com/embed/BC2NGPM3hlM" allowfullscreen title="This Week's Song — Heartstrings Studio"></iframe>
     </div>
-    <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+    <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
       <span class="btn-sweep"></span><span>Start Your Own Song &rarr;</span>
-    </button>
+    </a>
   </div>
 </section>
 
@@ -1486,15 +1488,15 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <p class="section-label">Every Occasion</p>
     <h2>The moments worth holding onto</h2>
     <div class="occasions">
-      <span class="pill">Weddings</span>
-      <span class="pill">Memorials &amp; Tributes</span>
-      <span class="pill">Anniversaries</span>
-      <span class="pill">Birthdays</span>
-      <span class="pill">Retirements</span>
-      <span class="pill">Military Tributes</span>
-      <span class="pill">Celebrations of Life</span>
-      <span class="pill">Gratitude &amp; Thank You</span>
-      <span class="pill">Just Because</span>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Wedding">Weddings</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Memorial%20%2F%20Tribute">Memorials &amp; Tributes</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Anniversary">Anniversaries</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Birthday">Birthdays</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Retirement">Retirements</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Military%20Tribute">Military Tributes</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Celebration%20of%20Life">Celebrations of Life</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Gratitude%20%2F%20Thank%20You">Gratitude &amp; Thank You</a>
+      <a class="pill" href="https://heartstringsstudio.github.io/intake/?occasion=Just%20Because">Just Because</a>
     </div>
   </div>
 </section>
@@ -1644,9 +1646,9 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
         <li>Delivered in 48–72 hours</li>
         <li>Remake guarantee — if the finished song misses the mark, Tim starts over from scratch</li>
       </ul>
-      <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+      <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-      </button>
+      </a>
       <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery (24-hour guarantee) available for an additional $50</p>
     </div>
   </div>
@@ -1773,100 +1775,6 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   </div>
 </section>
 
-<!-- ORDER FORM -->
-<section class="form-section" id="order-form">
-  <div class="form-wrap reveal">
-    <div style="text-align:center; margin-bottom:44px;">
-      <p class="section-label">Get Started</p>
-      <h2>Tell me your <em>story</em></h2>
-      <p class="form-sub">Fill out the form below and Tim will be in touch within 24 hours to talk through your song.</p>
-    </div>
-    <form id="hsForm" action="https://formspree.io/f/xykbvdrb" method="POST">
-      <div class="form-two-col">
-        <div class="form-row">
-          <label for="name">Your Name</label>
-          <input type="text" id="name" name="name" placeholder="First and last name" required>
-        </div>
-        <div class="form-row">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required>
-        </div>
-      </div>
-      <div class="form-two-col">
-        <div class="form-row">
-          <label for="phone">Phone (optional)</label>
-          <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx">
-        </div>
-        <div class="form-row">
-          <label for="occasion">Occasion</label>
-          <select id="occasion" name="occasion" required>
-            <option value="" disabled selected>Select one</option>
-            <option>Wedding</option>
-            <option>Memorial / Tribute</option>
-            <option>Anniversary</option>
-            <option>Birthday</option>
-            <option>Retirement</option>
-            <option>Military Tribute</option>
-            <option>Celebration of Life</option>
-            <option>Gratitude / Thank You</option>
-            <option>Just Because</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <label for="recipient">Who is the song for?</label>
-        <input type="text" id="recipient" name="recipient" placeholder="Name(s) and relationship to you" required>
-      </div>
-      <div class="form-row">
-        <label for="genre">Genre / Mood</label>
-        <select id="genre" name="genre">
-          <option value="" disabled selected>Select one</option>
-          <option>Emotional / Heartfelt</option>
-          <option>Country</option>
-          <option>Pop</option>
-          <option>Folk / Acoustic</option>
-          <option>Rock / Anthem</option>
-          <option>R&amp;B / Soul</option>
-          <option>Upbeat / Celebratory</option>
-          <option>Not sure — Tim's call</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label for="heard">How did you hear about us?</label>
-        <select id="heard" name="heard" required>
-          <option value="" disabled selected>Select one</option>
-          <option>Friend or family told me</option>
-          <option>I already knew Tim</option>
-          <option>Facebook</option>
-          <option>Instagram</option>
-          <option>Heard a Heartstrings song shared online</option>
-          <option>Google / web search</option>
-          <option>Funeral home or service</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="form-divider"></div>
-      <div class="form-row">
-        <label for="story">Your Story</label>
-        <textarea id="story" name="story" placeholder="Share the memories, moments, inside jokes, names, phrases — anything that makes this story theirs. The more detail you give, the more personal the song becomes." required></textarea>
-        <p class="form-note">Don't worry about writing perfectly. Just write like you're telling a friend.</p>
-      </div>
-      <div class="form-row">
-        <label for="extras">Anything else Tim should know?</label>
-        <textarea id="extras" name="extras" placeholder="Tone, specific lines you'd love included, delivery deadline, etc." style="min-height:80px;"></textarea>
-      </div>
-      <div class="form-submit-wrap">
-        <button type="submit" class="btn-ornate btn-dark">
-          <span class="btn-sweep"></span><span>Send My Story to Tim &rarr;</span>
-        </button>
-        <p class="form-note" style="margin-top:18px;">Custom songs from $150 &nbsp;·&nbsp; Delivered in 48–72 hours</p>
-        <p class="form-status" id="formStatus"></p>
-      </div>
-    </form>
-  </div>
-</section>
-
 <!-- CTA CLOSE -->
 <section class="cta-section">
   <div class="cta-bg-logo" id="ctaBg" style="background-image:url('https://heartstringsstudio.github.io/heartstringsstudio/logo.png');"></div>
@@ -1874,9 +1782,9 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <p class="section-label">Ready?</p>
     <h2>Some moments deserve<br>more than a <em>snapshot.</em></h2>
     <p>Tell Tim your story. He'll turn it into something you can hold onto forever.</p>
-    <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})" class="btn-ornate btn-dark">
+    <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
       <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
-    </button>
+    </a>
     <p class="price-note">Custom songs from $150 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="window.location.href='mailto:'+'heartstringsstudiowv'+'@'+'gmail.com'">heartstringsstudiowv&#64;gmail&#46;com</a></p>
   </div>
 </section>
@@ -2054,32 +1962,24 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   start();
 })();
 
-/* FORM SUBMISSION */
+/* INTAKE CTA CONVERSION TRACKING */
 (function() {
-  var form = document.getElementById('hsForm');
-  var status = document.getElementById('formStatus');
-  if (!form) return;
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var data = new FormData(form);
-    fetch(form.action, {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    }).then(function(r) {
-      if (r.ok) {
-        status.textContent = 'Your story is on its way. Tim will be in touch within 24 hours.';
-        status.className = 'form-status success';
-        form.reset();
-      } else {
-        status.textContent = 'Something went wrong. Please email heartstringsstudiowv@gmail.com directly.';
-        status.className = 'form-status error';
-      }
-    }).catch(function() {
-      status.textContent = 'Something went wrong. Please email heartstringsstudiowv@gmail.com directly.';
-      status.className = 'form-status error';
+  /* The intake form lives off-site, so GA can't observe the submit —
+     a click through to /intake/ is the closest conversion signal we have. */
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('a');
+    if (!el) return;
+    var href = el.getAttribute('href') || '';
+    if (href.indexOf('/intake/') === -1) return;
+    var txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
+    gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt.slice(0, 50) });
+    var occ = (href.split('occasion=')[1] || '').split('&')[0];
+    gtag('event', 'generate_lead', {
+      event_category: 'conversion',
+      event_label: txt.slice(0, 50),
+      occasion: occ ? decodeURIComponent(occ) : 'unspecified'
     });
-  });
+  }, true);
 })();
 </script>
 </body>
