@@ -1,4 +1,9 @@
+# Heartstrings Studio — https://heartstringsstudio.github.io/heartstringsstudio/
 User-agent: *
 Allow: /
+
+# Studio-only tools (also noindex'd in-page) — no need to crawl
+Disallow: /keepsake-builder.html
+Disallow: /keepsaketemplate.html
 
 Sitemap: https://heartstringsstudio.github.io/heartstringsstudio/sitemap.xml
