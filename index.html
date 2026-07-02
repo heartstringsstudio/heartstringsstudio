@@ -200,7 +200,7 @@
           "name": "How fast will I get my song?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Most songs are delivered within 48–72 hours. Rush delivery is available for an additional $50 — your song is guaranteed within 24 hours, provided there is prompt communication between you and Tim throughout the process."
+            "text": "Most songs are delivered within 48–72 hours. If you're on a tighter timeline, rush delivery is available for an additional $50 — just mention your date on the intake form and Tim will confirm what's possible."
           }
         },
         {
@@ -445,17 +445,26 @@ body {
 }
 
 .hero-content { position: relative; z-index: 3; max-width: 720px; margin: 0 auto; }
-.hero-banner-logo {
-  width: 520px; max-width: 90%;
-  margin: 0 auto 32px;
+.hero-lockup {
+  margin: 0 auto 30px;
   opacity: 0;
   animation: heroFadeUp 1.4s var(--ease-elegant) 0.1s forwards;
 }
-.hero-banner-logo img {
-  width: 100%; height: auto;
+.hero-lockup img {
+  width: 88px; height: 88px;
   object-fit: contain;
-  filter: brightness(1.1) saturate(0.82) drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+  filter: brightness(1.3) saturate(0.88) drop-shadow(0 4px 18px rgba(0,0,0,0.35));
 }
+.hero-wordmark {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+  margin-top: 10px;
+  line-height: 1.2;
+}
+.hero-wordmark span { font-style: italic; font-weight: 600; color: var(--rose-light); }
 .hero-eyebrow {
   font-size: 10.5px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
@@ -580,7 +589,10 @@ body {
   flex-wrap: wrap;
   margin-bottom: 32px;
 }
-.proof-item { text-align: center; position: relative; }
+.proof-item {
+  text-align: center; position: relative;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
 .proof-stat {
   font-family: var(--serif);
   font-size: clamp(48px, 9vw, 78px);
@@ -588,6 +600,12 @@ body {
   color: var(--rose-light);
   line-height: 1;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.proof-stat.proof-stars {
+  font-size: clamp(26px, 4.5vw, 40px);
+  letter-spacing: 4px;
+  padding-bottom: 8px;
 }
 .proof-label {
   font-size: 11px; font-weight: 400;
@@ -611,8 +629,57 @@ body {
   line-height: 1.68;
 }
 @media (max-width: 580px) {
-  .proof-stats-wrap { gap: 36px; }
+  .proof-stats-wrap { flex-wrap: nowrap; gap: 20px; justify-content: space-evenly; margin-bottom: 22px; }
+  .proof-stat { font-size: 34px; }
+  .proof-stat.proof-stars { font-size: 19px; letter-spacing: 1px; }
+  .proof-label { font-size: 9px; letter-spacing: 0.1em; }
   .proof-divider { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TRUST STRIP — the person behind the songs
+═══════════════════════════════════════════════════════════ */
+.trust-strip {
+  background: var(--cream);
+  padding: 34px 24px;
+  border-bottom: 1px solid var(--divider-soft);
+}
+.trust-strip-inner {
+  max-width: 620px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: left;
+}
+.trust-strip img {
+  width: 74px; height: 74px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px rgba(192,69,90,0.35), var(--shadow-md);
+}
+.trust-strip p {
+  font-size: 15.5px;
+  color: var(--text-body);
+  line-height: 1.65;
+  margin: 0;
+}
+.trust-strip p strong { color: var(--charcoal); }
+.trust-strip a {
+  color: var(--rose);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(192,69,90,0.3);
+  transition: border-color 0.3s var(--ease-out);
+  white-space: nowrap;
+}
+.trust-strip a:hover { border-bottom-color: var(--rose); }
+@media (max-width: 520px) {
+  .trust-strip { padding: 28px 20px; }
+  .trust-strip-inner { gap: 16px; }
+  .trust-strip img { width: 62px; height: 62px; }
+  .trust-strip p { font-size: 14px; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -803,31 +870,6 @@ body {
   line-height: 1.76;
   max-width: 260px; margin: 0 auto;
 }
-
-/* ═══════════════════════════════════════════════════════════
-   DELIVERS
-═══════════════════════════════════════════════════════════ */
-.delivers {
-  list-style: none; margin-top: 36px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-}
-.delivers li {
-  display: flex; align-items: flex-start; gap: 14px;
-  font-size: 15.5px; color: var(--text-body);
-  line-height: 1.6; padding: 6px 0;
-  transition: transform 0.35s var(--ease-out);
-}
-.delivers li:hover { transform: translateX(4px); }
-.delivers li::before {
-  content: ''; flex-shrink: 0;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--rose); margin-top: 8px;
-  box-shadow: 0 0 0 3px rgba(192,69,90,0.12);
-  transition: box-shadow 0.35s var(--ease-out);
-}
-.delivers li:hover::before { box-shadow: 0 0 0 4px rgba(192,69,90,0.22); }
 
 /* ═══════════════════════════════════════════════════════════
    SONG CARDS
@@ -1109,10 +1151,18 @@ body {
   background: var(--rose); margin-top: 8px;
   box-shadow: 0 0 0 2px rgba(192,69,90,0.2);
 }
+.pricing-guarantee {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14.5px;
+  color: rgba(250,246,242,0.78);
+  margin-top: 26px;
+  line-height: 1.6;
+}
 .pricing-note {
   font-size: 12px;
-  color: rgba(250,246,242,0.38);
-  margin-top: 22px;
+  color: rgba(250,246,242,0.7);
+  margin-top: 14px;
   line-height: 1.65;
   letter-spacing: 0.02em;
 }
@@ -1570,12 +1620,13 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 @media (max-width: 768px) {
   body { margin: -8px -12px -12px -12px; }
   .hero { padding: 64px 20px 72px; min-height: 540px; }
-  .hero-banner-logo { width: 88%; max-width: 88%; margin-bottom: 22px; }
+  .hero-lockup { margin-bottom: 20px; }
+  .hero-lockup img { width: 68px; height: 68px; }
+  .hero-wordmark { font-size: 24px; margin-top: 8px; }
   .hero h1 { font-size: 38px; }
   .hero-tagline { font-size: 16px; margin: 18px auto 30px; }
   .btn-ornate { font-size: 13.5px; padding: 14px 36px; }
   .proof-banner { padding: 44px 20px; }
-  .proof-stat { font-size: 56px; }
   .section { padding: 60px 20px; }
   .section h2 { font-size: 27px; }
   .section p { font-size: 15.5px; }
@@ -1610,7 +1661,6 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   .hero h1 { font-size: 32px; }
   .btn-ornate { padding: 12px 26px; font-size: 12.5px; }
   .section h2 { font-size: 24px; }
-  .proof-stat { font-size: 46px; }
 }
 /* ═══════════════════════════════════════════════════════════
    STICKY NAV
@@ -1839,8 +1889,9 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-banner-logo">
-      <img id="heroIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg" alt="Heartstrings Studio — custom songwriting from Lumberport, West Virginia" width="1920" height="600" fetchpriority="high" decoding="async">
+    <div class="hero-lockup">
+      <img id="heroIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/logo.png" alt="" width="512" height="512" fetchpriority="high" decoding="async">
+      <div class="hero-wordmark">Heartstrings <span>Studio</span></div>
     </div>
     <p class="hero-eyebrow">Custom Songwriting &nbsp;·&nbsp; Lumberport, West Virginia</p>
     <h1>Your Story<br>Deserves a <em>Song</em></h1>
@@ -1860,32 +1911,30 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 <div class="proof-banner reveal">
   <div class="proof-stats-wrap">
     <div class="proof-item">
-      <div class="proof-stat" data-count="20119">20,119</div>
-      <div class="proof-label">Views on a single tribute song</div>
-    </div>
-    <div class="proof-divider"></div>
-    <div class="proof-item">
       <div class="proof-stat" data-count="107">107</div>
       <div class="proof-label">Songs delivered</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-item">
       <div class="proof-stat">48–72h</div>
-      <div class="proof-label">Delivery &middot; 24h for memorials</div>
+      <div class="proof-label">Delivery</div>
     </div>
     <div class="proof-divider"></div>
     <div class="proof-item">
-      <div class="proof-stat">100%</div>
-      <div class="proof-label">Remake guarantee</div>
-    </div>
-    <div class="proof-divider"></div>
-    <div class="proof-item">
-      <div class="proof-stat">★★★★★</div>
-      <div class="proof-label">5-star rated</div>
+      <div class="proof-stat proof-stars">★★★★★</div>
+      <div class="proof-label">5-star rated by clients</div>
     </div>
   </div>
-  <p class="proof-quote">When a song captures what words can't hold, people share it. That's what Heartstrings Studio makes.</p>
+  <p class="proof-quote">Songs written here have brought comfort to more than a hundred families — one tribute alone has been listened to over 20,000 times.</p>
 </div>
+
+<!-- TRUST STRIP — the person behind the songs -->
+<section class="trust-strip" aria-label="Who writes your song">
+  <div class="trust-strip-inner reveal">
+    <img src="https://heartstringsstudio.github.io/heartstringsstudio/timphoto.jpg" alt="Tim Harbert, founder and songwriter of Heartstrings Studio" width="600" height="600" loading="lazy" decoding="async">
+    <p>Every song is written personally by <strong>Tim Harbert</strong> in Lumberport, West Virginia — one story at a time, start to finish. <a href="#meet-tim">Meet Tim &rarr;</a></p>
+  </div>
+</section>
 
 <!-- WEEKLY SONG -->
 <section class="weekly-song-section" id="weekly-song">
@@ -2075,35 +2124,6 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   <div class="line"></div>
 </div>
 
-<!-- WHAT'S INCLUDED -->
-<section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
-  <div class="reveal" style="max-width:860px; margin:0 auto;">
-    <p class="section-label">What's Included</p>
-    <h2>Everything you need to share it — or keep it close.</h2>
-    <ul class="delivers">
-      <li>One-on-one creative consultation with Tim</li>
-      <li>Fully custom song written for your story</li>
-      <li>One round of lyric revisions before production</li>
-      <li>MP3 (song) — high-quality audio file</li>
-      <li>MP4 (video) — a simple shareable video made for sending to friends, family, and social media</li>
-      <li>Custom album artwork</li>
-      <li>Lyric sheet</li>
-      <li>Private YouTube link to watch and share</li>
-      <li>Delivered in 48–72 hours</li>
-      <li>Remake guarantee — if the finished song misses the mark, Tim starts over from scratch</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ORNAMENT -->
-<div class="ornament-divider reveal">
-  <div class="line"></div>
-  <div class="flourish"><span></span><span></span><span></span></div>
-  <div class="diamond"></div>
-  <div class="flourish"><span></span><span></span><span></span></div>
-  <div class="line"></div>
-</div>
-
 <!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="reveal">
@@ -2123,12 +2143,12 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
         <li>Lyric sheet</li>
         <li>Private YouTube link to watch &amp; share</li>
         <li>Delivered in 48–72 hours</li>
-        <li>Remake guarantee — if the finished song misses the mark, Tim starts over from scratch</li>
       </ul>
       <a href="https://heartstringsstudio.github.io/intake/" class="btn-ornate btn-dark">
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
       </a>
-      <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery (24-hour guarantee) available for an additional $50</p>
+      <p class="pricing-guarantee">Remake guarantee: if the finished song misses the mark, Tim starts over from scratch.</p>
+      <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery available for an additional $50</p>
     </div>
   </div>
 </section>
@@ -2189,7 +2209,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 </div>
 
 <!-- BIO -->
-<section class="section full-bg bg-warm" style="padding-left:24px; padding-right:24px;">
+<section class="section full-bg bg-warm" id="meet-tim" style="padding-left:24px; padding-right:24px;">
   <div class="reveal" style="max-width:860px; margin:0 auto;">
     <div class="bio-wrap">
       <div class="bio-img">
@@ -2228,7 +2248,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
       </div>
       <div class="faq-item">
         <div class="faq-q">How fast will I get my song?</div>
-        <div class="faq-a">Most songs are delivered within 48–72 hours. Rush delivery is available for an additional $50 — your song is guaranteed within 24 hours, provided there is prompt communication between you and Tim throughout the process.</div>
+        <div class="faq-a">Most songs are delivered within 48–72 hours. If you're on a tighter timeline, rush delivery is available for an additional $50 — just mention your date on the intake form and Tim will confirm what's possible.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Can I pick the style or mood?</div>
@@ -2332,7 +2352,6 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   }, { threshold: 0.4 });
 
   stats.forEach(function(el) {
-    el.textContent = format(0, el.getAttribute('data-suffix') || '');
     obs.observe(el);
   });
 })();
