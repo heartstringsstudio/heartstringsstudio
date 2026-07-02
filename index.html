@@ -297,6 +297,11 @@
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 20px; }
+/* 'clip' forbids horizontal panning outright (iOS respects it, unlike
+   'hidden' which only masks); older browsers keep the hidden fallback */
+@supports (overflow: clip) {
+  html, body { overflow-x: clip; }
+}
 body {
   font-family: var(--sans);
   background: var(--cream);
@@ -1653,7 +1658,9 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   .pricing-card { padding: 40px 28px; }
   .pricing-amount { font-size: 70px; }
   .weekly-song-section { padding: 56px 20px; }
-  .section-label::before, .section-label::after { width: 12px; }
+  /* The side dashes overflow the viewport on long left-aligned labels
+     (horizontal wiggle on iOS) and get half-clipped visually — drop them */
+  .section-label::before, .section-label::after { display: none; }
 }
 
 @media (max-width: 420px) {
