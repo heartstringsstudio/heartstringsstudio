@@ -1907,7 +1907,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
         <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
       </a>
     </div>
-    <p class="hero-sub">Or browse the full catalog&nbsp; <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">on YouTube &rarr;</a></p>
+    <p class="hero-sub">Or <a href="https://heartstringsstudio.github.io/jukebox/">hear the songs &rarr;</a></p>
     <p class="hero-sub" style="margin-top:12px;"><a href="#weekly-song">🎵 Hear this week's song &darr;</a></p>
   </div>
   <div class="scroll-cue" aria-hidden="true"><div class="scroll-cue-line"></div></div>
@@ -2083,9 +2083,9 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     </div>
   </div>
   <div style="text-align:center; margin-top:52px;">
-    <button onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')" class="btn-ornate btn-light">
-      <span class="btn-sweep"></span><span>View the Full Catalog on YouTube &rarr;</span>
-    </button>
+    <a href="https://heartstringsstudio.github.io/jukebox/" class="btn-ornate btn-light">
+      <span class="btn-sweep"></span><span>Hear the Songs &rarr;</span>
+    </a>
   </div>
 </section>
 
@@ -2300,7 +2300,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   <div class="footer-logo">Heartstrings Studio</div>
   <div class="footer-links">
     <a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/profile.php?id=61584734289007','_blank')">Facebook</a>
-    <a href="javascript:void(0)" onclick="window.open('https://www.youtube.com/@heartstringsstudiowv','_blank')">YouTube</a>
+    <a href="https://heartstringsstudio.github.io/jukebox/">Jukebox</a>
     <a href="javascript:void(0)" onclick="window.open('https://www.tiktok.com/@heartstringsstudiowv','_blank')">TikTok</a>
     <a href="javascript:void(0)" onclick="window.location.href='mailto:'+'heartstringsstudiowv'+'@'+'gmail.com'">Email</a>
   </div>
@@ -2599,8 +2599,8 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
         event_label: txt.slice(0, 50),
         occasion: occ ? decodeURIComponent(occ) : 'unspecified'
       });
-    } else if (/hear examples/i.test(txt)) {
-      gtag('event', 'cta_click', { cta: 'hear_examples', event_category: 'engagement', event_label: txt.slice(0, 50) });
+    } else if (href.indexOf('/jukebox/') !== -1) {
+      gtag('event', 'cta_click', { cta: 'hear_songs', event_category: 'engagement', event_label: txt.slice(0, 50) });
     }
   }, true);
 })();
