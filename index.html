@@ -113,7 +113,7 @@
             "name": "Custom Song",
             "price": "150",
             "priceCurrency": "USD",
-            "description": "Fully produced custom song written from your memories, delivered in 48–72 hours via a private keepsake page — your song on a private YouTube link, a downloadable MP3 and lyric sheet, and the album art and full lyrics displayed on the page."
+            "description": "Fully produced custom song written from your memories, delivered in 48–72 hours via your own personal keepsake page — your song on an unlisted YouTube link, a downloadable MP3 and lyric sheet, and the album art and full lyrics displayed on the page."
           }
         ]
       },
@@ -136,7 +136,7 @@
       "@type": "Product",
       "@id": "https://heartstringsstudio.github.io/heartstringsstudio/#custom-song",
       "name": "Custom Song by Heartstrings Studio",
-      "description": "A fully produced, one-of-a-kind custom song written by hand around your story and memories. Includes a creative consultation, one round of lyric revisions, and a private keepsake page with your song on a private YouTube link, a downloadable MP3 and lyric sheet, and the custom album art and full lyrics displayed on the page. Delivered in 48–72 hours.",
+      "description": "A fully produced, one-of-a-kind custom song written by hand around your story and memories. Includes a creative consultation, one round of lyric revisions, and your own personal keepsake page with your song on an unlisted YouTube link, a downloadable MP3 and lyric sheet, and the custom album art and full lyrics displayed on the page. Delivered in 48–72 hours.",
       "image": "https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg",
       "brand": { "@id": "https://heartstringsstudio.github.io/heartstringsstudio/#business" },
       "category": "Custom Songwriting",
@@ -224,7 +224,7 @@
           "name": "Can I give this as a gift?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolutely — a custom song makes one of the most personal and memorable gifts you can give. Many clients order songs as wedding gifts, birthday surprises, anniversary presents, or to honor someone they love. Your private keepsake page and downloads are yours to share however you choose — privately or in front of a room full of people."
+            "text": "Absolutely — a custom song makes one of the most personal and memorable gifts you can give. Many clients order songs as wedding gifts, birthday surprises, anniversary presents, or to honor someone they love. Your personal keepsake page and downloads are yours to share however you choose — privately or in front of a room full of people."
           }
         },
         {
@@ -232,7 +232,7 @@
           "name": "How do I share my song once it's delivered?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "When your song is finished, you'll get an email with a private link to your keepsake page — the home base where everything lives: your song on a private YouTube link, the MP3 and lyric sheet to download and keep, and the album art and full lyrics displayed on the page. Share the private YouTube link by text, email, or social media — anyone you send it to can watch and listen instantly — or download the MP3 and play it at an event, or keep it just for family."
+            "text": "When your song is finished, you'll get an email with the link to your personal keepsake page — the home base where everything lives: your song on an unlisted YouTube link, the MP3 and lyric sheet to download and keep, and the album art and full lyrics displayed on the page. Unlisted means the song never shows up in search or public listings — only people you share the link with will find it. Share it by text, email, or social media — anyone you send it to can watch and listen instantly — or download the MP3 and play it at an event, or keep it just for family."
           }
         },
         {
@@ -296,7 +296,8 @@
   --shadow-rose:   0 14px 40px rgba(192,69,90,0.14);
 }
 
-html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 20px; }
+/* scroll-padding must clear the 60px fixed nav, or anchored sections land underneath it */
+html { scroll-behavior: smooth; overflow-x: hidden; scroll-padding-top: 80px; }
 /* 'clip' forbids horizontal panning outright (iOS respects it, unlike
    'hidden' which only masks); older browsers keep the hidden fallback */
 @supports (overflow: clip) {
@@ -532,13 +533,13 @@ body {
 .hero-sub {
   margin-top: 22px;
   font-size: 12.5px;
-  color: rgba(250,246,242,0.42);
+  color: rgba(250,246,242,0.72);
   letter-spacing: 0.05em;
   opacity: 0;
   animation: heroFadeUp 1.6s var(--ease-elegant) 1.15s forwards;
 }
 .hero-sub a {
-  color: rgba(212,99,122,0.72);
+  color: rgba(212,99,122,0.9);
   text-decoration: none;
   transition: color 0.3s var(--ease-out);
   position: relative;
@@ -1397,114 +1398,6 @@ html.js .faq-a {
 html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 
 /* ═══════════════════════════════════════════════════════════
-   FORM
-═══════════════════════════════════════════════════════════ */
-.form-section {
-  background: var(--charcoal);
-  padding: 96px 24px;
-  position: relative; overflow: hidden;
-}
-.form-section::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(192,69,90,0.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-.form-section .section-label { color: var(--rose-light); text-align: center; display: block; }
-.form-section .section-label::before,
-.form-section .section-label::after { background: var(--rose-light); }
-.form-section h2 {
-  font-family: var(--serif);
-  font-size: clamp(28px, 4.5vw, 42px);
-  font-weight: 500;
-  color: var(--cream);
-  margin: 0 auto 12px;
-  line-height: 1.2;
-  text-align: center; width: 100%; display: block;
-  letter-spacing: -0.01em;
-}
-.form-section h2 em { font-style: italic; font-weight: 600; color: var(--rose-light); }
-.form-section .form-sub {
-  font-size: 15.5px;
-  color: rgba(250,246,242,0.62);
-  margin: 0 auto 44px;
-  max-width: 540px;
-  line-height: 1.72;
-  text-align: center; display: block;
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-}
-.form-wrap { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
-.form-row { margin-bottom: 24px; }
-.form-row label {
-  display: block;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(250,246,242,0.62);
-  margin-bottom: 10px;
-}
-.form-row input, .form-row select, .form-row textarea {
-  width: 100%;
-  background: rgba(255,255,255,0.055);
-  border: 1px solid rgba(212,99,122,0.25);
-  color: var(--cream);
-  font-family: var(--sans);
-  font-size: 15px;
-  padding: 14px 18px;
-  outline: none;
-  transition: border-color 0.35s var(--ease-out), background 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
-  border-radius: 0;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.form-row input::placeholder, .form-row textarea::placeholder {
-  color: rgba(250,246,242,0.3);
-  font-style: italic;
-}
-.form-row input:hover, .form-row select:hover, .form-row textarea:hover {
-  border-color: rgba(212,99,122,0.45);
-}
-.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
-  border-color: rgba(212,99,122,0.8);
-  background: rgba(255,255,255,0.085);
-  box-shadow: 0 0 0 3px rgba(192,69,90,0.12);
-}
-.form-row select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(212,99,122,0.75)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 18px center;
-  padding-right: 42px;
-}
-.form-row select option { background: var(--charcoal-mid); color: var(--cream); }
-.form-row textarea { resize: vertical; min-height: 130px; line-height: 1.66; }
-.form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-@media (max-width: 540px) { .form-two-col { grid-template-columns: 1fr; } }
-.form-note {
-  font-size: 12.5px;
-  color: rgba(250,246,242,0.4);
-  margin-top: 8px;
-  line-height: 1.55;
-}
-.form-divider {
-  width: 100%; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  margin: 32px 0;
-}
-.form-submit-wrap { text-align: center; margin-top: 36px; }
-.form-status {
-  margin-top: 22px;
-  font-size: 14px;
-  text-align: center;
-  min-height: 20px;
-  font-family: var(--serif);
-  font-style: italic;
-}
-.form-status.success { color: #7ecfa0; }
-.form-status.error   { color: #f09595; }
-
-/* ═══════════════════════════════════════════════════════════
    CTA CLOSE
 ═══════════════════════════════════════════════════════════ */
 .cta-section {
@@ -1550,11 +1443,11 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 .price-note {
   margin-top: 28px;
   font-size: 12.5px;
-  color: rgba(250,246,242,0.38);
+  color: rgba(250,246,242,0.72);
   letter-spacing: 0.04em;
 }
 .price-note a {
-  color: rgba(212,99,122,0.68);
+  color: rgba(212,99,122,0.9);
   text-decoration: none;
   border-bottom: 1px solid rgba(212,99,122,0.3);
   transition: border-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
@@ -1626,7 +1519,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 .footer-links a:hover::after { transform: scaleX(1); transform-origin: left; }
 .footer-copy {
   font-size: 11.5px;
-  color: rgba(250,246,242,0.24);
+  color: rgba(250,246,242,0.7);
   letter-spacing: 0.04em;
 }
 
@@ -1652,7 +1545,6 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   .song-card iframe { height: 200px; }
   .wboy-wrap iframe { height: 220px; }
   .wboy-wrap::before { inset: -6px -6px -6px -6px; }
-  .delivers { grid-template-columns: 1fr; gap: 12px; }
   .testimonial { padding: 34px 26px 28px; }
   .carousel-arrow { width: 38px; height: 38px; font-size: 22px; }
   .bio-wrap { flex-direction: column; gap: 32px; }
@@ -1664,7 +1556,6 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   .cta-section p { font-size: 15.5px; }
   .footer { padding: 36px 20px 30px; }
   .footer-links { gap: 18px; }
-  .form-section { padding: 64px 20px; }
   .pricing-section { padding: 64px 20px; }
   .pricing-card { padding: 40px 28px; }
   .pricing-amount { font-size: 70px; }
@@ -1908,7 +1799,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 <section class="hero">
   <div class="hero-content">
     <div class="hero-lockup">
-      <img id="heroIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/logo.png" alt="" width="512" height="512" fetchpriority="high" decoding="async">
+      <img id="heroIcon" src="logo.png" alt="" width="512" height="512" fetchpriority="high" decoding="async">
       <div class="hero-wordmark">Heartstrings <span>Studio</span></div>
     </div>
     <p class="hero-eyebrow">Custom Songwriting &nbsp;·&nbsp; Lumberport, West Virginia</p>
@@ -1951,7 +1842,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 <!-- TRUST STRIP — the person behind the songs -->
 <section class="trust-strip" aria-label="Who writes your song">
   <div class="trust-strip-inner reveal">
-    <img src="https://heartstringsstudio.github.io/heartstringsstudio/timphoto-avatar.jpg" alt="Tim Harbert, founder and songwriter of Heartstrings Studio" width="320" height="320" loading="lazy" decoding="async">
+    <img src="timphoto-avatar.jpg" alt="Tim Harbert, founder and songwriter of Heartstrings Studio" width="320" height="320" loading="lazy" decoding="async">
     <p>Every song is written personally by <strong>Tim Harbert</strong> in Lumberport, West Virginia — one story at a time, start to finish. <a href="#meet-tim">Meet Tim &rarr;</a></p>
   </div>
 </section>
@@ -2130,7 +2021,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <div class="step">
       <div class="step-num">03</div>
       <h3>Receive &amp; Share</h3>
-      <p>Within 48–72 hours, you'll get an email with a private link to your keepsake page — a quiet corner of the web that's just yours. There you'll find your song, the album art made for it, and the full lyrics to read whenever you like. Download the song and lyric sheet to keep forever.</p>
+      <p>Within 48–72 hours, you'll get an email with the link to your personal keepsake page — a quiet corner of the web that's just yours — only people you share it with will find it. There you'll find your song, the album art made for it, and the full lyrics to read whenever you like. Download the song and lyric sheet to keep forever.</p>
     </div>
   </div>
 </section>
@@ -2157,8 +2048,8 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
         <li>One-on-one creative consultation with Tim</li>
         <li>Fully custom song written around your story</li>
         <li>One round of lyric revisions before production</li>
-        <li>Your own private keepsake page — the home base where everything lives</li>
-        <li>Your song on a private YouTube link to watch &amp; share</li>
+        <li>Your own personal keepsake page — the home base where everything lives</li>
+        <li>Your song on an unlisted YouTube link to watch &amp; share</li>
         <li>MP3 download to keep forever</li>
         <li>Lyric sheet to download</li>
         <li>Custom album art &amp; full lyrics displayed on the page for easy viewing anytime</li>
@@ -2233,7 +2124,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   <div class="reveal" style="max-width:860px; margin:0 auto;">
     <div class="bio-wrap">
       <div class="bio-img">
-        <img id="timPhoto" src="https://heartstringsstudio.github.io/heartstringsstudio/timphoto-new.jpeg" alt="Tim Harbert in his studio — founder and songwriter of Heartstrings Studio, wearing the Heartstrings heart-and-soundwave logo" width="800" height="1201" loading="lazy" decoding="async">
+        <img id="timPhoto" src="timphoto-new.jpeg" alt="Tim Harbert in his studio — founder and songwriter of Heartstrings Studio, wearing the Heartstrings heart-and-soundwave logo" width="800" height="1201" loading="lazy" decoding="async">
         <p class="bio-caption">Tim Harbert<br>Founder, Heartstrings Studio</p>
       </div>
       <div class="bio-text">
@@ -2264,11 +2155,11 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <div class="faq">
       <div class="faq-item">
         <div class="faq-q">How does it work?</div>
-        <div class="faq-a">Fill out the intake form with your story. Tim writes a fully produced, custom song around your memories — heartfelt, one-of-a-kind, and ready to share forever. After submitting, you'll be contacted within 24 hours by email with next steps.</div>
+        <div class="faq-a">Fill out <a href="https://heartstringsstudio.github.io/storyroom/">the intake form</a> with your story. Tim writes a fully produced, custom song around your memories — heartfelt, one-of-a-kind, and ready to share forever. After submitting, you'll be contacted within 24 hours by email with next steps.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">How fast will I get my song?</div>
-        <div class="faq-a">Most songs are delivered within 48–72 hours. If you're on a tighter timeline, rush delivery is available for an additional $50 — just mention your date on the intake form and Tim will confirm what's possible.</div>
+        <div class="faq-a">Most songs are delivered within 48–72 hours. If you're on a tighter timeline, rush delivery is available for an additional $50 — just mention your date on <a href="https://heartstringsstudio.github.io/storyroom/">the intake form</a> and Tim will confirm what's possible.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Can I pick the style or mood?</div>
@@ -2280,11 +2171,11 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
       </div>
       <div class="faq-item">
         <div class="faq-q">Can I give this as a gift?</div>
-        <div class="faq-a">Absolutely — a custom song makes one of the most personal and memorable gifts you can give. Many clients order songs as wedding gifts, birthday surprises, anniversary presents, or to honor someone they love. Your private keepsake page and downloads are yours to share however you choose — privately or in front of a room full of people.</div>
+        <div class="faq-a">Absolutely — a custom song makes one of the most personal and memorable gifts you can give. Many clients order songs as wedding gifts, birthday surprises, anniversary presents, or to honor someone they love. Your personal keepsake page and downloads are yours to share however you choose — privately or in front of a room full of people.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">How do I share my song once it's delivered?</div>
-        <div class="faq-a">When your song is finished, you'll get an email with a private link to your keepsake page — the home base where everything lives: your song on a private YouTube link, the MP3 and lyric sheet to download and keep, and the album art and full lyrics displayed on the page. Share the private YouTube link by text, email, or social media — anyone you send it to can watch and listen instantly — or download the MP3 and play it at an event, or keep it just for family.</div>
+        <div class="faq-a">When your song is finished, you'll get an email with the link to your personal keepsake page — the home base where everything lives: your song on an unlisted YouTube link, the MP3 and lyric sheet to download and keep, and the album art and full lyrics displayed on the page. Unlisted means the song never shows up in search or public listings — only people you share the link with will find it. Share it by text, email, or social media — anyone you send it to can watch and listen instantly — or download the MP3 and play it at an event, or keep it just for family.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Is my song really one-of-a-kind?</div>
@@ -2296,7 +2187,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 
 <!-- CTA CLOSE -->
 <section class="cta-section">
-  <div class="cta-bg-logo" id="ctaBg" style="background-image:url('https://heartstringsstudio.github.io/heartstringsstudio/logo.png');"></div>
+  <div class="cta-bg-logo" id="ctaBg" style="background-image:url('logo.png');"></div>
   <div class="cta-content reveal">
     <p class="section-label">Ready?</p>
     <h2>Some moments deserve<br>more than a <em>snapshot.</em></h2>
@@ -2304,19 +2195,19 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <a href="https://heartstringsstudio.github.io/storyroom/" class="btn-ornate btn-dark">
       <span class="btn-sweep"></span><span>Begin Your Song &rarr;</span>
     </a>
-    <p class="price-note">Custom songs from $150 &nbsp;·&nbsp; <a href="javascript:void(0)" onclick="window.location.href='mailto:'+'heartstringsstudiowv'+'@'+'gmail.com'">heartstringsstudiowv&#64;gmail&#46;com</a></p>
+    <p class="price-note">Custom songs from $150 &nbsp;·&nbsp; <a href="mailto:heartstringsstudiowv@gmail.com">heartstringsstudiowv&#64;gmail&#46;com</a></p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-icon"><img id="footerIcon" src="https://heartstringsstudio.github.io/heartstringsstudio/logo.png" alt="Heartstrings Studio logo" width="512" height="512" loading="lazy" decoding="async"></div>
+  <div class="footer-icon"><img id="footerIcon" src="logo.png" alt="Heartstrings Studio logo" width="512" height="512" loading="lazy" decoding="async"></div>
   <div class="footer-logo">Heartstrings Studio</div>
   <div class="footer-links">
-    <a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/profile.php?id=61584734289007','_blank')">Facebook</a>
+    <a href="https://www.facebook.com/profile.php?id=61584734289007" target="_blank" rel="noopener noreferrer">Facebook</a>
     <a href="https://heartstringsstudio.github.io/jukebox/">Jukebox</a>
-    <a href="javascript:void(0)" onclick="window.open('https://www.tiktok.com/@heartstringsstudiowv','_blank')">TikTok</a>
-    <a href="javascript:void(0)" onclick="window.location.href='mailto:'+'heartstringsstudiowv'+'@'+'gmail.com'">Email</a>
+    <a href="https://www.tiktok.com/@heartstringsstudiowv" target="_blank" rel="noopener noreferrer">TikTok</a>
+    <a href="mailto:heartstringsstudiowv@gmail.com">Email</a>
   </div>
   <p class="footer-copy">&copy; 2026 Heartstrings Studio &nbsp;·&nbsp; Lumberport, West Virginia</p>
 </footer>
