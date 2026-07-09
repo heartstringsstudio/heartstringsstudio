@@ -189,18 +189,26 @@ site with no inputs; nice-to-have, not needed.
 ## 5. Prioritized punch list
 
 **Do now (each ≤15 minutes):**
-1. `scroll-padding-top: 20px` → `80px` — fixes every nav link (§2.1)
-2. Real `href`s + `rel="noopener noreferrer"` for Facebook/TikTok/Email links (§3.2)
-3. Link "intake form" → `/storyroom/` inside FAQ answers 1–2 (§3.3)
-4. Raise `hero-sub` / `price-note` / `footer-copy` opacity to ≥0.7 (§3.1)
-5. Make image srcs relative (§2.2); delete dead form CSS (§3.5)
+1. ✅ *Done July 9* — `scroll-padding-top: 20px` → `80px` — fixes every nav link (§2.1)
+2. ✅ *Done July 9* — Real `href`s + `rel="noopener noreferrer"` for Facebook/TikTok/Email links (§3.2)
+3. ✅ *Done July 9* — Link "intake form" → `/storyroom/` inside FAQ answers 1–2 (§3.3)
+4. ✅ *Done July 9* — Raise `hero-sub` / `price-note` / `footer-copy` opacity to ≥0.7 (§3.1)
+5. ✅ *Done July 9* — Make image srcs relative (§2.2); delete dead form CSS (§3.5)
 
 **Do this month:**
-6. Decide the keepsake privacy posture and align the "private" wording (§4.1)
-7. Replace tinyurl with a direct storyroom link in template + builder (§4.4)
-8. Finish or park `sheleftusaparty.html`; create `images/` or fix the art path (§2.4)
-9. Manual click-through of storyroom + jukebox, including `?occasion=` pre-fill (§2.5)
-10. Delete or annotate the inert robots.txt; submit sitemap via Search Console (§2.3)
+6. ✅ *Done July 9* — "private keepsake page" → "personal keepsake page," "private YouTube
+   link" → "unlisted YouTube link," with an honest explainer in the share FAQ and
+   process step (§4.1). *Still open: data minimization (first names only) and client
+   consent for story text on published keepsakes.*
+7. ✅ *Done July 9* — tinyurl replaced with a direct storyroom link in the example page,
+   template, and builder output (§4.4)
+8. Finish or park `sheleftusaparty.html`; create `images/` or fix the art path — *needs
+   the real YouTube ID, album art, and story text from Tim* (§2.4)
+9. Storyroom + jukebox confirmed live by the owner (July 9). *Still worth one click on
+   an occasion pill to confirm the `?occasion=` pre-fill lands in the form* (§2.5)
+10. ✅ *Done July 9* — robots.txt annotated as inert (kept as documentation; in-page
+    noindex tags remain the real protection). *Still open: submit sitemap.xml directly
+    in Google Search Console* (§2.3)
 
 **Leave alone:** the testimonial carousel, the pricing card, the trust strip,
 the structured data, and the reduced-motion/accessibility work. They're the

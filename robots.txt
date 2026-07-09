@@ -1,9 +1,17 @@
 # Heartstrings Studio — https://heartstringsstudio.github.io/heartstringsstudio/
+#
+# NOTE: this file is never actually read by search engines. Crawlers only
+# fetch robots.txt at the DOMAIN root (https://heartstringsstudio.github.io/robots.txt),
+# and a GitHub Pages *project* site like this one can't serve that path.
+# It's kept only as documentation of intent.
+#
+# What actually keeps the studio-only tools out of search is the
+# <meta name="robots" content="noindex, nofollow"> tag inside each page
+# (keepsake-builder.html, keepsaketemplate.html) — do not remove those.
+#
+# The sitemap must be submitted directly in Google Search Console; it will
+# not be discovered via this file:
+# https://heartstringsstudio.github.io/heartstringsstudio/sitemap.xml
+
 User-agent: *
 Allow: /
-
-# Studio-only tools (also noindex'd in-page) — no need to crawl
-Disallow: /keepsake-builder.html
-Disallow: /keepsaketemplate.html
-
-Sitemap: https://heartstringsstudio.github.io/heartstringsstudio/sitemap.xml
