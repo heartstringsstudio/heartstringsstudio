@@ -995,56 +995,133 @@ body {
 .keepsake-inner { max-width: 960px; margin: 0 auto; }
 .keepsake-grid {
   display: grid;
-  grid-template-columns: minmax(300px, 0.92fr) minmax(0, 1.08fr);
+  grid-template-columns: minmax(340px, 0.98fr) minmax(0, 1.02fr);
   gap: 64px;
   align-items: center;
   margin-top: 48px;
 }
 .keepsake-preview {
   position: relative;
-  min-height: 440px;
-  padding: 42px;
+  min-height: 520px;
+  padding: 46px;
   overflow: hidden;
   color: var(--cream);
   background:
-    radial-gradient(circle at 75% 18%, rgba(192,69,90,0.34), transparent 34%),
-    linear-gradient(150deg, #24191c, #120c0e);
-  border: 1px solid rgba(184,149,106,0.42);
-  box-shadow: var(--shadow-lg);
+    radial-gradient(circle at 82% 18%, rgba(212,99,122,0.42), transparent 31%),
+    radial-gradient(circle at 10% 82%, rgba(184,149,106,0.2), transparent 34%),
+    linear-gradient(145deg, #302024 0%, #1c1215 48%, #100a0c 100%);
+  border: 1px solid rgba(184,149,106,0.62);
+  box-shadow: 0 34px 80px rgba(58,46,48,0.22), 0 8px 22px rgba(58,46,48,0.13);
+  isolation: isolate;
+}
+.keepsake-preview::before {
+  content: '';
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  right: -150px;
+  top: -165px;
+  border: 1px solid rgba(242,204,212,0.18);
+  border-radius: 50%;
+  box-shadow: 0 0 0 46px rgba(242,204,212,0.035), 0 0 0 92px rgba(242,204,212,0.025);
+  z-index: -1;
 }
 .keepsake-preview::after {
   content: '';
   position: absolute;
-  inset: 14px;
-  border: 1px solid rgba(184,149,106,0.22);
+  inset: 15px;
+  border: 1px solid rgba(184,149,106,0.34);
   pointer-events: none;
 }
-.keepsake-mark { width: 64px; height: 64px; object-fit: contain; filter: brightness(1.25) saturate(0.85); }
-.keepsake-kicker {
-  margin-top: 68px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold);
+.keepsake-art { position: relative; z-index: 1; min-height: 428px; display: flex; flex-direction: column; }
+.keepsake-brand { display: flex; align-items: center; gap: 12px; }
+.keepsake-mark {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  filter: brightness(1.38) saturate(0.92) drop-shadow(0 4px 12px rgba(0,0,0,0.3));
 }
-.keepsake-title {
-  margin-top: 10px;
+.keepsake-brand-copy { display: grid; gap: 1px; }
+.keepsake-brand-name {
   font-family: var(--serif);
-  font-size: clamp(38px, 6vw, 58px);
-  font-style: italic;
-  font-weight: 500;
-  line-height: 0.98;
-  color: var(--cream);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff9f5;
 }
-.keepsake-byline { margin-top: 18px; font-size: 13px; color: rgba(250,246,242,0.62); }
+.keepsake-brand-type {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #d9ba91;
+}
+.keepsake-art-copy { margin-top: 72px; }
+.keepsake-preview .keepsake-kicker {
+  margin: 0 0 13px;
+  max-width: none;
+  font-size: 9.5px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.21em;
+  text-transform: uppercase;
+  color: #d9ba91;
+}
+.keepsake-preview .keepsake-title {
+  margin: 0;
+  max-width: none;
+  font-family: var(--serif);
+  font-size: clamp(48px, 5.3vw, 66px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  color: #fff9f5;
+  text-wrap: balance;
+}
+.keepsake-preview .keepsake-title em { color: #e78699; font-weight: 500; }
+.keepsake-preview .keepsake-byline {
+  margin: 20px 0 0;
+  max-width: none;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: rgba(255,249,245,0.78);
+}
 .keepsake-wave {
-  position: absolute;
-  left: 42px; right: 42px; bottom: 44px;
-  height: 42px;
-  opacity: 0.52;
-  background: repeating-linear-gradient(90deg, var(--rose-light) 0 2px, transparent 2px 8px);
+  height: 46px;
+  margin-top: auto;
+  opacity: 0.9;
+  background: repeating-linear-gradient(90deg, #d4637a 0 2px, transparent 2px 8px);
   clip-path: polygon(0 48%, 5% 38%, 10% 65%, 15% 28%, 20% 72%, 25% 18%, 30% 80%, 35% 36%, 40% 63%, 45% 22%, 50% 76%, 55% 30%, 60% 68%, 65% 20%, 70% 78%, 75% 34%, 80% 64%, 85% 26%, 90% 70%, 95% 40%, 100% 52%, 100% 55%, 0 55%);
+}
+.keepsake-player { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; margin-top: 14px; }
+.keepsake-play {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding-left: 2px;
+  border: 1px solid rgba(231,134,153,0.72);
+  border-radius: 50%;
+  color: #fff9f5;
+  font-size: 11px;
+}
+.keepsake-track { height: 2px; overflow: hidden; background: rgba(255,249,245,0.2); }
+.keepsake-track span { display: block; width: 38%; height: 100%; background: linear-gradient(90deg, #d4637a, #d9ba91); }
+.keepsake-time { font-size: 9px; letter-spacing: 0.12em; color: rgba(255,249,245,0.7); }
+.keepsake-art-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(184,149,106,0.28);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,249,245,0.62);
 }
 .keepsake-deliverables { display: grid; gap: 18px; }
 .keepsake-deliverable {
@@ -1070,8 +1147,9 @@ body {
 .keepsake-deliverable p { font-size: 14.5px; color: var(--text-muted); line-height: 1.7; }
 @media (max-width: 760px) {
   .keepsake-grid { grid-template-columns: 1fr; gap: 38px; }
-  .keepsake-preview { min-height: 380px; padding: 32px; }
-  .keepsake-wave { left: 32px; right: 32px; }
+  .keepsake-preview { min-height: 480px; padding: 36px; }
+  .keepsake-art { min-height: 408px; }
+  .keepsake-art-copy { margin-top: 58px; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2150,11 +2228,29 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <h2 id="keepsake-heading">A song to hear.<br><em>A story to keep.</em></h2>
     <div class="keepsake-grid">
       <div class="keepsake-preview" aria-label="Example Heartstrings keepsake artwork">
-        <img src="logo.png" class="keepsake-mark" alt="" width="512" height="512" loading="lazy" decoding="async">
-        <p class="keepsake-kicker">A Heartstrings original</p>
-        <p class="keepsake-title">Forever<br>and a Day</p>
-        <p class="keepsake-byline">Written from one family’s memories</p>
-        <div class="keepsake-wave" aria-hidden="true"></div>
+        <div class="keepsake-art">
+          <div class="keepsake-brand">
+            <img src="logo.png" class="keepsake-mark" alt="" width="512" height="512" loading="lazy" decoding="async">
+            <span class="keepsake-brand-copy">
+              <span class="keepsake-brand-name">Heartstrings Studio</span>
+              <span class="keepsake-brand-type">Personal keepsake</span>
+            </span>
+          </div>
+          <div class="keepsake-art-copy">
+            <p class="keepsake-kicker">Memorial tribute · An original song</p>
+            <h3 class="keepsake-title">Forever<br><em>and a Day</em></h3>
+            <p class="keepsake-byline">For Dolores · Written personally by Tim Harbert</p>
+          </div>
+          <div class="keepsake-wave" aria-hidden="true"></div>
+          <div class="keepsake-player" aria-hidden="true">
+            <span class="keepsake-play">▶</span>
+            <span class="keepsake-track"><span></span></span>
+            <span class="keepsake-time">3:42</span>
+          </div>
+          <div class="keepsake-art-meta" aria-hidden="true">
+            <span>Custom album art</span><span>Lyrics · MP3</span>
+          </div>
+        </div>
       </div>
       <div class="keepsake-deliverables">
         <div class="keepsake-deliverable">
