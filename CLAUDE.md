@@ -1,6 +1,3 @@
-Exit code: 0
-Wall time: 0.9 seconds
-Output:
 # Heartstrings Studio — project notes
 
 ## Editing `index.html`
