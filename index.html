@@ -555,6 +555,17 @@ body {
 }
 .hero-sub a:hover { color: var(--rose-light); }
 .hero-sub a:hover::after { transform: scaleX(1); transform-origin: left; }
+.hero-sub-note {
+  /* Text-presentation note (not the emoji glyph) so it inherits our palette
+     instead of rendering in the system emoji font's purple. */
+  font-family: var(--serif-alt);
+  color: var(--gold);
+  font-size: 1.15em;
+  line-height: 1;
+  margin-right: 0.45em;
+  transition: color 0.3s var(--ease-out);
+}
+.hero-sub a:hover .hero-sub-note { color: #cbab7f; }
 
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -2027,7 +2038,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
         <span class="btn-sweep"></span><span>Hear the Songs &rarr;</span>
       </a>
     </div>
-    <p class="hero-sub"><a href="#weekly-song">🎵 Hear this week's song &darr;</a></p>
+    <p class="hero-sub"><a href="#weekly-song"><span class="hero-sub-note" aria-hidden="true">&#9834;&#xFE0E;</span>Hear this week's song &darr;</a></p>
   </div>
   <div class="scroll-cue" aria-hidden="true"><div class="scroll-cue-line"></div></div>
 </section>
