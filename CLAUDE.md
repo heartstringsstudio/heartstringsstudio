@@ -8,6 +8,20 @@
   links and restored the old inline order form). Make changes via commits/PRs
   that build on the current file instead.
 
+## Weekly song update
+
+- The weekly embed is a **thumbnail facade**, not an iframe. To swap the week's
+  song, update the facade inside `.weekly-song-embed` in **three places** —
+  the `href`, `data-yt`, and the `img src` video id — plus the song name in
+  `data-title` and `aria-label`. The Jukebox's `songs.json` spotlight should be
+  updated in the same pass.
+
+## Memorial rush wording
+
+- Memorial songs are **always delivered within 24 hours at no extra cost**.
+  Any copy that prices the $50 rush must state this exception — never imply
+  memorial families pay for speed.
+
 ## Story room (client intake)
 
 - The client story/commission page lives at
