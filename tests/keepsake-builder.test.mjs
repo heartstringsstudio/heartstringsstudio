@@ -81,6 +81,7 @@ test('generated keepsake contains privacy, playback, and permanent downloads', (
     footerMode: 'signature'
   });
   assert.match(html, /noindex, nofollow/);
+  assert.match(html, /G-TB4NQVQ8VZ/);
   assert.match(html, /<audio controls/);
   assert.match(html, /Download the song/);
   assert.match(html, /Download the lyric sheet/);

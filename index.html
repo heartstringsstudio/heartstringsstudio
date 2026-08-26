@@ -146,7 +146,7 @@
         "price": "150",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "priceValidUntil": "2026-12-31",
+        "priceValidUntil": "2027-12-31",
         "seller": { "@id": "https://heartstringsstudio.github.io/heartstringsstudio/#business" }
       },
       "aggregateRating": {
@@ -200,7 +200,7 @@
           "name": "How fast will I get my song?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Most songs are delivered within 48–72 hours. If you're on a tighter timeline, rush delivery is available for an additional $50 — just mention your date on the intake form and Tim will confirm what's possible."
+            "text": "Most songs are delivered within 48–72 hours. Memorial songs are always delivered within 24 hours at no extra cost. For any other song on a tighter timeline, rush delivery is available for an additional $50 — just mention your date on the intake form and Tim will confirm what's possible."
           }
         },
         {
@@ -252,7 +252,7 @@
 <!-- Refined font pairing: Cormorant Garamond for serif drama, Lato for body -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;1,400;1,600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
@@ -530,8 +530,17 @@ body {
   opacity: 0;
   animation: heroFadeUp 1.6s var(--ease-elegant) 0.95s forwards;
 }
+.hero-price {
+  margin-top: 20px;
+  font-size: 13.5px;
+  color: rgba(250,246,242,0.82);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: heroFadeUp 1.6s var(--ease-elegant) 1.05s forwards;
+}
+.hero-price strong { color: var(--cream); font-weight: 700; }
 .hero-sub {
-  margin-top: 22px;
+  margin-top: 14px;
   font-size: 12.5px;
   color: rgba(250,246,242,0.72);
   letter-spacing: 0.05em;
@@ -656,6 +665,14 @@ body {
   margin: 32px auto 0;
   line-height: 1.68;
 }
+.proof-note {
+  font-size: 13px;
+  color: rgba(250,246,242,0.72);
+  letter-spacing: 0.04em;
+  max-width: 560px;
+  margin: 18px auto 0;
+}
+.proof-note strong { color: var(--rose-light); font-weight: 700; }
 @media (max-width: 580px) {
   .proof-stats-wrap { flex-wrap: nowrap; gap: 20px; justify-content: space-evenly; margin-bottom: 22px; }
   .proof-stat { font-size: 34px; }
@@ -837,7 +854,7 @@ body {
   color: var(--rose-deep);
   text-decoration: none;
   border: 1px solid rgba(192,69,90,0.4);
-  padding: 8px 20px;
+  padding: 11px 20px;
   border-radius: 40px;
   background: transparent;
   transition: all 0.35s var(--ease-out);
@@ -849,7 +866,8 @@ body {
   transform: translateY(-2px);
   box-shadow: var(--shadow-rose);
 }
-@media (max-width: 500px) { .pill { font-size: 12px; padding: 7px 16px; } }
+/* Keep pills near the 44px touch-target floor on phones */
+@media (max-width: 500px) { .pill { font-size: 12px; padding: 11px 16px; } }
 
 /* ═══════════════════════════════════════════════════════════
    PROCESS STEPS
@@ -919,7 +937,7 @@ body {
   box-shadow: var(--shadow-lg);
   border-color: rgba(192,69,90,0.3);
 }
-.song-card iframe { display: block; width: 100%; border: none; }
+.song-card iframe, .song-card .yt-facade { display: block; width: 100%; border: none; height: 220px; }
 .song-card-body { padding: 22px 24px 26px; position: relative; }
 .song-card-body::before {
   content: '';
@@ -955,7 +973,7 @@ body {
   background: var(--charcoal-soft);
   border-color: rgba(184,149,106,0.28);
 }
-.song-card--signature iframe { height: 100%; min-height: 360px; }
+.song-card--signature iframe, .song-card--signature .yt-facade { height: 100%; min-height: 360px; }
 .song-card--signature .song-card-body {
   display: flex;
   flex-direction: column;
@@ -989,7 +1007,7 @@ body {
 }
 @media (max-width: 760px) {
   .song-card--signature { grid-template-columns: 1fr; }
-  .song-card--signature iframe { min-height: 230px; }
+  .song-card--signature iframe, .song-card--signature .yt-facade { min-height: 230px; }
   .song-card--signature .song-card-body { padding: 28px 24px 32px; }
   .song-card--signature .song-card-title { font-size: 26px; }
 }
@@ -1061,7 +1079,7 @@ body {
   color: #fff9f5;
 }
 .keepsake-brand-type {
-  font-size: 8.5px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -1071,7 +1089,7 @@ body {
 .keepsake-preview .keepsake-kicker {
   margin: 0 0 13px;
   max-width: none;
-  font-size: 9.5px;
+  font-size: 10px;
   font-weight: 700;
   line-height: 1.4;
   letter-spacing: 0.21em;
@@ -1128,7 +1146,7 @@ body {
   margin-top: 18px;
   padding-top: 14px;
   border-top: 1px solid rgba(184,149,106,0.28);
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1177,7 +1195,7 @@ body {
   transition: transform 0.5s var(--ease-elegant);
 }
 .wboy-wrap:hover::before { transform: translate(12px, 12px); }
-.wboy-wrap iframe { display: block; width: 100%; border: none; position: relative; z-index: 1; }
+.wboy-wrap iframe, .wboy-wrap .yt-facade { display: block; width: 100%; border: none; position: relative; z-index: 1; height: 420px; }
 .wboy-caption {
   margin-top: 18px;
   font-size: 13.5px;
@@ -1277,7 +1295,7 @@ body {
   margin-bottom: 36px;
   box-shadow: 0 30px 70px rgba(0,0,0,0.4);
 }
-.weekly-song-embed iframe {
+.weekly-song-embed iframe, .weekly-song-embed .yt-facade {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   border: none; display: block;
@@ -1480,11 +1498,13 @@ body {
 }
 .carousel-arrow:hover { border-color: var(--rose); box-shadow: var(--shadow-md); transform: scale(1.07); }
 .carousel-arrow:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
-.carousel-dots { display: flex; gap: 9px; }
+.carousel-dots { display: flex; gap: 0; }
+/* 24px hit area around an 8px visual dot (transparent border, content-box paint) */
 .carousel-dots button {
-  width: 8px; height: 8px; border-radius: 50%;
-  border: none; padding: 0; cursor: pointer;
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 8px solid transparent; padding: 0; cursor: pointer;
   background: var(--divider);
+  background-clip: content-box;
   transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out);
 }
 .carousel-dots button:hover { background: var(--rose-pale); }
@@ -1767,8 +1787,8 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   .step { max-width: 340px; margin: 0 auto; }
   .occasions { gap: 8px; }
   .featured-grid { grid-template-columns: 1fr; gap: 26px; }
-  .song-card iframe { height: 200px; }
-  .wboy-wrap iframe { height: 220px; }
+  .song-card iframe, .song-card .yt-facade { height: 200px; }
+  .wboy-wrap iframe, .wboy-wrap .yt-facade { height: 220px; }
   .wboy-wrap::before { inset: -6px -6px -6px -6px; }
   .testimonial { padding: 34px 26px 28px; }
   .carousel-arrow { width: 38px; height: 38px; font-size: 22px; }
@@ -1795,6 +1815,48 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   .btn-ornate { padding: 12px 26px; font-size: 12.5px; }
   .section h2 { font-size: 24px; }
 }
+/* ═══════════════════════════════════════════════════════════
+   YOUTUBE FACADES
+   Each embed starts as a plain thumbnail link (works with JS
+   off — it opens YouTube); JS swaps in the real player on tap,
+   so the page never loads YouTube's scripts until asked.
+═══════════════════════════════════════════════════════════ */
+.yt-facade {
+  position: relative;
+  background: #0d090b;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+}
+.yt-facade img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s var(--ease-elegant);
+}
+.yt-facade:hover img { transform: scale(1.04); }
+.yt-facade-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to top, rgba(26,20,22,0.42), rgba(26,20,22,0) 50%);
+}
+.yt-facade-play span {
+  display: flex; align-items: center; justify-content: center;
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: rgba(250,246,242,0.92);
+  color: var(--rose-deep);
+  box-shadow: 0 2px 12px rgba(26,20,22,0.35);
+  transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out), transform 0.3s var(--ease-elegant);
+}
+.yt-facade-play svg { display: block; margin-left: 3px; }
+.yt-facade:hover .yt-facade-play span,
+.yt-facade:focus-visible .yt-facade-play span { background: var(--rose); color: #fff; transform: scale(1.1); }
+.yt-facade:focus-visible { outline: 2px solid var(--rose-light); outline-offset: 3px; }
+
 /* ═══════════════════════════════════════════════════════════
    STICKY NAV
 ═══════════════════════════════════════════════════════════ */
@@ -1934,7 +1996,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 @media (max-width: 480px) {
   .sticky-nav { padding: 0 16px; }
   .sticky-nav-logo { font-size: 15px; }
-  .sticky-nav-cta { font-size: 10.5px; padding: 9px 14px; letter-spacing: 0.08em; }
+  .sticky-nav-cta { font-size: 10.5px; padding: 12px 14px; letter-spacing: 0.08em; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2014,7 +2076,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <a href="#listen">Listen</a>
     <a href="https://heartstringsstudio.github.io/jukebox/">Jukebox</a>
     <a href="#process">Process</a>
-    <a href="#pricing">Investment</a>
+    <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
   </div>
   <a href="https://heartstringsstudio.github.io/storyroom/" class="sticky-nav-cta">Commission Your Song &rarr;</a>
@@ -2038,6 +2100,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
         <span class="btn-sweep"></span><span>Hear the Songs &rarr;</span>
       </a>
     </div>
+    <p class="hero-price"><strong>$150 flat</strong> &nbsp;·&nbsp; delivered in 48&ndash;72 hours</p>
     <p class="hero-sub"><a href="#weekly-song"><span class="hero-sub-note" aria-hidden="true">&#9834;&#xFE0E;</span>Hear this week's song &darr;</a></p>
   </div>
   <div class="scroll-cue" aria-hidden="true"><div class="scroll-cue-line"></div></div>
@@ -2062,6 +2125,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     </div>
   </div>
   <p class="proof-quote">Songs written here have celebrated weddings and birthdays, honored heroes, and comforted grieving hearts — more than a hundred stories so far, one listened to over 20,000 times.</p>
+  <p class="proof-note"><strong>Memorial songs are always delivered within 24 hours</strong> — at no extra cost, so that worry is off your list.</p>
 </div>
 
 <!-- TRUST STRIP — the person behind the songs -->
@@ -2080,7 +2144,14 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
     <h2>Fresh from the studio — <em>just dropped.</em></h2>
     <p>A brand new original song — written to show you what's possible. This is the kind of song your story could become.</p>
     <div class="weekly-song-embed">
-      <iframe src="https://www.youtube.com/embed/O9YqauiOqzE" allowfullscreen loading="lazy" title="Two Weeks In The Kitchen — This Week's Song from Heartstrings Studio"></iframe>
+      <!-- WEEKLY UPDATE: swap the video id in all THREE places (href, data-yt, img src)
+           and the song name in data-title + aria-label. -->
+      <a class="yt-facade" href="https://www.youtube.com/watch?v=O9YqauiOqzE" target="_blank" rel="noopener"
+         data-yt="O9YqauiOqzE" data-title="Two Weeks In The Kitchen — This Week's Song from Heartstrings Studio"
+         aria-label="Play: Two Weeks In The Kitchen — This Week's Song from Heartstrings Studio">
+        <img src="https://i.ytimg.com/vi/O9YqauiOqzE/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+        <span class="yt-facade-play" aria-hidden="true"><span><svg width="18" height="20" viewBox="0 0 14 16" fill="currentColor"><path d="M1 1.6c0-1.2 1.3-1.9 2.3-1.3l10 6.4c.9.6.9 2 0 2.6l-10 6.4c-1 .6-2.3-.1-2.3-1.3V1.6z"/></svg></span></span>
+      </a>
     </div>
     <a href="https://heartstringsstudio.github.io/storyroom/" class="btn-ornate btn-dark">
       <span class="btn-sweep"></span><span>Commission Your Song &rarr;</span>
@@ -2118,7 +2189,12 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   <p class="section-label">As Seen On</p>
   <h2>Heartstrings Studio on <em>WBOY 304 Today</em></h2>
   <div class="wboy-wrap">
-    <iframe src="https://www.youtube.com/embed/j1_HRI6aJU4" height="420" allowfullscreen loading="lazy" title="Heartstrings Studio featured on WBOY 304 Today"></iframe>
+    <a class="yt-facade" href="https://www.youtube.com/watch?v=j1_HRI6aJU4" target="_blank" rel="noopener"
+       data-yt="j1_HRI6aJU4" data-title="Heartstrings Studio featured on WBOY 304 Today"
+       aria-label="Play: Heartstrings Studio featured on WBOY 304 Today">
+      <img src="https://i.ytimg.com/vi/j1_HRI6aJU4/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+      <span class="yt-facade-play" aria-hidden="true"><span><svg width="18" height="20" viewBox="0 0 14 16" fill="currentColor"><path d="M1 1.6c0-1.2 1.3-1.9 2.3-1.3l10 6.4c.9.6.9 2 0 2.6l-10 6.4c-1 .6-2.3-.1-2.3-1.3V1.6z"/></svg></span></span>
+    </a>
   </div>
   <p class="wboy-caption">Featured on WBOY's 304 Today — West Virginia's own.</p>
 </section>
@@ -2180,10 +2256,15 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   <h2>Listen to what's possible</h2>
   <div class="featured-grid reveal-stagger">
     <div class="song-card song-card--signature">
-      <iframe src="https://www.youtube.com/embed/fDOgbEE7BX8" height="220" allowfullscreen loading="lazy" title="Forever and a Day — a memorial song by Heartstrings Studio"></iframe>
+      <a class="yt-facade" href="https://www.youtube.com/watch?v=fDOgbEE7BX8" target="_blank" rel="noopener"
+         data-yt="fDOgbEE7BX8" data-title="Forever and a Day — a memorial song by Heartstrings Studio"
+         aria-label="Play: Forever and a Day — a memorial song by Heartstrings Studio">
+        <img src="https://i.ytimg.com/vi/fDOgbEE7BX8/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+        <span class="yt-facade-play" aria-hidden="true"><span><svg width="18" height="20" viewBox="0 0 14 16" fill="currentColor"><path d="M1 1.6c0-1.2 1.3-1.9 2.3-1.3l10 6.4c.9.6.9 2 0 2.6l-10 6.4c-1 .6-2.3-.1-2.3-1.3V1.6z"/></svg></span></span>
+      </a>
       <div class="song-card-body">
         <div class="song-card-label">Memorial</div>
-        <div class="song-card-title">Forever and a Day</div>
+        <h3 class="song-card-title">Forever and a Day</h3>
         <div class="song-card-desc">A deeply personal memorial song honoring a life that left its mark — built to be kept, shared, and returned to for years to come.</div>
         <div class="song-card-reaction">
           <blockquote>“My song has brought so much comfort to me. Every time I listen, I realize how blessed I was.”</blockquote>
@@ -2192,26 +2273,41 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
       </div>
     </div>
     <div class="song-card">
-      <iframe src="https://www.youtube.com/embed/ppbdNuOdGng" height="220" allowfullscreen loading="lazy" title="We Love You, Mrs. Gaynor — a community tribute song by Heartstrings Studio"></iframe>
+      <a class="yt-facade" href="https://www.youtube.com/watch?v=ppbdNuOdGng" target="_blank" rel="noopener"
+         data-yt="ppbdNuOdGng" data-title="We Love You, Mrs. Gaynor — a community tribute song by Heartstrings Studio"
+         aria-label="Play: We Love You, Mrs. Gaynor — a community tribute song by Heartstrings Studio">
+        <img src="https://i.ytimg.com/vi/ppbdNuOdGng/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+        <span class="yt-facade-play" aria-hidden="true"><span><svg width="18" height="20" viewBox="0 0 14 16" fill="currentColor"><path d="M1 1.6c0-1.2 1.3-1.9 2.3-1.3l10 6.4c.9.6.9 2 0 2.6l-10 6.4c-1 .6-2.3-.1-2.3-1.3V1.6z"/></svg></span></span>
+      </a>
       <div class="song-card-body">
         <div class="song-card-label">Community Tribute</div>
-        <div class="song-card-title">We Love You, Mrs. Gaynor</div>
+        <h3 class="song-card-title">We Love You, Mrs. Gaynor</h3>
         <div class="song-card-desc">A tribute to the woman who helped raise generations of Lincoln High Cougars — built from alumni memories spanning decades.</div>
       </div>
     </div>
     <div class="song-card">
-      <iframe src="https://www.youtube.com/embed/jmSfTesTUcw" height="220" allowfullscreen loading="lazy" title="Worth Every Mile — a military tribute song by Heartstrings Studio"></iframe>
+      <a class="yt-facade" href="https://www.youtube.com/watch?v=jmSfTesTUcw" target="_blank" rel="noopener"
+         data-yt="jmSfTesTUcw" data-title="Worth Every Mile — a military tribute song by Heartstrings Studio"
+         aria-label="Play: Worth Every Mile — a military tribute song by Heartstrings Studio">
+        <img src="https://i.ytimg.com/vi/jmSfTesTUcw/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+        <span class="yt-facade-play" aria-hidden="true"><span><svg width="18" height="20" viewBox="0 0 14 16" fill="currentColor"><path d="M1 1.6c0-1.2 1.3-1.9 2.3-1.3l10 6.4c.9.6.9 2 0 2.6l-10 6.4c-1 .6-2.3-.1-2.3-1.3V1.6z"/></svg></span></span>
+      </a>
       <div class="song-card-body">
         <div class="song-card-label">Military Tribute</div>
-        <div class="song-card-title">Worth Every Mile</div>
+        <h3 class="song-card-title">Worth Every Mile</h3>
         <div class="song-card-desc">A tribute to the sacrifice, service, and homecoming of those who wear the uniform — and the people who wait for them.</div>
       </div>
     </div>
     <div class="song-card">
-      <iframe src="https://www.youtube.com/embed/OOypcnwpw9A" height="220" allowfullscreen loading="lazy" title="I Still Talk to You — a memorial song by Heartstrings Studio"></iframe>
+      <a class="yt-facade" href="https://www.youtube.com/watch?v=OOypcnwpw9A" target="_blank" rel="noopener"
+         data-yt="OOypcnwpw9A" data-title="I Still Talk to You — a memorial song by Heartstrings Studio"
+         aria-label="Play: I Still Talk to You — a memorial song by Heartstrings Studio">
+        <img src="https://i.ytimg.com/vi/OOypcnwpw9A/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+        <span class="yt-facade-play" aria-hidden="true"><span><svg width="18" height="20" viewBox="0 0 14 16" fill="currentColor"><path d="M1 1.6c0-1.2 1.3-1.9 2.3-1.3l10 6.4c.9.6.9 2 0 2.6l-10 6.4c-1 .6-2.3-.1-2.3-1.3V1.6z"/></svg></span></span>
+      </a>
       <div class="song-card-body">
         <div class="song-card-label">Memorial</div>
-        <div class="song-card-title">I Still Talk to You</div>
+        <h3 class="song-card-title">I Still Talk to You</h3>
         <div class="song-card-desc">For anyone who still feels the presence of someone they've lost — the quiet moments, the empty spaces, the conversations that never really stopped.</div>
       </div>
     </div>
@@ -2316,7 +2412,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
 <!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="reveal">
-    <p class="section-label">Investment</p>
+    <p class="section-label">Pricing</p>
     <h2>One song. One price. <em>One story.</em></h2>
     <div class="pricing-card">
       <div class="pricing-amount"><sup>$</sup>150</div>
@@ -2337,7 +2433,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
         <span class="btn-sweep"></span><span>Commission Your Song &rarr;</span>
       </a>
       <p class="pricing-guarantee">Remake guarantee: if the finished song misses the mark, Tim starts over from scratch.</p>
-      <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery available for an additional $50</p>
+      <p class="pricing-note">Commercial licensing available for $100 &nbsp;·&nbsp; Rush delivery available for an additional $50<br>Memorial songs are always rushed free — delivered within 24 hours</p>
     </div>
   </div>
 </section>
@@ -2437,7 +2533,7 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
       </div>
       <div class="faq-item">
         <div class="faq-q">How fast will I get my song?</div>
-        <div class="faq-a">Most songs are delivered within 48–72 hours. If you're on a tighter timeline, rush delivery is available for an additional $50 — just mention your date on <a href="https://heartstringsstudio.github.io/storyroom/">the intake form</a> and Tim will confirm what's possible.</div>
+        <div class="faq-a">Most songs are delivered within 48–72 hours. Memorial songs are always delivered within 24 hours at no extra cost. For any other song on a tighter timeline, rush delivery is available for an additional $50 — just mention your date on <a href="https://heartstringsstudio.github.io/storyroom/">the intake form</a> and Tim will confirm what's possible.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Can I pick the style or mood?</div>
@@ -2699,6 +2795,25 @@ html.js .faq-item.open > .faq-a { opacity: 1; padding-bottom: 26px; }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+})();
+
+/* YOUTUBE FACADES — swap the thumbnail link for the real player on demand.
+   The surrounding CSS sizes `.yt-facade` and `iframe` identically per slot,
+   so a plain replaceWith() keeps the layout byte-for-byte. */
+(function () {
+  document.querySelectorAll('.yt-facade[data-yt]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var id = el.getAttribute('data-yt');
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0';
+      iframe.title = el.getAttribute('data-title') || 'YouTube video player';
+      iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      el.replaceWith(iframe);
+      iframe.focus();
+    });
+  });
 })();
 
 /* ENGAGEMENT TRACKING (scroll depth · section views · CTA clicks) */
