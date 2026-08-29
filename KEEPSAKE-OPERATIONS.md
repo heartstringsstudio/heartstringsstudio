@@ -6,6 +6,23 @@
 
 Delivered keepsake pages are published in the separate `keepsakes` repo (served at `/keepsakes/<page-code>/`), keeping client work out of this marketing repo. Generated pages link the Story Room directly and carry the studio's GA4 tag.
 
+## The share button
+
+Clients want to show the song to family and friends without handing out the download links with it. Every generated page carries a **Share this song** button above the footer, and it hands out the page's own address with `?share` on the end:
+
+```
+/keepsakes/<page-code>/          the client's link, downloads and all
+/keepsakes/<page-code>/?share    the one they send on
+```
+
+Opened with that marker, the page hides the **Keepsake downloads** section and the in-page player — the player holds the same MP3 and is saveable with a right-click, so it counts as a download. The song, story, lyrics, artwork and YouTube link are unchanged, and the page swaps a line of text so the client is told what the shared link leaves out while the recipient just gets the song.
+
+Delivery is unchanged: one file per keepsake, published as before. `#share` works as well as `?share`.
+
+**This hides; it does not remove.** The MP3 and the lyric-sheet PDF are inside the one self-contained file either way. A shared link opened with JavaScript off shows the downloads, and a determined reader could pull both files out of the page source. It is what the client hands out, not a privacy boundary — the same caveat as `noindex` below. Recipients also still download the whole page, MP3 and all.
+
+Keepsakes delivered before this landed can be brought up to date with `tools/add_share_button.py` in the `keepsakes` repo.
+
 ## Required delivery checklist
 
 Every delivered keepsake must contain:
@@ -20,7 +37,7 @@ Every delivered keepsake must contain:
 
 ## Privacy boundary
 
-`noindex` prevents ordinary search indexing; it does not make a page private. A public Git repository also preserves names and stories in git history.
+`noindex` prevents ordinary search indexing; it does not make a page private. Neither does the share button's `?share` marker: it hides the download links, it does not remove the files from the page. A public Git repository also preserves names and stories in git history.
 
 Before publishing real client work:
 
