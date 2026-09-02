@@ -370,6 +370,7 @@ html.js .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.56s; o
   html.js .reveal-stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
   html.js .faq-a, html.js .faq-q::after { transition: none !important; }
   .equalizer span { animation: none !important; }
+  .hero::before { animation: none !important; }
   .scroll-cue-line { animation: none !important; }
 }
 
@@ -592,36 +593,40 @@ html.js .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.56s; o
   isolation: isolate;
 }
 
-/* rose stage glow */
+/* candlelight bloom — a warm pool of light behind the mark, breathing slowly */
 .hero::before {
   content: "";
   position: absolute;
   left: 50%;
-  top: 46%;
-  width: min(1180px, 130vw);
-  height: min(760px, 96vh);
+  top: 44%;
+  width: min(1120px, 126vw);
+  height: min(740px, 94vh);
   transform: translate(-50%, -50%);
   background:
-    radial-gradient(ellipse at 50% 50%, rgba(192,69,90,0.34) 0%, rgba(192,69,90,0.10) 46%, transparent 68%);
-  filter: blur(30px);
+    radial-gradient(ellipse at 50% 50%,
+      rgba(226,132,152,0.30) 0%,
+      rgba(192,69,90,0.22) 26%,
+      rgba(139,42,58,0.12) 48%,
+      transparent 70%);
+  filter: blur(46px);
   z-index: -2;
   pointer-events: none;
+  animation: heroBloom 9s ease-in-out infinite;
 }
 
-/* concentric rings behind the mark */
+/* vignette — darkens the edges so the centre reads as lit, not flat */
 .hero::after {
   content: "";
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(880px, 108vw);
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  background: repeating-radial-gradient(circle at 50% 50%, rgba(212,99,122,0.16) 0 1px, transparent 1px 58px);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 70%);
-  mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 70%);
-  z-index: -2;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 42%, transparent 38%, rgba(9,6,7,0.62) 100%);
+  z-index: -1;
   pointer-events: none;
+}
+
+@keyframes heroBloom {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);    opacity: 0.82; }
+  50%      { transform: translate(-50%, -50%) scale(1.07); opacity: 1; }
 }
 
 .hero-content {
@@ -641,9 +646,9 @@ html.js .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.56s; o
   margin-bottom: 26px;
 }
 .hero-lockup img {
-  width: clamp(58px, 7vw, 84px);
+  width: clamp(112px, 13vw, 168px);
   height: auto;
-  filter: drop-shadow(0 0 26px rgba(192,69,90,0.55));
+  filter: drop-shadow(0 0 34px rgba(192,69,90,0.5)) drop-shadow(0 0 90px rgba(226,132,152,0.28));
 }
 .hero-wordmark {
   font-family: var(--serif);
