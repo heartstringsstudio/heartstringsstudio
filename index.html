@@ -249,15 +249,15 @@
 }
 </script>
 
-<!-- Refined font pairing: Cormorant Garamond for serif drama, Lato for body -->
+<!-- Refined font pairing: Cormorant Garamond for serif drama, Alegreya Sans for body -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;1,400;1,600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
 /* ==========================================================================
    HEARTSTRINGS STUDIO — "Candlelight" visual system
-   Cormorant Garamond display + Lato UI, charcoal/cream rhythm, rose + gold.
+   Cormorant Garamond display + Alegreya Sans UI, charcoal/cream rhythm, rose + gold.
    Class names and JS hooks are unchanged from the previous stylesheet.
    ========================================================================== */
 
@@ -286,9 +286,9 @@
   --on-dark-mute: #9d8f91;
   --hairline-dark: rgba(250,246,242,0.12);
 
-  --serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --serif-alt: 'Playfair Display', Georgia, serif;
-  --sans: 'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --serif-alt: Georgia, 'Times New Roman', serif;
+  --sans: 'Alegreya Sans', Optima, Candara, 'Segoe UI', system-ui, sans-serif;
 
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-elegant: cubic-bezier(0.16, 1, 0.3, 1);
@@ -313,14 +313,14 @@ body {
   background: var(--cream);
   color: var(--text-body);
   font-family: var(--sans);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; display: block; height: auto; }
 
 a { color: var(--rose); text-decoration: none; transition: color 0.25s var(--ease-out); }
 a:hover { color: var(--rose-deep); }
@@ -1639,7 +1639,12 @@ html.js .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.56s; o
 }
 .bio-img { position: relative; }
 .bio-img img {
-  width: 100%;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 620px;
+  margin: 0 auto;
   border-radius: 4px;
   box-shadow: var(--shadow-lg);
 }
@@ -1831,27 +1836,11 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
   font-size: 12.5px;
   letter-spacing: 0.06em;
   color: var(--on-dark-mute);
-  padding-bottom: 40px;
+  padding-bottom: 56px;
   margin: 0;
-  border-bottom: 1px solid var(--hairline-dark);
 }
 
-/* oversized outlined wordmark */
-.footer::after {
-  content: "Heartstrings";
-  display: block;
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: clamp(76px, 17vw, 232px);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(192,69,90,0.55);
-  margin: 26px 0 -0.22em;
-  pointer-events: none;
-  user-select: none;
-}
+
 
 /* ==========================================================================
    RESPONSIVE
