@@ -816,7 +816,7 @@ html.js .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.56s; o
   padding: 26px var(--gutter);
 }
 .trust-strip-inner {
-  max-width: 900px;
+  max-width: 1040px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -835,8 +835,10 @@ html.js .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.56s; o
   font-size: 15px;
   line-height: 1.75;
   color: var(--on-dark-soft);
+  text-wrap: balance;
 }
-.trust-strip-inner strong { color: var(--on-dark); font-weight: 700; }
+/* the name and the town each stay whole — never "Tim / Harbert" */
+.trust-strip-inner strong { color: var(--on-dark); font-weight: 700; white-space: nowrap; }
 .trust-strip-inner a {
   color: var(--rose-light);
   font-weight: 700;
@@ -2002,6 +2004,9 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
 .carousel-dots button[aria-selected="true"] { background: transparent; transform: none; }
 .carousel-dots button[aria-selected="true"]::after { background: var(--rose); transform: scale(1.5); }
 
+/* keeps a name or place from breaking across lines */
+.nowrap { white-space: nowrap; }
+
 /* standalone text links that act as calls to action */
 .hero-sub a,
 .start-strip-link,
@@ -2107,7 +2112,7 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
 <section class="trust-strip" aria-label="Who writes your song">
   <div class="trust-strip-inner reveal">
     <img src="timphoto-avatar.jpg" alt="Tim Harbert, founder and songwriter of Heartstrings Studio" width="320" height="320" loading="lazy" decoding="async">
-    <p>Every song is written personally by <strong>Tim Harbert</strong> in Lumberport, West Virginia — one story at a time, start to finish. <a href="#meet-tim">Meet Tim &rarr;</a></p>
+    <p>Every song is written personally by <strong>Tim Harbert</strong> in <span class="nowrap">Lumberport, West Virginia</span> — one story at a time. <a href="#meet-tim">Meet Tim &rarr;</a></p>
   </div>
 </section>
 
@@ -2334,7 +2339,7 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
           <div class="keepsake-art-copy">
             <p class="keepsake-kicker">Memorial tribute · An original song</p>
             <h3 class="keepsake-title">Forever<br><em>and a Day</em></h3>
-            <p class="keepsake-byline">For Dolores · Written personally by Tim Harbert</p>
+            <p class="keepsake-byline">For Dolores · Written personally by <span class="nowrap">Tim Harbert</span></p>
           </div>
           <div class="keepsake-wave" aria-hidden="true"></div>
           <div class="keepsake-player" aria-hidden="true">
