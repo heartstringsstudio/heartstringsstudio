@@ -35,3 +35,15 @@
 - There is **no inline order form** on the page (it was removed). Clicks through
   to `/storyroom/` are tracked in GA via `cta_click` / `generate_lead` events.
 
+
+## Analytics conventions
+
+- `generate_lead` fires **once per session**, on the first click through to
+  `/storyroom/`. `cta_click` still fires on every click. Don't "fix" the
+  dedupe — firing on every click is what turned 5 people into 22 inquiries.
+- Every `cta_click` / `generate_lead` carries `traffic_source`, read once per
+  session from `utm_source` or the referrer host.
+- Loading any page with `?ga=off` disables GA for that device (`?ga=on` re-enables).
+  Used to keep Tim's own visits out of the numbers.
+- Link tagging rules and the two GA4 admin settings live in `MARKETING-LINKS.md`.
+  Never put UTM tags on internal links between the main page, Jukebox and Story Room.

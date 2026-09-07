@@ -708,6 +708,14 @@ html.js .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.56s; o
 }
 .hero-price strong { color: var(--rose-pale); font-weight: 700; }
 
+.cta-reassure {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--on-dark-soft);
+  margin: 0 auto 16px;
+  max-width: 44ch;
+}
+
 .hero-sub { margin: 0; }
 .hero-sub a {
   display: inline-flex;
@@ -1117,6 +1125,8 @@ html.js .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.56s; o
   justify-content: center;
   gap: 14px 24px;
 }
+.weekly-song-more { margin-top: 26px; }
+
 .start-strip-link {
   font-family: var(--sans);
   font-weight: 700;
@@ -2034,6 +2044,17 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB4NQVQ8VZ"></script>
 <script>
+  /* Own-visit opt-out. Load any page once with ?ga=off and this device stops
+     counting toward the numbers (?ga=on turns it back on). GA4's internal-traffic
+     filter only covers a fixed IP; this also covers phone and away-from-home visits. */
+  (function () {
+    try {
+      var q = new URLSearchParams(window.location.search).get('ga');
+      if (q === 'off') localStorage.setItem('hs_ga_off', '1');
+      if (q === 'on') localStorage.removeItem('hs_ga_off');
+      if (localStorage.getItem('hs_ga_off')) window['ga-disable-G-TB4NQVQ8VZ'] = true;
+    } catch (e) {}
+  })();
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -2080,6 +2101,7 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
         <span class="btn-sweep"></span><span>Hear the Songs &rarr;</span>
       </a>
     </div>
+    <p class="cta-reassure">A few questions about your story &mdash; you'll see the lyrics before anything is produced.</p>
     <p class="hero-price"><strong>$150 flat</strong> &nbsp;·&nbsp; delivered in 48&ndash;72 hours</p>
     <p class="hero-sub"><a href="#weekly-song"><span class="hero-sub-note" aria-hidden="true">&#9834;&#xFE0E;</span>Hear this week's song &darr;</a></p>
   </div>
@@ -2136,6 +2158,9 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
     <a href="https://heartstringsstudio.github.io/storyroom/" class="btn-ornate btn-dark">
       <span class="btn-sweep"></span><span>Commission Your Song &rarr;</span>
     </a>
+    <div class="weekly-song-more">
+      <a href="https://heartstringsstudio.github.io/jukebox/" class="start-strip-link">Hear more in the Jukebox &rarr;</a>
+    </div>
   </div>
 </section>
 
@@ -2199,6 +2224,7 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
       </a>
       <a href="#pricing" class="start-strip-link">See everything included &rarr;</a>
     </div>
+    <p class="cta-reassure" style="margin:22px auto 0;">A few questions about your story &mdash; you'll see the lyrics before anything is produced.</p>
   </div>
 </section>
 
@@ -2874,6 +2900,24 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
     document.querySelectorAll('section').forEach(function (el) { io.observe(el); });
   }
 
+  /* ---- Where the visit came from ----
+     Read once per session and attached to every CTA and lead, so an inquiry
+     still names its channel on the sessions GA4 files under Direct. */
+  function trafficSource() {
+    try {
+      var stored = sessionStorage.getItem('hs_source');
+      if (stored) return stored;
+      var src = new URLSearchParams(window.location.search).get('utm_source');
+      if (!src && document.referrer) {
+        var host = new URL(document.referrer).hostname.replace(/^www\./, '');
+        if (host !== window.location.hostname) src = host;
+      }
+      src = src || 'direct';
+      sessionStorage.setItem('hs_source', src);
+      return src;
+    } catch (e) { return 'unknown'; }
+  }
+
   /* ---- Primary CTA clicks ---- */
   document.addEventListener('click', function (e) {
     var el = e.target.closest('button, a');
@@ -2881,17 +2925,37 @@ html.js .faq-item.open > .faq-a { padding-bottom: 26px; }
     var txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
     var href = el.getAttribute('href') || '';
     if (href.indexOf('/storyroom/') !== -1) {
-      gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt.slice(0, 50) });
-      /* The story room lives off-site, so GA can't observe the submit —
-         a click through to it is the closest conversion signal we have. */
-      var occ = (href.split('occasion=')[1] || '').split('&')[0];
-      gtag('event', 'generate_lead', {
-        event_category: 'conversion',
+      gtag('event', 'cta_click', {
+        cta: 'begin_song',
+        event_category: 'engagement',
         event_label: txt.slice(0, 50),
-        occasion: occ ? decodeURIComponent(occ) : 'unspecified'
+        traffic_source: trafficSource()
       });
+      /* The story room lives off-site, so GA can't observe the submit —
+         a click through to it is the closest conversion signal we have.
+         One lead per visit: this used to fire on every click, which reported
+         five people as twenty-two inquiries. */
+      var counted = false;
+      try {
+        counted = sessionStorage.getItem('hs_lead') === '1';
+        sessionStorage.setItem('hs_lead', '1');
+      } catch (e) {}
+      if (!counted) {
+        var occ = (href.split('occasion=')[1] || '').split('&')[0];
+        gtag('event', 'generate_lead', {
+          event_category: 'conversion',
+          event_label: txt.slice(0, 50),
+          occasion: occ ? decodeURIComponent(occ) : 'unspecified',
+          traffic_source: trafficSource()
+        });
+      }
     } else if (href.indexOf('/jukebox/') !== -1) {
-      gtag('event', 'cta_click', { cta: 'hear_songs', event_category: 'engagement', event_label: txt.slice(0, 50) });
+      gtag('event', 'cta_click', {
+        cta: 'hear_songs',
+        event_category: 'engagement',
+        event_label: txt.slice(0, 50),
+        traffic_source: trafficSource()
+      });
     }
   }, true);
 })();
