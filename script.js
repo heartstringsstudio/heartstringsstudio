@@ -18,3 +18,75 @@ function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(updateSc
 addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);updateScroll();
 reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches){document.documentElement.classList.remove('motion-ready');animated.forEach(el=>el.classList.add('seen'));story.style.setProperty('--journey',0);hero.style.setProperty('--hero-progress',0)}else{setupReveal();updateScroll()}});
 if(matchMedia('(pointer:fine)').matches){document.querySelectorAll('.song,.hero-postcard,.price-card').forEach(card=>{card.addEventListener('pointermove',e=>{if(reduceMotion.matches)return;const r=card.getBoundingClientRect();card.style.setProperty('--tilt-x',`${-((e.clientY-r.top)/r.height-.5)*16}deg`);card.style.setProperty('--tilt-y',`${((e.clientX-r.left)/r.width-.5)*20}deg`)});card.addEventListener('pointerleave',()=>{card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg')})});}
+
+/* ENGAGEMENT TRACKING (scroll depth · section views · CTA clicks).
+   Restores the four GA4 events the pre-rebuild site sent. Silent no-op if
+   the analytics tag is blocked or absent. */
+(function () {
+  if (typeof gtag !== 'function') return;
+
+  /* How far down the page people get: 25 / 50 / 75 / 90 / 100%. */
+  const marks = [25, 50, 75, 90, 100];
+  const fired = {};
+  function scrollPct() {
+    const doc = document.documentElement;
+    const max = Math.max(document.body.scrollHeight, doc.scrollHeight) - innerHeight;
+    if (max <= 0) return 100;
+    return Math.min(100, Math.round((scrollY / max) * 100));
+  }
+  function checkScroll() {
+    const p = scrollPct();
+    marks.forEach(m => {
+      if (p < m || fired[m]) return;
+      fired[m] = true;
+      gtag('event', 'scroll_depth', { percent: m, event_category: 'engagement', event_label: m + '%', non_interaction: true });
+    });
+  }
+  let ticking = false;
+  addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { checkScroll(); ticking = false; });
+  }, { passive: true });
+  checkScroll();
+
+  /* Which sections actually get seen (50% in view). */
+  function sectionName(el) {
+    if (el.id) return el.id;
+    const eyebrow = el.querySelector('.eyebrow');
+    if (eyebrow && eyebrow.textContent.trim()) return eyebrow.textContent.trim().slice(0, 60);
+    const h = el.querySelector('h1, h2');
+    if (h && h.textContent.trim()) return h.textContent.trim().replace(/\s+/g, ' ').slice(0, 60);
+    return 'section';
+  }
+  if ('IntersectionObserver' in window) {
+    const seen = {};
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const name = sectionName(entry.target);
+        if (seen[name]) return;
+        seen[name] = true;
+        gtag('event', 'section_view', { section: name, event_category: 'engagement', event_label: name, non_interaction: true });
+      });
+    }, { threshold: .5 });
+    document.querySelectorAll('section').forEach(el => io.observe(el));
+  }
+
+  /* Primary CTA clicks. */
+  addEventListener('click', e => {
+    const el = e.target.closest('a, button');
+    if (!el) return;
+    const txt = (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 50);
+    const href = el.getAttribute('href') || '';
+    if (href.includes('/storyroom/')) {
+      gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt });
+      /* The story room lives off-site, so GA can't observe the submit —
+         a click through to it is the closest conversion signal we have. */
+      const occ = (href.split('occasion=')[1] || '').split('&')[0];
+      gtag('event', 'generate_lead', { event_category: 'conversion', event_label: txt, occasion: occ ? decodeURIComponent(occ) : 'unspecified' });
+    } else if (href.includes('/jukebox/')) {
+      gtag('event', 'cta_click', { cta: 'hear_songs', event_category: 'engagement', event_label: txt });
+    }
+  }, true);
+})();
