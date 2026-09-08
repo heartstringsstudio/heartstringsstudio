@@ -16,8 +16,12 @@
   header .brand img { width:40px; height:40px; }
   header .brand small { font-size:.68rem; }
   header>.button { display:none; }
-  header nav { order:initial; margin:0; width:100%; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px 18px; font-size:.875rem; line-height:1.5; }
-  header nav a { padding:6px 0; }
+  /* Keep the tabs on one edge-to-edge row. Below ~318px four of them no longer
+     fit at .875rem, so the size eases down rather than wrapping and stranding
+     the last tab on a row of its own. */
+  header nav { order:initial; margin:0; width:100%; display:flex; justify-content:space-between; flex-wrap:nowrap; gap:0 10px; font-size:clamp(.75rem, 4.4vw, .875rem); line-height:1.5; overflow-x:auto; scrollbar-width:none; }
+  header nav::-webkit-scrollbar { display:none; }
+  header nav a { padding:6px 0; white-space:nowrap; }
   .hero { min-height:0; padding:0 0 34px; display:flex; flex-direction:column; overflow:hidden; }
   .hero-scene { position:relative; inset:auto; z-index:0; width:100%; height:auto; aspect-ratio:3/2; object-fit:contain; object-position:center; transform:none!important; will-change:auto; }
   .hero-shade { display:none; }
