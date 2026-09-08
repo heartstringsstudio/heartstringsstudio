@@ -55,4 +55,11 @@
   .portrait img { height:auto; max-height:none; }
   .closing { min-height:0; padding-block:65px; }
   .closing h2 { font-size:clamp(3.5rem,14vw,5.5rem); }
+  /* Phones can drag any sideways overhang even with the body clipped, which
+     reads as the page wobbling horizontally under your thumb. Keep the reveal
+     animations purely vertical here so nothing sits past the viewport. */
+  .motion-ready .reveal { translate:0 65px; }
+  .motion-ready .portrait { translate:0 50px; }
+  .motion-ready .keepsake-stack article { translate:0 65px; }
+  html, body { overscroll-behavior-x:none; }
 }
