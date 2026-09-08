@@ -13,6 +13,13 @@
 - Run `npm test` before pushing. The suite covers the keepsake builder and, in
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   Story Room CTA rules below.
+- **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
+  The tag reads `<link rel="stylesheet" href="style.css?v=4-eyebrow">`; returning
+  visitors cache that exact URL, so a CSS-only change under an unchanged query
+  string never reaches them — not even on a hard refresh, since phone browsers
+  reload the HTML but reuse cached subresources. This bit the mobile hero
+  eyebrow fix (`#113`), which looked broken on the live site until `#114` bumped
+  the number. Use a short descriptive suffix, e.g. `?v=5-pricing`.
 
 ## How the page is put together
 
