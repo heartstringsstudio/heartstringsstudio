@@ -34,13 +34,29 @@ older single-file version:
   `@media (max-width:760px)` blocks; the appended one at the bottom of the file
   wins, so put phone fixes there.
 - `script.js` — holds the page's content as arrays and renders it at load:
-  `occasions`, `songs`, `faq`. It also carries the scroll/reveal motion and the
-  GA event tracking.
+  `occasions`, `songs`, `faq`. It also carries the scroll/reveal motion, the
+  song-card player, and the GA event tracking.
 - `assets/` — `studio.webp` (hero), `porch.webp`, `wedding.webp`, `tim.jpeg`,
   `logo.png`. The root `logo.png` and `favicon.png` are still used by
   `404.html` and `keepsake-builder.html`, so don't delete them. `banner.jpeg` is
   kept as the JPEG fallback share image. `timphoto-new.jpeg` and
   `timphoto-avatar.jpg` are unused.
+
+## Song playback
+
+- Song cards play **in place**, using the Jukebox's player pattern: the artwork
+  is a `<button>`, and the `youtube-nocookie.com` iframe is only built when
+  someone presses play, so no embed cost is paid by people who never do. One
+  song plays at a time; Escape or the Close button restores the card face.
+  `buildFace` / `startSong` / `stopSong` in `script.js` are the whole mechanism
+  — none of the cards link out to youtube.com any more.
+- If the iframe hasn't loaded after 7 seconds (or the visitor is offline), the
+  card swaps to a plain "Open on YouTube →" link. Keep that fallback: rural
+  connections drop these embeds.
+- Keepsake pages built by `keepsake-builder.html` do the same thing, but as a
+  progressive enhancement — the cover stays an `<a>` to youtube.com so a
+  scripts-off (or offline, or ctrl-clicking) client can still reach the song,
+  and the inline script upgrades the click into an in-page player.
 
 ## Weekly song update
 
@@ -63,7 +79,8 @@ older single-file version:
 - Review markup must describe only the testimonials actually visible on the page
   (currently three), and `aggregateRating.reviewCount` must match.
 - GA4 tag is `G-TB4NQVQ8VZ`. The tracked events are `scroll_depth`,
-  `section_view`, `cta_click`, and `generate_lead`. Because the Story Room is
+  `section_view`, `cta_click`, `generate_lead`, and `song_play` (fired when a
+  song card's player opens). Because the Story Room is
   off-site, a click through to it is the closest conversion signal available —
   `generate_lead` carries the `occasion` from the deep link.
 - Song and FAQ content is injected by JavaScript, so it isn't in the served
