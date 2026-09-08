@@ -54,9 +54,9 @@ test('social and canonical metadata are present', () => {
   }
 });
 
-test('analytics tag and its four events are wired up', () => {
+test('analytics tag and its events are wired up', () => {
   assert.ok(html.includes("gtag('config', 'G-TB4NQVQ8VZ')"), 'GA4 config missing');
-  for (const event of ['scroll_depth', 'section_view', 'cta_click', 'generate_lead']) {
+  for (const event of ['scroll_depth', 'section_view', 'cta_click', 'generate_lead', 'song_play']) {
     assert.ok(js.includes(`'${event}'`), `missing ${event} event`);
   }
 });
@@ -74,4 +74,14 @@ test('every song CTA points at the story room', () => {
 
 test('no inline order form on the page', () => {
   assert.ok(!/<form[\s>]/.test(html), 'index.html should not contain a form');
+});
+
+/* The song cards are in-page players (the Jukebox pattern), so nothing in the
+   listen section links out to youtube.com and no iframe is built until a
+   visitor presses play. */
+test('song cards play in place instead of linking out to YouTube', () => {
+  assert.ok(!/youtube\.com\/watch/.test(js), 'song cards should not link out to youtube.com');
+  assert.ok(js.includes('youtube-nocookie.com/embed/'), 'missing the nocookie player');
+  assert.ok(!/<iframe/.test(html), 'index.html should ship no iframe');
+  assert.ok(js.includes("classList.add('is-playing')"), 'missing the playing state');
 });
