@@ -53,6 +53,13 @@ older single-file version:
 - If the iframe hasn't loaded after 7 seconds (or the visitor is offline), the
   card swaps to a plain "Open on YouTube →" link. Keep that fallback: rural
   connections drop these embeds.
+- The two WBOY "304 Today" links (the `AS SEEN ON` badge in the proof bar and
+  the text link in Tim's section) open that segment in a lightbox running the
+  same player. They stay real `youtube.com/watch` anchors and `script.js`
+  upgrades any `a[data-video]` click into `openVideo()`, so scripts-off,
+  ctrl-click and browsers without `<dialog>` still reach the video. The player
+  itself is shared: `fillPlayer` builds the iframe (or the fallback) for both
+  the cards and the lightbox, so a fix in one lands in both.
 - Keepsake pages built by `keepsake-builder.html` do the same thing, but as a
   progressive enhancement — the cover stays an `<a>` to youtube.com so a
   scripts-off (or offline, or ctrl-clicking) client can still reach the song,
@@ -80,7 +87,7 @@ older single-file version:
   (currently three), and `aggregateRating.reviewCount` must match.
 - GA4 tag is `G-TB4NQVQ8VZ`. The tracked events are `scroll_depth`,
   `section_view`, `cta_click`, `generate_lead`, and `song_play` (fired when a
-  song card's player opens). Because the Story Room is
+  song card's — or the WBOY lightbox's — player opens). Because the Story Room is
   off-site, a click through to it is the closest conversion signal available —
   `generate_lead` carries the `occasion` from the deep link.
 - Song and FAQ content is injected by JavaScript, so it isn't in the served

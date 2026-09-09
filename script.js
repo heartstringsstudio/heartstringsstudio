@@ -29,7 +29,7 @@ function buildFace(song){
   return face;
 }
 
-function buildBar(song,minimal){
+function buildBar(song,minimal,onStop){
   const bar=document.createElement('div');
   bar.className='player-bar';
   if(!minimal){
@@ -47,7 +47,7 @@ function buildBar(song,minimal){
   stop.className='stop-btn';
   stop.textContent='✕ Close';
   stop.setAttribute('aria-label','Stop playing “'+song[3]+'”');
-  stop.addEventListener('click',()=>stopSong(true));
+  stop.addEventListener('click',()=>onStop?onStop():stopSong(true));
   bar.append(stop);
   return bar;
 }
@@ -66,9 +66,37 @@ function buildFallback(song){
   return panel;
 }
 
+/* Fills a container with the player itself: the nocookie iframe plus its bar,
+   or the plain-link fallback when the visitor is offline or the embed never
+   loads. `stillOpen` keeps the 7-second timeout from clobbering a player the
+   visitor has already closed. */
+function fillPlayer(container,song,onStop,stillOpen){
+  if(!navigator.onLine){
+    container.append(buildFallback(song),buildBar(song,true,onStop));
+    return;
+  }
+  const frame=document.createElement('div');
+  frame.className='player-frame';
+  const iframe=document.createElement('iframe');
+  iframe.src='https://www.youtube-nocookie.com/embed/'+song[0]+'?autoplay=1&rel=0';
+  iframe.title='Now playing: '+song[3];
+  iframe.allow='autoplay; encrypted-media; picture-in-picture';
+  iframe.allowFullscreen=true;
+  iframe.loading='eager';
+  let loaded=false;
+  iframe.addEventListener('load',()=>{loaded=true});
+  setTimeout(()=>{
+    if(loaded||!stillOpen())return;
+    container.replaceChildren(buildFallback(song),buildBar(song,true,onStop));
+  },7000);
+  frame.append(iframe);
+  container.append(frame,buildBar(song,false,onStop));
+}
+
 function startSong(card,song){
   if(!card||(playing&&playing.card===card))return;
   stopSong();
+  closeVideo();
   if(typeof gtag==='function')gtag('event','song_play',{event_category:'engagement',event_label:song[3]});
   const face=card.querySelector('.card-face');
   if(face)face.remove();
@@ -76,26 +104,7 @@ function startSong(card,song){
   card.style.setProperty('--tilt-y','0deg');
   const player=document.createElement('div');
   player.className='player-face';
-  if(!navigator.onLine){
-    player.append(buildFallback(song));
-  }else{
-    const frame=document.createElement('div');
-    frame.className='player-frame';
-    const iframe=document.createElement('iframe');
-    iframe.src='https://www.youtube-nocookie.com/embed/'+song[0]+'?autoplay=1&rel=0';
-    iframe.title='Now playing: '+song[3];
-    iframe.allow='autoplay; encrypted-media; picture-in-picture';
-    iframe.allowFullscreen=true;
-    iframe.loading='eager';
-    let loaded=false;
-    iframe.addEventListener('load',()=>{loaded=true});
-    setTimeout(()=>{
-      if(loaded||!playing||playing.card!==card)return;
-      player.replaceChildren(buildFallback(song),buildBar(song,true));
-    },7000);
-    frame.append(iframe);
-    player.append(frame,buildBar(song,false));
-  }
+  fillPlayer(player,song,null,()=>!!playing&&playing.card===card);
   card.append(player);
   card.classList.add('is-playing');
   playing={card,song};
@@ -119,6 +128,54 @@ function stopSong(refocus){
 
 for(const song of songs){const card=document.createElement('article');card.className='song';card.append(buildFace(song));document.querySelector('#songs').append(card)}
 addEventListener('keydown',e=>{if(e.key==='Escape')stopSong(true)});
+
+/* The WBOY segment isn't a song card, so its links open the same player in a
+   lightbox instead. The anchors stay real youtube.com links — scripts-off,
+   old browsers, middle-clicks and ctrl-clicks all still reach the video — and
+   the click is upgraded in place: the nocookie iframe is only built once
+   someone asks for it, one video plays at a time, and Escape, the backdrop or
+   Close puts it away. */
+let videoModal=null;
+
+function closeVideo(){
+  if(videoModal)videoModal.close();
+}
+
+function openVideo(feature,opener){
+  stopSong();
+  closeVideo();
+  if(typeof gtag==='function')gtag('event','song_play',{event_category:'engagement',event_label:feature[3]});
+  const dialog=document.createElement('dialog');
+  dialog.className='video-modal';
+  dialog.setAttribute('aria-label','Now playing: '+feature[3]);
+  const body=document.createElement('div');
+  body.className='video-modal-body';
+  fillPlayer(body,feature,closeVideo,()=>videoModal===dialog);
+  dialog.append(body);
+  dialog.addEventListener('close',()=>{
+    if(videoModal===dialog)videoModal=null;
+    dialog.remove();
+    if(opener&&opener.isConnected)opener.focus();
+  });
+  /* Clicking the backdrop closes it; the iframe swallows its own clicks. */
+  dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+  document.body.append(dialog);
+  videoModal=dialog;
+  dialog.showModal();
+  const stop=dialog.querySelector('.stop-btn');
+  if(stop)stop.focus();
+}
+
+if(typeof HTMLDialogElement==='function'&&HTMLDialogElement.prototype.showModal){
+  for(const link of document.querySelectorAll('a[data-video]')){
+    link.addEventListener('click',e=>{
+      if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button)return;
+      e.preventDefault();
+      const title=link.dataset.videoTitle||link.textContent.trim();
+      openVideo([link.dataset.video,'feature','As seen on',title,''],link);
+    });
+  }
+}
 
 const faq=[['How does it work?','Fill out the intake form with your story. Tim will contact you by email within 24 hours with next steps. He writes your lyrics, works with you on a round of revisions, and produces your custom song.'],['How fast will I get my song?','Most songs arrive in 48–72 hours. Memorial songs always receive 24-hour delivery at no extra charge. For other songs, rush delivery is an additional $50. Mention your date in the intake form and Tim will confirm what’s possible.'],['Can I pick the style and approve the lyrics?','Absolutely. Choose the genre and feeling — romantic, funny, emotional, nostalgic, solemn, or whatever fits your story. You receive the lyrics first, with one round of revisions before production.'],['Can I give this as a gift?','Yes. A custom song makes a personal wedding gift, birthday surprise, anniversary present, or tribute. Share your keepsake page with someone you love, or play your downloaded MP3 at an event.'],['How do I share my song?','Your keepsake page holds your song on an unlisted YouTube link, custom artwork, full lyrics, and MP3 and lyric sheet downloads. Send the page link by text or email. Unlisted links aren’t publicly listed, but anyone with the link can view or share them.'],['Is my song one-of-a-kind?','Every song is built around your story from scratch. Names, memories, and the details that matter to you shape the finished song.'],['What if the finished song misses the mark?','Tim starts over from scratch. The remake guarantee is included in your custom song.']];
 for(const [q,a] of faq){const d=document.createElement('details');const s=document.createElement('summary');s.textContent=q;const p=document.createElement('p');p.textContent=a;d.append(s,p);document.querySelector('#questions').append(d)}
