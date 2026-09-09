@@ -138,9 +138,32 @@ tiers carry different emotional weight — keep that spread if you touch them:
 | Wedding / anniversary | `#8a4f1f` (warmest) | `#f5c684` | `#5a3419` |
 
 All three clear WCAG AA on the cream ground; the retired memorial rose did not
-(3.91:1). The studio mark is embedded in `keepsake-builder.html` as
-`LOGO_DATA_URI` — it is baked into every page the builder generates, so it has
-to be swapped there as well as in `assets/`.
+(3.91:1).
+
+### The studio mark
+
+The mark lives in four places in this repo and has to be swapped in all four
+together: `assets/logo.png` (512, used by `index.html`), the root `logo.png`
+(512, used by `404.html`), `favicon.png` (256, the apple-touch icon and the
+builder's copy) and `keepsake-builder.html`'s `LOGO_DATA_URI`, which is
+`favicon.png` base64'd and is baked into every page the builder generates. The
+dashboard repo carries its own four.
+
+- The master is the 1254px PNG in the studio's Drive, not any file in this
+  repo — every shipped size is a downscale of it. Cut new sizes from the
+  master rather than from `assets/logo.png`, which is already downscaled.
+- The master carries chroma speckle from its original background cut-out and a
+  haze of near-zero-alpha pixels across the canvas. Trim to the alpha ≥ 12
+  bounding box before scaling; leave the speckle alone, since LANCZOS averages
+  it out well above the largest size the site ships.
+- Each file frames the mark at roughly 54% of its canvas. Keep that — the
+  header, the 404 page and the keepsake pages all size the mark by its canvas,
+  so a tighter or looser crop silently resizes it in three places.
+- **Bump the `?v=` on every logo URL in the same commit.** `index.html`,
+  `404.html` and `keepsaketemplate.html` all carry `logo.png?v=…` /
+  `favicon.png?v=…`; returning visitors cache those exact URLs, so a swapped
+  file under an unchanged query string never reaches them. Same rule as
+  `style.css`.
 
 ## Memorial rush wording
 
