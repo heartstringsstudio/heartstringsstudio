@@ -85,3 +85,15 @@ test('song cards play in place instead of linking out to YouTube', () => {
   assert.ok(!/<iframe/.test(html), 'index.html should ship no iframe');
   assert.ok(js.includes("classList.add('is-playing')"), 'missing the playing state');
 });
+
+/* The WBOY segment plays in the same player, in a lightbox — but its anchors
+   stay real youtube.com links so scripts-off and ctrl-click still work. */
+test('the WBOY links open the in-page player', () => {
+  const links = [...html.matchAll(/<a[^>]*href="https:\/\/www\.youtube\.com\/watch\?v=([\w-]+)"[^>]*>/g)];
+  assert.ok(links.length >= 2, 'expected the WBOY links to stay real YouTube links');
+  for (const [tag, id] of links) {
+    assert.ok(tag.includes(`data-video="${id}"`), `WBOY link missing its data-video hook: ${tag}`);
+  }
+  assert.ok(js.includes("querySelectorAll('a[data-video]')"), 'script.js never upgrades the WBOY links');
+  assert.ok(js.includes('showModal'), 'missing the lightbox player');
+});

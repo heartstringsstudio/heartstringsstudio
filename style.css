@@ -127,3 +127,23 @@
   .equalizer span:nth-child(2), .equalizer span:nth-child(4) { height:90%; }
   .equalizer span:nth-child(3) { height:70%; }
 }
+
+/* ===== The WBOY feature plays in a lightbox =====
+   Same player as the song cards — the iframe is only built on click and the
+   bar/fallback are the shared ones — but lifted into a <dialog>, because the
+   links that open it aren't cards. Cream panel so those walnut-on-cream
+   player colours still read. */
+.video-modal {
+  width:min(940px,92vw); max-width:none; border:0; border-radius:3px;
+  padding:12px 12px 20px; background:#fff3dc; color:#382719;
+  box-shadow:6px 8px 0 #baa27d,10px 24px 60px #0009;
+}
+.video-modal::backdrop { background:#160e0ae0; }
+.video-modal-body { display:flex; flex-direction:column; }
+.video-modal .player-bar { padding-inline:2px; }
+.video-modal .stop-btn:focus-visible { outline:3px solid #96602d; outline-offset:3px; }
+a[data-video] { cursor:pointer; }
+
+@media (max-width:760px) {
+  .video-modal { width:calc(100% - 26px); padding:8px 8px 16px; }
+}
