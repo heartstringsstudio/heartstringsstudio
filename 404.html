@@ -7,9 +7,13 @@
   <title>Page Not Found · Heartstrings Studio</title>
   <!-- GitHub Pages serves this for any missing path under /heartstringsstudio/,
        so every URL below must be absolute. -->
-  <link rel="icon" type="image/png" href="https://heartstringsstudio.github.io/heartstringsstudio/favicon.png" />
+  <link rel="icon" type="image/png" href="https://heartstringsstudio.github.io/heartstringsstudio/favicon.png?v=2-newlogo" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap" rel="stylesheet" />
   <style>
-    :root { --charcoal:#1a1416; --cream:#faf6f2; --rose:#c0455a; --rose-light:#d4637a; --muted:#7a6668; }
+    :root { --charcoal:#271c16; --cream:#f4e8d2; --rose:#774826; --rose-light:#f0b86f; --muted:#7d6a55;
+             --amber:#edb268; --amber-shadow:#956536; --amber-ink:#291c14; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       min-height: 100vh;
@@ -17,41 +21,47 @@
       place-items: center;
       padding: 2rem;
       background: var(--cream);
-      color: #3a2e30;
-      font-family: 'Lato', system-ui, sans-serif;
+      color: #3f3227;
+      font-family: 'DM Sans', system-ui, sans-serif;
       text-align: center;
       line-height: 1.7;
     }
     main { max-width: 560px; }
     img { width: 96px; height: 96px; object-fit: contain; margin-bottom: 1rem; }
     h1 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-weight: 500;
+      font-family: 'Libre Caslon Display', Georgia, serif;
+      font-weight: 400;
       font-size: clamp(1.9rem, 6vw, 2.8rem);
       color: var(--charcoal);
       margin-bottom: 0.75rem;
     }
-    h1 em { font-style: italic; color: var(--rose); }
+    h1 em { font-style: italic; font-family: Georgia, serif; color: var(--rose); }
     p { color: var(--muted); margin-bottom: 1.75rem; }
     .links { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
     a.btn {
       display: inline-block;
       padding: 0.85rem 1.6rem;
-      color: var(--cream);
-      background: var(--rose);
+      color: var(--amber-ink);
+      background: var(--amber);
+      border-radius: 3px;
       text-decoration: none;
+      font-weight: 700;
       letter-spacing: 0.04em;
-      transition: background 0.25s ease;
+      box-shadow: 0 5px 0 var(--amber-shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    a.btn:hover { background: var(--rose-light); }
-    a.btn.quiet { background: transparent; color: var(--rose); border: 1px solid rgba(192,69,90,0.45); }
-    a.btn.quiet:hover { background: rgba(192,69,90,0.08); }
-    a:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+    a.btn:hover { transform: translateY(-3px); box-shadow: 0 8px 0 var(--amber-shadow), 0 14px 20px rgba(63,50,39,0.18); }
+    a.btn.quiet {
+      background: transparent; color: var(--rose); font-weight: 600;
+      border: 1px solid rgba(119,72,38,0.45); box-shadow: none;
+    }
+    a.btn.quiet:hover { background: rgba(119,72,38,0.08); transform: translateY(-3px); box-shadow: none; }
+    a:focus-visible { outline: 3px solid var(--rose); outline-offset: 2px; border-radius: 3px; }
   </style>
 </head>
 <body>
   <main>
-    <img src="https://heartstringsstudio.github.io/heartstringsstudio/logo.png" alt="" width="512" height="512" />
+    <img src="https://heartstringsstudio.github.io/heartstringsstudio/logo.png?v=2-newlogo" alt="" width="512" height="512" />
     <h1>This page seems to have <em>wandered off.</em></h1>
     <p>The link you followed doesn't lead anywhere anymore — but the songs are all still right where they belong.</p>
     <div class="links">

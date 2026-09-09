@@ -96,6 +96,52 @@ older single-file version:
 - `sitemap.xml` has to be submitted directly in Google Search Console — the
   project-site `robots.txt` is never read. Bump its `lastmod` on real changes.
 
+## The satellite pages (404, keepsake builder, keepsake template)
+
+`404.html`, `keepsake-builder.html` and `keepsaketemplate.html` were on the
+retired rose/charcoal palette (`--rose:#c0455a`, Cormorant Garamond + Lato)
+until September 2026. They now carry the same walnut/amber system as
+`style.css`, the jukebox and the Story Room. The **light-ground** half of that
+system — these pages sit on cream, not on the dark hero ground:
+
+| Role | Value | Was |
+|---|---|---|
+| Page ground | `#f4e8d2` | `#faf6f2` |
+| Card / inset surface | `#fffaf0`, `#faf1de` | `#fffdf9`, `#f4ede6` |
+| Primary accent (walnut) | `#774826` | `#c0455a` |
+| Deep accent | `#5a3419` | `#8b2a3a` |
+| Accent on dark ground (amber) | `#f0b86f` | `#d4637a` |
+| Bronze | `#a17c52` | `#b8956a` |
+| Body ink / muted | `#3f3227`, `#7d6a55` | `#3a2e30`, `#7a6668` |
+| Walnut ground (footer) | `#271c16`, `#1b120f` | `#1a1416`, `#110b0d` |
+
+Two things that are easy to get wrong:
+
+- **Libre Caslon Display ships one weight (400) and no italic.** Use it only for
+  upright display headings. Everything italic — and any serif running text like
+  the lyric sheet — uses **Georgia** (`--serif-alt`), which is exactly what the
+  main site does for its `em` rule. Setting weight 500/600 on Libre Caslon
+  renders a faux-bold smear.
+- **Focus rings on these pages are walnut `#774826`, not amber.** Amber on cream
+  is far too low-contrast to be a focus indicator; amber is only for focus on
+  the dark ground.
+
+### Keepsake occasion tiers
+
+Generated keepsake pages retint themselves from the occasion, and the three
+tiers carry different emotional weight — keep that spread if you touch them:
+
+| Tier | `--rose` | `--rose-light` | `--rose-deep` |
+|---|---|---|---|
+| Memorial / celebration of life | `#7d6247` (most muted) | `#e8cfa6` | `#5e4936` |
+| Default | `#774826` | `#f0b86f` | `#5a3419` |
+| Wedding / anniversary | `#8a4f1f` (warmest) | `#f5c684` | `#5a3419` |
+
+All three clear WCAG AA on the cream ground; the retired memorial rose did not
+(3.91:1). The studio mark is embedded in `keepsake-builder.html` as
+`LOGO_DATA_URI` — it is baked into every page the builder generates, so it has
+to be swapped there as well as in `assets/`.
+
 ## Memorial rush wording
 
 - Memorial songs are **always delivered within 24 hours at no extra cost**.
