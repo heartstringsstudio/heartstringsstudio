@@ -149,9 +149,13 @@ builder's copy) and `keepsake-builder.html`'s `LOGO_DATA_URI`, which is
 `favicon.png` base64'd and is baked into every page the builder generates. The
 dashboard repo carries its own four.
 
-- The master is the 1254px PNG in the studio's Drive, not any file in this
-  repo — every shipped size is a downscale of it. Cut new sizes from the
+- The master is `heartstrings-mark-MASTER-1254.png` in the studio's Drive
+  (Misc Graphics), not any file in this repo — a 1254×1254 transparent RGBA
+  PNG, and every shipped size is a downscale of it. Cut new sizes from the
   master rather than from `assets/logo.png`, which is already downscaled.
+  Don't confuse it with `heartstrings-lockup-black-2026-09.png` in the same
+  folder: that one is the full lockup (mark plus wordmark) on solid black, so
+  cutting from it bakes in the black square and the type.
 - The master carries chroma speckle from its original background cut-out and a
   haze of near-zero-alpha pixels across the canvas. Trim to the alpha ≥ 12
   bounding box before scaling; leave the speckle alone, since LANCZOS averages
