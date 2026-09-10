@@ -164,6 +164,13 @@ dashboard repo carries its own four.
   `favicon.png?v=…`; returning visitors cache those exact URLs, so a swapped
   file under an unchanged query string never reaches them. Same rule as
   `style.css`.
+- **`assets/tim.jpeg` is a fifth appearance of the mark, and it can't be
+  swapped.** The Meet Tim portrait (September 2026) shows Tim wearing the
+  branded shirt, so the mark is embroidered into the photograph. A re-cut that
+  changes the mark's *shape* leaves the portrait showing the old one — that
+  needs a new photo, not a new export, so treat it as a separate task and
+  don't count it among the four files above. A pure resize or cleanup of the
+  existing shape doesn't affect it.
 
 ## Memorial rush wording
 
