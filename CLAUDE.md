@@ -214,13 +214,16 @@ dashboard repo carries its own four.
   brand — redraw one and redraw all three. The banner takes a horizontal
   lockup because it is locked to 3.2:1 (see above); the other two are centred
   stacks.
-- **`assets/tim.jpeg` is a seventh appearance of the mark, and it can't be
-  swapped.** The Meet Tim portrait (September 2026) shows Tim wearing the
-  branded shirt, so the mark is embroidered into the photograph. A re-cut that
-  changes the mark's *shape* leaves the portrait showing the old one — that
-  needs a new photo, not a new export, so treat it as a separate task and
-  don't count it among the four files above. A pure resize or cleanup of the
-  existing shape doesn't affect it.
+- **`assets/tim.jpeg` is a seventh appearance of the mark. It is up to date —
+  what follows is a constraint on the *next* change, not an outstanding job.**
+  The Meet Tim portrait (September 2026, replaced in `#122`) shows Tim wearing
+  the branded shirt, embroidered with the current copper/blue mark, so the mark
+  is baked into the photograph. Nothing here needs doing today. But because it
+  lives in a photo, no re-export can ever update it: if the mark's *shape*
+  changes again, this is the one place that needs a new shoot rather than a new
+  file, so budget the reshoot into that change instead of finding it
+  afterwards. A pure resize or cleanup of the existing shape leaves it alone.
+  Either way it is not one of the four files above.
 
 ## Memorial rush wording
 
