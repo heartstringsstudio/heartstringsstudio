@@ -61,14 +61,15 @@ test('analytics tag and its events are wired up', () => {
   }
 });
 
-/* Brand rules from CLAUDE.md: every song CTA goes to the Story Room, and the
-   inline order form stays gone. */
-test('every song CTA points at the story room', () => {
+/* Commission CTAs go to the Story Room. The hero's listening CTA is the
+   intentional exception: it takes visitors to the on-page weekly player. */
+test('commission CTAs and the weekly listening CTA have the correct destinations', () => {
   const ctas = [...html.matchAll(/<a class="button[^"]*" href="([^"]+)"/g)].map((m) => m[1]);
-  assert.ok(ctas.length >= 3, 'expected at least three primary CTAs');
-  for (const href of ctas) {
-    assert.equal(href, 'https://heartstringsstudio.github.io/storyroom/');
-  }
+  const commission = ctas.filter(href => href === 'https://heartstringsstudio.github.io/storyroom/');
+  const listening = ctas.filter(href => href !== 'https://heartstringsstudio.github.io/storyroom/');
+  assert.ok(commission.length >= 3, 'expected at least three commission CTAs');
+  assert.deepEqual(listening, ['#weekly-song'], 'only the weekly listening CTA may target an on-page section');
+  assert.ok(html.includes('id="weekly-song"'), 'listening CTA target must exist');
   assert.equal(js.match(/const base='([^']+)'/)[1], 'https://heartstringsstudio.github.io/storyroom/');
 });
 
@@ -96,4 +97,19 @@ test('the WBOY links open the in-page player', () => {
   }
   assert.ok(js.includes("querySelectorAll('a[data-video]')"), 'script.js never upgrades the WBOY links');
   assert.ok(js.includes('showModal'), 'missing the lightbox player');
+});
+
+/* The weekly feature and a real client reaction must precede the long scene
+   and gallery, so the musical payoff is no longer buried below them. */
+test('the weekly player and attributed reaction lead the scroll journey', () => {
+  const weekly = html.indexOf('id="weekly-song"');
+  const reaction = html.indexOf('class="featured-reaction wrap"');
+  const gallery = html.indexOf('id="listen"');
+  const porch = html.indexOf('id="heart"');
+  assert.ok(weekly > 0 && weekly < reaction && reaction < gallery && gallery < porch);
+  assert.ok(html.includes('id="weekly-player"'), 'weekly player mount missing');
+  const testimony = html.slice(reaction, html.indexOf('</section>', reaction));
+  assert.ok(testimony.includes('Jane H.'));
+  assert.ok(testimony.includes('HEARTSTRINGS CLIENT'));
+  assert.ok(!testimony.includes('Before the Doors Open'), 'do not imply Jane reviewed the featured song');
 });

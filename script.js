@@ -12,7 +12,7 @@ const songs=[['lLHM931NU4Y','wedding','This week’s song','Before the Doors Ope
 const sceneFor=img=>['wedding','kitchen'].includes(img)?'wedding':img==='teacher'?'studio':'porch';
 let playing=null;
 
-function buildFace(song){
+function buildFace(song,featured=false){
   const [id,img,type,title,desc]=song;
   const face=document.createElement('div');
   face.className='card-face';
@@ -25,7 +25,16 @@ function buildFace(song){
   const meta=document.createElement('div');
   meta.className='card-body';
   meta.innerHTML=`<small>${type}</small><h3>${title}</h3><p>${desc}</p>`;
-  face.append(thumb,meta);
+  if(featured){
+    const label=document.createElement('span');
+    label.className='weekly-play-label';
+    label.textContent='Play this week’s song';
+    label.setAttribute('aria-hidden','true');
+    thumb.append(label);
+    face.append(thumb);
+  }else{
+    face.append(thumb,meta);
+  }
   return face;
 }
 
@@ -119,14 +128,20 @@ function stopSong(refocus){
   const player=card.querySelector('.player-face');
   if(player)player.remove();
   card.classList.remove('is-playing');
-  card.append(buildFace(song));
+  card.append(buildFace(song,card.classList.contains('weekly-player')));
   if(refocus){
     const thumb=card.querySelector('.thumb-btn');
     if(thumb)thumb.focus();
   }
 }
 
-for(const song of songs){const card=document.createElement('article');card.className='song';card.append(buildFace(song));document.querySelector('#songs').append(card)}
+// The first entry is the single source for the weekly spotlight.
+const weeklySong=songs[0];
+const weeklyPlayer=document.querySelector('#weekly-player');
+document.querySelector('#weekly-title').textContent=weeklySong[3];
+document.querySelector('#weekly-description').textContent=weeklySong[4];
+weeklyPlayer.append(buildFace(weeklySong,true));
+for(const song of songs.slice(1)){const card=document.createElement('article');card.className='song';card.append(buildFace(song));document.querySelector('#songs').append(card)}
 addEventListener('keydown',e=>{if(e.key==='Escape')stopSong(true)});
 
 /* The WBOY segment isn't a song card, so its links open the same player in a
@@ -182,7 +197,7 @@ for(const [q,a] of faq){const d=document.createElement('details');const s=docume
 
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const phoneLayout=matchMedia('(max-width:760px)');
-const animated=document.querySelectorAll('.statement,.section-head,.song,.keepsake-copy,.keepsake-stack article,.steps article,.price-card,.quotes figure,.portrait,.about>div:last-child,.faq>div,.closing-content');
+const animated=document.querySelectorAll('.statement,.section-head,.song:not(.weekly-player),.keepsake-copy,.keepsake-stack article,.steps article,.price-card,.quotes figure,.portrait,.about>div:last-child,.faq>div,.closing-content');
 animated.forEach((el,i)=>{el.classList.add('reveal');el.style.setProperty('--delay',`${(i%3)*110}ms`)});
 let revealObserver;
 function setupReveal(){if(revealObserver)revealObserver.disconnect();if(reduceMotion.matches){animated.forEach(el=>el.classList.add('seen'));return;}if(!('IntersectionObserver' in window))return;document.documentElement.classList.add('motion-ready');revealObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('seen');revealObserver.unobserve(entry.target)}})},{threshold:.12});animated.forEach(el=>revealObserver.observe(el));}
@@ -192,7 +207,7 @@ function updateScroll(){scheduled=false;if(reduceMotion.matches||phoneLayout.mat
 function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(updateScroll)}}
 addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);updateScroll();
 reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches){document.documentElement.classList.remove('motion-ready');animated.forEach(el=>el.classList.add('seen'));story.style.setProperty('--journey',0);hero.style.setProperty('--hero-progress',0)}else{setupReveal();updateScroll()}});
-if(matchMedia('(pointer:fine)').matches){document.querySelectorAll('.song,.hero-postcard,.price-card').forEach(card=>{card.addEventListener('pointermove',e=>{if(reduceMotion.matches||card.classList.contains('is-playing'))return;const r=card.getBoundingClientRect();card.style.setProperty('--tilt-x',`${-((e.clientY-r.top)/r.height-.5)*16}deg`);card.style.setProperty('--tilt-y',`${((e.clientX-r.left)/r.width-.5)*20}deg`)});card.addEventListener('pointerleave',()=>{card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg')})});}
+if(matchMedia('(pointer:fine)').matches){document.querySelectorAll('.song:not(.weekly-player),.hero-postcard,.price-card').forEach(card=>{card.addEventListener('pointermove',e=>{if(reduceMotion.matches||card.classList.contains('is-playing'))return;const r=card.getBoundingClientRect();card.style.setProperty('--tilt-x',`${-((e.clientY-r.top)/r.height-.5)*16}deg`);card.style.setProperty('--tilt-y',`${((e.clientX-r.left)/r.width-.5)*20}deg`)});card.addEventListener('pointerleave',()=>{card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg')})});}
 
 /* Ambient phone motion runs only while its section is visible. */
 const ambientScenes=document.querySelectorAll('.scene-frame,.hero-copy,.closing-content');

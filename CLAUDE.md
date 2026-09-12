@@ -67,16 +67,22 @@ older single-file version:
 
 ## Weekly song update
 
-- The old `.weekly-song-embed` thumbnail facade is **gone**. There is no `data-yt`
-  attribute and no three-places edit any more.
-- To swap the week's song, edit the **first entry of the `songs` array in
-  `script.js`** — `[videoId, sceneKeyword, label, title, description]`. The label
-  on that first entry is what reads "This week's song"; the rest of the array is
-  the standing showcase.
-- `sceneKeyword` picks the backdrop behind the YouTube thumbnail: `wedding` and
-  `kitchen` → `wedding.webp`, `teacher` → `studio.webp`, anything else →
-  `porch.webp`.
-- The Jukebox's `songs.json` spotlight should be updated in the same pass.
+- The `#weekly-song` spotlight now sits directly below the hero. Its artwork
+  is a play control; `#weekly-player` uses the same in-page player and shared
+  one-at-a-time playback state as the other song cards. Never autoplay on load.
+- To swap the week's song, edit only the **first entry of the `songs` array** in
+  `script.js` — `[videoId, sceneKeyword, label, title, description]`. That entry
+  fills the spotlight title, description and player. The remaining entries fill
+  the lower gallery, so the weekly song is not duplicated there.
+- `buildFace(song, true)` builds the weekly thumbnail; `stopSong` restores that
+  same featured face when the player closes.
+- `sceneKeyword` picks the fallback backdrop: `wedding` and `kitchen` →
+  `wedding.webp`, `teacher` → `studio.webp`, anything else → `porch.webp`.
+- When changing the actual weekly selection, update the Jukebox's `songs.json`
+  spotlight in the same pass. A layout-only change does not change its selection.
+- Jane's testimonial is general studio feedback in its own section after the
+  spotlight, not a claimed reaction to the weekly song. Its original text and
+  author remain intact; the other two reviews remain farther down.
 
 ## Structured data and analytics
 
@@ -188,10 +194,11 @@ dashboard repo carries its own four.
   `https://heartstringsstudio.github.io/storyroom/` and is served from a
   **separate source** — it is not in this repo. (It replaced the earlier
   `/intake/` form as of July 2026.)
-- **Every** main-site CTA must link to `/storyroom/` — this includes all wording
-  variants such as "Tell me your story", "Let's make your song", "Tell Tim your
-  story", and the header button. None of them should point to an inline/on-page
-  form.
+- **Every commission CTA** must link to `/storyroom/` — including "Tell me
+  your story", "Let's make your song", "Tell Tim your story", and the header
+  button. None should point to an inline/on-page form. The user-requested
+  listening button "Hear this week’s song" deliberately targets `#weekly-song`;
+  it is a listening action, not a commission action.
 - The occasion pills also link to `/storyroom/` and deep-link with `?occasion=...`
   (built from the `base` constant in `script.js`).
 - There is **no inline order form** on the page (it was removed). Clicks through
