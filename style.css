@@ -245,6 +245,9 @@ a[data-video] { cursor:pointer; }
   .featured-reaction blockquote { font-size:1.3rem; }
   .featured-reaction figcaption small { display:block; margin-left:0; }
   .quotes { grid-template-columns:1fr; }
+  /* Five social links no longer fit one line on a narrow phone, and the
+     body's overflow-x:clip would hide the last one rather than scroll. */
+  footer>div { flex-wrap:wrap; gap:14px 18px; }
 }
 
 /* Keep slow-loading embeds available while offering a direct listening link. */
