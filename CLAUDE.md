@@ -73,9 +73,12 @@ older single-file version:
   is a play control; `#weekly-player` uses the same in-page player and shared
   one-at-a-time playback state as the other song cards. Never autoplay on load.
 - To swap the week's song, edit only the **first entry of the `songs` array** in
-  `script.js` — `[videoId, sceneKeyword, label, title, description]`. That entry
+  `script.js` — `[videoId, sceneKeyword, label, title, description, artwork?]`. That entry
   fills the spotlight title, description and player. The remaining entries fill
   the lower gallery, so the weekly song is not duplicated there.
+- The optional `artwork` path serves a verified full-resolution cover from
+  `assets/`. If absent, other cards keep their YouTube thumbnail behavior.
+  The weekly song and Lenay currently use local 1280×720 YouTube artwork.
 - `buildFace(song, true)` builds the weekly thumbnail; `stopSong` restores that
   same featured face when the player closes.
 - `sceneKeyword` picks the fallback backdrop: `wedding` and `kitchen` →

@@ -1,7 +1,7 @@
 const base='https://heartstringsstudio.github.io/storyroom/';
 const occasions=[['Weddings','Wedding'],['Memorials & Tributes','Memorial / Tribute'],['Anniversaries','Anniversary'],['Birthdays','Birthday'],['Retirements','Retirement'],['Military Tributes','Military Tribute'],['Celebrations of Life','Celebration of Life'],['Gratitude & Thank You','Gratitude / Thank You'],['Just Because','Just Because']];
 for(const [label,value] of occasions){const a=document.createElement('a');a.href=base+'?occasion='+encodeURIComponent(value);a.textContent=label;document.querySelector('.occasions').append(a)}
-const songs=[['lLHM931NU4Y','wedding','This week’s song','Before the Doors Open','A wedding morning, and all the love that arrives before the ceremony begins.'],['fDOgbEE7BX8','memorial','Memorial','Forever and a Day','A deeply personal tribute to a life that left its mark, and a love that stays.'],['ppbdNuOdGng','teacher','Community tribute','We Love You, Mrs. Gaynor','Decades of alumni memories honoring the woman who helped raise generations of Lincoln High Cougars.'],['jmSfTesTUcw','military','Military tribute','Worth Every Mile','For the sacrifice, service, and homecoming — and the people who wait.'],['OOypcnwpw9A','talk','Memorial','I Still Talk to You','The quiet moments. The empty spaces. The conversations that never really stopped.'],['O9YqauiOqzE','kitchen','Wedding','Two Weeks in the Kitchen','A father-daughter wedding song made from the ordinary hours nobody thinks to photograph.']];
+const songs=[['lLHM931NU4Y','wedding','This week’s song','Before the Doors Open','A wedding morning, and all the love that arrives before the ceremony begins.','assets/before-the-doors-open-youtube.jpg'],['iCzuyECSoFY','celebration','Celebration of life','She Left Us a Party','A celebration of Lenay, whose friends and coworkers gathered in Washington, D.C., and at Margaritaville in Florida to honor her life.','assets/lenay-youtube.jpg'],['fDOgbEE7BX8','memorial','Memorial','Forever and a Day','A deeply personal tribute to a life that left its mark, and a love that stays.'],['ppbdNuOdGng','teacher','Community tribute','We Love You, Mrs. Gaynor','Decades of alumni memories honoring the woman who helped raise generations of Lincoln High Cougars.'],['jmSfTesTUcw','military','Military tribute','Worth Every Mile','For the sacrifice, service, and homecoming — and the people who wait.'],['OOypcnwpw9A','talk','Memorial','I Still Talk to You','The quiet moments. The empty spaces. The conversations that never really stopped.'],['O9YqauiOqzE','kitchen','Wedding','Two Weeks in the Kitchen','A father-daughter wedding song made from the ordinary hours nobody thinks to photograph.']];
 
 /* The cards play in place, the same way the Jukebox's cards do: the artwork is
    the play button, the YouTube iframe is only injected on tap (no embed cost
@@ -13,14 +13,15 @@ const sceneFor=img=>['wedding','kitchen'].includes(img)?'wedding':img==='teacher
 let playing=null;
 
 function buildFace(song,featured=false){
-  const [id,img,type,title,desc]=song;
+  const [id,img,type,title,desc,artwork]=song;
+  const thumbnail=artwork||`https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
   const face=document.createElement('div');
   face.className='card-face';
   const thumb=document.createElement('button');
   thumb.type='button';
   thumb.className='song-image thumb-btn';
   thumb.setAttribute('aria-label','Play “'+title+'”');
-  thumb.innerHTML=`<img class="scene-thumb" src="assets/${sceneFor(img)}.webp" alt="" loading="lazy"><img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" onerror="this.hidden=true" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span>`;
+  thumb.innerHTML=`<img class="scene-thumb" src="assets/${sceneFor(img)}.webp" alt="" loading="lazy"><img src="${thumbnail}" onerror="this.hidden=true" alt="" loading="${featured?'eager':'lazy'}"><span class="play" aria-hidden="true">▶</span>`;
   thumb.addEventListener('click',()=>startSong(face.closest('.song'),song));
   const meta=document.createElement('div');
   meta.className='card-body';

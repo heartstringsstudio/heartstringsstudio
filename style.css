@@ -251,3 +251,7 @@ a[data-video] { cursor:pointer; }
 .player-loading-help { flex:initial; padding:18px 12px 8px; gap:6px; }
 .player-loading-help p { font: .875rem/1.5 'DM Sans',sans-serif; }
 .player-loading-help a { font-size:.875rem; }
+
+/* Keep the full-resolution weekly cover crisp and preserve its lettering. */
+.weekly-player .song-image img { object-fit:contain; }
+.weekly-player:hover .song-image img { transform:none; }
