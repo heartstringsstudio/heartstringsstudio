@@ -246,3 +246,8 @@ a[data-video] { cursor:pointer; }
   .featured-reaction figcaption small { display:block; margin-left:0; }
   .quotes { grid-template-columns:1fr; }
 }
+
+/* Keep slow-loading embeds available while offering a direct listening link. */
+.player-loading-help { flex:initial; padding:18px 12px 8px; gap:6px; }
+.player-loading-help p { font: .875rem/1.5 'DM Sans',sans-serif; }
+.player-loading-help a { font-size:.875rem; }

@@ -76,9 +76,9 @@ function buildFallback(song){
 }
 
 /* Fills a container with the player itself: the nocookie iframe plus its bar,
-   or the plain-link fallback when the visitor is offline or the embed never
-   loads. `stillOpen` keeps the 7-second timeout from clobbering a player the
-   visitor has already closed. */
+   or the plain-link fallback when the visitor is offline. After seven seconds,
+   a slow embed gets a nonblocking YouTube link instead of being removed.
+   `stillOpen` prevents late help from appearing in an already closed player. */
 function fillPlayer(container,song,onStop,stillOpen){
   if(!navigator.onLine){
     container.append(buildFallback(song),buildBar(song,true,onStop));
@@ -93,10 +93,17 @@ function fillPlayer(container,song,onStop,stillOpen){
   iframe.allowFullscreen=true;
   iframe.loading='eager';
   let loaded=false;
-  iframe.addEventListener('load',()=>{loaded=true});
+  let loadingHelp=null;
+  iframe.addEventListener('load',()=>{
+    loaded=true;
+    if(loadingHelp)loadingHelp.remove();
+  });
   setTimeout(()=>{
     if(loaded||!stillOpen())return;
-    container.replaceChildren(buildFallback(song),buildBar(song,true,onStop));
+    loadingHelp=buildFallback(song);
+    loadingHelp.classList.add('player-loading-help');
+    loadingHelp.querySelector('p').textContent='If the player is taking a while, you can also listen on YouTube.';
+    container.append(loadingHelp);
   },7000);
   frame.append(iframe);
   container.append(frame,buildBar(song,false,onStop));

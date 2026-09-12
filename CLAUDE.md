@@ -50,9 +50,11 @@ older single-file version:
   song plays at a time; Escape or the Close button restores the card face.
   `buildFace` / `startSong` / `stopSong` in `script.js` are the whole mechanism
   — none of the cards link out to youtube.com any more.
-- If the iframe hasn't loaded after 7 seconds (or the visitor is offline), the
-  card swaps to a plain "Open on YouTube →" link. Keep that fallback: rural
-  connections drop these embeds.
+- If the visitor is offline, show the plain "Open on YouTube →" fallback.
+  If the iframe has not loaded after 7 seconds, add that link below it without
+  removing the player: a usable YouTube player can appear before its load event.
+  Remove the loading help when the frame finishes loading. Keep both fallbacks
+  for rural connections.
 - The two WBOY "304 Today" links (the `AS SEEN ON` badge in the proof bar and
   the text link in Tim's section) open that segment in a lightbox running the
   same player. They stay real `youtube.com/watch` anchors and `script.js`
