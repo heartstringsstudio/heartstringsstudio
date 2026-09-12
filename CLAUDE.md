@@ -41,10 +41,12 @@ older single-file version:
   `404.html` and `keepsake-builder.html`, so don't delete them.
   `assets/share-card.jpg` is the 1200×630 JPEG fallback share image for
   scrapers that won't read the WebP. `banner.jpeg` no longer serves this page
-  at all, but **don't delete it** — it is still the keepsake builder's
-  no-song-linked fallback, and `tests/keepsake-builder.test.mjs` asserts it.
-  It carries the retired rose mark; re-cutting it is a keepsake-side job that
-  has deliberately been left for later. `timphoto-new.jpeg` and
+  at all, but **don't delete it and don't resize it** — it is still the
+  keepsake builder's no-song-linked fallback, `tests/keepsake-builder.test.mjs`
+  asserts it by name, and keepsake pages already sent to clients hardcode both
+  that URL and its 1920×600 dimensions. Redraw it in place instead; that is
+  what carried the current mark onto keepsakes that shipped months ago.
+  `timphoto-new.jpeg` and
   `timphoto-avatar.jpg` are unused.
 
 ## Song playback
@@ -202,13 +204,17 @@ dashboard repo carries its own four.
   `favicon.png?v=…`; returning visitors cache those exact URLs, so a swapped
   file under an unchanged query string never reaches them. Same rule as
   `style.css`.
-- `assets/share-card.jpg` is a fifth appearance, outside those four: the share
-  card a link to this site renders in a feed. Rebuild it from the master with
-  `tools/build-share-card.py` whenever the mark changes, or a shared link keeps
-  showing the old brand long after the page is fixed. It is deliberately the
-  same layout as the Story Room's own card, so the two sites read as one brand
-  side by side — redraw either and redraw both.
-- **`assets/tim.jpeg` is a sixth appearance of the mark, and it can't be
+- `assets/share-card.jpg` and `banner.jpeg` are a fifth and sixth appearance,
+  outside those four: the cards a link renders in a feed — the first for this
+  page, the second for a keepsake with no song linked yet. Rebuild both from
+  the master with `tools/build-share-card.py` (`card`, `banner` or `both`)
+  whenever the mark changes, or a shared link keeps showing the old brand long
+  after the page itself is fixed. They share the Story Room card's ground,
+  type and gradient rule so everything the studio puts in a feed reads as one
+  brand — redraw one and redraw all three. The banner takes a horizontal
+  lockup because it is locked to 3.2:1 (see above); the other two are centred
+  stacks.
+- **`assets/tim.jpeg` is a seventh appearance of the mark, and it can't be
   swapped.** The Meet Tim portrait (September 2026) shows Tim wearing the
   branded shirt, so the mark is embroidered into the photograph. A re-cut that
   changes the mark's *shape* leaves the portrait showing the old one — that
