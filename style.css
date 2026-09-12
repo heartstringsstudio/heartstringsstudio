@@ -148,35 +148,14 @@ a[data-video] { cursor:pointer; }
   .video-modal { width:calc(100% - 26px); padding:8px 8px 16px; }
 }
 
-/* Rounded, softly lit controls shared by desktop and touch layouts. */
-.button {
-  --button-shadow: 0 8px 22px #160c0933;
-  border:1px solid #f7d9a96b;
-  border-radius:999px;
-  background:linear-gradient(135deg,#f5d19a 0%,#edb268 56%,#d9a05a 100%);
-  color:#291c14;
-  padding:15px 26px;
-  min-height:54px;
-  gap:20px;
-  line-height:1.45;
-  box-shadow:inset 0 1px 0 #fff5df99,inset 0 -1px 0 #89582333,var(--button-shadow);
-  transition:transform .22s ease,box-shadow .22s ease,filter .22s ease;
-  touch-action:manipulation;
-}
-.button span { flex-shrink:0; font-size:1.25rem; line-height:1; }
-.button.small { min-height:44px; padding:11px 20px; }
-.price-card .button {
-  background:linear-gradient(135deg,#865331,#774826 55%,#60391f);
-  color:#fff1d8;
-  border-color:#a7794d;
-  box-shadow:inset 0 1px 0 #eec59344,inset 0 -1px 0 #361d1244,var(--button-shadow);
-}
-.price-card .button:focus-visible { outline-color:#774826; }
-.occasions a,.stop-btn { border-radius:999px; }
+/* Original squared, raised buttons with touch-friendly press feedback. */
+.button { touch-action:manipulation; }
 @media (hover:hover) and (pointer:fine) {
-  .button:hover { transform:translateY(-3px); filter:brightness(1.04); --button-shadow:0 12px 26px #160c0944; }
+  .button:hover { transform:translateY(-6px); box-shadow:0 12px 0 #956536,0 24px 35px #0005; }
 }
-.button:active { transform:translateY(1px) scale(.985); filter:brightness(.97); --button-shadow:0 3px 10px #160c0926; }
+.button:active { transform:translateY(3px); box-shadow:0 3px 0 #956536,0 8px 15px #0003; }
+.price-card .button:active { box-shadow:0 3px 0 #4a2e17,0 8px 15px #0003; }
+.price-card .button:focus-visible { outline-color:#774826; }
 
 /* Frames keep phone image motion inside the repaired layout. */
 .scene-frame { display:contents; }
