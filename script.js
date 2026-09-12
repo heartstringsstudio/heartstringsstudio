@@ -181,17 +181,37 @@ const faq=[['How does it work?','Fill out the intake form with your story. Tim w
 for(const [q,a] of faq){const d=document.createElement('details');const s=document.createElement('summary');s.textContent=q;const p=document.createElement('p');p.textContent=a;d.append(s,p);document.querySelector('#questions').append(d)}
 
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
-const animated=document.querySelectorAll('.section-head,.song,.keepsake-copy,.keepsake-stack article,.steps article,.price-card,.quotes figure,.portrait,.about>div:last-child,.faq>div,.closing-content');
+const phoneLayout=matchMedia('(max-width:760px)');
+const animated=document.querySelectorAll('.statement,.section-head,.song,.keepsake-copy,.keepsake-stack article,.steps article,.price-card,.quotes figure,.portrait,.about>div:last-child,.faq>div,.closing-content');
 animated.forEach((el,i)=>{el.classList.add('reveal');el.style.setProperty('--delay',`${(i%3)*110}ms`)});
 let revealObserver;
-function setupReveal(){if(reduceMotion.matches){animated.forEach(el=>el.classList.add('seen'));return;}if(!('IntersectionObserver' in window))return;document.documentElement.classList.add('motion-ready');revealObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('seen');revealObserver.unobserve(entry.target)}})},{threshold:.12});animated.forEach(el=>revealObserver.observe(el));}
+function setupReveal(){if(revealObserver)revealObserver.disconnect();if(reduceMotion.matches){animated.forEach(el=>el.classList.add('seen'));return;}if(!('IntersectionObserver' in window))return;document.documentElement.classList.add('motion-ready');revealObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('seen');revealObserver.unobserve(entry.target)}})},{threshold:.12});animated.forEach(el=>revealObserver.observe(el));}
 setupReveal();
 const story=document.querySelector('.home-story');const hero=document.querySelector('.hero');let scheduled=false;
-function updateScroll(){scheduled=false;if(reduceMotion.matches)return;const r=story.getBoundingClientRect();const progress=Math.max(0,Math.min(1,-r.top/(story.offsetHeight-innerHeight||1)));story.style.setProperty('--journey',progress);const heroProgress=Math.min(1,Math.max(0,-hero.getBoundingClientRect().top/hero.offsetHeight));hero.style.setProperty('--hero-progress',heroProgress);}
+function updateScroll(){scheduled=false;if(reduceMotion.matches||phoneLayout.matches){story.style.setProperty('--journey',0);hero.style.setProperty('--hero-progress',0);return;}const r=story.getBoundingClientRect();const progress=Math.max(0,Math.min(1,-r.top/(story.offsetHeight-innerHeight||1)));story.style.setProperty('--journey',progress);const heroProgress=Math.min(1,Math.max(0,-hero.getBoundingClientRect().top/hero.offsetHeight));hero.style.setProperty('--hero-progress',heroProgress);}
 function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(updateScroll)}}
 addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);updateScroll();
 reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches){document.documentElement.classList.remove('motion-ready');animated.forEach(el=>el.classList.add('seen'));story.style.setProperty('--journey',0);hero.style.setProperty('--hero-progress',0)}else{setupReveal();updateScroll()}});
 if(matchMedia('(pointer:fine)').matches){document.querySelectorAll('.song,.hero-postcard,.price-card').forEach(card=>{card.addEventListener('pointermove',e=>{if(reduceMotion.matches||card.classList.contains('is-playing'))return;const r=card.getBoundingClientRect();card.style.setProperty('--tilt-x',`${-((e.clientY-r.top)/r.height-.5)*16}deg`);card.style.setProperty('--tilt-y',`${((e.clientX-r.left)/r.width-.5)*20}deg`)});card.addEventListener('pointerleave',()=>{card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg')})});}
+
+/* Ambient phone motion runs only while its section is visible. */
+const ambientScenes=document.querySelectorAll('.scene-frame,.hero-copy,.closing-content');
+let ambientObserver;
+function setupMobileMotion(){
+  if(ambientObserver)ambientObserver.disconnect();
+  ambientScenes.forEach(el=>el.classList.remove('in-view'));
+  const enabled=phoneLayout.matches&&!reduceMotion.matches&&!document.hidden&&'IntersectionObserver' in window;
+  document.documentElement.classList.toggle('mobile-motion-ready',enabled);
+  if(!enabled)return;
+  ambientObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>entry.target.classList.toggle('in-view',entry.isIntersecting));
+  },{threshold:0});
+  ambientScenes.forEach(el=>ambientObserver.observe(el));
+}
+setupMobileMotion();
+phoneLayout.addEventListener('change',()=>{setupMobileMotion();updateScroll()});
+reduceMotion.addEventListener('change',setupMobileMotion);
+document.addEventListener('visibilitychange',setupMobileMotion);
 
 /* ENGAGEMENT TRACKING (scroll depth · section views · CTA clicks).
    Restores the four GA4 events the pre-rebuild site sent. Silent no-op if
