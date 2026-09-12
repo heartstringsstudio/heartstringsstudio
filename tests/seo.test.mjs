@@ -10,6 +10,7 @@ const js = fs.readFileSync(path.join(root, 'script.js'), 'utf8');
 const ld = JSON.parse(
   html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]
 );
+const SITE = 'https://heartstringsstudio.github.io/heartstringsstudio/';
 const node = (type) =>
   ld['@graph'].find((n) => [].concat(n['@type']).includes(type));
 
@@ -23,7 +24,7 @@ function jsPairs(name) {
 
 test('structured data is valid and complete', () => {
   assert.equal(ld['@context'], 'https://schema.org');
-  for (const type of ['ProfessionalService', 'WebSite', 'Product', 'FAQPage']) {
+  for (const type of ['ProfessionalService', 'WebSite', 'Product', 'ItemList', 'FAQPage']) {
     assert.ok(node(type), `missing ${type} node`);
   }
 });
@@ -32,6 +33,44 @@ test('FAQ structured data matches the FAQ the page renders', () => {
   const onPage = jsPairs('faq');
   const marked = node('FAQPage').mainEntity.map((q) => [q.name, q.acceptedAnswer.text]);
   assert.deepEqual(marked, onPage);
+});
+
+test('song structured data matches the songs the page renders', () => {
+  /* The song cards are injected by script.js, so their titles and descriptions
+     never reach the served HTML. The ItemList is the only thing a crawler can
+     read — it has to carry every song, in order, with the same artwork the
+     card shows. */
+  const body = js.match(/const songs=\[([\s\S]*?)\];/)[1];
+  const onPage = [...body.matchAll(/\['([^']*)','[^']*','[^']*','([^']*)','([^']*)'(?:,'([^']*)')?\]/g)]
+    .map((m) => ({
+      name: m[2],
+      description: m[3],
+      url: `https://www.youtube.com/watch?v=${m[1]}`,
+      thumbnailUrl: m[4]
+        ? `${SITE}${m[4]}`
+        : `https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg`
+    }));
+
+  const list = node('ItemList');
+  assert.equal(list.numberOfItems, onPage.length);
+  assert.deepEqual(
+    list.itemListElement.map((e) => e.position),
+    onPage.map((_, i) => i + 1),
+    'songs should be listed in the order the page renders them'
+  );
+  assert.deepEqual(
+    list.itemListElement.map((e) => ({
+      name: e.item.name,
+      description: e.item.description,
+      url: e.item.url,
+      thumbnailUrl: e.item.thumbnailUrl
+    })),
+    onPage
+  );
+  /* Every song is credited to the studio entity rather than a loose string. */
+  for (const e of list.itemListElement) {
+    assert.equal(e.item.byArtist['@id'], `${SITE}#business`);
+  }
 });
 
 test('review markup matches the testimonials the page shows', () => {

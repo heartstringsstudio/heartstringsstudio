@@ -95,6 +95,28 @@ test('generated keepsake contains privacy, playback, and permanent downloads', (
   assert.doesNotMatch(html, />Start a song<\/a>/);
 });
 
+test('a shared keepsake link carries a share card image', () => {
+  const app = loadBuilder();
+  const html = app.buildPage(keepsake);
+
+  /* The album art on the page is an embedded data: URI, which no scraper can
+     fetch — so the share card uses the song's YouTube cover, which is the same
+     artwork on a public absolute URL. Without one, a keepsake sent to family
+     renders as a blank grey card. */
+  assert.match(html, /<meta property="og:image" content="https:\/\/i\.ytimg\.com\/vi\/dQw4w9WgXcQ\/maxresdefault\.jpg" \/>/);
+  assert.match(html, /<meta property="og:image" content="https:\/\/i\.ytimg\.com\/vi\/dQw4w9WgXcQ\/hqdefault\.jpg" \/>/);
+  assert.match(html, /<meta property="og:image:width" content="1280" \/>/);
+  assert.match(html, /<meta name="twitter:card" content="summary_large_image" \/>/);
+  assert.match(html, /<meta name="twitter:image" content="https:\/\/i\.ytimg\.com\/vi\/dQw4w9WgXcQ\/maxresdefault\.jpg" \/>/);
+  // A data: URI would silently produce a blank card.
+  assert.doesNotMatch(html, /<meta property="og:image" content="data:/);
+
+  // With no song linked yet, the studio banner stands in — and is labelled as such.
+  const noSong = app.buildPage(Object.assign({}, keepsake, { youtube: '' }));
+  assert.match(noSong, /<meta property="og:image" content="[^"]*\/banner\.jpeg" \/>/);
+  assert.doesNotMatch(noSong, /content="Album art for[^"]*" \/>\s*$/m);
+});
+
 test('YouTube validation accepts genuine links and rejects lookalikes', () => {
   const app = loadBuilder();
   assert.equal(app.youTubeId('https://youtu.be/dQw4w9WgXcQ'), 'dQw4w9WgXcQ');

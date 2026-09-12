@@ -62,6 +62,12 @@ older single-file version:
   ctrl-click and browsers without `<dialog>` still reach the video. The player
   itself is shared: `fillPlayer` builds the iframe (or the fallback) for both
   the cards and the lightbox, so a fix in one lands in both.
+- A generated keepsake's share card (`og:image` / `twitter:image`) points at the
+  song's YouTube cover — `maxresdefault`, with `hqdefault` behind it for
+  scrapers that reject a 404 — not at the album art on the page. The art is an
+  embedded `data:` URI, and no scraper can fetch one, so pointing at it renders a
+  blank grey card in Messages and on Facebook. With no song linked yet, the
+  studio banner stands in.
 - Keepsake pages built by `keepsake-builder.html` do the same thing, but as a
   progressive enhancement — the cover stays an `<a>` to youtube.com so a
   scripts-off (or offline, or ctrl-clicking) client can still reach the song,
@@ -85,6 +91,8 @@ older single-file version:
   `wedding.webp`, `teacher` → `studio.webp`, anything else → `porch.webp`.
 - When changing the actual weekly selection, update the Jukebox's `songs.json`
   spotlight in the same pass. A layout-only change does not change its selection.
+- Changing any entry also means updating the `ItemList` in `index.html`'s JSON-LD
+  in the same commit; `tests/seo.test.mjs` enforces it.
 - Jane's testimonial is general studio feedback in its own section after the
   spotlight, not a claimed reaction to the weekly song. Its original text and
   author remain intact; the other two reviews remain farther down.
@@ -92,8 +100,18 @@ older single-file version:
 ## Structured data and analytics
 
 - The JSON-LD in the head duplicates content that `script.js` renders. **If you
-  change the `faq` array or the testimonial blockquotes, update the JSON-LD in
-  the same commit** — `tests/seo.test.mjs` fails when they drift apart.
+  change the `faq` array, the `songs` array, or the testimonial blockquotes,
+  update the JSON-LD in the same commit** — `tests/seo.test.mjs` fails when they
+  drift apart.
+- The `ItemList` node is the songs' only crawlable form: the cards are injected
+  by JavaScript, so no song title or description reaches the served HTML. Each
+  entry mirrors one `songs` entry — name, description, YouTube URL, and the same
+  artwork the card shows (the local `assets/` file when the entry has one, the
+  `hqdefault` thumbnail otherwise), in the same order, credited to `#business`.
+  There is deliberately no `genre`: the third field of a `songs` entry is a card
+  label ("This week's song"), not a musical genre. Adding `uploadDate` and
+  switching these to `VideoObject` would open up video rich results, but only
+  with the real upload dates — don't invent them.
 - Review markup must describe only the testimonials actually visible on the page
   (currently three), and `aggregateRating.reviewCount` must match.
 - GA4 tag is `G-TB4NQVQ8VZ`. The tracked events are `scroll_depth`,

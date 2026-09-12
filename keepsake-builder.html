@@ -535,6 +535,17 @@
       var occasion = d.occasion;
 
       var ytId = youTubeId(d.youtube);
+      // Share card image. The album art on the page is an embedded data: URI,
+      // which no scraper can fetch, so the share image is the song's YouTube
+      // cover — the same artwork, on a public absolute URL. maxresdefault is
+      // the 1280x720 upload; hqdefault follows for scrapers that reject a 404.
+      // With no song linked yet, fall back to the studio banner.
+      var coverAlt = 'Album art for &ldquo;' + titleAttr + '&rdquo;';
+      var shareImages = ytId
+        ? [['https://i.ytimg.com/vi/' + escAttr(ytId) + '/maxresdefault.jpg', '1280', '720', coverAlt],
+           ['https://i.ytimg.com/vi/' + escAttr(ytId) + '/hqdefault.jpg', '480', '360', coverAlt]]
+        : [['https://heartstringsstudio.github.io/heartstringsstudio/banner.jpeg', '1920', '600',
+            'Heartstrings Studio &mdash; custom songwriting from Lumberport, West Virginia']];
       // A clickable cover that opens the song on YouTube — reliable whether the
       // finished file is hosted or opened straight from a laptop.
       var videoBlock = ytId
@@ -669,7 +680,12 @@
 
       var occasionClass = 'occasion-' + slugify(occasion);
       pageHtml = pageHtml
-        .replace('<meta name="description"', '<meta name="robots" content="noindex, nofollow" />\n  <meta name="referrer" content="strict-origin-when-cross-origin" />\n  <meta property="og:title" content="' + titleAttr + ' · Heartstrings Studio" />\n  <meta property="og:description" content="A personal song and story, made to be kept." />\n  <meta property="og:type" content="website" />\n  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB4NQVQ8VZ"><\/script>\n  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag(\'js\',new Date());gtag(\'config\',\'G-TB4NQVQ8VZ\');<\/script>\n  <meta name="description"')
+        .replace('<meta name="description"', '<meta name="robots" content="noindex, nofollow" />\n  <meta name="referrer" content="strict-origin-when-cross-origin" />\n  <meta property="og:title" content="' + titleAttr + ' · Heartstrings Studio" />\n  <meta property="og:description" content="A personal song and story, made to be kept." />\n  <meta property="og:type" content="website" />\n  ' + shareImages.map(function (img) {
+          return '<meta property="og:image" content="' + img[0] + '" />\n  '
+            + '<meta property="og:image:width" content="' + img[1] + '" />\n  '
+            + '<meta property="og:image:height" content="' + img[2] + '" />\n  '
+            + '<meta property="og:image:alt" content="' + img[3] + '" />\n  ';
+        }).join('') + '<meta name="twitter:card" content="summary_large_image" />\n  <meta name="twitter:title" content="' + titleAttr + ' · Heartstrings Studio" />\n  <meta name="twitter:description" content="A personal song and story, made to be kept." />\n  <meta name="twitter:image" content="' + shareImages[0][0] + '" />\n  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TB4NQVQ8VZ"><\/script>\n  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag(\'js\',new Date());gtag(\'config\',\'G-TB4NQVQ8VZ\');<\/script>\n  <meta name="description"')
         .replace('<body>', '<body class="' + escAttr(occasionClass) + '">')
         .replace('Heartstrings Studio · Lumberport, WV</p>', escHtml(occasion) + ' · A Heartstrings Studio keepsake</p>')
         .replace('    })();\n  <\/script>', '    })();\n    var shareBox = document.querySelector(\'.share\');\n    var shareBtn = shareBox ? shareBox.querySelector(\'.share-btn\') : null;\n    if (shareBtn) {\n      // The button only works with scripts, so scripts are what reveal it.\n      shareBox.className += \' share-ready\';\n      var shareStatus = shareBox.querySelector(\'.share-status\');\n      var shareManual = shareBox.querySelector(\'.share-link\');\n      var shareField = shareManual ? shareManual.querySelector(\'input\') : null;\n      var shareUrl = shareBtn.getAttribute(\'data-share-url\') || location.href;\n      var shareTitle = shareBtn.getAttribute(\'data-share-title\') || document.title;\n      var shareText = shareBtn.getAttribute(\'data-share-text\') || \'\';\n      var saySharing = function (message) { if (shareStatus) shareStatus.textContent = message; };\n      // Last resort: show the link, selected and ready to copy by hand.\n      var showShareLink = function () {\n        saySharing(\'Copy this link and send it however you like.\');\n        if (!shareManual) return;\n        shareManual.className += \' is-shown\';\n        if (shareField) {\n          shareField.value = shareUrl;\n          try { shareField.focus(); shareField.select(); } catch (e) {}\n        }\n      };\n      var copyShareLink = function () {\n        if (navigator.clipboard && navigator.clipboard.writeText && location.protocol !== \'file:\') {\n          navigator.clipboard.writeText(shareUrl).then(function () {\n            saySharing(\'Link copied \\u2014 paste it anywhere.\');\n          }, showShareLink);\n        } else {\n          showShareLink();\n        }\n      };\n      shareBtn.addEventListener(\'click\', function () {\n        saySharing(\'\');\n        if (navigator.share) {\n          navigator.share({ title: shareTitle, text: shareText, url: shareUrl }).then(function () {\n            saySharing(\'Thank you for passing it on.\');\n          }, function (err) {\n            // Closing the share sheet is a choice, not a failure.\n            if (err && err.name === \'AbortError\') return;\n            copyShareLink();\n          });\n          return;\n        }\n        copyShareLink();\n      });\n    }\n  <\/script>');
