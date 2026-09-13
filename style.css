@@ -262,10 +262,18 @@ a[data-video] { cursor:pointer; }
   footer>div { flex-wrap:wrap; gap:14px 18px; }
 }
 
-/* Short phones (a 640px-tall screen, a phone with the URL bar expanded): trade
-   photo height for the call to action, so "Hear this week's song" stays on the
-   first screen rather than sitting just under the fold. */
+/* Short viewports — an older phone, but mostly the in-app browsers Facebook,
+   TikTok and the Google app open links in, which keep a title bar on top and
+   often a search bar over the bottom. There the full-size header spends 132px,
+   a fifth of everything the visitor can see, on a logo and four tabs. Compact
+   it and give the space to the photo, the headline and the button. */
 @media (max-width:760px) and (max-height:700px) {
+  header { padding:12px 20px 8px; gap:10px; }
+  header .brand { font-size:.78rem; gap:10px; }
+  header .brand img { width:32px; height:32px; }
+  header .brand small { font-size:.6rem; margin-top:2px; }
+  header nav { font-size:clamp(.72rem,4.1vw,.8rem); }
+  header nav a { padding:4px 0; }
   .hero>.scene-frame { max-height:30svh; }
   /* The cap really does crop here, so take every pixel of it off the desk. */
   .hero .hero-scene { object-position:center top; }
