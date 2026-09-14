@@ -150,5 +150,8 @@ test('the weekly player and attributed reaction lead the scroll journey', () => 
   const testimony = html.slice(reaction, html.indexOf('</section>', reaction));
   assert.ok(testimony.includes('Jane H.'));
   assert.ok(testimony.includes('HEARTSTRINGS CLIENT'));
-  assert.ok(!testimony.includes('Before the Doors Open'), 'do not imply Jane reviewed the featured song');
+  /* Read the weekly title out of script.js so this guard keeps biting after
+     the song is swapped, instead of quietly checking last week's title. */
+  const weeklyTitle = js.match(/const songs=\[\['[^']*','[^']*','[^']*','([^']*)'/)[1];
+  assert.ok(!testimony.includes(weeklyTitle), 'do not imply Jane reviewed the featured song');
 });
