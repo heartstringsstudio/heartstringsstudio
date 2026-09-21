@@ -92,6 +92,14 @@ older single-file version:
 - The optional `artwork` path serves a verified full-resolution cover from
   `assets/`. If absent, other cards keep their YouTube thumbnail behavior.
   The weekly song and Lenay currently use local 1280×720 YouTube artwork.
+- Cut covers as **WebP** unless the art compresses badly there. The card's
+  `<img>` has no `<picture>` fallback, but it already sits beside an unguarded
+  `assets/*.webp` scene backdrop in the same markup, so WebP support is a
+  hard requirement of the card either way — a JPEG sibling would never be
+  fetched. The `ItemList` mirrors whichever file the entry names, and Google
+  reads WebP in structured data. Check the numbers per image rather than
+  assuming: on this week's wildflower-field cover WebP q75 matched JPEG q82's
+  PSNR at 25% fewer bytes, but a flatter image can land much closer.
 - `buildFace(song, true)` builds the weekly thumbnail; `stopSong` restores that
   same featured face when the player closes.
 - `sceneKeyword` picks the fallback backdrop: `wedding` and `kitchen` →
