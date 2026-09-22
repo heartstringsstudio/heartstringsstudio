@@ -12,6 +12,26 @@ const songs=[['76tbW9GcAV4','wedding','This week’s song','Long Before You Love
 const sceneFor=img=>['wedding','kitchen'].includes(img)?'wedding':img==='teacher'?'studio':'porch';
 let playing=null;
 
+/* A song keeps playing after its card scrolls away, so a small pill offers
+   the way back to it (and a stop button) until the card is on screen again. */
+const nowPlaying=document.createElement('div');
+nowPlaying.className='now-playing';
+nowPlaying.setAttribute('role','region');
+nowPlaying.setAttribute('aria-label','Now playing');
+nowPlaying.inert=true;
+nowPlaying.innerHTML='<span class="equalizer" aria-hidden="true"><span></span><span></span><span></span><span></span></span><button type="button" class="now-playing-back"><small>NOW PLAYING</small><b></b></button><button type="button" class="now-playing-stop" aria-label="Stop the song">✕</button>';
+document.body.append(nowPlaying);
+const nowPlayingTitle=nowPlaying.querySelector('b');
+function showNowPlaying(show){nowPlaying.classList.toggle('show',show);nowPlaying.inert=!show}
+nowPlaying.querySelector('.now-playing-back').addEventListener('click',()=>{
+  if(!playing)return;
+  playing.card.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+  const stop=playing.card.querySelector('.stop-btn');
+  if(stop)stop.focus({preventScroll:true});
+});
+nowPlaying.querySelector('.now-playing-stop').addEventListener('click',()=>stopSong());
+const playingObserver='IntersectionObserver' in window?new IntersectionObserver(([entry])=>showNowPlaying(!!playing&&!entry.isIntersecting),{threshold:.15}):null;
+
 function buildFace(song,featured=false){
   const [id,img,type,title,desc,artwork]=song;
   const thumbnail=artwork||`https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
@@ -125,6 +145,8 @@ function startSong(card,song){
   card.append(player);
   card.classList.add('is-playing');
   playing={card,song};
+  nowPlayingTitle.textContent=song[3];
+  if(playingObserver)playingObserver.observe(card);
   const stop=player.querySelector('.stop-btn');
   if(stop)stop.focus();
 }
@@ -133,6 +155,8 @@ function stopSong(refocus){
   if(!playing)return;
   const {card,song}=playing;
   playing=null;
+  if(playingObserver)playingObserver.unobserve(card);
+  showNowPlaying(false);
   const player=card.querySelector('.player-face');
   if(player)player.remove();
   card.classList.remove('is-playing');
@@ -216,6 +240,54 @@ function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(updateSc
 addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);updateScroll();
 reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches){document.documentElement.classList.remove('motion-ready');animated.forEach(el=>el.classList.add('seen'));story.style.setProperty('--journey',0);hero.style.setProperty('--hero-progress',0)}else{setupReveal();updateScroll()}});
 if(matchMedia('(pointer:fine)').matches){document.querySelectorAll('.song:not(.weekly-player),.hero-postcard,.price-card').forEach(card=>{card.addEventListener('pointermove',e=>{if(reduceMotion.matches||card.classList.contains('is-playing'))return;const r=card.getBoundingClientRect();card.style.setProperty('--tilt-x',`${-((e.clientY-r.top)/r.height-.5)*16}deg`);card.style.setProperty('--tilt-y',`${((e.clientX-r.left)/r.width-.5)*20}deg`)});card.addEventListener('pointerleave',()=>{card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg')})});}
+
+/* The proof bar's song count ticks up the first time it scrolls into view.
+   The served HTML keeps the real number, so crawlers, scripts-off and
+   reduced-motion visitors (and anyone who loads with it on screen) just
+   read 111. */
+const counter=document.querySelector('[data-count]');
+if(counter&&!reduceMotion.matches&&'IntersectionObserver' in window&&counter.getBoundingClientRect().top>innerHeight){
+  const target=+counter.dataset.count;
+  counter.textContent='0';
+  const countObserver=new IntersectionObserver(([entry])=>{
+    if(!entry.isIntersecting)return;
+    countObserver.disconnect();
+    const start=performance.now();
+    const tick=now=>{const t=Math.min(1,(now-start)/1600);counter.textContent=Math.round(target*(1-Math.pow(1-t,3)));if(t<1)requestAnimationFrame(tick)};
+    requestAnimationFrame(tick);
+  },{threshold:.6});
+  countObserver.observe(counter);
+}
+
+/* Fireflies over the porch at dusk — built only when motion is welcome, and
+   only animating while the porch is on screen. */
+const porch=document.querySelector('.home-sticky');
+if(porch&&!reduceMotion.matches&&'IntersectionObserver' in window){
+  const flies=document.createElement('div');
+  flies.className='fireflies';
+  flies.setAttribute('aria-hidden','true');
+  const rand=(a,b)=>a+Math.random()*(b-a);
+  for(let i=0;i<14;i++){
+    const fly=document.createElement('i');
+    fly.style.cssText=`--x:${rand(38,97)}%;--y:${rand(35,92)}%;--s:${rand(2.5,5)}px;--dx:${rand(-60,60)}px;--dy:${rand(-45,25)}px;--d:${rand(7,14)}s;--g:${rand(2.5,5)}s;--delay:${-rand(0,10)}s;--o:${rand(.55,1)}`;
+    flies.append(fly);
+  }
+  porch.append(flies);
+  new IntersectionObserver(([entry])=>flies.classList.toggle('lit',entry.isIntersecting)).observe(porch);
+}
+
+/* On phones the header's Story Room button is hidden, so a pinned one takes
+   over between the hero and the closing section (each has its own). */
+const mobileCta=document.querySelector('.mobile-cta');
+if(mobileCta&&'IntersectionObserver' in window){
+  const inView=new Set();
+  const ctaObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>entry.isIntersecting?inView.add(entry.target):inView.delete(entry.target));
+    mobileCta.classList.toggle('show',!inView.size);
+    mobileCta.inert=!!inView.size;
+  });
+  document.querySelectorAll('.hero,.closing,footer').forEach(el=>ctaObserver.observe(el));
+}
 
 /* Ambient phone motion runs only while its section is visible. */
 const ambientScenes=document.querySelectorAll('.scene-frame,.hero-copy,.closing-content');

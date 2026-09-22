@@ -289,3 +289,75 @@ a[data-video] { cursor:pointer; }
 /* Keep the full-resolution weekly cover crisp and preserve its lettering. */
 .weekly-player .song-image img { object-fit:contain; }
 .weekly-player:hover .song-image img { transform:none; }
+
+/* ===== Flair: the handwritten headline =====
+   "song to?" inks in left to right like the pen in the hero photo, then a
+   swash underlines it. The padding/negative margin gives the italic overhang
+   room inside the mask so the "?" is never clipped. */
+.hero h1 .ink { position:relative; white-space:nowrap; }
+.hero h1 .ink em { padding:0 .12em; margin:0 -.12em; }
+.ink-swash { position:absolute; left:-2%; bottom:-.14em; width:104%; height:.26em; overflow:visible; pointer-events:none; }
+.ink-swash path { fill:none; stroke:var(--accent); stroke-width:3; stroke-linecap:round; vector-effect:non-scaling-stroke; opacity:.85; }
+@media (prefers-reduced-motion:no-preference) {
+  .hero h1 .ink em {
+    -webkit-mask-image:linear-gradient(90deg,#000 44%,transparent 56%); mask-image:linear-gradient(90deg,#000 44%,transparent 56%);
+    -webkit-mask-size:250% 100%; mask-size:250% 100%; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+    animation:ink-write 1.5s .8s cubic-bezier(.45,.05,.3,1) both;
+  }
+  .ink-swash path { stroke-dasharray:1; stroke-dashoffset:1; animation:ink-swash .9s 2.1s cubic-bezier(.6,0,.3,1) forwards; }
+  @keyframes ink-write { from { -webkit-mask-position:100% 0; mask-position:100% 0; } to { -webkit-mask-position:0 0; mask-position:0 0; } }
+  @keyframes ink-swash { to { stroke-dashoffset:0; } }
+}
+
+/* ===== Flair: fireflies over the porch =====
+   Built by script.js only when motion is welcome, and paused unless the porch
+   is on screen. On phones the porch is a 3:2 photo above the statement, so
+   they stay inside the photo. */
+.fireflies { position:absolute; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+.fireflies i {
+  position:absolute; left:var(--x); top:var(--y); width:var(--s); height:var(--s); border-radius:50%;
+  background:#ffdc96; box-shadow:0 0 6px 2px #f0b86fcc,0 0 18px 6px #f0b86f4d; opacity:0;
+  animation:firefly-drift var(--d) ease-in-out var(--delay) infinite alternate,firefly-glow var(--g) ease-in-out var(--delay) infinite;
+  animation-play-state:paused;
+}
+.fireflies.lit i { animation-play-state:running; }
+@keyframes firefly-drift { to { translate:var(--dx) var(--dy); } }
+@keyframes firefly-glow { 0%,100% { opacity:0; } 45%,60% { opacity:var(--o); } }
+@media (max-width:760px) { .fireflies { inset:0 0 auto; aspect-ratio:3/2; z-index:1; } }
+
+/* ===== Flair: the phone's pinned Story Room button =====
+   The phone header hides its button, so without this a phone visitor has no
+   way to commission a song between the hero and the closing section. It
+   slides up once the hero is gone and gets out of the way for the closing
+   section and footer, which carry their own. */
+.mobile-cta { display:none; }
+@media (max-width:760px) {
+  .mobile-cta {
+    display:flex; position:fixed; z-index:20; left:14px; right:14px; bottom:calc(14px + env(safe-area-inset-bottom));
+    width:auto; padding:15px 20px; box-shadow:0 5px 0 #956536,0 14px 30px #000a;
+    transform:translateY(calc(100% + 40px)); visibility:hidden;
+    transition:transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s .45s;
+  }
+  .mobile-cta.show { transform:none; visibility:visible; transition:transform .45s cubic-bezier(.2,.8,.2,1); }
+  .mobile-cta.show ~ .now-playing { bottom:calc(88px + env(safe-area-inset-bottom)); }
+}
+
+/* ===== Flair: the now-playing pill =====
+   A song keeps playing after its card scrolls away; this is the way back to
+   it, and the way to stop it, from anywhere on the page. */
+.now-playing {
+  position:fixed; z-index:21; left:50%; bottom:calc(18px + env(safe-area-inset-bottom));
+  display:flex; align-items:center; gap:12px; width:max-content; max-width:min(calc(100vw - 28px),440px);
+  padding:7px 7px 7px 18px; border:1px solid var(--line); border-radius:999px;
+  background:#1b120fee; color:var(--ink); box-shadow:0 14px 34px #000a; backdrop-filter:blur(8px);
+  translate:-50% calc(100% + 60px); visibility:hidden;
+  transition:translate .4s cubic-bezier(.2,.8,.2,1),bottom .4s,visibility 0s .4s;
+}
+.now-playing.show { translate:-50% 0; visibility:visible; transition:translate .4s cubic-bezier(.2,.8,.2,1),bottom .4s; }
+.now-playing button { background:none; border:0; color:inherit; cursor:pointer; font-family:'DM Sans',sans-serif; }
+.now-playing button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.now-playing-back { flex:1; min-width:0; display:flex; flex-direction:column; align-items:flex-start; text-align:left; padding:2px 0; }
+.now-playing-back small { font-size:.6rem; font-weight:700; letter-spacing:.15em; color:var(--accent); }
+.now-playing-back b { max-width:100%; font:1rem/1.3 Georgia,serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.now-playing-stop { flex-shrink:0; width:38px; height:38px; border-radius:50%; border:1px solid var(--line) !important; font-size:.85rem; transition:background .3s; }
+.now-playing-stop:hover { background:#f0b86f26; }

@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   Story Room CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=4-eyebrow">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=18-flair">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -79,6 +79,24 @@ older single-file version:
   progressive enhancement — the cover stays an `<a>` to youtube.com so a
   scripts-off (or offline, or ctrl-clicking) client can still reach the song,
   and the inline script upgrades the click into an in-page player.
+
+## Page flair (September 2026)
+
+All of it stands down under `prefers-reduced-motion`, and none of it changes
+what crawlers or scripts-off visitors get.
+
+- **Handwritten headline** — the hero's `<span class="ink">` wraps "song to?"
+  and an SVG swash; CSS inks the words in and then draws the swash. Keep the
+  words inside the `em` so the headline text is unchanged.
+- **Count-up** — the proof bar's `<strong data-count="111">111</strong>` ticks
+  up on first view. Change the number in **both** places.
+- **Fireflies** — `script.js` builds `.fireflies` inside `.home-sticky` and only
+  runs them while the porch is on screen.
+- **Pinned Story Room button (phones)** — `.mobile-cta` after `</main>` is a
+  commission CTA, so it links to `/storyroom/`. It shows once the hero is off
+  screen and hides over the closing section and footer.
+- **Now-playing pill** — when a playing card scrolls away, `.now-playing` offers
+  the way back to it and a stop button. `startSong`/`stopSong` drive it.
 
 ## Weekly song update
 
