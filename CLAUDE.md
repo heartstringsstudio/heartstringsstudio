@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   Story Room CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=18-flair">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=19-reviews-steps">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -95,6 +95,13 @@ what crawlers or scripts-off visitors get.
 - **Pinned Story Room button (phones)** — `.mobile-cta` after `</main>` is a
   commission CTA, so it links to `/storyroom/`. It shows once the hero is off
   screen and hides over the closing section and footer.
+- **Rotating reviews** — `script.js` stacks the `.reviews` figures in one grid
+  cell and fades through them every 7s, with dots and a Pause button (WCAG
+  2.2.2). It rests on hover/focus and off screen, and never auto-advances for
+  reduced motion. Scripts-off, the three quotes simply stack.
+- **Step timeline** — `script.js` adds `.timeline` to `.steps` and drives `--p`
+  as it scrolls past; a dot rides the line (across the top on wide screens,
+  down the side on phones) and lights each step as it arrives.
 - **Now-playing pill** — when a playing card scrolls away, `.now-playing` offers
   the way back to it and a stop button. `startSong`/`stopSong` drive it.
 
@@ -126,9 +133,11 @@ what crawlers or scripts-off visitors get.
   spotlight in the same pass. A layout-only change does not change its selection.
 - Changing any entry also means updating the `ItemList` in `index.html`'s JSON-LD
   in the same commit; `tests/seo.test.mjs` enforces it.
-- Jane's testimonial is general studio feedback in its own section after the
-  spotlight, not a claimed reaction to the weekly song. Its original text and
-  author remain intact; the other two reviews remain farther down.
+- The testimonials are general studio feedback in their own section after the
+  spotlight, not a claimed reaction to the weekly song. All three (Jane,
+  Dolores, Susan) live in `.featured-reaction`'s `.reviews` and rotate there;
+  their text and authors remain intact. There is no lower testimonials
+  section any more.
 
 ## Structured data and analytics
 

@@ -229,7 +229,7 @@ for(const [q,a] of faq){const d=document.createElement('details');const s=docume
 
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const phoneLayout=matchMedia('(max-width:760px)');
-const animated=document.querySelectorAll('.statement,.section-head,.song:not(.weekly-player),.keepsake-copy,.keepsake-stack article,.steps article,.price-card,.quotes figure,.portrait,.about>div:last-child,.faq>div,.closing-content');
+const animated=document.querySelectorAll('.statement,.section-head,.song:not(.weekly-player),.keepsake-copy,.keepsake-stack article,.steps article,.price-card,.portrait,.about>div:last-child,.faq>div,.closing-content');
 animated.forEach((el,i)=>{el.classList.add('reveal');el.style.setProperty('--delay',`${(i%3)*110}ms`)});
 let revealObserver;
 function setupReveal(){if(revealObserver)revealObserver.disconnect();if(reduceMotion.matches){animated.forEach(el=>el.classList.add('seen'));return;}if(!('IntersectionObserver' in window))return;document.documentElement.classList.add('motion-ready');revealObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('seen');revealObserver.unobserve(entry.target)}})},{threshold:.12});animated.forEach(el=>revealObserver.observe(el));}
@@ -287,6 +287,82 @@ if(mobileCta&&'IntersectionObserver' in window){
     mobileCta.inert=!!inView.size;
   });
   document.querySelectorAll('.hero,.closing,footer').forEach(el=>ctaObserver.observe(el));
+}
+
+/* Rotating reviews: the three testimonials share one spot near the top and
+   fade through in turn. Without scripts they simply stack. Dots pick one, the
+   pause button stops the rotation (it also rests on hover, on focus, while
+   the section is off screen, and never starts for reduced motion). */
+const reviews=document.querySelector('.reviews');
+const reviewFigures=reviews?[...reviews.querySelectorAll('figure')]:[];
+if(reviewFigures.length>1){
+  let current=0,timer=null,paused=reduceMotion.matches,hovered=false,visible=false;
+  const controls=document.createElement('div');
+  controls.className='review-controls';
+  const dots=reviewFigures.map((fig,i)=>{
+    const dot=document.createElement('button');
+    dot.type='button';
+    dot.className='review-dot';
+    dot.setAttribute('aria-label','Show review '+(i+1)+' of '+reviewFigures.length);
+    dot.addEventListener('click',()=>{show(i);schedule()});
+    return dot;
+  });
+  const toggle=document.createElement('button');
+  toggle.type='button';
+  toggle.className='review-toggle';
+  toggle.addEventListener('click',()=>{paused=!paused;renderToggle();schedule()});
+  function renderToggle(){toggle.textContent=paused?'▶ Play':'❚❚ Pause';toggle.setAttribute('aria-label',paused?'Play the reviews':'Pause the reviews')}
+  controls.append(...dots,toggle);
+  reviews.append(controls);
+  reviews.classList.add('rotating');
+  function show(i){
+    current=i;
+    reviewFigures.forEach((fig,n)=>{fig.classList.toggle('current',n===i);fig.inert=n!==i});
+    dots.forEach((dot,n)=>dot.setAttribute('aria-current',n===i?'true':'false'));
+  }
+  function schedule(){
+    clearTimeout(timer);
+    if(paused||hovered||!visible||document.hidden)return;
+    timer=setTimeout(()=>{show((current+1)%reviewFigures.length);schedule()},7000);
+  }
+  reviews.addEventListener('pointerenter',()=>{hovered=true;schedule()});
+  reviews.addEventListener('pointerleave',()=>{hovered=false;schedule()});
+  reviews.addEventListener('focusin',()=>{hovered=true;schedule()});
+  reviews.addEventListener('focusout',e=>{if(!reviews.contains(e.relatedTarget)){hovered=false;schedule()}});
+  document.addEventListener('visibilitychange',schedule);
+  if('IntersectionObserver' in window)new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;schedule()}).observe(reviews);
+  else{visible=true}
+  renderToggle();
+  show(0);
+  schedule();
+}
+
+/* "Your song, step by step": a dot travels the line through the three process
+   steps as the section scrolls past, lighting each step as it arrives. The
+   line runs across the top on wide screens and down the side on phones. */
+const steps=document.querySelector('.steps');
+if(steps&&!reduceMotion.matches){
+  const stepCards=[...steps.querySelectorAll('article')];
+  const dot=document.createElement('span');
+  dot.className='steps-dot';
+  dot.setAttribute('aria-hidden','true');
+  steps.append(dot);
+  steps.classList.add('timeline');
+  let stepsQueued=false;
+  function updateSteps(){
+    stepsQueued=false;
+    const vertical=stepCards[1].offsetTop>stepCards[0].offsetTop;
+    steps.classList.toggle('timeline-vertical',vertical);
+    const r=steps.getBoundingClientRect();
+    const p=Math.max(0,Math.min(1,(innerHeight*.8-r.top)/(innerHeight*.5)));
+    steps.style.setProperty('--p',p);
+    const reach=p*(vertical?steps.offsetHeight:steps.offsetWidth);
+    stepCards.forEach(card=>card.classList.toggle('lit',reach>=(vertical?card.offsetTop:card.offsetLeft)-2));
+  }
+  const queueSteps=()=>{if(!stepsQueued){stepsQueued=true;requestAnimationFrame(updateSteps)}};
+  addEventListener('scroll',queueSteps,{passive:true});
+  addEventListener('resize',queueSteps);
+  updateSteps();
 }
 
 /* Ambient phone motion runs only while its section is visible. */
