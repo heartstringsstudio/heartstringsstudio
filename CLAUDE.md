@@ -88,7 +88,7 @@ what crawlers or scripts-off visitors get.
 - **Handwritten headline** — the hero's `<span class="ink">` wraps "song to?"
   and an SVG swash; CSS inks the words in and then draws the swash. Keep the
   words inside the `em` so the headline text is unchanged.
-- **Count-up** — the proof bar's `<strong data-count="107">107</strong>` ticks
+- **Count-up** — the proof bar's `<strong data-count="111">111</strong>` ticks
   up on first view. Change the number in **both** places.
 - **Fireflies** — `script.js` builds `.fireflies` inside `.home-sticky` and only
   runs them while the porch is on screen.

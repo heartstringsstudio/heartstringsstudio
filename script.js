@@ -244,7 +244,7 @@ if(matchMedia('(pointer:fine)').matches){document.querySelectorAll('.song:not(.w
 /* The proof bar's song count ticks up the first time it scrolls into view.
    The served HTML keeps the real number, so crawlers, scripts-off and
    reduced-motion visitors (and anyone who loads with it on screen) just
-   read 107. */
+   read 111. */
 const counter=document.querySelector('[data-count]');
 if(counter&&!reduceMotion.matches&&'IntersectionObserver' in window&&counter.getBoundingClientRect().top>innerHeight){
   const target=+counter.dataset.count;
