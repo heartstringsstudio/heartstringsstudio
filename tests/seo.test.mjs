@@ -150,6 +150,11 @@ test('the weekly player and attributed reaction lead the scroll journey', () => 
   const testimony = html.slice(reaction, html.indexOf('</section>', reaction));
   assert.ok(testimony.includes('Jane H.'));
   assert.ok(testimony.includes('HEARTSTRINGS CLIENT'));
+  /* All three reviews rotate in this one spot rather than splitting across
+     the page. */
+  for (const name of ['Jane H.', 'Dolores B.', 'Susan H.']) {
+    assert.ok(testimony.includes(name), `${name} should be in the rotating reviews`);
+  }
   /* Read the weekly title out of script.js so this guard keeps biting after
      the song is swapped, instead of quietly checking last week's title. */
   const weeklyTitle = js.match(/const songs=\[\['[^']*','[^']*','[^']*','([^']*)'/)[1];
