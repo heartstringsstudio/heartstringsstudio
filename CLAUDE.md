@@ -281,3 +281,16 @@ dashboard repo carries its own four.
   (built from the `base` constant in `script.js`).
 - There is **no inline order form** on the page (it was removed). Clicks through
   to `/storyroom/` are tracked in GA via `cta_click` / `generate_lead` events.
+
+## Design skill (Impeccable)
+
+- `.claude/skills/impeccable` is the Impeccable design skill (v4.4.0,
+  Apache 2.0, from `pbakaus/impeccable`), installed skill-only with no edit
+  hooks. Run it as `/impeccable <command> <target>`, e.g. `audit index.html`.
+- `PRODUCT.md` is its product record, written by `/impeccable init`. It points
+  back here: **this file wins** over any Impeccable default, especially on the
+  walnut/amber palette, Libre Caslon Display + DM Sans, the `?v=` cache rule
+  and the Story Room links. Treat its suggestions as refinements of the current
+  system, never a redesign, unless the owner asks for one.
+- Its launcher downloads a checksum-verified engine binary from the project's
+  GitHub releases into `~/.impeccable/` on first run. Nothing is committed.
