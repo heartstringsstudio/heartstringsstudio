@@ -420,3 +420,20 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
   footer .brand { position:relative; }
   footer .brand::after { content:''; position:absolute; inset:-14px -6px; }
 }
+
+/* Polish (October 2026): tablet header and price-card labels stay on one
+   line, and cream sections get the walnut focus ring (amber on cream is
+   too faint to see). */
+.listen a:focus-visible { outline-color:var(--cream-accent); }
+@media (min-width:761px) and (max-width:1100px) {
+  header { gap:20px; padding-inline:32px; }
+  header nav { gap:18px; }
+  header nav a,header .button,.brand small { white-space:nowrap; }
+  .price-title { flex-wrap:wrap; gap:2px 25px; }
+}
+@media (min-width:761px) and (max-width:900px) {
+  header { gap:16px; padding-inline:24px; }
+  header nav { gap:14px; }
+  header .button,.price-card .button { gap:14px; }
+  header .brand small { letter-spacing:.06em; }
+}
