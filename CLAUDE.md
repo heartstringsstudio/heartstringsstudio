@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   Story Room CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=19-reviews-steps">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=20-audit-fixes">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -36,7 +36,8 @@ older single-file version:
 - `script.js` — holds the page's content as arrays and renders it at load:
   `occasions`, `songs`, `faq`. It also carries the scroll/reveal motion, the
   song-card player, and the GA event tracking.
-- `assets/` — `studio.webp` (hero), `porch.webp`, `wedding.webp`, `tim.jpeg`,
+- `assets/` — `studio.webp` (hero), `porch.webp`, `porch-postcard.webp` (480px
+  cut of `porch.webp` for the hero postcard), `wedding.webp`, `tim.jpeg`,
   `logo.png`. The root `logo.png` and `favicon.png` are still used by
   `404.html` and `keepsake-builder.html`, so don't delete them.
   `assets/share-card.jpg` is the 1200×630 JPEG fallback share image for
