@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   Story Room CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=20-audit-fixes">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=21-tokens">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -33,6 +33,22 @@ older single-file version:
   palette, Cormorant Garamond and Mulish are all gone. Note there are **two**
   `@media (max-width:760px)` blocks; the appended one at the bottom of the file
   wins, so put phone fixes there.
+- **Colour tokens** live in `:root` at the top of `style.css`. Use the name,
+  not the hex, for any colour that already has one; add a token only when a
+  new colour is used in more than one place with the same role.
+
+  | Token | Value | Role |
+  |---|---|---|
+  | `--bg` / `--panel` | `#271c16` / `#382920` | Dark ground, raised panel |
+  | `--ink` / `--muted` / `--ink-soft` | `#fff1dc` / `#d6bfa6` / `#efd6b5` | Text on the dark ground |
+  | `--accent` / `--accent-glow` | `#f0b86f` / `#f0b86f99` | Amber accent and its glow |
+  | `--line` | `#e3b78640` | Rules on the dark ground |
+  | `--button` / `--button-edge` | `#edb268` / `#956536` | Amber button and its 3D edge |
+  | `--walnut` / `--walnut-edge` | `#774826` / `#4a2e17` | Walnut button on cream (price card) |
+  | `--cream-ink` / `--cream-muted` / `--cream-accent` | `#382719` / `#746149` / `#96602d` | Text, secondary text and accent/focus on cream |
+  | `--card` / `--card-edge` | `#fff3dc` / `#baa27d` | Song card face and offset shadow |
+  | `--price-edge` | `#b48c5f` | Price card offset shadow |
+  | `--pill-line` / `--cream-line` | `#ac805655` / `#795b3544` | Occasion pill border, rules on cream |
 - `script.js` — holds the page's content as arrays and renders it at load:
   `occasions`, `songs`, `faq`. It also carries the scroll/reveal motion, the
   song-card player, and the GA event tracking.
