@@ -416,4 +416,7 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
   .review-dot { width:44px; height:44px; margin:-8px; }
   .text-link { position:relative; z-index:1; }
   .text-link::after { content:''; position:absolute; inset:-14px -6px -10px; }
+  .scroll-cue::after { content:''; position:absolute; inset:-5px -4px; }
+  footer .brand { position:relative; }
+  footer .brand::after { content:''; position:absolute; inset:-14px -6px; }
 }
