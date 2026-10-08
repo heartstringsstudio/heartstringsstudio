@@ -437,3 +437,27 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
   header .button,.price-card .button { gap:14px; }
   header .brand small { letter-spacing:.06em; }
 }
+
+/* Song gallery swipes on phones (October 2026). Seven stacked cards were
+   five-plus screens of scrolling, so below 760px they sit in one snap row
+   with the next card peeking in. No auto-advance: a playing card must never
+   slide away on its own. Desktop keeps the grid. */
+.song-count { display:none; }
+@media (max-width:760px) {
+  .song-grid {
+    grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:84%;
+    gap:16px; margin-inline:-20px; padding:4px 20px 18px;
+    overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding-inline:20px;
+    overscroll-behavior-x:contain; scrollbar-width:none; perspective:none;
+  }
+  .song-grid::-webkit-scrollbar { display:none; }
+  .song-grid .song { scroll-snap-align:start; scroll-snap-stop:always; }
+  .song-grid .song.is-playing { align-self:stretch; }
+  /* The scroll-in reveal reads as a glitch on cards that arrive sideways. */
+  .motion-ready .song-grid .song { opacity:1; translate:none; }
+  .song-count {
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:6px; font-size:.8rem; letter-spacing:.08em; color:var(--cream-muted);
+  }
+  .song-count b { color:var(--cream-accent); font-weight:700; }
+}

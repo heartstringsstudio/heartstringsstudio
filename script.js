@@ -174,6 +174,20 @@ document.querySelector('#weekly-title').textContent=weeklySong[3];
 document.querySelector('#weekly-description').textContent=weeklySong[4];
 weeklyPlayer.append(buildFace(weeklySong,true));
 for(const song of songs.slice(1)){const card=document.createElement('article');card.className='song';card.append(buildFace(song));document.querySelector('#songs').append(card)}
+/* Phones swipe the gallery sideways; the counter says where you are and that
+   there is more. CSS hides it on wider screens, where the grid shows them all. */
+{const grid=document.querySelector('#songs'),cards=grid.children,count=document.createElement('p');
+count.className='song-count';count.setAttribute('aria-hidden','true');
+count.innerHTML='<span><b>1</b> of '+cards.length+'</span><span>Swipe for more →</span>';
+grid.after(count);
+const at=count.querySelector('b'),hint=count.lastChild;
+let tick=0;
+grid.addEventListener('scroll',()=>{cancelAnimationFrame(tick);tick=requestAnimationFrame(()=>{
+  const step=cards.length>1?cards[1].offsetLeft-cards[0].offsetLeft:1;
+  const end=grid.scrollLeft>=grid.scrollWidth-grid.clientWidth-2;
+  const i=end?cards.length-1:Math.min(cards.length-1,Math.round(grid.scrollLeft/step));
+  at.textContent=i+1;hint.textContent=i===cards.length-1?'← Swipe back':'Swipe for more →';
+})},{passive:true})}
 addEventListener('keydown',e=>{if(e.key==='Escape')stopSong(true)});
 
 /* The WBOY segment isn't a song card, so its links open the same player in a
