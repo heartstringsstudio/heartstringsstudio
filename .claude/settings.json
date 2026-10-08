@@ -4,6 +4,10 @@
       "Bash(npm test)"
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "node \"$CLAUDE_PROJECT_DIR/.claude/statusline.mjs\""
+  },
   "hooks": {
     "SessionStart": [
       {
