@@ -93,7 +93,7 @@ older single-file version:
   bottom, never embedded. The MP4 share video is a required Google Drive
   link (a "Watch the video" button plus a download item), never a file in
   the page's folder. The builder's **Page type** switch builds a *First listen*
-  page (song, story and lyrics only, no downloads, video, share or YouTube) or
+  page (art, song and lyrics only: no story, downloads, video, share or YouTube) or
   the *Keepsake delivery* page; both use the same folder and link. See
   `KEEPSAKE-OPERATIONS.md`.
 - A keepsake's share card (`og:image` / `twitter:image`) is the page's own
