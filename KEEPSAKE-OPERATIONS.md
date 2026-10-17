@@ -10,7 +10,7 @@ Delivered keepsake pages are published in the separate `keepsakes` repo (served 
 
 The client hears the song for the first time **on the keepsake page**, not on YouTube. A page built now opens with the album art, then straight under it a large **Play the song** button over the native player (`preload="metadata"`), then **Download your song**, which saves as `[Song Title] - Heartstrings Studio.mp3`. Story, lyrics, the lyric-sheet download and the share button follow as before.
 
-- **Video link** (optional, a Google Drive share link): shows a **Watch the video** button under the download. Blank means no button and no gap.
+- **Share video** (required, the MP4 as a Google Drive share link set to "Anyone with the link"): shows a **Watch the video** button under the download, and a **Download your share video** item in the keepsake downloads (Drive links are turned into a direct download). Every client is promised the MP4, so the builder won't finish a page without it. The MP4 itself lives on Drive, never in the page's folder.
 - **YouTube link** (optional): a small **Also on YouTube** text link at the very bottom of the page. YouTube is never embedded and never sits above the player.
 
 A keepsake is now a **folder of three files**, and the builder's download saves all three: `index.html`, `art.jpg` (cropped square, at most 1600px) and `song.mp3`. They go in `keepsakes/<page-code>/` with those exact names. Keep `song.mp3` under 15 MB (re-export at 192 kbps); the builder warns over that. In the `keepsakes` repo, `python3 tools/check_keepsakes.py` fails if a page's `song.mp3` or `art.jpg` is missing or a video file is present, and warns when the site passes 800 MB of the 1 GB GitHub Pages cap. Step-by-step instructions are in that repo's `tools/README.md`.
@@ -26,7 +26,7 @@ Clients want to show the song to family and friends without handing out the down
 /keepsakes/<page-code>/?share    the one they send on
 ```
 
-Opened with that marker, the page hides the **Download your song** button and the **Keepsake downloads** section. The player stays, so whoever the client sends it to can hear the song (older single-file pages hid their player too). The story, lyrics, artwork and links are unchanged, and the page swaps a line of text so the client is told what the shared link leaves out while the recipient just gets the song.
+Opened with that marker, the page hides the **Download your song** button and the **Keepsake downloads** section (lyric sheet and share-video download); the **Watch the video** button stays. The player stays, so whoever the client sends it to can hear the song (older single-file pages hid their player too). The story, lyrics, artwork and links are unchanged, and the page swaps a line of text so the client is told what the shared link leaves out while the recipient just gets the song.
 
 `#share` works as well as `?share`.
 
@@ -43,7 +43,8 @@ Every delivered keepsake must contain:
 - approved title, dedication, story, artwork, alt text, and lyrics;
 - `art.jpg` (square album art) and `song.mp3` (under 15 MB) in the page's folder, next to `index.html`;
 - the song playing on the page, with a **Download your song** button;
-- optional: a Google Drive video link and an unlisted YouTube link;
+- the MP4 share video, as a Google Drive link (watch button and download);
+- optional: an unlisted YouTube link;
 - a printable lyric-sheet PDF;
 - an explicit client publishing approval check.
 

@@ -174,6 +174,27 @@ test('the video button shows only when a video link is filled in', () => {
   }
 });
 
+test('the share video gets a download in the keepsake downloads, never a file in the folder', () => {
+  const app = loadBuilder();
+  const html = app.buildPage(Object.assign({}, keepsake, { videoLink: 'https://drive.google.com/file/d/abc_12-3/view?usp=sharing', publish: true }));
+  assert.ok(html.includes('<a class="keepsake-download" href="https://drive.google.com/uc?export=download&amp;id=abc_12-3" target="_blank" rel="noopener"><strong>Download your share video</strong>'));
+  // Owner-only, like the lyric sheet: the downloads section hides on ?share.
+  assert.match(html, /<section class="section reveal" aria-labelledby="downloads-heading">[\s\S]*Download your share video/);
+  assert.doesNotMatch(html, /video\.mp4|\.mp4"/);
+
+  // A link that isn't a Drive file is used as it is.
+  const other = app.buildPage(Object.assign({}, keepsake, { videoLink: 'https://example.com/v.mp4', publish: true }));
+  assert.ok(other.includes('href="https://example.com/v.mp4" target="_blank" rel="noopener"><strong>Download your share video</strong>'));
+
+  const without = app.buildPage(Object.assign({}, keepsake, { publish: true }));
+  assert.doesNotMatch(without, /Download your share video/);
+});
+
+test('the builder requires the share video link', () => {
+  assert.match(builder, /<input type="url" id="videoLink"[^>]* required \/>/);
+  assert.ok(builder.includes("if (!els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');"));
+});
+
 test('page copy speaks as one songwriter and names no tools', () => {
   const app = loadBuilder();
   const html = app.buildPage(Object.assign({}, keepsake, { publish: true, videoLink: 'https://drive.google.com/x' }));
