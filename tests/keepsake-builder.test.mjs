@@ -200,6 +200,9 @@ test('a first-listen page is the song and the lyrics, nothing else', () => {
   const html = app.buildPage(Object.assign({}, full, { stage: 'premiere' }));
   assert.match(html, /<audio id="song-audio" controls controlslist="nodownload" preload="metadata" src="song\.mp3">/);
   assert.match(html, /<details class="lyrics" open>/);
+  // The album art stays: on the page and as the link's share card.
+  assert.match(html, /<img class="album-art" src="art\.jpg" alt="Two hands holding a faded photograph\." width="360" height="360" \/>/);
+  assert.ok(html.includes('<meta property="og:image" content="https://heartstringsstudio.github.io/keepsakes/k7h2m9q4x1/art.jpg" />'));
   assert.match(html, /Your first listen\. Your downloads come with your finished keepsake\./);
   for (const gone of [/Download your song/, /Download the lyric sheet/, /Download your share video/, /id="downloads-heading"/,
     /class="video-link"/, /Watch the video/, /Share this song/, /class="share-btn"/, /also-youtube"/, /data:application\/pdf/]) {
