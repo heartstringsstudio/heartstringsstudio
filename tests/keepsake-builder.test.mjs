@@ -76,8 +76,7 @@ const keepsake = {
   storyBody: 'A first paragraph.\n\nA second paragraph.',
   lyrics: 'First line\nSecond line',
   lyricsPdf: 'data:application/pdf;base64,AAAA',
-  songMp3: 'data:audio/mpeg;base64,AAAA',
-  footerMode: 'signature'
+  songMp3: 'data:audio/mpeg;base64,AAAA'
 };
 
 test('generated keepsake contains privacy, playback, and permanent downloads', () => {
@@ -90,9 +89,12 @@ test('generated keepsake contains privacy, playback, and permanent downloads', (
   assert.match(html, /Download the lyric sheet/);
   assert.match(html, /Share this song/);
   assert.match(html, /occasion-memorial-tribute/);
-  assert.match(html, /Made with <em>care\.<\/em>/);
   assert.doesNotMatch(html, /tinyurl\.com/);
-  assert.doesNotMatch(html, />Start a song<\/a>/);
+  // One quiet link home, always: for another song, or a shared copy in a new pair of hands.
+  assert.equal((html.match(/class="cta"/g) || []).length, 1);
+  assert.match(html, /<a class="cta" href="https:\/\/heartstringsstudio\.github\.io\/heartstringsstudio\/">Visit Heartstrings Studio/);
+  // A light signature, not a dark band.
+  assert.doesNotMatch(html, /\.site-footer \{[^}]*charcoal/);
 });
 
 test('a shared keepsake link carries the album art as its share card', () => {
@@ -174,7 +176,7 @@ test('the video button shows only when a video link is filled in', () => {
 
 test('page copy speaks as one songwriter and names no tools', () => {
   const app = loadBuilder();
-  const html = app.buildPage(Object.assign({}, keepsake, { publish: true, videoLink: 'https://drive.google.com/x', footerMode: 'referral' }));
+  const html = app.buildPage(Object.assign({}, keepsake, { publish: true, videoLink: 'https://drive.google.com/x' }));
   const text = html
     .replace(/<script[\s\S]*?<\/script>/g, ' ')
     .replace(/<style[\s\S]*?<\/style>/g, ' ')
