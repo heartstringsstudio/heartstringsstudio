@@ -187,6 +187,15 @@
     .inline-row { display: flex; gap: 0.55rem; align-items: stretch; }
     .inline-row input { flex: 1; }
     .btn-compact { padding: 0.48rem 0.8rem; font-family: "DM Sans", system-ui, sans-serif; font-size: 0.78rem; font-style: normal; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .stage-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; margin: 0; padding: 0; border: 0; }
+    .stage-switch legend { padding: 0; margin-bottom: 0.45rem; font-weight: 500; font-size: 0.95rem; }
+    .stage-switch label { display: flex; flex-direction: column; gap: 0.15rem; margin: 0; padding: 0.7rem 0.8rem; border: 1px solid var(--line); border-radius: 3px; background: var(--inset); cursor: pointer; }
+    .stage-switch label:has(input:checked) { border-color: var(--brass); box-shadow: inset 0 0 0 1px var(--brass); }
+    .stage-switch label:has(input:focus-visible) { outline: 2px solid #774826; outline-offset: 2px; }
+    .stage-switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .stage-switch strong { font-size: 0.95rem; }
+    .stage-switch small { font-size: 0.76rem; line-height: 1.4; color: var(--ink-soft); }
     .check-field { display: flex; gap: 0.65rem; align-items: flex-start; }
     .check-field input { width: 1.1rem; height: 1.1rem; margin-top: 0.18rem; accent-color: var(--brass); }
     .check-field label { margin: 0; font-size: 0.86rem; line-height: 1.5; }
@@ -285,6 +294,16 @@
   <div class="layout">
     <!-- ============================ FORM ============================ -->
     <form class="form" id="form" autocomplete="off">
+
+      <section class="form-section" aria-labelledby="stage-heading">
+        <h2 id="stage-heading"><span>00 · Page type</span>Which page is this?</h2>
+        <fieldset class="stage-switch">
+          <legend class="visually-hidden">Page type</legend>
+          <label><input type="radio" name="stage" id="stagePremiere" value="premiere" /><strong>First listen</strong><small>Song and lyrics only. No downloads, video, share button or YouTube link.</small></label>
+          <label><input type="radio" name="stage" id="stageKeepsake" value="keepsake" checked /><strong>Keepsake delivery</strong><small>The finished page: MP3, lyric sheet and share video downloads.</small></label>
+        </fieldset>
+        <span class="hint" style="margin-top: 0.6rem; display: block;">Both publish to the same folder, so the client keeps one link. When it's time to deliver, switch to Keepsake delivery, download again and replace <strong>index.html</strong>.</span>
+      </section>
 
       <section class="form-section" aria-labelledby="essentials-heading">
         <h2 id="essentials-heading"><span>01 · Essentials</span>The song</h2>
@@ -588,17 +607,24 @@
       var mp3Data = (d.songMp3 || '').trim();
       var songSrc = publish ? 'song.mp3' : mp3Data;
       var videoUrl = videoLink(d.videoLink);
+      // A first-listen page is the song and the lyrics, nothing else: no
+      // downloads, no video, no share button, no YouTube. Rebuilt as a
+      // keepsake, the same folder and link gain them all.
+      var premiere = d.stage === 'premiere';
+      if (premiere) { videoUrl = ''; ytId = ''; }
       var songBlock = '\n\n    <!-- ========================== THE SONG ========================== -->\n'
         + '    <section class="listen reveal" aria-labelledby="listen-heading">\n'
         + '      <h2 id="listen-heading" class="visually-hidden">Listen to the song</h2>\n'
         + (songSrc
           ? '      <div class="player">\n'
             + '        <button class="play-btn" type="button" aria-controls="song-audio" hidden>Play the song</button>\n'
-            + '        <audio id="song-audio" controls preload="metadata" src="' + escAttr(songSrc) + '">\n'
+            + '        <audio id="song-audio" controls ' + (premiere ? 'controlslist="nodownload" ' : '') + 'preload="metadata" src="' + escAttr(songSrc) + '">\n'
             + '          <a href="' + escAttr(songSrc) + '">Open the song</a>\n'
             + '        </audio>\n'
             + '      </div>\n'
-            + '      <a class="song-download" href="' + escAttr(songSrc) + '" download="' + escAttr(songFileName(title)) + '">Download your song</a>\n'
+            + (premiere
+              ? '      <p class="first-listen-note">Your first listen. Your downloads come with your finished keepsake.</p>\n'
+              : '      <a class="song-download" href="' + escAttr(songSrc) + '" download="' + escAttr(songFileName(title)) + '">Download your song</a>\n')
           : '      <p class="player-placeholder">The song will play here.</p>\n')
         + (videoUrl
           ? '      <a class="video-link" href="' + escAttr(videoUrl) + '" target="_blank" rel="noopener">Watch the video</a>\n'
@@ -622,7 +648,7 @@
       var lyricsStanzas = buildLyrics(d.lyrics);
       var lyricsSection = lyricsStanzas
         ? '\n\n    <section class="section reveal" aria-labelledby="lyrics-heading">\n'
-          + '      <details class="lyrics">\n'
+          + '      <details class="lyrics"' + (premiere ? ' open' : '') + '>\n'
           + '        <summary id="lyrics-heading">Lyrics</summary>\n'
           + '        <div class="lyrics-sheet">\n'
           + lyricsStanzas + '\n'
@@ -633,14 +659,14 @@
 
       var pdfData = (d.lyricsPdf || '').trim();
       var downloadItems = '';
-      if (pdfData) downloadItems += '<a class="keepsake-download" href="' + escAttr(pdfData) + '" download="' + escAttr(title + ' - Lyrics.pdf') + '"><strong>Download the lyric sheet</strong><span>Printable PDF</span></a>';
+      if (pdfData && !premiere) downloadItems += '<a class="keepsake-download" href="' + escAttr(pdfData) + '" download="' + escAttr(title + ' - Lyrics.pdf') + '"><strong>Download the lyric sheet</strong><span>Printable PDF</span></a>';
       if (videoUrl) downloadItems += '<a class="keepsake-download" href="' + escAttr(videoDownloadUrl(videoUrl)) + '" target="_blank" rel="noopener"><strong>Download your share video</strong><span>MP4 \u00b7 for Facebook or a service</span></a>';
       var downloadsSection = downloadItems ? '<section class="section reveal" aria-labelledby="downloads-heading"><div class="label-row"><h2 id="downloads-heading" class="section-label">Keepsake downloads</h2></div><div class="keepsake-downloads">' + downloadItems + '</div></section>' : '';
       var shareUrl = keepsakeShareUrl(d.pageCode);
       var ownerNote = downloadItems || songSrc
         ? 'Send the song and the story to anyone you like. The link you share opens this page without your keepsake downloads on it.'
         : 'Send the song and the story to anyone you like.';
-      var shareSection = '<section class="section reveal" aria-labelledby="share-heading">'
+      var shareSection = premiere ? '' : '<section class="section reveal" aria-labelledby="share-heading">'
         + '<div class="label-row"><h2 id="share-heading" class="section-label">Share this song</h2></div>'
         + '<div class="share">'
         + '<p class="share-note share-note-owner">' + escHtml(ownerNote) + '</p>'
@@ -651,7 +677,7 @@
         + '<p class="share-status" role="status" aria-live="polite"></p>'
         + '<p class="share-link"><input type="text" readonly aria-label="Link to share" value="' + escAttr(shareUrl) + '" /></p>'
         + '</div></section>';
-      var clientExtras = '<style>.keepsake-downloads,.share{max-width:460px;margin:0 auto}.keepsake-downloads{display:grid;gap:.85rem}.keepsake-download{display:flex;flex-direction:column;padding:1rem 1.2rem;background:var(--cream-warm);border:1px solid rgba(161,124,82,.42);border-radius:3px;box-shadow:0 10px 28px rgba(63,50,39,.07)}.keepsake-download strong{font-family:var(--serif-alt);font-size:1.25rem;color:var(--charcoal)}.keepsake-download span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}html.sharing section[aria-labelledby="downloads-heading"],html.sharing .song-download{display:none}.share{text-align:center}.share-note{font-family:var(--serif-alt);font-style:italic;font-size:1.05rem;line-height:1.6;color:var(--text-muted);margin:0 0 1.5rem}.share-note-guest{display:none}html.sharing .share-note-owner{display:none}html.sharing .share-note-guest{display:block}.share-btn{display:none;font:700 italic 1.05rem var(--serif-alt);color:var(--rose-deep);background:transparent;border:1px solid var(--rose);padding:.8rem 2.2rem;cursor:pointer;transition:color .4s var(--ease),background-color .4s var(--ease)}.share.share-ready .share-btn{display:inline-block}.share-btn:hover{color:var(--cream);background:var(--rose-deep);border-color:var(--rose-deep)}.share-btn:focus-visible{outline:2px solid var(--rose);outline-offset:3px}.share-status{min-height:1.5em;margin:.85rem 0 0;font-family:var(--serif-alt);font-style:italic;font-size:.98rem;color:var(--rose-deep)}.share-link{margin:1.05rem 0 0}.share.share-ready .share-link{display:none}.share.share-ready .share-link.is-shown{display:block}.share-link input{width:100%;padding:.7rem .8rem;font-family:var(--sans);font-size:.9rem;color:var(--text-body);background:var(--cream-warm);border:1px solid rgba(161,124,82,.42);text-align:center}body.occasion-memorial-tribute,body.occasion-celebration-of-life{--rose:#7d6247;--rose-light:#e8cfa6;--rose-deep:#5e4936}body.occasion-wedding,body.occasion-anniversary{--rose:#8a4f1f;--rose-light:#f5c684}@media (prefers-reduced-motion: reduce){.share-btn{transition:none}}@media print{.listen,.also-youtube,.share,.site-footer{display:none!important}html.js .reveal{opacity:1!important;transform:none!important}.lyrics>summary{display:none}}</style>' + downloadsSection + shareSection + youtubeNote;
+      var clientExtras = '<style>.first-listen-note{margin:.2rem 0 0;text-align:center;font-family:var(--serif-alt);font-style:italic;font-size:1.02rem;color:var(--text-muted)}.keepsake-downloads,.share{max-width:460px;margin:0 auto}.keepsake-downloads{display:grid;gap:.85rem}.keepsake-download{display:flex;flex-direction:column;padding:1rem 1.2rem;background:var(--cream-warm);border:1px solid rgba(161,124,82,.42);border-radius:3px;box-shadow:0 10px 28px rgba(63,50,39,.07)}.keepsake-download strong{font-family:var(--serif-alt);font-size:1.25rem;color:var(--charcoal)}.keepsake-download span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}html.sharing section[aria-labelledby="downloads-heading"],html.sharing .song-download{display:none}.share{text-align:center}.share-note{font-family:var(--serif-alt);font-style:italic;font-size:1.05rem;line-height:1.6;color:var(--text-muted);margin:0 0 1.5rem}.share-note-guest{display:none}html.sharing .share-note-owner{display:none}html.sharing .share-note-guest{display:block}.share-btn{display:none;font:700 italic 1.05rem var(--serif-alt);color:var(--rose-deep);background:transparent;border:1px solid var(--rose);padding:.8rem 2.2rem;cursor:pointer;transition:color .4s var(--ease),background-color .4s var(--ease)}.share.share-ready .share-btn{display:inline-block}.share-btn:hover{color:var(--cream);background:var(--rose-deep);border-color:var(--rose-deep)}.share-btn:focus-visible{outline:2px solid var(--rose);outline-offset:3px}.share-status{min-height:1.5em;margin:.85rem 0 0;font-family:var(--serif-alt);font-style:italic;font-size:.98rem;color:var(--rose-deep)}.share-link{margin:1.05rem 0 0}.share.share-ready .share-link{display:none}.share.share-ready .share-link.is-shown{display:block}.share-link input{width:100%;padding:.7rem .8rem;font-family:var(--sans);font-size:.9rem;color:var(--text-body);background:var(--cream-warm);border:1px solid rgba(161,124,82,.42);text-align:center}body.occasion-memorial-tribute,body.occasion-celebration-of-life{--rose:#7d6247;--rose-light:#e8cfa6;--rose-deep:#5e4936}body.occasion-wedding,body.occasion-anniversary{--rose:#8a4f1f;--rose-light:#f5c684}@media (prefers-reduced-motion: reduce){.share-btn{transition:none}}@media print{.listen,.also-youtube,.share,.site-footer{display:none!important}html.js .reveal{opacity:1!important;transform:none!important}.lyrics>summary{display:none}}</style>' + downloadsSection + shareSection + youtubeNote;
 
       var pageHtml = '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8" />\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n\n  <!-- ============================================================= -->\n  <!--  HEARTSTRINGS STUDIO · KEEPSAKE PAGE · VERSION 2               -->\n  <!--  Lumberport, WV                                               -->\n  <!-- ============================================================= -->\n\n  <!-- VARIABLE: SONG_TITLE -->\n  <title>' +
         titleHtml +
@@ -743,6 +769,7 @@
 
     function collect() {
       return {
+        stage: currentStage(),
         title: els.title.value,
         pageCode: els.pageCode.value,
         dedication: els.dedication.value,
@@ -759,6 +786,12 @@
         songMp3: songMp3DataUrl
       };
     }
+
+    var stageInputs = [document.getElementById('stagePremiere'), document.getElementById('stageKeepsake')];
+    function currentStage() {
+      return stageInputs[0].checked ? 'premiere' : 'keepsake';
+    }
+    stageInputs.forEach(function (input) { input.addEventListener('change', render); });
 
     // A keepsake is a folder, keepsakes/<page-code>/, holding three files.
     function currentFilename() {
@@ -784,12 +817,13 @@
       if (!els.dedication.value.trim()) errors.push('Dedication');
       if (!els.pageCode.value.trim() || !/^[a-z0-9-]{10,24}$/.test(els.pageCode.value.trim())) errors.push('Valid private page code');
       if (els.youtube.value.trim() && !youTubeId(els.youtube.value)) errors.push('Valid YouTube link (or leave it blank)');
-      if (!els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');
-      else if (!videoLink(els.videoLink.value)) errors.push('Valid share video link starting with https://');
+      var keepsake = currentStage() === 'keepsake';
+      if (keepsake && !els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');
+      else if (keepsake && !videoLink(els.videoLink.value)) errors.push('Valid share video link starting with https://');
       if (!artDataUrl) errors.push('Album artwork');
       if (!els.alt.value.trim()) errors.push('Artwork description');
       if (!songMp3DataUrl) errors.push('Song MP3');
-      if (!lyricsPdfDataUrl) errors.push('Lyric-sheet PDF');
+      if (keepsake && !lyricsPdfDataUrl) errors.push('Lyric-sheet PDF');
       if (!els.storyOpen.value.trim()) errors.push('Story opening');
       if (!els.storyBody.value.trim()) errors.push('Story body');
       if (!els.lyrics.value.trim()) errors.push('Lyrics');
@@ -812,7 +846,9 @@
       box.classList.toggle('ready', errors.length === 0);
       box.innerHTML = (errors.length
         ? '<strong>Not ready to deliver</strong><ul>' + errors.map(function (e) { return '<li>' + escHtml(e) + '</li>'; }).join('') + '</ul>'
-        : '<strong>Ready to deliver</strong><br />All required content, media, and approval checks are complete.')
+        : currentStage() === 'premiere'
+          ? '<strong>Ready for the first listen</strong><br />Song and lyrics only. Switch to Keepsake delivery when it\u2019s time to hand over the downloads.'
+          : '<strong>Ready to deliver</strong><br />All required content, media, and approval checks are complete.')
         + (notes.length ? '<p class="warning"><strong>Heads up:</strong> ' + notes.map(escHtml).join(' ') + '</p>' : '');
       return errors;
     }
@@ -820,7 +856,7 @@
     function render() {
       previewFrame.srcdoc = buildPage(collect());
       var html = publishedPage();
-      filenameEl.textContent = currentFolder() + ' · index.html + art.jpg + song.mp3';
+      filenameEl.textContent = (currentStage() === 'premiere' ? 'First listen · ' : 'Keepsake · ') + currentFolder() + ' · index.html + art.jpg + song.mp3';
       updateYtInfo();
       updateVideoInfo();
       updateReadiness();
@@ -954,7 +990,7 @@
       files.forEach(function (file, i) {
         window.setTimeout(function () { saveBlob(file[0], file[1]); }, i * 600);
       });
-      flash('Downloaded index.html, art.jpg and song.mp3 \u2014 put all three in ' + currentFolder());
+      flash((currentStage() === 'premiere' ? 'First-listen page: d' : 'D') + 'ownloaded index.html, art.jpg and song.mp3 \u2014 put all three in ' + currentFolder());
     });
 
     document.getElementById('copy').addEventListener('click', function () {
@@ -987,6 +1023,7 @@
         savedAt: new Date().toISOString(),
         fields: ids.reduce(function (all, id) { all[id] = els[id].value; return all; }, {}),
         consent: document.getElementById('consent').checked,
+        stage: currentStage(),
         media: {
           art: { name: artFileName, data: artDataUrl },
           lyricsPdf: { name: lyricsPdfFileName, data: lyricsPdfDataUrl },
@@ -1013,6 +1050,7 @@
           if (!draft || draft.version !== 2 || !draft.fields) throw new Error('Unsupported draft');
           ids.forEach(function (id) { if (Object.prototype.hasOwnProperty.call(draft.fields, id)) els[id].value = draft.fields[id]; });
           document.getElementById('consent').checked = Boolean(draft.consent);
+          stageInputs[draft.stage === 'premiere' ? 0 : 1].checked = true;
           var media = draft.media || {};
           artDataUrl = media.art && media.art.data || ''; artFileName = media.art && media.art.name || ''; artSize = 0;
           lyricsPdfDataUrl = media.lyricsPdf && media.lyricsPdf.data || ''; lyricsPdfFileName = media.lyricsPdf && media.lyricsPdf.name || '';
