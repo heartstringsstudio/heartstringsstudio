@@ -21,7 +21,7 @@ Keepsakes delivered before this keep the old single-file layout and are not migr
 
 The builder's **Page type** switch (top of the form) builds one of two pages for the same song:
 
-- **First listen**: the client's premiere. Album art, the song on the player, the story and the lyrics (opened). No **Download your song**, no keepsake downloads (MP3, lyric sheet, share video), no **Watch the video**, no share button, no YouTube link. The player asks browsers not to offer a download (`controlslist="nodownload"`). The lyric-sheet PDF and share video link aren't required yet.
+- **First listen**: the client's premiere. Album art, the song on the player and the lyrics (opened). No story, no **Download your song**, no keepsake downloads (MP3, lyric sheet, share video), no **Watch the video**, no share button, no YouTube link. The player asks browsers not to offer a download (`controlslist="nodownload"`). In the builder, the fields this page doesn't use (YouTube link, share video, lyric-sheet PDF, story) are greyed out and locked; anything already typed in them is kept for the keepsake build.
 - **Keepsake delivery** (the default): the full page described above.
 
 Both publish to the same `keepsakes/<page-code>/` folder, so the client keeps one link. To deliver, flip the switch, download again and replace `index.html` (and `song.mp3` if the song changed after revisions). Save a draft after the first listen so the delivery build starts from it.

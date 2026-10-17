@@ -188,6 +188,9 @@
     .inline-row input { flex: 1; }
     .btn-compact { padding: 0.48rem 0.8rem; font-family: "DM Sans", system-ui, sans-serif; font-size: 0.78rem; font-style: normal; }
     .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .field.is-off { opacity: 0.42; }
+    .field.is-off label::after { content: " \00b7  Keepsake delivery only"; color: var(--ink-soft); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .field.is-off input, .field.is-off textarea { cursor: not-allowed; }
     .stage-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; margin: 0; padding: 0; border: 0; }
     .stage-switch legend { padding: 0; margin-bottom: 0.45rem; font-weight: 500; font-size: 0.95rem; }
     .stage-switch label { display: flex; flex-direction: column; gap: 0.15rem; margin: 0; padding: 0.7rem 0.8rem; border: 1px solid var(--line); border-radius: 3px; background: var(--inset); cursor: pointer; }
@@ -299,10 +302,10 @@
         <h2 id="stage-heading"><span>00 · Page type</span>Which page is this?</h2>
         <fieldset class="stage-switch">
           <legend class="visually-hidden">Page type</legend>
-          <label><input type="radio" name="stage" id="stagePremiere" value="premiere" /><strong>First listen</strong><small>Song and lyrics only. No downloads, video, share button or YouTube link.</small></label>
+          <label><input type="radio" name="stage" id="stagePremiere" value="premiere" /><strong>First listen</strong><small>Album art, song and lyrics only. No story, downloads, video, share button or YouTube link.</small></label>
           <label><input type="radio" name="stage" id="stageKeepsake" value="keepsake" checked /><strong>Keepsake delivery</strong><small>The finished page: MP3, lyric sheet and share video downloads.</small></label>
         </fieldset>
-        <span class="hint" style="margin-top: 0.6rem; display: block;">Both publish to the same folder, so the client keeps one link. When it's time to deliver, switch to Keepsake delivery, download again and replace <strong>index.html</strong>.</span>
+        <div class="field" style="margin-top: 0.6rem;"><span class="hint">Both publish to the same folder, so the client keeps one link. When it's time to deliver, switch to Keepsake delivery, download again and replace <strong>index.html</strong>.</span></div>
       </section>
 
       <section class="form-section" aria-labelledby="essentials-heading">
@@ -349,7 +352,7 @@
       <section class="form-section" aria-labelledby="media-heading">
         <h2 id="media-heading"><span>02 · Media</span>Listen and keep</h2>
 
-      <div class="field">
+      <div class="field" data-keepsake-only>
         <label for="youtube">YouTube link <span class="optional">optional</span></label>
         <span class="hint">Adds a small “Also on YouTube” link at the very bottom of the page. The song is never embedded from YouTube. Leave blank to leave it off.</span>
         <input type="text" id="youtube" placeholder="https://youtu.be/dQw4w9WgXcQ" />
@@ -376,14 +379,14 @@
         <span class="hint" id="songMp3Name" style="font-style: normal; color: var(--brass);"></span>
       </div>
 
-      <div class="field">
+      <div class="field" data-keepsake-only>
         <label for="videoLink">Share video (MP4) <span class="required">required</span></label>
         <span class="hint">Upload the MP4 to Google Drive, share it as “Anyone with the link”, and paste that link. Adds a “Watch the video” button under the song and a share-video download to the keepsake downloads. The MP4 never goes in the song's folder — the keepsakes site can't hold video.</span>
         <input type="url" id="videoLink" placeholder="https://drive.google.com/file/d/…/view" required />
         <span class="hint" id="videoInfo" style="font-style: normal; color: var(--brass);"></span>
       </div>
 
-      <div class="field">
+      <div class="field" data-keepsake-only>
         <label for="lyricsPdf">Lyric sheet PDF <span class="required">required</span></label>
         <span class="hint">Adds the printable lyric-sheet download promised with every keepsake.</span>
         <input type="file" id="lyricsPdf" accept="application/pdf,.pdf" required />
@@ -394,13 +397,13 @@
       <section class="form-section" aria-labelledby="story-form-heading">
         <h2 id="story-form-heading"><span>03 · Story</span>The heart behind it</h2>
 
-      <div class="field">
+      <div class="field" data-keepsake-only>
         <label for="storyOpen">Story opening line</label>
         <span class="hint">Set large, in italic. One vivid sentence.</span>
         <textarea id="storyOpen" rows="2" placeholder="They didn't want the eulogy version of her — they wanted the Tuesday-morning one." required></textarea>
       </div>
 
-      <div class="field">
+      <div class="field" data-keepsake-only>
         <label for="storyBody">The rest of the story</label>
         <span class="hint">Leave a blank line between paragraphs.</span>
         <textarea id="storyBody" rows="6" placeholder="So that's where I started: not at the funeral, but at a kitchen table..." required></textarea>
@@ -644,6 +647,12 @@
       var storyOpen = d.storyOpen.trim() || 'They didn\'t want the eulogy version — they wanted the everyday one.';
       var storyParas = buildStory(d.storyBody);
       var storyBodyBlock = storyParas ? '\n' + storyParas : '';
+      // The first listen is the art, the song and the lyrics; the story waits for the keepsake.
+      var storySection = premiere ? '' : '\n\n    <!-- ================= THE STORY BEHIND IT ================= -->\n    <section class="section reveal" aria-labelledby="story-heading">\n      <div class="story">\n        <div class="label-row"><h2 id="story-heading" class="section-label">The story behind it</h2></div>\n\n        <!-- VARIABLE: STORY_BEHIND_IT — opening line -->\n        <p class="story-open">' +
+        escHtml(storyOpen) +
+        '</p>' +
+        storyBodyBlock +
+        '\n      </div>\n    </section>';
 
       var lyricsStanzas = buildLyrics(d.lyrics);
       var lyricsSection = lyricsStanzas
@@ -695,11 +704,8 @@
         escAttr(artAlt) +
         '" width="360" height="360" />\n    </header>' +
         songBlock +
-        '\n\n    <!-- ===== Ornate divider ===== -->\n    <div class="ornament reveal" aria-hidden="true">\n      <span class="line"></span><span class="diamond"></span><span class="line"></span>\n    </div>\n\n    <!-- ================= THE STORY BEHIND IT ================= -->\n    <section class="section reveal" aria-labelledby="story-heading">\n      <div class="story">\n        <div class="label-row"><h2 id="story-heading" class="section-label">The story behind it</h2></div>\n\n        <!-- VARIABLE: STORY_BEHIND_IT — opening line -->\n        <p class="story-open">' +
-        escHtml(storyOpen) +
-        '</p>' +
-        storyBodyBlock +
-        '\n      </div>\n    </section>' +
+        '\n\n    <!-- ===== Ornate divider ===== -->\n    <div class="ornament reveal" aria-hidden="true">\n      <span class="line"></span><span class="diamond"></span><span class="line"></span>\n    </div>' +
+        storySection +
         lyricsSection +
         clientExtras +
         '\n\n  </main>\n\n  <!-- ===================== FOOTER · ONE LINK HOME ===================== -->\n  <footer class="site-footer reveal">\n    <span class="footer-mark"><img src="' +
@@ -791,7 +797,19 @@
     function currentStage() {
       return stageInputs[0].checked ? 'premiere' : 'keepsake';
     }
-    stageInputs.forEach(function (input) { input.addEventListener('change', render); });
+    // Fields a first-listen page doesn't use are greyed out and locked so
+    // they can't be filled in by mistake. What's already in them is kept
+    // for the keepsake build.
+    var keepsakeOnly = Array.prototype.slice.call(document.querySelectorAll('[data-keepsake-only]'));
+    function applyStage() {
+      var off = currentStage() === 'premiere';
+      keepsakeOnly.forEach(function (field) {
+        field.classList.toggle('is-off', off);
+        field.querySelectorAll('input, textarea, select').forEach(function (control) { control.disabled = off; });
+      });
+    }
+    stageInputs.forEach(function (input) { input.addEventListener('change', function () { applyStage(); render(); }); });
+    applyStage();
 
     // A keepsake is a folder, keepsakes/<page-code>/, holding three files.
     function currentFilename() {
@@ -813,19 +831,19 @@
 
     function validationErrors() {
       var errors = [];
+      var keepsake = currentStage() === 'keepsake';
       if (!els.title.value.trim()) errors.push('Song title');
       if (!els.dedication.value.trim()) errors.push('Dedication');
       if (!els.pageCode.value.trim() || !/^[a-z0-9-]{10,24}$/.test(els.pageCode.value.trim())) errors.push('Valid private page code');
-      if (els.youtube.value.trim() && !youTubeId(els.youtube.value)) errors.push('Valid YouTube link (or leave it blank)');
-      var keepsake = currentStage() === 'keepsake';
+      if (keepsake && els.youtube.value.trim() && !youTubeId(els.youtube.value)) errors.push('Valid YouTube link (or leave it blank)');
       if (keepsake && !els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');
       else if (keepsake && !videoLink(els.videoLink.value)) errors.push('Valid share video link starting with https://');
       if (!artDataUrl) errors.push('Album artwork');
       if (!els.alt.value.trim()) errors.push('Artwork description');
       if (!songMp3DataUrl) errors.push('Song MP3');
       if (keepsake && !lyricsPdfDataUrl) errors.push('Lyric-sheet PDF');
-      if (!els.storyOpen.value.trim()) errors.push('Story opening');
-      if (!els.storyBody.value.trim()) errors.push('Story body');
+      if (keepsake && !els.storyOpen.value.trim()) errors.push('Story opening');
+      if (keepsake && !els.storyBody.value.trim()) errors.push('Story body');
       if (!els.lyrics.value.trim()) errors.push('Lyrics');
       if (!document.getElementById('consent').checked) errors.push('Client publishing approval');
       return errors;
@@ -1051,6 +1069,7 @@
           ids.forEach(function (id) { if (Object.prototype.hasOwnProperty.call(draft.fields, id)) els[id].value = draft.fields[id]; });
           document.getElementById('consent').checked = Boolean(draft.consent);
           stageInputs[draft.stage === 'premiere' ? 0 : 1].checked = true;
+          applyStage();
           var media = draft.media || {};
           artDataUrl = media.art && media.art.data || ''; artFileName = media.art && media.art.name || ''; artSize = 0;
           lyricsPdfDataUrl = media.lyricsPdf && media.lyricsPdf.data || ''; lyricsPdfFileName = media.lyricsPdf && media.lyricsPdf.name || '';

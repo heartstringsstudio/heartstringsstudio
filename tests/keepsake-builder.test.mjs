@@ -50,6 +50,7 @@ function loadBuilder() {
     navigator: {},
     document: {
       getElementById: element,
+      querySelectorAll: () => [],
       createElement: () => ({ style: {}, click() {}, select() {} }),
       body: { appendChild() {}, removeChild() {} },
       execCommand: () => true
@@ -204,6 +205,8 @@ test('a first-listen page is the song and the lyrics, nothing else', () => {
   assert.match(html, /<img class="album-art" src="art\.jpg" alt="Two hands holding a faded photograph\." width="360" height="360" \/>/);
   assert.ok(html.includes('<meta property="og:image" content="https://heartstringsstudio.github.io/keepsakes/k7h2m9q4x1/art.jpg" />'));
   assert.match(html, /Your first listen\. Your downloads come with your finished keepsake\./);
+  // No story either: art, song and lyrics only.
+  assert.doesNotMatch(html, /id="story-heading"|class="story-open"|This is where the story begins/);
   for (const gone of [/Download your song/, /Download the lyric sheet/, /Download your share video/, /id="downloads-heading"/,
     /class="video-link"/, /Watch the video/, /Share this song/, /class="share-btn"/, /also-youtube"/, /data:application\/pdf/]) {
     assert.doesNotMatch(html, gone);
@@ -216,6 +219,7 @@ test('a first-listen page is the song and the lyrics, nothing else', () => {
       assert.match(delivered, back);
     }
     assert.doesNotMatch(delivered, /first-listen-note">/);
+    assert.match(delivered, /<p class="story-open">This is where the story begins\.<\/p>/);
     assert.doesNotMatch(delivered, /controlslist/);
   }
 });
@@ -226,6 +230,11 @@ test('the builder offers the first-listen switch and only asks for the deliverab
   assert.ok(builder.includes("if (keepsake && !lyricsPdfDataUrl) errors.push('Lyric-sheet PDF');"));
   assert.ok(builder.includes("if (keepsake && !els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');"));
   assert.ok(builder.includes('stage: currentStage(),\n        media'));
+  // Fields a first listen doesn't use are greyed out and locked.
+  for (const id of ['youtube', 'videoLink', 'lyricsPdf', 'storyOpen', 'storyBody']) {
+    assert.ok(builder.includes(`<div class="field" data-keepsake-only>\n        <label for="${id}">`), id);
+  }
+  assert.ok(builder.includes("if (keepsake && !els.storyOpen.value.trim()) errors.push('Story opening');"));
 });
 
 test('page copy speaks as one songwriter and names no tools', () => {
