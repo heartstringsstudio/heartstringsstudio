@@ -192,7 +192,40 @@ test('the share video gets a download in the keepsake downloads, never a file in
 
 test('the builder requires the share video link', () => {
   assert.match(builder, /<input type="url" id="videoLink"[^>]* required \/>/);
-  assert.ok(builder.includes("if (!els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');"));
+});
+
+test('a first-listen page is the song and the lyrics, nothing else', () => {
+  const app = loadBuilder();
+  const full = Object.assign({}, keepsake, { publish: true, videoLink: 'https://drive.google.com/file/d/abc123/view' });
+  const html = app.buildPage(Object.assign({}, full, { stage: 'premiere' }));
+  assert.match(html, /<audio id="song-audio" controls controlslist="nodownload" preload="metadata" src="song\.mp3">/);
+  assert.match(html, /<details class="lyrics" open>/);
+  // The album art stays: on the page and as the link's share card.
+  assert.match(html, /<img class="album-art" src="art\.jpg" alt="Two hands holding a faded photograph\." width="360" height="360" \/>/);
+  assert.ok(html.includes('<meta property="og:image" content="https://heartstringsstudio.github.io/keepsakes/k7h2m9q4x1/art.jpg" />'));
+  assert.match(html, /Your first listen\. Your downloads come with your finished keepsake\./);
+  for (const gone of [/Download your song/, /Download the lyric sheet/, /Download your share video/, /id="downloads-heading"/,
+    /class="video-link"/, /Watch the video/, /Share this song/, /class="share-btn"/, /also-youtube"/, /data:application\/pdf/]) {
+    assert.doesNotMatch(html, gone);
+  }
+
+  // Same inputs, keepsake stage (the default): everything comes back.
+  for (const stage of ['keepsake', undefined]) {
+    const delivered = app.buildPage(Object.assign({}, full, { stage }));
+    for (const back of [/Download your song/, /Download the lyric sheet/, /Download your share video/, /Watch the video/, /Share this song/, /also-youtube"/]) {
+      assert.match(delivered, back);
+    }
+    assert.doesNotMatch(delivered, /first-listen-note">/);
+    assert.doesNotMatch(delivered, /controlslist/);
+  }
+});
+
+test('the builder offers the first-listen switch and only asks for the deliverables at delivery', () => {
+  assert.ok(builder.includes('<input type="radio" name="stage" id="stagePremiere" value="premiere" />'));
+  assert.ok(builder.includes('<input type="radio" name="stage" id="stageKeepsake" value="keepsake" checked />'));
+  assert.ok(builder.includes("if (keepsake && !lyricsPdfDataUrl) errors.push('Lyric-sheet PDF');"));
+  assert.ok(builder.includes("if (keepsake && !els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');"));
+  assert.ok(builder.includes('stage: currentStage(),\n        media'));
 });
 
 test('page copy speaks as one songwriter and names no tools', () => {
