@@ -90,7 +90,9 @@ older single-file version:
   player: the client hears the song on the page itself. The page plays
   `song.mp3` from its own folder under the album art, with a **Download your
   song** button; YouTube is at most a small "Also on YouTube" link at the very
-  bottom, never embedded. See `KEEPSAKE-OPERATIONS.md`.
+  bottom, never embedded. The MP4 share video is a required Google Drive
+  link (a "Watch the video" button plus a download item), never a file in
+  the page's folder. See `KEEPSAKE-OPERATIONS.md`.
 - A keepsake's share card (`og:image` / `twitter:image`) is the page's own
   `art.jpg` at its public address. With no art chosen yet, the studio banner
   stands in.

@@ -358,9 +358,9 @@
       </div>
 
       <div class="field">
-        <label for="videoLink">Video link <span class="optional">optional</span></label>
-        <span class="hint">A Google Drive share link. Adds a “Watch the video” button under the song. Leave blank and the button is left off entirely.</span>
-        <input type="url" id="videoLink" placeholder="https://drive.google.com/file/d/…/view" />
+        <label for="videoLink">Share video (MP4) <span class="required">required</span></label>
+        <span class="hint">Upload the MP4 to Google Drive, share it as “Anyone with the link”, and paste that link. Adds a “Watch the video” button under the song and a share-video download to the keepsake downloads. The MP4 never goes in the song's folder — the keepsakes site can't hold video.</span>
+        <input type="url" id="videoLink" placeholder="https://drive.google.com/file/d/…/view" required />
         <span class="hint" id="videoInfo" style="font-style: normal; color: var(--brass);"></span>
       </div>
 
@@ -473,7 +473,7 @@
       } catch (error) { return ''; }
     }
 
-    /* The optional video link (a Google Drive share link). Only a real
+    /* The share video link (the MP4 on Google Drive). Only a real
        https address is accepted, so a typo can't become a broken button. */
     function videoLink(input) {
       var s = String(input || '').trim();
@@ -482,6 +482,19 @@
         var url = new URL(s);
         return url.protocol === 'https:' ? url.href : '';
       } catch (error) { return ''; }
+    }
+
+    /* A Drive share link opens Drive's viewer; the download item wants the
+       file itself. Anything that isn't a recognisable Drive file link is
+       used as it is. */
+    function videoDownloadUrl(url) {
+      try {
+        var u = new URL(url);
+        if (u.hostname !== 'drive.google.com') return url;
+        var m = u.pathname.match(/^\/file\/d\/([\w-]+)/);
+        var id = m ? m[1] : u.searchParams.get('id');
+        return id && /^[\w-]+$/.test(id) ? 'https://drive.google.com/uc?export=download&id=' + id : url;
+      } catch (error) { return url; }
     }
 
     /* "[Song Title] - Heartstrings Studio.mp3", minus anything a phone or
@@ -621,6 +634,7 @@
       var pdfData = (d.lyricsPdf || '').trim();
       var downloadItems = '';
       if (pdfData) downloadItems += '<a class="keepsake-download" href="' + escAttr(pdfData) + '" download="' + escAttr(title + ' - Lyrics.pdf') + '"><strong>Download the lyric sheet</strong><span>Printable PDF</span></a>';
+      if (videoUrl) downloadItems += '<a class="keepsake-download" href="' + escAttr(videoDownloadUrl(videoUrl)) + '" target="_blank" rel="noopener"><strong>Download your share video</strong><span>MP4 \u00b7 for Facebook or a service</span></a>';
       var downloadsSection = downloadItems ? '<section class="section reveal" aria-labelledby="downloads-heading"><div class="label-row"><h2 id="downloads-heading" class="section-label">Keepsake downloads</h2></div><div class="keepsake-downloads">' + downloadItems + '</div></section>' : '';
       var shareUrl = keepsakeShareUrl(d.pageCode);
       var ownerNote = downloadItems || songSrc
@@ -770,7 +784,8 @@
       if (!els.dedication.value.trim()) errors.push('Dedication');
       if (!els.pageCode.value.trim() || !/^[a-z0-9-]{10,24}$/.test(els.pageCode.value.trim())) errors.push('Valid private page code');
       if (els.youtube.value.trim() && !youTubeId(els.youtube.value)) errors.push('Valid YouTube link (or leave it blank)');
-      if (els.videoLink.value.trim() && !videoLink(els.videoLink.value)) errors.push('Valid video link starting with https:// (or leave it blank)');
+      if (!els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');
+      else if (!videoLink(els.videoLink.value)) errors.push('Valid share video link starting with https://');
       if (!artDataUrl) errors.push('Album artwork');
       if (!els.alt.value.trim()) errors.push('Artwork description');
       if (!songMp3DataUrl) errors.push('Song MP3');
@@ -826,7 +841,7 @@
     function updateVideoInfo() {
       var raw = els.videoLink.value.trim();
       videoInfoEl.textContent = !raw ? ''
-        : videoLink(raw) ? 'The page will show a “Watch the video” button.'
+        : videoLink(raw) ? 'The page will show a “Watch the video” button and a share-video download.'
         : 'That doesn\u2019t look like a full link \u2014 paste the whole https:// share link.';
     }
     ids.forEach(function (id) {
