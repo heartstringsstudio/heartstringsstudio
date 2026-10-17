@@ -59,7 +59,7 @@ older single-file version:
   `assets/share-card.jpg` is the 1200×630 JPEG fallback share image for
   scrapers that won't read the WebP. `banner.jpeg` no longer serves this page
   at all, but **don't delete it and don't resize it** — it is still the
-  keepsake builder's no-song-linked fallback, `tests/keepsake-builder.test.mjs`
+  keepsake builder's no-art-yet fallback, `tests/keepsake-builder.test.mjs`
   asserts it by name, and keepsake pages already sent to clients hardcode both
   that URL and its 1920×600 dimensions. Redraw it in place instead; that is
   what carried the current mark onto keepsakes that shipped months ago.
@@ -86,16 +86,14 @@ older single-file version:
   ctrl-click and browsers without `<dialog>` still reach the video. The player
   itself is shared: `fillPlayer` builds the iframe (or the fallback) for both
   the cards and the lightbox, so a fix in one lands in both.
-- A generated keepsake's share card (`og:image` / `twitter:image`) points at the
-  song's YouTube cover — `maxresdefault`, with `hqdefault` behind it for
-  scrapers that reject a 404 — not at the album art on the page. The art is an
-  embedded `data:` URI, and no scraper can fetch one, so pointing at it renders a
-  blank grey card in Messages and on Facebook. With no song linked yet, the
-  studio banner stands in.
-- Keepsake pages built by `keepsake-builder.html` do the same thing, but as a
-  progressive enhancement — the cover stays an `<a>` to youtube.com so a
-  scripts-off (or offline, or ctrl-clicking) client can still reach the song,
-  and the inline script upgrades the click into an in-page player.
+- Keepsake pages built by `keepsake-builder.html` do **not** use the YouTube
+  player: the client hears the song on the page itself. The page plays
+  `song.mp3` from its own folder under the album art, with a **Download your
+  song** button; YouTube is at most a small "Also on YouTube" link at the very
+  bottom, never embedded. See `KEEPSAKE-OPERATIONS.md`.
+- A keepsake's share card (`og:image` / `twitter:image`) is the page's own
+  `art.jpg` at its public address. With no art chosen yet, the studio banner
+  stands in.
 
 ## Page flair (September 2026)
 
