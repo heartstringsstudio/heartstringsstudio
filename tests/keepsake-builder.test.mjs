@@ -162,42 +162,44 @@ test('YouTube is never embedded, and only ever a small link at the bottom', () =
   assert.doesNotMatch(without, /youtube\.com/);
 });
 
-test('the video button shows only when a video link is filled in', () => {
+test('the video button shows only when a video is picked', () => {
   const app = loadBuilder();
-  const drive = 'https://drive.google.com/file/d/abc123/view?usp=sharing';
-  const withVideo = app.buildPage(Object.assign({}, keepsake, { videoLink: drive, publish: true }));
-  assert.ok(withVideo.includes(`<a class="video-link" href="${drive.replace(/&/g, '&amp;')}" target="_blank" rel="noopener">Watch the video</a>`));
+  const withVideo = app.buildPage(Object.assign({}, keepsake, { videoMp4: 'blob:preview', publish: true }));
+  assert.ok(withVideo.includes('<a class="video-link" href="video.mp4" target="_blank" rel="noopener">Watch the video</a>'));
+  // The live preview plays the picked file itself.
+  const preview = app.buildPage(Object.assign({}, keepsake, { videoMp4: 'blob:preview' }));
+  assert.ok(preview.includes('<a class="video-link" href="blob:preview"'));
 
-  for (const blank of ['', '   ', undefined, 'not a link', 'javascript:alert(1)', 'http://drive.google.com/x']) {
-    const html = app.buildPage(Object.assign({}, keepsake, { videoLink: blank, publish: true }));
+  for (const blank of ['', undefined]) {
+    const html = app.buildPage(Object.assign({}, keepsake, { videoMp4: blank, publish: true }));
     assert.doesNotMatch(html, /class="video-link"/, `no button for ${JSON.stringify(blank)}`);
     assert.doesNotMatch(html, /Watch the video/);
   }
 });
 
-test('the share video gets a download in the keepsake downloads, never a file in the folder', () => {
+test('the share video is video.mp4 in the folder, with a download in the keepsake downloads', () => {
   const app = loadBuilder();
-  const html = app.buildPage(Object.assign({}, keepsake, { videoLink: 'https://drive.google.com/file/d/abc_12-3/view?usp=sharing', publish: true }));
-  assert.ok(html.includes('<a class="keepsake-download" href="https://drive.google.com/uc?export=download&amp;id=abc_12-3" target="_blank" rel="noopener"><strong>Download your share video</strong>'));
+  const html = app.buildPage(Object.assign({}, keepsake, { videoMp4: 'blob:preview', publish: true }));
+  assert.ok(html.includes('<a class="keepsake-download" href="video.mp4" download="A Song to Keep - Heartstrings Studio.mp4"><strong>Download your share video</strong>'));
   // Owner-only, like the lyric sheet: the downloads section hides on ?share.
   assert.match(html, /<section class="section reveal" aria-labelledby="downloads-heading">[\s\S]*Download your share video/);
-  assert.doesNotMatch(html, /video\.mp4|\.mp4"/);
-
-  // A link that isn't a Drive file is used as it is.
-  const other = app.buildPage(Object.assign({}, keepsake, { videoLink: 'https://example.com/v.mp4', publish: true }));
-  assert.ok(other.includes('href="https://example.com/v.mp4" target="_blank" rel="noopener"><strong>Download your share video</strong>'));
+  assert.doesNotMatch(html, /drive\.google\.com/);
 
   const without = app.buildPage(Object.assign({}, keepsake, { publish: true }));
   assert.doesNotMatch(without, /Download your share video/);
 });
 
-test('the builder requires the share video link', () => {
-  assert.match(builder, /<input type="url" id="videoLink"[^>]* required \/>/);
+test('the builder picks the share video like the song, and saves it as video.mp4', () => {
+  assert.match(builder, /<input type="file" id="videoMp4" accept="video\/mp4,\.mp4" required \/>/);
+  assert.ok(builder.includes("if (currentStage() === 'keepsake') files.push([videoMp4File, 'video.mp4']);"));
+  // GitHub's limits: 25 MB on the upload page warns, 100 MB blocks.
+  assert.ok(builder.includes('var VIDEO_UPLOAD_LIMIT = 25 * 1048576;'));
+  assert.ok(builder.includes("errors.push('Share video under 100 MB (GitHub refuses bigger files)')"));
 });
 
 test('a first-listen page is the song and the lyrics, nothing else', () => {
   const app = loadBuilder();
-  const full = Object.assign({}, keepsake, { publish: true, videoLink: 'https://drive.google.com/file/d/abc123/view' });
+  const full = Object.assign({}, keepsake, { publish: true, videoMp4: 'blob:preview' });
   const html = app.buildPage(Object.assign({}, full, { stage: 'premiere' }));
   assert.match(html, /<audio id="song-audio" controls controlslist="nodownload" preload="metadata" src="song\.mp3">/);
   assert.match(html, /<details class="lyrics" open>/);
@@ -228,10 +230,10 @@ test('the builder offers the first-listen switch and only asks for the deliverab
   assert.ok(builder.includes('<input type="radio" name="stage" id="stagePremiere" value="premiere" />'));
   assert.ok(builder.includes('<input type="radio" name="stage" id="stageKeepsake" value="keepsake" checked />'));
   assert.ok(builder.includes("if (keepsake && !lyricsPdfDataUrl) errors.push('Lyric-sheet PDF');"));
-  assert.ok(builder.includes("if (keepsake && !els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');"));
+  assert.ok(builder.includes("if (keepsake && !videoMp4File) errors.push('Share video MP4');"));
   assert.ok(builder.includes('stage: currentStage(),\n        media'));
   // Fields a first listen doesn't use are greyed out and locked.
-  for (const id of ['youtube', 'videoLink', 'lyricsPdf', 'storyOpen', 'storyBody']) {
+  for (const id of ['youtube', 'videoMp4', 'lyricsPdf', 'storyOpen', 'storyBody']) {
     assert.ok(builder.includes(`<div class="field" data-keepsake-only>\n        <label for="${id}">`), id);
   }
   assert.ok(builder.includes("if (keepsake && !els.storyOpen.value.trim()) errors.push('Story opening');"));
@@ -239,7 +241,7 @@ test('the builder offers the first-listen switch and only asks for the deliverab
 
 test('page copy speaks as one songwriter and names no tools', () => {
   const app = loadBuilder();
-  const html = app.buildPage(Object.assign({}, keepsake, { publish: true, videoLink: 'https://drive.google.com/x' }));
+  const html = app.buildPage(Object.assign({}, keepsake, { publish: true, videoMp4: 'blob:preview' }));
   const text = html
     .replace(/<script[\s\S]*?<\/script>/g, ' ')
     .replace(/<style[\s\S]*?<\/style>/g, ' ')
@@ -319,7 +321,7 @@ test('the builder requires the MP3 and warns over 15 MB', () => {
 });
 
 test('production controls remain present in the builder', () => {
-  for (const token of ['id="pageCode"', 'id="songMp3"', 'id="videoLink"', 'id="lyricsPdf"', 'id="consent"', 'id="saveDraft"', 'optimizeArtwork']) {
+  for (const token of ['id="pageCode"', 'id="songMp3"', 'id="videoMp4"', 'id="lyricsPdf"', 'id="consent"', 'id="saveDraft"', 'optimizeArtwork']) {
     assert.ok(builder.includes(token), `missing ${token}`);
   }
 });
@@ -328,6 +330,6 @@ test('the album art description is optional and falls back to the song title', (
   assert.match(builder, /<input type="text" id="alt"[^>]*placeholder="[^"]*" \/>/);
   assert.doesNotMatch(builder, /errors\.push\('Artwork description'\)/);
   const app = loadBuilder();
-  const html = app.buildPage(Object.assign({}, keepsake, { publish: true, alt: '', videoLink: 'https://drive.google.com/file/d/abc123/view' }));
+  const html = app.buildPage(Object.assign({}, keepsake, { publish: true, alt: '', videoMp4: 'blob:preview' }));
   assert.match(html, /<img class="album-art" src="art\.jpg" alt="Album art for A Song to Keep\." /);
 });

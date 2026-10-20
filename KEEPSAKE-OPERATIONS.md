@@ -10,10 +10,10 @@ Delivered keepsake pages are published in the separate `keepsakes` repo (served 
 
 The client hears the song for the first time **on the keepsake page**, not on YouTube. A page built now opens with the album art, then straight under it a large **Play the song** button over the native player (`preload="metadata"`), then **Download your song**, which saves as `[Song Title] - Heartstrings Studio.mp3`. Story, lyrics, the lyric-sheet download and the share button follow as before.
 
-- **Share video** (required, the MP4 as a Google Drive share link set to "Anyone with the link"): shows a **Watch the video** button under the download, and a **Download your share video** item in the keepsake downloads (Drive links are turned into a direct download). Every client is promised the MP4, so the builder won't finish a page without it. The MP4 itself lives on Drive, never in the page's folder.
+- **Share video** (required, the MP4, picked with **Choose File** like the song): saved as `video.mp4` in the page's folder. It shows a **Watch the video** button under the download, and a **Download your share video** item in the keepsake downloads that saves as `[Song Title] - Heartstrings Studio.mp4`. Every client is promised the MP4, so the builder won't finish a keepsake page without it. Keep it under **25 MB** (720p is plenty for Facebook): GitHub's **Upload files** page won't take a bigger file, so the builder warns over 25 MB and refuses anything over GitHub's 100 MB hard limit. Drafts don't carry the video; pick it again after restoring one.
 - **YouTube link** (optional): a small **Also on YouTube** text link at the very bottom of the page. YouTube is never embedded and never sits above the player.
 
-A keepsake is now a **folder of three files**, and the builder's download saves all three: `index.html`, `art.jpg` (cropped square, at most 1600px) and `song.mp3`. They go in `keepsakes/<page-code>/` with those exact names. Keep `song.mp3` under 15 MB (re-export at 192 kbps); the builder warns over that. In the `keepsakes` repo, `python3 tools/check_keepsakes.py` fails if a page's `song.mp3` or `art.jpg` is missing or a video file is present, and warns when the site passes 800 MB of the 1 GB GitHub Pages cap. Step-by-step instructions are in that repo's `tools/README.md`.
+A keepsake is now a **folder of four files**, and the builder's download saves them all: `index.html`, `art.jpg` (cropped square, at most 1600px), `song.mp3` and `video.mp4`. (A first-listen page leaves out `video.mp4`.) They go in `keepsakes/<page-code>/` with those exact names. Keep `song.mp3` under 15 MB (re-export at 192 kbps); the builder warns over that. In the `keepsakes` repo, `python3 tools/check_keepsakes.py` fails if a page's `song.mp3` or `art.jpg` is missing, a page links `video.mp4` without the file, or a video sits anywhere but a page's `video.mp4`; it warns on a video over 25 MB and when the site passes 800 MB of the 1 GB GitHub Pages cap. Videos fill that cap fast: at ~20 MB each, about 40 keepsakes take 800 MB. Step-by-step instructions are in that repo's `tools/README.md`.
 
 Keepsakes delivered before this keep the old single-file layout and are not migrated. Generated pages link the Story Room directly and carry the studio's GA4 tag.
 
@@ -54,7 +54,7 @@ Every delivered keepsake must contain:
 - approved title, dedication, story, artwork, lyrics, and (optionally) alt text — left blank, it reads "Album art for <title>.";
 - `art.jpg` (square album art) and `song.mp3` (under 15 MB) in the page's folder, next to `index.html`;
 - the song playing on the page, with a **Download your song** button;
-- the MP4 share video, as a Google Drive link (watch button and download);
+- `video.mp4`, the MP4 share video (under 25 MB), in the same folder (watch button and download);
 - optional: an unlisted YouTube link;
 - a printable lyric-sheet PDF;
 - an explicit client publishing approval check.
@@ -75,4 +75,4 @@ Until separate hosting is configured, the builder can create and preview a finis
 
 ## Drafts
 
-Draft files are downloaded locally and can include the complete story, artwork, MP3, and PDF. Store them as client-confidential files and delete them when no longer needed.
+Draft files are downloaded locally and can include the complete story, artwork, MP3, and PDF (not the video). Store them as client-confidential files and delete them when no longer needed.

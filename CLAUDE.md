@@ -90,11 +90,14 @@ older single-file version:
   player: the client hears the song on the page itself. The page plays
   `song.mp3` from its own folder under the album art, with a **Download your
   song** button; YouTube is at most a small "Also on YouTube" link at the very
-  bottom, never embedded. The MP4 share video is a required Google Drive
-  link (a "Watch the video" button plus a download item), never a file in
-  the page's folder. The builder's **Page type** switch builds a *First listen*
-  page (art, song and lyrics only: no story, downloads, video, share or YouTube) or
-  the *Keepsake delivery* page; both use the same folder and link. See
+  bottom, never embedded. The MP4 share video is required and is picked
+  like the MP3: the builder saves it as `video.mp4` in the page's folder
+  (a "Watch the video" button plus a download item). It replaced the old
+  Google Drive link in October 2026; GitHub's upload page caps files at
+  25 MB, so the builder warns over that and refuses anything over 100 MB.
+  The builder's **Page type** switch builds a *First listen* page (art, song
+  and lyrics only: no story, downloads, video, share or YouTube) or the
+  *Keepsake delivery* page; both use the same folder and link. See
   `KEEPSAKE-OPERATIONS.md`.
 - A keepsake's share card (`og:image` / `twitter:image`) is the page's own
   `art.jpg` at its public address. With no art chosen yet, the studio banner
