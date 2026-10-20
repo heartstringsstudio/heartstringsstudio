@@ -51,7 +51,7 @@ Every delivered keepsake must contain:
 
 - an opaque page code and filename;
 - `noindex, nofollow` metadata;
-- approved title, dedication, story, artwork, alt text, and lyrics;
+- approved title, dedication, story, artwork, lyrics, and (optionally) alt text — left blank, it reads "Album art for <title>.";
 - `art.jpg` (square album art) and `song.mp3` (under 15 MB) in the page's folder, next to `index.html`;
 - the song playing on the page, with a **Download your song** button;
 - the MP4 share video, as a Google Drive link (watch button and download);

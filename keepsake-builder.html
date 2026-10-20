@@ -367,9 +367,9 @@
       </div>
 
       <div class="field">
-        <label for="alt">Album art description (alt text)</label>
-        <span class="hint">Describe the picture itself — no instruments.</span>
-        <input type="text" id="alt" placeholder="A kitchen table in morning light, two coffee cups, a window beyond." required />
+        <label for="alt">Album art description (alt text) <span class="optional">optional</span></label>
+        <span class="hint">Describe the picture itself — no instruments. Left blank, screen readers hear “Album art for” and the song title.</span>
+        <input type="text" id="alt" placeholder="A kitchen table in morning light, two coffee cups, a window beyond." />
       </div>
 
       <div class="field">
@@ -642,7 +642,7 @@
       // Neutral placeholder shown until album art is chosen (self-contained).
       var PLACEHOLDER_ART = 'data:image/svg+xml;base64,' + btoa('<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360"><rect width="360" height="360" fill="#faf1de"/><text x="180" y="190" font-family="Georgia, serif" font-size="22" font-style="italic" fill="#774826" text-anchor="middle">Album art</text></svg>');
       var artSrc = art ? (publish ? 'art.jpg' : art) : PLACEHOLDER_ART;
-      var artAlt = d.alt.trim() || 'Album art for the song.';
+      var artAlt = d.alt.trim() || 'Album art for ' + title + '.';
 
       var storyOpen = d.storyOpen.trim() || 'They didn\'t want the eulogy version — they wanted the everyday one.';
       var storyParas = buildStory(d.storyBody);
@@ -839,7 +839,6 @@
       if (keepsake && !els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');
       else if (keepsake && !videoLink(els.videoLink.value)) errors.push('Valid share video link starting with https://');
       if (!artDataUrl) errors.push('Album artwork');
-      if (!els.alt.value.trim()) errors.push('Artwork description');
       if (!songMp3DataUrl) errors.push('Song MP3');
       if (keepsake && !lyricsPdfDataUrl) errors.push('Lyric-sheet PDF');
       if (keepsake && !els.storyOpen.value.trim()) errors.push('Story opening');

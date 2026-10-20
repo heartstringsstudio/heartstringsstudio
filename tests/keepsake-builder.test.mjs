@@ -323,3 +323,11 @@ test('production controls remain present in the builder', () => {
     assert.ok(builder.includes(token), `missing ${token}`);
   }
 });
+
+test('the album art description is optional and falls back to the song title', () => {
+  assert.match(builder, /<input type="text" id="alt"[^>]*placeholder="[^"]*" \/>/);
+  assert.doesNotMatch(builder, /errors\.push\('Artwork description'\)/);
+  const app = loadBuilder();
+  const html = app.buildPage(Object.assign({}, keepsake, { publish: true, alt: '', videoLink: 'https://drive.google.com/file/d/abc123/view' }));
+  assert.match(html, /<img class="album-art" src="art\.jpg" alt="Album art for A Song to Keep\." /);
+});
