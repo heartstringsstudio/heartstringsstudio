@@ -100,14 +100,15 @@ test('analytics tag and its events are wired up', () => {
   }
 });
 
-/* Commission CTAs go to the Story Room. The hero's listening CTA is the
-   intentional exception: it takes visitors to the on-page weekly player. */
+/* Commission CTAs go to the Story Room. The two listening buttons are the
+   intentional exceptions: the hero's goes to the on-page weekly player, and
+   the jukebox invite under the song grid goes to the Jukebox. */
 test('commission CTAs and the weekly listening CTA have the correct destinations', () => {
   const ctas = [...html.matchAll(/<a class="button[^"]*" href="([^"]+)"/g)].map((m) => m[1]);
   const commission = ctas.filter(href => href === 'https://heartstringsstudio.github.io/storyroom/');
   const listening = ctas.filter(href => href !== 'https://heartstringsstudio.github.io/storyroom/');
   assert.ok(commission.length >= 3, 'expected at least three commission CTAs');
-  assert.deepEqual(listening, ['#weekly-song'], 'only the weekly listening CTA may target an on-page section');
+  assert.deepEqual(listening, ['#weekly-song', 'https://heartstringsstudio.github.io/jukebox/'], 'only the weekly and jukebox listening CTAs may skip the Story Room');
   assert.ok(html.includes('id="weekly-song"'), 'listening CTA target must exist');
   assert.equal(js.match(/const base='([^']+)'/)[1], 'https://heartstringsstudio.github.io/storyroom/');
 });

@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   Story Room CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=26-swash">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=27-jukebox">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -297,6 +297,9 @@ dashboard repo carries its own four.
   button. None should point to an inline/on-page form. The user-requested
   listening button "Hear this week’s song" deliberately targets `#weekly-song`;
   it is a listening action, not a commission action.
+  Likewise the bold **Open the jukebox** button in the `.jukebox-invite`
+  panel under the song grid goes to `/jukebox/`; it is the only other button
+  allowed off the Story Room, and `tests/seo.test.mjs` pins both.
 - The occasion pills also link to `/storyroom/` and deep-link with `?occasion=...`
   (built from the `base` constant in `script.js`).
 - There is **no inline order form** on the page (it was removed). Clicks through
