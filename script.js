@@ -243,7 +243,7 @@ for(const [q,a] of faq){const d=document.createElement('details');const s=docume
 
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const phoneLayout=matchMedia('(max-width:760px)');
-const animated=document.querySelectorAll('.statement,.section-head,.song:not(.weekly-player),.keepsake-copy,.keepsake-stack article,.steps article,.price-card,.portrait,.about>div:last-child,.faq>div,.closing-content');
+const animated=document.querySelectorAll('.statement,.section-head,.song:not(.weekly-player),.jukebox-invite,.keepsake-copy,.keepsake-stack article,.steps article,.price-card,.portrait,.about>div:last-child,.faq>div,.closing-content');
 animated.forEach((el,i)=>{el.classList.add('reveal');el.style.setProperty('--delay',`${(i%3)*110}ms`)});
 let revealObserver;
 function setupReveal(){if(revealObserver)revealObserver.disconnect();if(reduceMotion.matches){animated.forEach(el=>el.classList.add('seen'));return;}if(!('IntersectionObserver' in window))return;document.documentElement.classList.add('motion-ready');revealObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('seen');revealObserver.unobserve(entry.target)}})},{threshold:.12});animated.forEach(el=>revealObserver.observe(el));}

@@ -464,3 +464,28 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
   }
   .song-count b { color:var(--cream-accent); font-weight:700; }
 }
+
+/* Jukebox invite (October 2026). The header's "Explore the jukebox" link sat
+   above the grid and got skipped; this panel meets visitors after the last
+   card, when they've just heard what the studio sounds like. A dark walnut
+   record shelf on the cream band, so it reads as a destination, not a footnote. */
+.jukebox-invite {
+  display:flex; align-items:center; justify-content:space-between; gap:50px;
+  margin-top:90px; padding:48px 52px; background:var(--bg); color:var(--ink);
+  border-radius:3px; box-shadow:10px 12px 0 var(--card-edge),18px 26px 40px #57351833;
+}
+.jukebox-invite>div { max-width:720px; }
+.listen .jukebox-invite .eyebrow { color:var(--accent); margin-bottom:16px; }
+.jukebox-invite h3 { font:2.1rem/1.15 Georgia,serif; letter-spacing:-.02em; }
+.listen .jukebox-invite em { color:var(--accent); }
+.listen .jukebox-invite p:not(.eyebrow) { color:var(--muted); margin-top:16px; font-size:1rem; }
+.jukebox-invite ul { display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; margin:22px 0 0; }
+.jukebox-invite li { border:1px solid var(--line); border-radius:3px; padding:5px 12px; font-size:.78rem; color:var(--ink-soft); }
+.jukebox-invite .button { flex-shrink:0; font-size:1.05rem; padding:20px 30px; }
+.listen .jukebox-invite a:focus-visible { outline-color:var(--accent); }
+@media (hover:hover) { .jukebox-invite .button:hover { transform:translateY(-3px); box-shadow:0 9px 0 var(--button-edge),0 20px 28px #0005; } }
+@media (max-width:760px) {
+  .jukebox-invite { flex-direction:column; align-items:stretch; gap:28px; margin-top:50px; padding:32px 24px; box-shadow:6px 8px 0 var(--card-edge); }
+  .jukebox-invite h3 { font-size:1.6rem; }
+  .jukebox-invite .button { justify-content:space-between; }
+}
