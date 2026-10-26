@@ -292,7 +292,10 @@ a[data-video] { cursor:pointer; }
 /* ===== Flair: the handwritten headline =====
    "song to?" inks in left to right like the pen in the hero photo, then a
    swash underlines it. The padding/negative margin gives the italic overhang
-   room inside the mask so the "?" is never clipped. */
+   room inside the mask so the "?" is never clipped. The swash is revealed
+   with a clip, not a dash offset: Chrome mis-measures pathLength under
+   non-scaling-stroke on wide screens, which showed a stub of the line at its
+   right end before it drew and stopped the finished line short. */
 .hero h1 .ink { position:relative; white-space:nowrap; }
 .hero h1 .ink em { padding:0 .12em; margin:0 -.12em; }
 .ink-swash { position:absolute; left:-2%; bottom:-.14em; width:104%; height:.26em; overflow:visible; pointer-events:none; }
@@ -303,9 +306,9 @@ a[data-video] { cursor:pointer; }
     -webkit-mask-size:250% 100%; mask-size:250% 100%; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
     animation:ink-write 1.5s .8s cubic-bezier(.45,.05,.3,1) both;
   }
-  .ink-swash path { stroke-dasharray:1; stroke-dashoffset:1; animation:ink-swash .9s 2.1s cubic-bezier(.6,0,.3,1) forwards; }
+  .ink-swash { clip-path:inset(-100% 100% -100% 0); animation:ink-swash .9s 2.1s cubic-bezier(.6,0,.3,1) forwards; }
   @keyframes ink-write { from { -webkit-mask-position:100% 0; mask-position:100% 0; } to { -webkit-mask-position:0 0; mask-position:0 0; } }
-  @keyframes ink-swash { to { stroke-dashoffset:0; } }
+  @keyframes ink-swash { to { clip-path:inset(-100% 0 -100% 0); } }
 }
 
 /* ===== Flair: fireflies over the porch =====
