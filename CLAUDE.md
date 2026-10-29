@@ -317,6 +317,10 @@ dashboard repo carries its own four.
   `telephone: "+1-304-677-1113"` on the `#business` JSON-LD node.
 - Step 01, the FAQ and its JSON-LD describe the same path (text, call or email,
   or the Story Room); change them together.
+- The Product JSON-LD `offers.url` is the price card,
+  `https://heartstringsstudio.github.io/heartstringsstudio/#pricing`: an Offer
+  needs a web address (`sms:` isn't one), and the price card's primary button is
+  Text Tim. `tests/seo.test.mjs` pins it.
 - `404.html` follows the same path: its commission link is "Text Tim about your song"
   (`sms:+13046771113`), beside "Back to the studio" and "Hear the songs".
 - There is **no inline order form** on the page (it was removed).
