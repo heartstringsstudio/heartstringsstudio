@@ -82,6 +82,14 @@ test('review markup matches the testimonials the page shows', () => {
   assert.equal(product.aggregateRating.reviewCount, String(visible.length));
 });
 
+test('the Product offer points at the price card, where Text Tim lives', () => {
+  // Offer.url has to be a web address (sms: is not one), so it names the
+  // pricing section, whose primary button is Text Tim.
+  const offer = node('Product').offers;
+  assert.equal(offer.url, 'https://heartstringsstudio.github.io/heartstringsstudio/#pricing');
+  assert.ok(html.includes('id="pricing"'), 'the #pricing section must exist');
+});
+
 test('social and canonical metadata are present', () => {
   for (const tag of [
     'rel="canonical"',
