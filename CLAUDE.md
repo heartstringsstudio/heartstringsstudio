@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=27-jukebox">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=28-text-tim">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -290,6 +290,9 @@ dashboard repo carries its own four.
 - Memorial songs are **always delivered within 24 hours at no extra cost**.
   Any copy that prices the $50 rush must state this exception — never imply
   memorial families pay for speed.
+- The price card lists two add-ons: "Rush delivery +$50" and "Commercial
+  license +$100". The owner confirmed on 2026-10-29 that the license is a
+  real, current offer, so leave it there.
 
 ## Commission path (Text Tim first, Story Room second)
 
@@ -324,6 +327,12 @@ dashboard repo carries its own four.
 - `404.html` follows the same path: its commission link is "Text Tim about your song"
   (`sms:+13046771113`), beside "Back to the studio" and "Hear the songs".
 - There is **no inline order form** on the page (it was removed).
+
+## Old audits
+
+- `docs/archive/` holds `AUDIT.md` (July 2026) and `AUDIT-REPORT.md` (August
+  2026). Both predate the September rebuild and Text Tim and are stale; don't
+  act on them.
 
 ## Design skill (Impeccable)
 
