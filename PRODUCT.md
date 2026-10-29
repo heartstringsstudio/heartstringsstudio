@@ -16,8 +16,9 @@ phone, often from Facebook or TikTok, and some on a slow rural connection.
 Heartstrings Studio turns a client's memories into a finished, produced song
 with a personal keepsake page. The homepage helps a visitor hear real songs,
 trust the person who writes them, understand the price and process, and then
-tell their story in the Story Room. Success means a click through to
-`/storyroom/` (tracked as `cta_click` / `generate_lead`).
+text, call or email Tim, or tell their story in the Story Room. Success means a
+tap on Text Tim, call or email, or a click through to `/storyroom/` (tracked as
+`cta_click` / `generate_lead`).
 
 ## Positioning
 One real songwriter, Tim Harbert of Lumberport, West Virginia, personally
@@ -26,7 +27,7 @@ It has Appalachian roots, a flat $150 price, delivery in 48–72 hours and a
 keepsake page. Memorial songs always get free 24-hour delivery.
 
 ## Operating Context
-- Commissions start in the Story Room
+- Commissions start by texting Tim (304-677-1113), or in the Story Room
   (`https://heartstringsstudio.github.io/storyroom/`), which is served from a
   separate source. There is no form on this page.
 - Delivery: the client sees the lyrics first and gets one revision round
@@ -63,9 +64,11 @@ reinterpret or expand them:
   running text.
 - **Cache busting:** bump the `?v=` on the `style.css` link (and on any logo
   URL) whenever that file changes.
-- **Story Room links:** every commission CTA links to `/storyroom/`, and
-  occasion pills deep-link with `?occasion=`. "Hear this week's song" is the
-  one exception; it targets `#weekly-song`.
+- **Commission CTAs:** every commission button is "Text Tim" (`sms:+13046771113`),
+  with call and email beside it. The Story Room is the secondary "Rather write
+  it out?" text-link, and occasion pills deep-link there with `?occasion=`.
+  "Hear this week's song" (`#weekly-song`) and the jukebox button are the
+  listening exceptions.
 - **Voice:** warm, reflective and Appalachian-rooted. Plainspoken and never
   salesy. Tender with memorial families.
 - **Name and mark:** "Heartstrings Studio" plus the studio mark, which has
@@ -90,7 +93,7 @@ reinterpret or expand them:
 3. Gentle with grief. Nothing pressures, hurries or upsells a memorial family.
 4. Built for rural phones. It must stay fast, usable offline and usable with
    scripts off.
-5. One clear path. Every commission action leads to the Story Room.
+5. One clear path. Every commission action starts with texting Tim; the Story Room is the written alternative.
 
 ## Accessibility & Inclusion
 WCAG 2.2 AA. The audience skews older, so keep body text comfortably large and
