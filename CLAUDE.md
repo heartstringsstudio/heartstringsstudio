@@ -317,6 +317,8 @@ dashboard repo carries its own four.
   `telephone: "+1-304-677-1113"` on the `#business` JSON-LD node.
 - Step 01, the FAQ and its JSON-LD describe the same path (text, call or email,
   or the Story Room); change them together.
+- `404.html` follows the same path: its commission link is "Text Tim about your song"
+  (`sms:+13046771113`), beside "Back to the studio" and "Hear the songs".
 - There is **no inline order form** on the page (it was removed).
 
 ## Design skill (Impeccable)
