@@ -238,7 +238,7 @@ if(typeof HTMLDialogElement==='function'&&HTMLDialogElement.prototype.showModal)
   }
 }
 
-const faq=[['How does it work?','Fill out the intake form with your story. Tim will contact you by email within 24 hours with next steps. He writes your lyrics, works with you on a round of revisions, and produces your custom song.'],['How fast will I get my song?','Most songs arrive in 48–72 hours. Memorial songs always receive 24-hour delivery at no extra charge. For other songs, rush delivery is an additional $50. Mention your date in the intake form and Tim will confirm what’s possible.'],['Can I pick the style and approve the lyrics?','Absolutely. Choose the genre and feeling — romantic, funny, emotional, nostalgic, solemn, or whatever fits your story. You receive the lyrics first, with one round of revisions before production.'],['Can I give this as a gift?','Yes. A custom song makes a personal wedding gift, birthday surprise, anniversary present, or tribute. Share your keepsake page with someone you love, or play your downloaded MP3 at an event.'],['How do I share my song?','Send your keepsake page link by text or email: it’s a permanent home for your song, lyrics, and story. Your MP4 share video is ready to post on Facebook or play at a service, your lyric sheet prints for a frame or a program, and your album art works as a print or profile photo. The page isn’t publicly listed, but anyone with the link can view or share it.'],['Is my song one-of-a-kind?','Every song is built around your story from scratch. Names, memories, and the details that matter to you shape the finished song.'],['What if the finished song misses the mark?','Tim starts over from scratch. The remake guarantee is included in your custom song.']];
+const faq=[['How does it work?','Text Tim at 304-677-1113, call, or email heartstringsstudiowv@gmail.com, whatever’s easiest. Tim answers himself, usually same day. Just share your first name, the occasion and any date; the rest comes out in conversation. Rather write it out? Tell your story in the Story Room. Tim writes your lyrics, works with you on a round of revisions, and produces your custom song.'],['How fast will I get my song?','Most songs arrive in 48–72 hours. Memorial songs always receive 24-hour delivery at no extra charge. For other songs, rush delivery is an additional $50. Mention your date when you reach out and Tim will confirm what’s possible.'],['Can I pick the style and approve the lyrics?','Absolutely. Choose the genre and feeling — romantic, funny, emotional, nostalgic, solemn, or whatever fits your story. You receive the lyrics first, with one round of revisions before production.'],['Can I give this as a gift?','Yes. A custom song makes a personal wedding gift, birthday surprise, anniversary present, or tribute. Share your keepsake page with someone you love, or play your downloaded MP3 at an event.'],['How do I share my song?','Send your keepsake page link by text or email: it’s a permanent home for your song, lyrics, and story. Your MP4 share video is ready to post on Facebook or play at a service, your lyric sheet prints for a frame or a program, and your album art works as a print or profile photo. The page isn’t publicly listed, but anyone with the link can view or share it.'],['Is my song one-of-a-kind?','Every song is built around your story from scratch. Names, memories, and the details that matter to you shape the finished song.'],['What if the finished song misses the mark?','Tim starts over from scratch. The remake guarantee is included in your custom song.']];
 for(const [q,a] of faq){const d=document.createElement('details');const s=document.createElement('summary');s.textContent=q;const p=document.createElement('p');p.textContent=a;d.append(s,p);document.querySelector('#questions').append(d)}
 
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
@@ -290,7 +290,7 @@ if(porch&&!reduceMotion.matches&&'IntersectionObserver' in window){
   new IntersectionObserver(([entry])=>flies.classList.toggle('lit',entry.isIntersecting)).observe(porch);
 }
 
-/* On phones the header's Story Room button is hidden, so a pinned one takes
+/* On phones the header's Text Tim button is hidden, so a pinned text-first one takes
    over between the hero and the closing section (each has its own). */
 const mobileCta=document.querySelector('.mobile-cta');
 if(mobileCta&&'IntersectionObserver' in window){
@@ -458,12 +458,24 @@ document.addEventListener('visibilitychange',setupMobileMotion);
     if (!el) return;
     const txt = (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 50);
     const href = el.getAttribute('href') || '';
-    if (href.includes('/storyroom/')) {
+    const lead = (method, occasion) => gtag('event', 'generate_lead', { event_category: 'conversion', event_label: txt, method, occasion });
+    if (href.startsWith('sms:')) {
+      gtag('event', 'sms_click', { event_category: 'engagement', event_label: txt });
+      gtag('event', 'cta_click', { cta: 'text_tim', event_category: 'engagement', event_label: txt });
+      lead('sms', 'unspecified');
+    } else if (href.startsWith('tel:')) {
+      gtag('event', 'tel_click', { event_category: 'engagement', event_label: txt });
+      gtag('event', 'cta_click', { cta: 'call_tim', event_category: 'engagement', event_label: txt });
+      lead('tel', 'unspecified');
+    } else if (href.startsWith('mailto:')) {
+      gtag('event', 'cta_click', { cta: 'email_tim', event_category: 'engagement', event_label: txt });
+      lead('email', 'unspecified');
+    } else if (href.includes('/storyroom/')) {
       gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt });
       /* The story room lives off-site, so GA can't observe the submit —
          a click through to it is the closest conversion signal we have. */
       const occ = (href.split('occasion=')[1] || '').split('&')[0];
-      gtag('event', 'generate_lead', { event_category: 'conversion', event_label: txt, occasion: occ ? decodeURIComponent(occ) : 'unspecified' });
+      lead('storyroom', occ ? decodeURIComponent(occ) : 'unspecified');
     } else if (href.includes('/jukebox/')) {
       gtag('event', 'cta_click', { cta: 'hear_songs', event_category: 'engagement', event_label: txt });
     }

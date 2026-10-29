@@ -95,22 +95,37 @@ test('social and canonical metadata are present', () => {
 
 test('analytics tag and its events are wired up', () => {
   assert.ok(html.includes("gtag('config', 'G-TB4NQVQ8VZ')"), 'GA4 config missing');
-  for (const event of ['scroll_depth', 'section_view', 'cta_click', 'generate_lead', 'song_play']) {
+  for (const event of ['scroll_depth', 'section_view', 'cta_click', 'generate_lead', 'song_play', 'sms_click', 'tel_click']) {
     assert.ok(js.includes(`'${event}'`), `missing ${event} event`);
   }
 });
 
-/* Commission CTAs go to the Story Room. The two listening buttons are the
+/* Commission CTAs are Text Tim (sms:). The Story Room is the secondary
+   "write it out" text-link, never a button. The two listening buttons are the
    intentional exceptions: the hero's goes to the on-page weekly player, and
    the jukebox invite under the song grid goes to the Jukebox. */
-test('commission CTAs and the weekly listening CTA have the correct destinations', () => {
+test('commission CTAs text Tim; the Story Room is a secondary text-link', () => {
+  const SMS = 'sms:+13046771113';
+  const ROOM = 'https://heartstringsstudio.github.io/storyroom/';
   const ctas = [...html.matchAll(/<a class="button[^"]*" href="([^"]+)"/g)].map((m) => m[1]);
-  const commission = ctas.filter(href => href === 'https://heartstringsstudio.github.io/storyroom/');
-  const listening = ctas.filter(href => href !== 'https://heartstringsstudio.github.io/storyroom/');
-  assert.ok(commission.length >= 3, 'expected at least three commission CTAs');
-  assert.deepEqual(listening, ['#weekly-song', 'https://heartstringsstudio.github.io/jukebox/'], 'only the weekly and jukebox listening CTAs may skip the Story Room');
+  const sms = ctas.filter((href) => href === SMS);
+  const others = ctas.filter((href) => href !== SMS);
+  assert.ok(sms.length >= 3, 'expected at least three Text Tim buttons');
+  assert.deepEqual(others, ['#weekly-song', 'https://heartstringsstudio.github.io/jukebox/'], 'only the weekly and jukebox listening CTAs may skip Text Tim');
+  assert.match(html, /<a class="button mobile-cta" href="sms:\+13046771113"/, 'pinned phone CTA must be Text Tim');
+  assert.ok(!new RegExp(`<a class="button[^"]*" href="${ROOM}`).test(html), 'no button may link to the Story Room');
+  assert.match(html, new RegExp(`<a class="text-link" href="${ROOM}">Rather write it out\\?`), 'missing the Story Room text-link');
+  assert.ok(html.includes('href="tel:+13046771113"'), 'missing the call link');
+  assert.ok(html.includes('href="mailto:heartstringsstudiowv@gmail.com"'), 'missing the email link');
   assert.ok(html.includes('id="weekly-song"'), 'listening CTA target must exist');
-  assert.equal(js.match(/const base='([^']+)'/)[1], 'https://heartstringsstudio.github.io/storyroom/');
+  assert.equal(js.match(/const base='([^']+)'/)[1], ROOM);
+});
+
+test('structured data carries the public phone number', () => {
+  const ld = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+  const nodes = ld.flatMap((d) => d['@graph'] || [d]);
+  const business = nodes.find((n) => n['@id'] && n['@id'].endsWith('#business'));
+  assert.equal(business.telephone, '+1-304-677-1113');
 });
 
 test('no inline order form on the page', () => {

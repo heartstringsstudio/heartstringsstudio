@@ -12,7 +12,7 @@
   the current file instead.
 - Run `npm test` before pushing. The suite covers the keepsake builder and, in
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
-  Story Room CTA rules below.
+  commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
   The tag reads `<link rel="stylesheet" href="style.css?v=27-jukebox">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
@@ -112,9 +112,10 @@ what crawlers or scripts-off visitors get.
   up on first view. Change the number in **both** places.
 - **Fireflies** — `script.js` builds `.fireflies` inside `.home-sticky` and only
   runs them while the porch is on screen.
-- **Pinned Story Room button (phones)** — `.mobile-cta` after `</main>` is a
-  commission CTA, so it links to `/storyroom/`. It shows once the hero is off
-  screen and hides over the closing section and footer.
+- **Pinned Text Tim button (phones)** — `.mobile-cta` after `</main>` is a
+  commission CTA, so it is text-first: `sms:+13046771113`, "Text Tim about your
+  song". It stays one line at 375px. It shows once the hero is off screen and
+  hides over the closing section and footer.
 - **Rotating reviews** — `script.js` stacks the `.reviews` figures in one grid
   cell and fades through them every 7s, with dots and a Pause button (WCAG
   2.2.2). It rests on hover/focus and off screen, and never auto-advances for
@@ -177,10 +178,14 @@ what crawlers or scripts-off visitors get.
 - Review markup must describe only the testimonials actually visible on the page
   (currently three), and `aggregateRating.reviewCount` must match.
 - GA4 tag is `G-TB4NQVQ8VZ`. The tracked events are `scroll_depth`,
-  `section_view`, `cta_click`, `generate_lead`, and `song_play` (fired when a
-  song card's — or the WBOY lightbox's — player opens). Because the Story Room is
-  off-site, a click through to it is the closest conversion signal available —
-  `generate_lead` carries the `occasion` from the deep link.
+  `section_view`, `cta_click`, `generate_lead`, `sms_click`, `tel_click`, and
+  `song_play` (fired when a song card's — or the WBOY lightbox's — player
+  opens). A tap on a Text Tim (`sms:`), call (`tel:`) or email (`mailto:`) link
+  fires its own event plus `cta_click` (`text_tim`, `call_tim`, `email_tim`) and
+  `generate_lead`. Because the Story Room is off-site, a click through to it is
+  also a conversion signal. `generate_lead` carries `method` (`sms`, `tel`,
+  `email`, `storyroom`) and the `occasion` from a pill's deep link
+  (`unspecified` otherwise).
 - Song and FAQ content is injected by JavaScript, so it isn't in the served
   HTML. The FAQ is covered by the FAQPage JSON-LD; keep that in mind before
   moving any more copy into `script.js`.
@@ -286,24 +291,33 @@ dashboard repo carries its own four.
   Any copy that prices the $50 rush must state this exception — never imply
   memorial families pay for speed.
 
-## Story room (client intake)
+## Commission path (Text Tim first, Story Room second)
 
-- The client story/commission page lives at
-  `https://heartstringsstudio.github.io/storyroom/` and is served from a
-  **separate source** — it is not in this repo. (It replaced the earlier
-  `/intake/` form as of July 2026.)
-- **Every commission CTA** must link to `/storyroom/` — including "Tell me
-  your story", "Let's make your song", "Tell Tim your story", and the header
-  button. None should point to an inline/on-page form. The user-requested
-  listening button "Hear this week’s song" deliberately targets `#weekly-song`;
-  it is a listening action, not a commission action.
-  Likewise the bold **Open the jukebox** button in the `.jukebox-invite`
-  panel under the song grid goes to `/jukebox/`; it is the only other button
-  allowed off the Story Room, and `tests/seo.test.mjs` pins both.
-- The occasion pills also link to `/storyroom/` and deep-link with `?occasion=...`
-  (built from the `base` constant in `script.js`).
-- There is **no inline order form** on the page (it was removed). Clicks through
-  to `/storyroom/` are tracked in GA via `cta_click` / `generate_lead` events.
+- **Primary path on every commission CTA is "Text Tim"**: an `sms:+13046771113`
+  link (no `?body=`), in the header ("Text Tim"), the pricing card, the closing
+  section and the pinned phone button ("Text Tim about your song"). The hero's
+  text-link is the same. The public number is 304-677-1113 (texts; calls
+  assumed) and the visible form is always `304-677-1113`.
+- Beside the primary button in the pricing card and the closing section sit
+  the reach line ("Text, call or email, whatever’s easiest. Tim answers
+  himself, usually same day."), the options `tel:+13046771113` ("Call
+  304-677-1113") and `mailto:heartstringsstudiowv@gmail.com` ("Email Tim"),
+  and the secondary text-link "Rather write it out? Tell your story ↗".
+- **Response promise:** "Tim answers himself, usually same day." Keep it in the
+  reach line and the FAQ; do not promise a faster or fixed window.
+- The **Story Room** is the secondary path:
+  `https://heartstringsstudio.github.io/storyroom/`, served from a **separate
+  source** (not in this repo; it replaced the `/intake/` form in July 2026).
+  It is only ever a `class="text-link"` ("Rather write it out?") or an occasion
+  pill, never a `class="button"`. The occasion pills deep-link with
+  `?occasion=...` (built from the `base` constant in `script.js`).
+- The only `class="button"` links allowed off `sms:` are the listening pair:
+  "Hear this week’s song" (`#weekly-song`) and **Open the jukebox**
+  (`/jukebox/`). `tests/seo.test.mjs` pins all of this, plus
+  `telephone: "+1-304-677-1113"` on the `#business` JSON-LD node.
+- Step 01, the FAQ and its JSON-LD describe the same path (text, call or email,
+  or the Story Room); change them together.
+- There is **no inline order form** on the page (it was removed).
 
 ## Design skill (Impeccable)
 

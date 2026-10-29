@@ -489,3 +489,23 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
   .jukebox-invite h3 { font-size:1.6rem; }
   .jukebox-invite .button { justify-content:space-between; }
 }
+
+/* ===== Text Tim: reach line, call/email options, Story Room alternative ===== */
+.reach { margin:16px 0 0; font-size:.92rem; line-height:1.5; color:var(--muted); text-align:center; }
+.reach-options { margin:6px 0 0; font-size:.95rem; color:var(--muted); text-align:center; }
+.reach-options a { text-decoration:underline; text-underline-offset:3px; padding:6px 2px; }
+.reach-alt { margin:14px 0 0; text-align:center; }
+.reach-alt .text-link { display:inline-block; }
+.price-card .reach,.price-card .reach-options { color:var(--cream-muted); }
+.price-card .reach-options a { color:var(--cream-ink); }
+.price-card .reach-alt .text-link { color:var(--cream-ink); border-color:var(--cream-line); }
+.price-card .reach-options a:focus-visible,.price-card .reach-alt a:focus-visible { outline:2px solid var(--walnut); outline-offset:3px; }
+.closing .reach { color:var(--ink-soft); }
+.closing .reach-options { color:var(--ink-soft); }
+.closing .reach-options a { color:var(--ink); }
+@media (max-width:760px) {
+  .reach,.reach-options { font-size:.9rem; }
+  .reach-options a { padding:12px 4px; }
+  .mobile-cta { white-space:nowrap; justify-content:center; font-size:.95rem; }
+  .price-card .button { font-size:.9rem; padding-inline:18px; gap:10px; }
+}
