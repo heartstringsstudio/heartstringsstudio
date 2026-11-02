@@ -135,6 +135,13 @@ what crawlers or scripts-off visitors get.
   `script.js` — `[videoId, sceneKeyword, label, title, description, artwork?]`. That entry
   fills the spotlight title, description and player. The remaining entries fill
   the lower gallery, so the weekly song is not duplicated there.
+- **Rerun in the spotlight (week of 2026-11-02): "Worth Every Mile"
+  (`jmSfTesTUcw`)** was already in the gallery and is featured again as a
+  repeat. At the next weekly swap, put it back in its **old gallery slot**
+  (after "You Still Walked Me Down", label `Military tribute`) — not at the
+  front of the gallery as the newest song — and mirror that in the `ItemList`.
+  On the Jukebox it is `"retired": true` alongside its spotlight, so it stays
+  out of the rotation once the flag moves. Delete this note after that swap.
 - The optional `artwork` path serves a verified full-resolution cover from
   `assets/`. If absent, other cards keep their YouTube thumbnail behavior.
   The weekly song and Lenay currently use local 1280×720 YouTube artwork.
