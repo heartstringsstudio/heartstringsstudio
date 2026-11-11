@@ -509,3 +509,76 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
   .mobile-cta { white-space:nowrap; justify-content:center; font-size:.95rem; }
   .price-card .button { font-size:.9rem; padding-inline:18px; gap:10px; }
 }
+
+/* Message me (November 2026). Messenger is the primary action on every
+   commission CTA, with text and call as tappable links right under it. The
+   hero now leads with the price and that button, then one line of proof
+   (the old proof bar sat two screens down). */
+.hero .fine { margin-top:20px; font-size:.95rem; color:var(--ink-soft); }
+.hero .actions { margin-top:22px; }
+.hero .reach-options { margin-top:20px; text-align:left; color:var(--ink-soft); }
+.hero .reach-options a { color:var(--ink); }
+.hero-proof { display:flex; flex-wrap:wrap; align-items:center; gap:4px 0; margin-top:20px; font-size:.875rem; letter-spacing:.03em; color:var(--ink-soft); }
+.hero-proof>span+span::before { content:'·'; margin-inline:12px; color:var(--accent); }
+.hero-proof a { text-decoration:underline; text-underline-offset:3px; }
+.hero-proof>span:last-child { color:var(--accent); letter-spacing:.12em; }
+.addons small { display:block; margin-top:4px; font-size:.8rem; line-height:1.5; color:var(--cream-muted); }
+@media (prefers-reduced-motion:no-preference) {
+  .hero .reach-options,.hero-proof { animation:arrive 1.3s .3s both; }
+}
+@media (max-width:760px) {
+  /* The nav row cost a sixth of the first screen and the studio name was
+     14px. The row goes; the name gets its room. */
+  header nav { display:none; }
+  header { padding:16px 20px; }
+  header .brand { font-size:1.05rem; letter-spacing:.14em; gap:14px; }
+  header .brand img { width:48px; height:48px; }
+  header .brand small { font-size:.75rem; }
+  .hero .fine { margin-top:16px; }
+  .hero .reach-options { margin-top:14px; }
+  .hero .reach-options a { display:inline-block; }
+  .hero-proof { margin-top:8px; font-size:.8rem; letter-spacing:0; }
+  .hero-proof>span+span::before { margin-inline:8px; }
+  .proof-wide { display:none; }
+  .hero-proof>span:last-child { letter-spacing:.04em; }
+  /* The scroll cue just below already leads to the song; on a phone the
+     text and call links belong directly under the button instead. */
+  .hero .actions .text-link { display:none; }
+}
+
+/* Book a callback (November 2026). The second action everywhere: an outlined
+   button, so it always reads as second to the amber Message me. It opens the
+   Google Calendar appointment page in a new tab. */
+.button.ghost { background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1.5px var(--accent); }
+.button.ghost:active { box-shadow:inset 0 0 0 1.5px var(--accent); }
+@media (hover:hover) and (pointer:fine) {
+  .button.ghost:hover { transform:translateY(-3px); box-shadow:inset 0 0 0 1.5px var(--accent),0 14px 24px #0004; background:#f0b86f14; }
+}
+.closing .button.ghost { margin-top:22px; }
+.callback { padding-block:80px 90px; }
+.callback-card { max-width:720px; margin-inline:auto; padding:48px 52px; background:var(--card); box-shadow:10px 10px 0 var(--price-edge); text-align:center; }
+.callback-card .eyebrow { color:var(--cream-accent); margin-bottom:16px; }
+.callback-card h2 { font-size:clamp(2.2rem,3.4vw,3rem); line-height:1.1; color:var(--cream-ink); }
+.callback-card p { color:var(--cream-muted); }
+.callback-card h2+p { max-width:460px; margin:18px auto 28px; font-size:1.05rem; }
+.callback-card .button.ghost { color:var(--cream-ink); box-shadow:inset 0 0 0 1.5px var(--walnut); }
+.callback-card .button.ghost:focus-visible,.callback-alt a:focus-visible { outline-color:var(--walnut); }
+.callback-alt { margin-top:22px; font-size:.95rem; }
+.callback-alt a { color:var(--cream-ink); text-decoration:underline; text-underline-offset:3px; }
+@media (hover:hover) and (pointer:fine) {
+  .callback-card .button.ghost:hover { box-shadow:inset 0 0 0 1.5px var(--walnut),0 14px 24px #0002; background:#77482612; }
+}
+@media (max-width:760px) {
+  .hero .actions { gap:12px; margin-top:18px; }
+  .hero .actions .button.ghost { min-height:46px; padding-block:9px; }
+  .hero .reach-options { margin-top:10px; }
+  .callback { padding-block:50px 60px; }
+  .callback-card { padding:34px 24px; box-shadow:7px 7px 0 var(--price-edge); }
+  .callback-card .button.ghost { width:100%; }
+  .callback-alt a { display:inline-block; padding:12px 4px; }
+  /* The pinned bar is now two buttons: Message me (wide) and Call me back. */
+  .mobile-cta { padding:0; gap:10px; background:none; box-shadow:none; align-items:stretch; }
+  .mobile-cta .button { padding:14px 18px; font-size:.95rem; white-space:nowrap; box-shadow:0 5px 0 var(--button-edge),0 14px 30px #000a; }
+  .mobile-cta .button:first-child { flex:1; justify-content:center; gap:14px; }
+  .mobile-cta .button.ghost { background:var(--bg); box-shadow:inset 0 0 0 1.5px var(--accent),0 14px 30px #000a; }
+}

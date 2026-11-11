@@ -16,9 +16,9 @@ phone, often from Facebook or TikTok, and some on a slow rural connection.
 Heartstrings Studio turns a client's memories into a finished, produced song
 with a personal keepsake page. The homepage helps a visitor hear real songs,
 trust the person who writes them, understand the price and process, and then
-text, call or email Tim, or tell their story in the Story Room. Success means a
-tap on Text Tim, call or email, or a click through to `/storyroom/` (tracked as
-`cta_click` / `generate_lead`).
+message the studio's Facebook Page, or text or call. Success means a tap on
+Message me, text or call (tracked as `generate_lead`, with `method` and
+`placement`).
 
 ## Positioning
 One real songwriter, Tim Harbert of Lumberport, West Virginia, personally
@@ -27,9 +27,9 @@ It has Appalachian roots, a flat $150 price, delivery in 48–72 hours and a
 keepsake page. Memorial songs always get free 24-hour delivery.
 
 ## Operating Context
-- Commissions start by texting Tim (304-677-1113), or in the Story Room
-  (`https://heartstringsstudio.github.io/storyroom/`), which is served from a
-  separate source. There is no form on this page.
+- Commissions start with a Messenger message to the Heartstrings Studio
+  Facebook Page (`https://m.me/61584734289007`), or a text or call to
+  304-677-1113. There is no form on this page and no Story Room link.
 - Delivery: the client sees the lyrics first and gets one revision round
   before production. The keepsake page arrives by email with the song, custom
   artwork, full lyrics, an MP3, a lyric sheet and an unlisted YouTube link.
@@ -64,11 +64,11 @@ reinterpret or expand them:
   running text.
 - **Cache busting:** bump the `?v=` on the `style.css` link (and on any logo
   URL) whenever that file changes.
-- **Commission CTAs:** every commission button is "Text Tim" (`sms:+13046771113`),
-  with call and email beside it. The Story Room is the secondary "Rather write
-  it out?" text-link, and occasion pills deep-link there with `?occasion=`.
-  "Hear this week's song" (`#weekly-song`) and the jukebox button are the
-  listening exceptions.
+- **Commission CTAs:** every commission button is "Message me"
+  (`https://m.me/61584734289007`), with tappable text and call links directly
+  under it. "Book a callback" (the Google Calendar appointment page) is the
+  outlined second button. The jukebox button is the only other button. Copy is first person
+  ("I", "me"), never "Tim" or "we".
 - **Voice:** warm, reflective and Appalachian-rooted. Plainspoken and never
   salesy. Tender with memorial families.
 - **Name and mark:** "Heartstrings Studio" plus the studio mark, which has
@@ -93,7 +93,7 @@ reinterpret or expand them:
 3. Gentle with grief. Nothing pressures, hurries or upsells a memorial family.
 4. Built for rural phones. It must stay fast, usable offline and usable with
    scripts off.
-5. One clear path. Every commission action starts with texting Tim; the Story Room is the written alternative.
+5. One clear path. Every commission action is "Message me", with text and call beside it.
 
 ## Accessibility & Inclusion
 WCAG 2.2 AA. The audience skews older, so keep body text comfortably large and

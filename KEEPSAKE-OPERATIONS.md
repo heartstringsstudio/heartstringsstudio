@@ -15,7 +15,7 @@ The client hears the song for the first time **on the keepsake page**, not on Yo
 
 A keepsake is now a **folder of three files**, and the builder's download saves all three: `index.html`, `art.jpg` (cropped square, at most 1600px) and `song.mp3`. They go in `keepsakes/<page-code>/` with those exact names. Keep `song.mp3` under 15 MB (re-export at 192 kbps); the builder warns over that. In the `keepsakes` repo, `python3 tools/check_keepsakes.py` fails if a page's `song.mp3` or `art.jpg` is missing or a video file is present, and warns when the site passes 800 MB of the 1 GB GitHub Pages cap. Step-by-step instructions are in that repo's `tools/README.md`.
 
-Keepsakes delivered before this keep the old single-file layout and are not migrated. Generated pages link the Story Room directly and carry the studio's GA4 tag.
+Keepsakes delivered before this keep the old single-file layout and are not migrated. Generated pages carry one quiet link back to the studio site and the studio's GA4 tag.
 
 ## First listen, then keepsake
 
@@ -76,3 +76,9 @@ Until separate hosting is configured, the builder can create and preview a finis
 ## Drafts
 
 Draft files are downloaded locally and can include the complete story, artwork, MP3, and PDF. Store them as client-confidential files and delete them when no longer needed.
+
+## Open item: "Message me" on new keepsakes
+
+Not built yet. New keepsakes should carry one quiet Messenger line under the
+song player (see the reminder at the top of the keepsake section in
+`CLAUDE.md`). Keepsakes already delivered are never changed.

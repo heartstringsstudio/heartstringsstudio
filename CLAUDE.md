@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=28-text-tim">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=30-callback">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -50,12 +50,14 @@ older single-file version:
   | `--price-edge` | `#b48c5f` | Price card offset shadow |
   | `--pill-line` / `--cream-line` | `#ac805655` / `#795b3544` | Occasion pill border, rules on cream |
 - `script.js` — holds the page's content as arrays and renders it at load:
-  `occasions`, `songs`, `faq`. It also carries the scroll/reveal motion, the
+  `songs`, `faq`. It also carries the scroll/reveal motion, the
   song-card player, and the GA event tracking.
 - `assets/` — `studio.webp` (hero), `porch.webp`, `porch-postcard.webp` (480px
   cut of `porch.webp` for the hero postcard), `wedding.webp`, `tim.jpeg`,
   `logo.png`. The root `logo.png` and `favicon.png` are still used by
-  `404.html` and `keepsake-builder.html`, so don't delete them.
+  `404.html` and `keepsake-builder.html`, so don't delete them. The header
+  mark on this page is `favicon.png` too (256px, a third the weight of the
+  512px `assets/logo.png`, which now only serves as the tab icon).
   `assets/share-card.jpg` is the 1200×630 JPEG fallback share image for
   scrapers that won't read the WebP. `banner.jpeg` no longer serves this page
   at all, but **don't delete it and don't resize it** — it is still the
@@ -108,18 +110,16 @@ what crawlers or scripts-off visitors get.
 - **Handwritten headline** — the hero's `<span class="ink">` wraps "song to?"
   and an SVG swash; CSS inks the words in and then draws the swash. Keep the
   words inside the `em` so the headline text is unchanged.
-- **Count-up** — the proof bar's `<strong data-count="115">115</strong>` ticks
-  up on first view. Change the number in **both** places.
 - **Fireflies** — `script.js` builds `.fireflies` inside `.home-sticky` and only
   runs them while the porch is on screen.
-- **Pinned Text Tim button (phones)** — `.mobile-cta` after `</main>` is a
-  commission CTA, so it is text-first: `sms:+13046771113`, "Text Tim about your
-  song". It stays one line at 375px. It shows once the hero is off screen and
-  hides over the closing section and footer.
-- **Rotating reviews** — `script.js` stacks the `.reviews` figures in one grid
-  cell and fades through them every 7s, with dots and a Pause button (WCAG
-  2.2.2). It rests on hover/focus and off screen, and never auto-advances for
-  reduced motion. Scripts-off, the three quotes simply stack.
+- **Pinned bar (phones)** — `.mobile-cta` after `</main>` is a `<div>` holding
+  the two commission actions: "Message me" (wide, amber, Messenger) and "Call
+  me back" (outlined, the calendar link). Both stay on one line at 375px. It
+  shows once the hero is off screen and hides over the closing section and
+  footer.
+- **Reviews** — the three `.reviews` figures simply stack, all visible. They
+  used to rotate one at a time, which hid two of three from most visitors;
+  don't bring the rotation back.
 - **Step timeline** — `script.js` adds `.timeline` to `.steps` and drives `--p`
   as it scrolls past; a dot rides the line (across the top on wide screens,
   down the side on phones) and lights each step as it arrives.
@@ -156,7 +156,7 @@ what crawlers or scripts-off visitors get.
   in the same commit; `tests/seo.test.mjs` enforces it.
 - The testimonials are general studio feedback in their own section after the
   spotlight, not a claimed reaction to the weekly song. All three (Jane,
-  Dolores, Susan) live in `.featured-reaction`'s `.reviews` and rotate there;
+  Dolores, Susan) live in `.featured-reaction`'s `.reviews`, stacked;
   their text and authors remain intact. There is no lower testimonials
   section any more.
 
@@ -178,19 +178,46 @@ what crawlers or scripts-off visitors get.
 - Review markup must describe only the testimonials actually visible on the page
   (currently three), and `aggregateRating.reviewCount` must match.
 - GA4 tag is `G-TB4NQVQ8VZ`. The tracked events are `scroll_depth`,
-  `section_view`, `cta_click`, `generate_lead`, `sms_click`, `tel_click`, and
-  `song_play` (fired when a song card's — or the WBOY lightbox's — player
-  opens). A tap on a Text Tim (`sms:`), call (`tel:`) or email (`mailto:`) link
-  fires its own event plus `cta_click` (`text_tim`, `call_tim`, `email_tim`) and
-  `generate_lead`. Because the Story Room is off-site, a click through to it is
-  also a conversion signal. `generate_lead` carries `method` (`sms`, `tel`,
-  `email`, `storyroom`) and the `occasion` from a pill's deep link
-  (`unspecified` otherwise).
+  `section_view`, `generate_lead`, `messenger_click`, `callback_click`,
+  `sms_click`, `tel_click`, `cta_click` and `song_play` (fired when a song card's — or the
+  WBOY lightbox's — player opens). **One contact tap is one conversion:** a
+  tap on Message me (`m.me`), Book a callback (`calendar.app.google`), text
+  (`sms:`) or call (`tel:`) fires its own
+  channel event plus a single `generate_lead`; an email tap fires
+  `generate_lead` alone. `generate_lead` carries `method` (`messenger`,
+  `callback`, `sms`, `tel`, `email`) and `placement` (`header`, `hero`,
+  `pricing`, `callback_section`, `closing`, `sticky`, `footer`). `cta_click` now fires only for jukebox links
+  (`hear_songs`); it must not be sent beside `generate_lead` again, because
+  that counted every lead twice. In GA, `generate_lead` should be the only
+  key event.
 - Song and FAQ content is injected by JavaScript, so it isn't in the served
   HTML. The FAQ is covered by the FAQPage JSON-LD; keep that in mind before
   moving any more copy into `script.js`.
 - `sitemap.xml` has to be submitted directly in Google Search Console — the
   project-site `robots.txt` is never read. Bump its `lastmod` on real changes.
+
+## REMINDER FOR THE OWNER: keepsakes still need "Message me" (open)
+
+**If a session touches `keepsake-builder.html`, `keepsaketemplate.html`,
+`KEEPSAKE-OPERATIONS.md` or the keepsakes repository, tell the owner about
+this before doing anything else.** They asked to be reminded (11 November
+2026) because they will otherwise forget.
+
+- The November 2026 audit (kept by the owner, not in this repo) found keepsake pages are the real front
+  door: 270 of 303 sessions landed on one, with 0 leads, and the only link to
+  the studio is one line in the footer.
+- Agreed change, **for new keepsakes only**: a quiet line directly under the
+  song player that opens Messenger to the studio's Facebook Page
+  (`https://m.me/61584734289007`), e.g. "I write songs like this for
+  families. Message me →". The owner has not approved final wording yet; ask.
+- **Do not edit keepsakes that have already been delivered.** The owner
+  decided those stay exactly as the families received them.
+- The builder's rule "The ONE call to action on the page. Do not add others"
+  and the matching check in `tests/keepsake-builder.test.mjs` both have to
+  change with it. Keep it off *First listen* pages.
+- Also add a `song_play` event on the audio player and a click event on the
+  studio link; keepsakes send neither today.
+- Delete this section once the builder ships the change.
 
 ## The satellite pages (404, keepsake builder, keepsake template)
 
@@ -290,49 +317,69 @@ dashboard repo carries its own four.
 - Memorial songs are **always delivered within 24 hours at no extra cost**.
   Any copy that prices the $50 rush must state this exception — never imply
   memorial families pay for speed.
+- Standard delivery is always written as "48–72 hours, guaranteed". Never
+  "most songs".
+- The 24-hour figure appears **only** in memorial context.
 - The price card lists two add-ons: "Rush delivery +$50" and "Commercial
-  license +$100". The owner confirmed on 2026-10-29 that the license is a
+  license +$100", with "Rush is never charged on memorial songs." under them. The owner confirmed on 2026-10-29 that the license is a
   real, current offer, so leave it there.
 
-## Commission path (Text Tim first, Story Room second)
+## Commission path (Message me first, text or call beside it)
 
-- **Primary path on every commission CTA is "Text Tim"**: an `sms:+13046771113`
-  link (no `?body=`), in the header ("Text Tim"), the pricing card, the closing
-  section and the pinned phone button ("Text Tim about your song"). The hero's
-  text-link is the same. The public number is 304-677-1113 (texts; calls
-  assumed) and the visible form is always `304-677-1113`.
-- Beside the primary button in the pricing card and the closing section sit
-  the reach line ("Text, call or email, whatever’s easiest. Tim answers
-  himself, usually same day."), the options `tel:+13046771113` ("Call
-  304-677-1113") and `mailto:heartstringsstudiowv@gmail.com` ("Email Tim"),
-  and the secondary text-link "Rather write it out? Tell your story ↗".
-- **Response promise:** "Tim answers himself, usually same day." Keep it in the
-  reach line and the FAQ; do not promise a faster or fixed window.
-- The **Story Room** is the secondary path:
-  `https://heartstringsstudio.github.io/storyroom/`, served from a **separate
-  source** (not in this repo; it replaced the `/intake/` form in July 2026).
-  It is only ever a `class="text-link"` ("Rather write it out?") or an occasion
-  pill, never a `class="button"`. The occasion pills deep-link with
-  `?occasion=...` (built from the `base` constant in `script.js`).
-- The only `class="button"` links allowed off `sms:` are the listening pair:
-  "Hear this week’s song" (`#weekly-song`) and **Open the jukebox**
-  (`/jukebox/`). `tests/seo.test.mjs` pins all of this, plus
+Changed November 2026 after a conversion audit: visitors arrive from
+Facebook, so the primary action keeps them in it.
+
+- **Primary path on every commission CTA is "Message me"**: a Messenger link
+  to the Heartstrings Studio **Facebook Page** (never a personal profile),
+  `https://m.me/61584734289007`. It is in the header ("Message me"), the hero,
+  the pricing card, the closing section and the pinned phone button
+  ("Message me for a song"). If the Page claims a username, swap the link
+  everywhere at once (`index.html`, `404.html`, `tests/seo.test.mjs`).
+- **Directly under the hero, pricing and closing buttons** sits
+  `<p class="reach-options">`: "Or text me · call 304-677-1113", both tappable
+  (`sms:+13046771113`, `tel:+13046771113`). Nothing else goes in that group.
+  The public number is 304-677-1113 and the visible form is always
+  `304-677-1113`. Email lives only in the footer ("Email me").
+- **Response promise:** "I answer myself, usually the same day." Keep it in
+  the reach line and the FAQ; do not promise a faster or fixed window.
+- **All copy is first person singular** ("I", "me"). Never "Tim" in the third
+  person in the studio's own voice, never "we/us/our". Customer quotes keep
+  their own words.
+- **The Story Room is gone from this page**: no links, no mentions, no
+  occasion pills. It was removed on the owner's decision (about one click in
+  a month). Don't restore it.
+- **Secondary action is "Book a callback"**: the owner's Google Calendar
+  appointment page, `https://calendar.app.google/oDX7GcemevPmH2u1A`, opened
+  in a new tab and never embedded. It is always `class="button ghost"` (the
+  outlined button) so it reads as second to the amber Message me. It is in
+  the hero, its own `#callback` section right after the price card ("Rather
+  talk it through?"), the closing section, and the pinned phone bar ("Call me
+  back"). The copy states no call length and no hours; the owner has not
+  given any.
+- The only other `class="button"` link is **Open the jukebox** (`/jukebox/`).
+  The hero no longer has a listen link of its own; the scroll cue and the
+  postcard lead to the weekly song.
+  `tests/seo.test.mjs` pins all of this, plus
   `telephone: "+1-304-677-1113"` on the `#business` JSON-LD node.
-- Step 01, the FAQ and its JSON-LD describe the same path (text, call or email,
-  or the Story Room); change them together.
+- The hero carries the price line ("$150 flat · Ready in 48–72 hours,
+  guaranteed") above the button and one proof line (`.hero-proof`: 100+
+  songs, the WBOY link, the stars) below it. The old four-cell proof bar and
+  its count-up are gone; "100+" needs no upkeep.
+- Step 01, the FAQ and its JSON-LD describe the same path (message, text,
+  call, or book a callback); change them together.
 - The Product JSON-LD `offers.url` is the price card,
-  `https://heartstringsstudio.github.io/heartstringsstudio/#pricing`: an Offer
-  needs a web address (`sms:` isn't one), and the price card's primary button is
-  Text Tim. `tests/seo.test.mjs` pins it.
-- `404.html` follows the same path: its commission link is "Text Tim about your song"
-  (`sms:+13046771113`), beside "Back to the studio" and "Hear the songs".
+  `https://heartstringsstudio.github.io/heartstringsstudio/#pricing`.
+  `tests/seo.test.mjs` pins it.
+- `404.html` follows the same path: its commission link is "Message me for a
+  song", beside "Back to the studio" and "Hear the songs".
 - There is **no inline order form** on the page (it was removed).
 
 ## Old audits
 
 - `docs/archive/` holds `AUDIT.md` (July 2026) and `AUDIT-REPORT.md` (August
-  2026). Both predate the September rebuild and Text Tim and are stale; don't
-  act on them.
+  2026). Both predate the September rebuild and are stale; don't act on them.
+  The November 2026 audit was deliberately kept out of the repo (it quotes
+  analytics, and GitHub Pages would serve it); the owner has a copy.
 
 ## Design skill (Impeccable)
 
@@ -342,7 +389,7 @@ dashboard repo carries its own four.
 - `PRODUCT.md` is its product record, written by `/impeccable init`. It points
   back here: **this file wins** over any Impeccable default, especially on the
   walnut/amber palette, Libre Caslon Display + DM Sans, the `?v=` cache rule
-  and the Story Room links. Treat its suggestions as refinements of the current
+  and the Message me links. Treat its suggestions as refinements of the current
   system, never a redesign, unless the owner asks for one.
 - Its launcher downloads a checksum-verified engine binary from the project's
   GitHub releases into `~/.impeccable/` on first run. Nothing is committed.
