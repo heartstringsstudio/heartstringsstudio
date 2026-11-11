@@ -1,0 +1,68 @@
+/* The memorial page (November 2026). It borrows the main stylesheet's tokens,
+   buttons, song cards, reviews, steps and closing section, and adds only what
+   is its own: a quiet type-only opening, a compact song list, and no pinned
+   bar or motion beyond what the shared styles already do. */
+.mem-top { display:flex; align-items:center; padding-block:26px 0; }
+.mem-top .brand img { width:44px; height:44px; }
+
+.mem-hero { padding-block:70px 90px; }
+/* Wide screens have room beside the words: the dusk porch sits there, faded
+   into the ground on three sides. Phones never download it for this. */
+@media (min-width:761px) {
+  .mem-hero {
+    background:
+      linear-gradient(90deg,var(--bg) 0%,var(--bg) 44%,#271c16cc 58%,#271c1655 100%),
+      linear-gradient(180deg,var(--bg) 0%,transparent 28%,transparent 62%,var(--bg) 100%),
+      url(../assets/porch.webp) right center/auto 100% no-repeat;
+  }
+}
+.mem-hero h1 { font-size:clamp(2.7rem,6vw,5.2rem); line-height:1.04; max-width:900px; }
+.mem-lead { max-width:600px; margin-top:28px; font-size:1.15rem; line-height:1.7; color:var(--ink-soft); }
+.mem-promise { display:flex; flex-wrap:wrap; gap:6px 0; margin-top:26px; font-size:1rem; color:var(--ink); }
+.mem-promise span+span::before { content:'·'; margin-inline:12px; color:var(--accent); }
+.mem-hero .actions { margin-top:28px; }
+.mem-hero .reach-options { margin-top:20px; text-align:left; color:var(--ink-soft); }
+.mem-hero .reach-options a { color:var(--ink); }
+.mem-note { margin-top:22px; max-width:520px; font:italic 1.05rem/1.6 Georgia,serif; color:var(--muted); }
+
+.mem-listen { padding-block:80px; }
+.mem-listen h2,.mem-steps h2 { font-size:clamp(2.3rem,3.8vw,3.6rem); line-height:1.1; }
+.mem-songs { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin:44px 0 36px; }
+.mem-songs .song:nth-child(n) { margin:0; }
+.mem .song-image { display:block; }
+.mem-songs .player-bar { padding-bottom:4px; }
+.player-out { font-size:.875rem; font-weight:700; color:var(--cream-accent); text-decoration:underline; text-underline-offset:3px; }
+
+.mem-steps { padding-block:90px 70px; }
+.mem-price { padding-block:20px 90px; }
+.mem-price .callback-card h2 { font-size:clamp(3rem,5vw,4.4rem); }
+.mem-price .callback-card h2+p { margin-bottom:14px; }
+.mem-price-note { max-width:480px; margin-inline:auto; font-size:1rem; }
+
+@media (max-width:760px) {
+  .mem-top { padding-block:18px 0; }
+  .mem-top .brand { font-size:.95rem; letter-spacing:.12em; gap:12px; }
+  .mem-hero { padding-block:34px 48px; }
+  .mem-hero h1 br { display:none; }
+  .mem-lead { margin-top:18px; font-size:1.05rem; }
+  .mem-promise { margin-top:18px; font-size:.95rem; }
+  .mem-promise span+span::before { margin-inline:8px; }
+  .mem-hero .actions { flex-direction:column; align-items:stretch; gap:12px; margin-top:22px; }
+  .mem-hero .actions .button { width:100%; min-height:56px; }
+  .mem-hero .actions .button.ghost { min-height:46px; padding-block:9px; }
+  .mem-hero .reach-options { margin-top:10px; }
+  .mem-hero .reach-options a { display:inline-block; }
+  .mem-note { margin-top:10px; font-size:1rem; }
+  .mem-listen { padding-block:44px; }
+  /* Three cards as three rows: artwork left, title right. */
+  .mem-songs { grid-template-columns:1fr; gap:14px; margin:24px 0 26px; }
+  .mem-songs .song { padding:8px; }
+  .mem-songs .card-face { flex-direction:row; align-items:center; gap:14px; }
+  .mem-songs .song-image { flex:0 0 44%; aspect-ratio:16/10; }
+  .mem-songs .card-body p { display:none; }
+  .mem-songs .song small { margin:0 0 6px; }
+  .mem-songs .song h3 { margin:0; font-size:1.3rem; }
+  .mem-songs .play { width:38px; height:38px; }
+  .mem-steps { padding-block:52px 40px; }
+  .mem-price { padding-block:10px 52px; }
+}
