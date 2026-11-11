@@ -110,7 +110,7 @@ test('analytics tag and its events are wired up', () => {
 /* Commission CTAs are "Message me": Messenger to the studio's Facebook Page.
    Text and call sit beside every one as tappable links. The second action is
    "Book a callback", an outlined button to the Google Calendar appointment
-   page. The one other button is the jukebox invite under the song grid. The
+   page. Nothing else on the page is a button; the jukebox is a text link. The
    Story Room is gone from this page (November 2026) and must not come back. */
 test('commission CTAs open Messenger, with text, call and a callback beside them', () => {
   const MSG = 'https://m.me/61584734289007';
@@ -119,17 +119,17 @@ test('commission CTAs open Messenger, with text, call and a callback beside them
   const msg = ctas.filter((c) => c.href === MSG);
   const cal = ctas.filter((c) => c.href === CAL);
   const others = ctas.filter((c) => c.href !== MSG && c.href !== CAL).map((c) => c.href);
-  assert.ok(msg.length >= 5, 'expected Message me in the header, hero, price card, closing and pinned bar');
+  assert.ok(msg.length >= 6, 'expected Message me in the header, hero, memorial band, price card, closing and pinned bar');
   assert.ok(msg.every((c) => !c.cls.includes('ghost')), 'Message me is always the solid button');
   assert.equal(cal.length, 4, 'expected Book a callback in the hero, its own section, closing and pinned bar');
   assert.ok(cal.every((c) => c.cls.includes('ghost')), 'the callback button is always the outlined one');
-  assert.deepEqual(others, ['https://heartstringsstudio.github.io/jukebox/'], 'only the jukebox listening CTA may skip the two commission actions');
+  assert.deepEqual(others, [], 'every button on the page is one of the two commission actions');
   assert.match(html, /<div class="mobile-cta" inert><a class="button" href="https:\/\/m\.me\/61584734289007">/, 'pinned phone bar must lead with Message me');
   assert.ok(html.includes('id="callback"'), 'the callback section must exist');
   /* Every Message me button in the page body is followed by the text and
-     call links: hero, price card, closing. */
+     call links: hero, memorial band, price card, closing. */
   const reach = html.match(/<p class="reach-options">Or <a href="sms:\+13046771113">text me<\/a> · <a href="tel:\+13046771113">call 304-677-1113<\/a><\/p>/g) || [];
-  assert.equal(reach.length, 3, 'text and call links belong under the hero, price card and closing buttons');
+  assert.equal(reach.length, 4, 'text and call links belong under the hero, memorial band, price card and closing buttons');
   assert.ok(!/storyroom|Story Room/i.test(html + js), 'the Story Room was removed from this page');
   assert.ok(html.includes('href="mailto:heartstringsstudiowv@gmail.com"'), 'missing the email link');
   assert.ok(html.includes('id="weekly-song"'), 'listening target must exist');
@@ -176,6 +176,12 @@ test('no inline order form on the page', () => {
    listen section links out to youtube.com and no iframe is built until a
    visitor presses play. */
 test('song cards play in place instead of linking out to YouTube', () => {
+  /* Three songs are shown; the rest sit in the More songs drawer, so every
+     entry in the ItemList is still on the page. */
+  assert.ok(html.includes('id="songs"') && html.includes('id="songs-more"'), 'gallery and drawer mounts must exist');
+  for (const id of js.match(/const featured=\[([^\]]*)\]/)[1].match(/[\w-]{11}/g)) {
+    assert.ok(js.includes(`['${id}',`), `featured song ${id} is not in the songs array`);
+  }
   assert.ok(!/youtube\.com\/watch/.test(js), 'song cards should not link out to youtube.com');
   assert.ok(js.includes('youtube-nocookie.com/embed/'), 'missing the nocookie player');
   assert.ok(!/<iframe/.test(html), 'index.html should ship no iframe');
@@ -194,14 +200,24 @@ test('the WBOY links open the in-page player', () => {
   assert.ok(js.includes('showModal'), 'missing the lightbox player');
 });
 
-/* The weekly feature and a real client reaction must precede the long scene
-   and gallery, so the musical payoff is no longer buried below them. */
-test('the weekly player and attributed reaction lead the scroll journey', () => {
+/* The page is ordered for someone deciding in seconds on a phone: a song to
+   hear, a few more, the memorial promise, what clients said, then how it
+   works and the price in one section. Keep the songs and the price from
+   drifting back down the page. */
+test('songs, the memorial band and reviews come before the price', () => {
   const weekly = html.indexOf('id="weekly-song"');
-  const reaction = html.indexOf('class="featured-reaction wrap"');
   const gallery = html.indexOf('id="listen"');
-  const porch = html.indexOf('id="heart"');
-  assert.ok(weekly > 0 && weekly < reaction && reaction < gallery && gallery < porch);
+  const memorial = html.indexOf('id="memorial"');
+  const reaction = html.indexOf('class="featured-reaction wrap"');
+  const offer = html.indexOf('id="process"');
+  const price = html.indexOf('id="pricing"');
+  const callback = html.indexOf('id="callback"');
+  assert.ok(weekly > 0 && weekly < gallery && gallery < memorial && memorial < reaction && reaction < offer && offer < price && price < callback);
+  /* The 24-hour promise lives in memorial context only. */
+  const band = html.slice(memorial, html.indexOf('</section>', memorial));
+  assert.ok(band.includes('24 hours'));
+  const visible = html.slice(html.indexOf('<body>'));
+  assert.equal((visible.match(/24[- ]hours?/g) || []).length, 1, 'the 24-hour figure belongs in the memorial band only');
   assert.ok(html.includes('id="weekly-player"'), 'weekly player mount missing');
   const testimony = html.slice(reaction, html.indexOf('</section>', reaction));
   assert.ok(testimony.includes('Jane H.'));
