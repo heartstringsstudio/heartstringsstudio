@@ -102,23 +102,30 @@ test('social and canonical metadata are present', () => {
 
 test('analytics tag and its events are wired up', () => {
   assert.ok(html.includes("gtag('config', 'G-TB4NQVQ8VZ')"), 'GA4 config missing');
-  for (const event of ['scroll_depth', 'section_view', 'cta_click', 'generate_lead', 'song_play', 'messenger_click', 'sms_click', 'tel_click']) {
+  for (const event of ['scroll_depth', 'section_view', 'cta_click', 'generate_lead', 'song_play', 'messenger_click', 'callback_click', 'sms_click', 'tel_click']) {
     assert.ok(js.includes(`'${event}'`), `missing ${event} event`);
   }
 });
 
 /* Commission CTAs are "Message me": Messenger to the studio's Facebook Page.
-   Text and call sit beside every one as tappable links. The one other button
-   is the jukebox invite under the song grid. The Story Room is gone from this
-   page (November 2026) and must not come back. */
-test('commission CTAs open Messenger, with text and call beside them', () => {
+   Text and call sit beside every one as tappable links. The second action is
+   "Book a callback", an outlined button to the Google Calendar appointment
+   page. The one other button is the jukebox invite under the song grid. The
+   Story Room is gone from this page (November 2026) and must not come back. */
+test('commission CTAs open Messenger, with text, call and a callback beside them', () => {
   const MSG = 'https://m.me/61584734289007';
-  const ctas = [...html.matchAll(/<a class="button[^"]*" href="([^"]+)"/g)].map((m) => m[1]);
-  const msg = ctas.filter((href) => href === MSG);
-  const others = ctas.filter((href) => href !== MSG);
+  const CAL = 'https://calendar.app.google/oDX7GcemevPmH2u1A';
+  const ctas = [...html.matchAll(/<a class="button([^"]*)" href="([^"]+)"/g)].map((m) => ({ cls: m[1], href: m[2] }));
+  const msg = ctas.filter((c) => c.href === MSG);
+  const cal = ctas.filter((c) => c.href === CAL);
+  const others = ctas.filter((c) => c.href !== MSG && c.href !== CAL).map((c) => c.href);
   assert.ok(msg.length >= 5, 'expected Message me in the header, hero, price card, closing and pinned bar');
-  assert.deepEqual(others, ['https://heartstringsstudio.github.io/jukebox/'], 'only the jukebox listening CTA may skip Message me');
-  assert.match(html, /<a class="button mobile-cta" href="https:\/\/m\.me\/61584734289007"/, 'pinned phone CTA must be Message me');
+  assert.ok(msg.every((c) => !c.cls.includes('ghost')), 'Message me is always the solid button');
+  assert.equal(cal.length, 4, 'expected Book a callback in the hero, its own section, closing and pinned bar');
+  assert.ok(cal.every((c) => c.cls.includes('ghost')), 'the callback button is always the outlined one');
+  assert.deepEqual(others, ['https://heartstringsstudio.github.io/jukebox/'], 'only the jukebox listening CTA may skip the two commission actions');
+  assert.match(html, /<div class="mobile-cta" inert><a class="button" href="https:\/\/m\.me\/61584734289007">/, 'pinned phone bar must lead with Message me');
+  assert.ok(html.includes('id="callback"'), 'the callback section must exist');
   /* Every Message me button in the page body is followed by the text and
      call links: hero, price card, closing. */
   const reach = html.match(/<p class="reach-options">Or <a href="sms:\+13046771113">text me<\/a> · <a href="tel:\+13046771113">call 304-677-1113<\/a><\/p>/g) || [];

@@ -66,7 +66,8 @@ reinterpret or expand them:
   URL) whenever that file changes.
 - **Commission CTAs:** every commission button is "Message me"
   (`https://m.me/61584734289007`), with tappable text and call links directly
-  under it. The jukebox button is the only other button. Copy is first person
+  under it. "Book a callback" (the Google Calendar appointment page) is the
+  outlined second button. The jukebox button is the only other button. Copy is first person
   ("I", "me"), never "Tim" or "we".
 - **Voice:** warm, reflective and Appalachian-rooted. Plainspoken and never
   salesy. Tender with memorial families.

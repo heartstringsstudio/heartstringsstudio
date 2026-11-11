@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=29-message-me">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=30-callback">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -112,10 +112,11 @@ what crawlers or scripts-off visitors get.
   words inside the `em` so the headline text is unchanged.
 - **Fireflies** — `script.js` builds `.fireflies` inside `.home-sticky` and only
   runs them while the porch is on screen.
-- **Pinned Message me button (phones)** — `.mobile-cta` after `</main>` is a
-  commission CTA, so it opens Messenger: `https://m.me/61584734289007`,
-  "Message me for a song". It stays one line at 375px. It shows once the hero
-  is off screen and hides over the closing section and footer.
+- **Pinned bar (phones)** — `.mobile-cta` after `</main>` is a `<div>` holding
+  the two commission actions: "Message me" (wide, amber, Messenger) and "Call
+  me back" (outlined, the calendar link). Both stay on one line at 375px. It
+  shows once the hero is off screen and hides over the closing section and
+  footer.
 - **Reviews** — the three `.reviews` figures simply stack, all visible. They
   used to rotate one at a time, which hid two of three from most visitors;
   don't bring the rotation back.
@@ -177,14 +178,15 @@ what crawlers or scripts-off visitors get.
 - Review markup must describe only the testimonials actually visible on the page
   (currently three), and `aggregateRating.reviewCount` must match.
 - GA4 tag is `G-TB4NQVQ8VZ`. The tracked events are `scroll_depth`,
-  `section_view`, `generate_lead`, `messenger_click`, `sms_click`,
-  `tel_click`, `cta_click` and `song_play` (fired when a song card's — or the
+  `section_view`, `generate_lead`, `messenger_click`, `callback_click`,
+  `sms_click`, `tel_click`, `cta_click` and `song_play` (fired when a song card's — or the
   WBOY lightbox's — player opens). **One contact tap is one conversion:** a
-  tap on Message me (`m.me`), text (`sms:`) or call (`tel:`) fires its own
+  tap on Message me (`m.me`), Book a callback (`calendar.app.google`), text
+  (`sms:`) or call (`tel:`) fires its own
   channel event plus a single `generate_lead`; an email tap fires
-  `generate_lead` alone. `generate_lead` carries `method` (`messenger`, `sms`,
-  `tel`, `email`) and `placement` (`header`, `hero`, `pricing`, `closing`,
-  `sticky`, `footer`). `cta_click` now fires only for jukebox links
+  `generate_lead` alone. `generate_lead` carries `method` (`messenger`,
+  `callback`, `sms`, `tel`, `email`) and `placement` (`header`, `hero`,
+  `pricing`, `callback_section`, `closing`, `sticky`, `footer`). `cta_click` now fires only for jukebox links
   (`hear_songs`); it must not be sent beside `generate_lead` again, because
   that counted every lead twice. In GA, `generate_lead` should be the only
   key event.
@@ -346,19 +348,25 @@ Facebook, so the primary action keeps them in it.
 - **The Story Room is gone from this page**: no links, no mentions, no
   occasion pills. It was removed on the owner's decision (about one click in
   a month). Don't restore it.
-- A **"Book a callback"** button (Google Calendar appointment page) is
-  planned as the secondary action. It is not built yet; it needs the
-  owner's calendar link.
-- The only `class="button"` link allowed off Messenger is **Open the jukebox**
-  (`/jukebox/`). The hero's "Hear this week’s song" is a `text-link` now.
+- **Secondary action is "Book a callback"**: the owner's Google Calendar
+  appointment page, `https://calendar.app.google/oDX7GcemevPmH2u1A`, opened
+  in a new tab and never embedded. It is always `class="button ghost"` (the
+  outlined button) so it reads as second to the amber Message me. It is in
+  the hero, its own `#callback` section right after the price card ("Rather
+  talk it through?"), the closing section, and the pinned phone bar ("Call me
+  back"). The copy states no call length and no hours; the owner has not
+  given any.
+- The only other `class="button"` link is **Open the jukebox** (`/jukebox/`).
+  The hero no longer has a listen link of its own; the scroll cue and the
+  postcard lead to the weekly song.
   `tests/seo.test.mjs` pins all of this, plus
   `telephone: "+1-304-677-1113"` on the `#business` JSON-LD node.
 - The hero carries the price line ("$150 flat · Ready in 48–72 hours,
   guaranteed") above the button and one proof line (`.hero-proof`: 100+
   songs, the WBOY link, the stars) below it. The old four-cell proof bar and
   its count-up are gone; "100+" needs no upkeep.
-- Step 01, the FAQ and its JSON-LD describe the same path (message, text or
-  call); change them together.
+- Step 01, the FAQ and its JSON-LD describe the same path (message, text,
+  call, or book a callback); change them together.
 - The Product JSON-LD `offers.url` is the price card,
   `https://heartstringsstudio.github.io/heartstringsstudio/#pricing`.
   `tests/seo.test.mjs` pins it.

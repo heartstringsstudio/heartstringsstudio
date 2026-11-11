@@ -235,7 +235,7 @@ if(typeof HTMLDialogElement==='function'&&HTMLDialogElement.prototype.showModal)
   }
 }
 
-const faq=[['How does it work?','Message me on Facebook, or text or call 304-677-1113, whatever’s easiest. I answer myself, usually the same day. Just share your first name, the occasion and any date; the rest comes out in conversation. I write your lyrics, work with you on a round of revisions, and produce your custom song.'],['How fast will I get my song?','Every song is ready in 48–72 hours, guaranteed. Memorial songs always receive 24-hour delivery at no extra charge. For other songs, rush delivery is an additional $50. Mention your date when you reach out and I’ll confirm what’s possible.'],['Can I pick the style and approve the lyrics?','Absolutely. Choose the genre and feeling — romantic, funny, emotional, nostalgic, solemn, or whatever fits your story. You receive the lyrics first, with one round of revisions before production.'],['Can I give this as a gift?','Yes. A custom song makes a personal wedding gift, birthday surprise, anniversary present, or tribute. Share your keepsake page with someone you love, or play your downloaded MP3 at an event.'],['How do I share my song?','Send your keepsake page link by text or email: it’s a permanent home for your song, lyrics, and story. Your MP4 share video is ready to post on Facebook or play at a service, your lyric sheet prints for a frame or a program, and your album art works as a print or profile photo. The page isn’t publicly listed, but anyone with the link can view or share it.'],['Is my song one-of-a-kind?','Every song is built around your story from scratch. Names, memories, and the details that matter to you shape the finished song.'],['What if the finished song misses the mark?','I start over from scratch. The remake guarantee is included in your custom song.']];
+const faq=[['How does it work?','Message me on Facebook, text or call 304-677-1113, or book a time for me to call you, whatever’s easiest. I answer myself, usually the same day. Just share your first name, the occasion and any date; the rest comes out in conversation. I write your lyrics, work with you on a round of revisions, and produce your custom song.'],['How fast will I get my song?','Every song is ready in 48–72 hours, guaranteed. Memorial songs always receive 24-hour delivery at no extra charge. For other songs, rush delivery is an additional $50. Mention your date when you reach out and I’ll confirm what’s possible.'],['Can I pick the style and approve the lyrics?','Absolutely. Choose the genre and feeling — romantic, funny, emotional, nostalgic, solemn, or whatever fits your story. You receive the lyrics first, with one round of revisions before production.'],['Can I give this as a gift?','Yes. A custom song makes a personal wedding gift, birthday surprise, anniversary present, or tribute. Share your keepsake page with someone you love, or play your downloaded MP3 at an event.'],['How do I share my song?','Send your keepsake page link by text or email: it’s a permanent home for your song, lyrics, and story. Your MP4 share video is ready to post on Facebook or play at a service, your lyric sheet prints for a frame or a program, and your album art works as a print or profile photo. The page isn’t publicly listed, but anyone with the link can view or share it.'],['Is my song one-of-a-kind?','Every song is built around your story from scratch. Names, memories, and the details that matter to you shape the finished song.'],['What if the finished song misses the mark?','I start over from scratch. The remake guarantee is included in your custom song.']];
 for(const [q,a] of faq){const d=document.createElement('details');const s=document.createElement('summary');s.textContent=q;const p=document.createElement('p');p.textContent=a;d.append(s,p);document.querySelector('#questions').append(d)}
 
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
@@ -269,7 +269,8 @@ if(porch&&!reduceMotion.matches&&'IntersectionObserver' in window){
   new IntersectionObserver(([entry])=>flies.classList.toggle('lit',entry.isIntersecting)).observe(porch);
 }
 
-/* On phones the header's Message me button is hidden, so a pinned one takes
+/* On phones the header's Message me button is hidden, so a pinned bar (Message
+   me + Call me back) takes
    over between the hero and the closing section (each has its own). */
 const mobileCta=document.querySelector('.mobile-cta');
 if(mobileCta&&'IntersectionObserver' in window){
@@ -387,10 +388,11 @@ document.addEventListener('visibilitychange',setupMobileMotion);
      generate_lead is the only conversion: it says how they reached out
      (method) and which button they used (placement). */
   const placementOf = el =>
-    el.classList.contains('mobile-cta') ? 'sticky'
+    el.closest('.mobile-cta') ? 'sticky'
     : el.closest('header') ? 'header'
     : el.closest('.hero') ? 'hero'
     : el.closest('.price-card') ? 'pricing'
+    : el.closest('.callback') ? 'callback_section'
     : el.closest('.closing') ? 'closing'
     : el.closest('footer') ? 'footer'
     : 'other';
@@ -404,6 +406,9 @@ document.addEventListener('visibilitychange',setupMobileMotion);
     if (href.startsWith('https://m.me/')) {
       gtag('event', 'messenger_click', { event_category: 'engagement', event_label: txt, placement });
       lead('messenger');
+    } else if (href.startsWith('https://calendar.app.google/')) {
+      gtag('event', 'callback_click', { event_category: 'engagement', event_label: txt, placement });
+      lead('callback');
     } else if (href.startsWith('sms:')) {
       gtag('event', 'sms_click', { event_category: 'engagement', event_label: txt, placement });
       lead('sms');
