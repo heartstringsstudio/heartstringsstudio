@@ -77,8 +77,10 @@ Until separate hosting is configured, the builder can create and preview a finis
 
 Draft files are downloaded locally and can include the complete story, artwork, MP3, and PDF. Store them as client-confidential files and delete them when no longer needed.
 
-## Open item: "Message me" on new keepsakes
+## The Message me line
 
-Not built yet. New keepsakes should carry one quiet Messenger line under the
-song player (see the reminder at the top of the keepsake section in
-`CLAUDE.md`). Keepsakes already delivered are never changed.
+Every keepsake delivery page built from November 2026 carries one line under
+the song player: "This song was written for one family. I’d be honored to
+write yours. Message me →", signed "Tim, Heartstrings Studio". It opens
+Messenger to the studio's Facebook Page. First-listen pages do not have it.
+Keepsakes delivered before this are never changed.
