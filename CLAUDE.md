@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=30-callback">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=31-seven-screens">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -68,6 +68,46 @@ older single-file version:
   `timphoto-new.jpeg` and
   `timphoto-avatar.jpg` are unused.
 
+## Page order (November 2026: 14 phone screens down to under 9)
+
+The audit found almost nobody reached the price, which sat nine phone
+screens down. The page is now ordered for someone deciding in seconds on a
+phone, and `tests/seo.test.mjs` pins the order:
+
+1. Hero: name, price line, Message me, Book a callback, text/call, proof line
+2. This week's song (`#weekly-song`)
+3. Three more songs (`#listen`) plus the "N more songs" drawer
+4. Memorial band (`#memorial`): the 24-hour promise and a Message me button
+5. Reviews, all three visible
+6. Porch statement (`#heart`): **desktop only**, hidden at 760px and below
+7. How it works + price in one section (`#process`; the price card is
+   `#pricing`). The price card is no longer tilted
+8. Book a callback (`#callback`)
+9. About (`#meet-tim`), FAQ (`#faq`, five questions), closing, footer
+
+Things that were cut on purpose; don't add them back without the owner
+asking: the Keepsake section (photo plus three tilted cards; its content is
+the price card's list), the dark jukebox invite block (the jukebox is one
+text link in the gallery head), the pricing column's own headline and its
+"A little less to carry" memorial note (now the memorial band), and the FAQ
+entries on gifting and one-of-a-kind. On phones the gallery cards drop their
+descriptions, the About portrait is small with no caption, and its pull
+quote is hidden.
+
+**The 24-hour figure appears once in the page body: in the memorial band.**
+A test counts it.
+
+Before adding a section, measure: the phone page is about 8.6 screens at
+390 × 844. Anything new should replace something.
+
+- **Gallery and drawer.** `featured` in `script.js` holds three YouTube ids,
+  one each for memorial, wedding and tribute; those render as cards in
+  `#songs`. Every other entry in `songs` (except the first, the weekly song)
+  renders inside `<details class="all-songs">` in `#songs-more`, so the
+  `ItemList` never describes a song that isn't on the page. If a featured
+  song is removed from `songs`, or becomes the weekly song, it simply drops
+  out of the three; pick a replacement id.
+
 ## Song playback
 
 - Song cards play **in place**, using the Jukebox's player pattern: the artwork
@@ -111,7 +151,8 @@ what crawlers or scripts-off visitors get.
   and an SVG swash; CSS inks the words in and then draws the swash. Keep the
   words inside the `em` so the headline text is unchanged.
 - **Fireflies** — `script.js` builds `.fireflies` inside `.home-sticky` and only
-  runs them while the porch is on screen.
+  runs them while the porch is on screen (desktop only now; the porch section
+  is hidden on phones).
 - **Pinned bar (phones)** — `.mobile-cta` after `</main>` is a `<div>` holding
   the two commission actions: "Message me" (wide, amber, Messenger) and "Call
   me back" (outlined, the calendar link). Both stay on one line at 375px. It
@@ -134,7 +175,7 @@ what crawlers or scripts-off visitors get.
 - To swap the week's song, edit only the **first entry of the `songs` array** in
   `script.js` — `[videoId, sceneKeyword, label, title, description, artwork?]`. That entry
   fills the spotlight title, description and player. The remaining entries fill
-  the lower gallery, so the weekly song is not duplicated there.
+  the gallery and its drawer, so the weekly song is not duplicated there.
 - The optional `artwork` path serves a verified full-resolution cover from
   `assets/`. If absent, other cards keep their YouTube thumbnail behavior.
   The weekly song and Lenay currently use local 1280×720 YouTube artwork.
@@ -321,7 +362,8 @@ dashboard repo carries its own four.
   "most songs".
 - The 24-hour figure appears **only** in memorial context.
 - The price card lists two add-ons: "Rush delivery +$50" and "Commercial
-  license +$100", with "Rush is never charged on memorial songs." under them. The owner confirmed on 2026-10-29 that the license is a
+  license +$100", with "Rush is never charged on memorial songs." under them.
+  The 24-hour promise itself is stated in the memorial band, not the card. The owner confirmed on 2026-10-29 that the license is a
   real, current offer, so leave it there.
 
 ## Commission path (Message me first, text or call beside it)
@@ -335,7 +377,7 @@ Facebook, so the primary action keeps them in it.
   the pricing card, the closing section and the pinned phone button
   ("Message me for a song"). If the Page claims a username, swap the link
   everywhere at once (`index.html`, `404.html`, `tests/seo.test.mjs`).
-- **Directly under the hero, pricing and closing buttons** sits
+- **Directly under the hero, memorial band, pricing and closing buttons** sits
   `<p class="reach-options">`: "Or text me · call 304-677-1113", both tappable
   (`sms:+13046771113`, `tel:+13046771113`). Nothing else goes in that group.
   The public number is 304-677-1113 and the visible form is always
@@ -356,9 +398,11 @@ Facebook, so the primary action keeps them in it.
   talk it through?"), the closing section, and the pinned phone bar ("Call me
   back"). The copy states no call length and no hours; the owner has not
   given any.
-- The only other `class="button"` link is **Open the jukebox** (`/jukebox/`).
-  The hero no longer has a listen link of its own; the scroll cue and the
-  postcard lead to the weekly song.
+- Nothing else on the page is a `class="button"`: the jukebox is a
+  `text-link` ("Explore the jukebox"). The hero has no listen link of its
+  own; the scroll cue and the postcard lead to the weekly song.
+- Message me is also the button in the memorial band, with the text and
+  call links under it.
   `tests/seo.test.mjs` pins all of this, plus
   `telephone: "+1-304-677-1113"` on the `#business` JSON-LD node.
 - The hero carries the price line ("$150 flat · Ready in 48–72 hours,

@@ -170,21 +170,35 @@ const weeklyPlayer=document.querySelector('#weekly-player');
 document.querySelector('#weekly-title').textContent=weeklySong[3];
 document.querySelector('#weekly-description').textContent=weeklySong[4];
 weeklyPlayer.append(buildFace(weeklySong,true));
-for(const song of songs.slice(1)){const card=document.createElement('article');card.className='song';card.append(buildFace(song));document.querySelector('#songs').append(card)}
-/* Phones swipe the gallery sideways; the counter says where you are and that
-   there is more. CSS hides it on wider screens, where the grid shows them all. */
-{const grid=document.querySelector('#songs'),cards=grid.children,count=document.createElement('p');
-count.className='song-count';count.setAttribute('aria-hidden','true');
-count.innerHTML='<span><b>1</b> of '+cards.length+'</span><span>Swipe for more →</span>';
-grid.after(count);
-const at=count.querySelector('b'),hint=count.lastChild;
-let tick=0;
-grid.addEventListener('scroll',()=>{cancelAnimationFrame(tick);tick=requestAnimationFrame(()=>{
-  const step=cards.length>1?cards[1].offsetLeft-cards[0].offsetLeft:1;
-  const end=grid.scrollLeft>=grid.scrollWidth-grid.clientWidth-2;
-  const i=end?cards.length-1:Math.min(cards.length-1,Math.round(grid.scrollLeft/step));
-  at.textContent=i+1;hint.textContent=i===cards.length-1?'← Swipe back':'Swipe for more →';
-})},{passive:true})}
+/* The gallery shows three songs, one each for the occasions people most
+   often come for (memorial, wedding, tribute). Every other song sits in the
+   "More songs" drawer under them, so the page stays short but nothing in the
+   ItemList is missing from it. The Jukebox is the full catalogue. */
+const featured=['hzpk-CxvldM','NdHBikaJI0U','RTF8mwCbI48'];
+const rest=songs.slice(1);
+const shown=featured.map(id=>rest.find(s=>s[0]===id)).filter(Boolean);
+const more=rest.filter(s=>!shown.includes(s));
+function fillGrid(grid,list){
+  for(const song of list){const card=document.createElement('article');card.className='song';card.append(buildFace(song));grid.append(card)}
+  /* Phones swipe a grid sideways; the counter says where you are and that
+     there is more. CSS hides it on wider screens, where the grid shows all. */
+  const cards=grid.children,count=document.createElement('p');
+  count.className='song-count';count.setAttribute('aria-hidden','true');
+  count.innerHTML='<span><b>1</b> of '+cards.length+'</span><span>Swipe for more →</span>';
+  grid.after(count);
+  const at=count.querySelector('b'),hint=count.lastChild;
+  let tick=0;
+  grid.addEventListener('scroll',()=>{cancelAnimationFrame(tick);tick=requestAnimationFrame(()=>{
+    const step=cards.length>1?cards[1].offsetLeft-cards[0].offsetLeft:1;
+    const end=grid.scrollLeft>=grid.scrollWidth-grid.clientWidth-2;
+    const i=end?cards.length-1:Math.min(cards.length-1,Math.round(grid.scrollLeft/step));
+    at.textContent=i+1;hint.textContent=i===cards.length-1?'← Swipe back':'Swipe for more →';
+  })},{passive:true});
+}
+fillGrid(document.querySelector('#songs'),shown);
+const drawer=document.querySelector('.all-songs');
+if(more.length){fillGrid(document.querySelector('#songs-more'),more);drawer.querySelector('summary').textContent=more.length+' more songs';}
+else drawer.hidden=true;
 addEventListener('keydown',e=>{if(e.key==='Escape')stopSong(true)});
 
 /* The WBOY segment isn't a song card, so its links open the same player in a
@@ -235,7 +249,7 @@ if(typeof HTMLDialogElement==='function'&&HTMLDialogElement.prototype.showModal)
   }
 }
 
-const faq=[['How does it work?','Message me on Facebook, text or call 304-677-1113, or book a time for me to call you, whatever’s easiest. I answer myself, usually the same day. Just share your first name, the occasion and any date; the rest comes out in conversation. I write your lyrics, work with you on a round of revisions, and produce your custom song.'],['How fast will I get my song?','Every song is ready in 48–72 hours, guaranteed. Memorial songs always receive 24-hour delivery at no extra charge. For other songs, rush delivery is an additional $50. Mention your date when you reach out and I’ll confirm what’s possible.'],['Can I pick the style and approve the lyrics?','Absolutely. Choose the genre and feeling — romantic, funny, emotional, nostalgic, solemn, or whatever fits your story. You receive the lyrics first, with one round of revisions before production.'],['Can I give this as a gift?','Yes. A custom song makes a personal wedding gift, birthday surprise, anniversary present, or tribute. Share your keepsake page with someone you love, or play your downloaded MP3 at an event.'],['How do I share my song?','Send your keepsake page link by text or email: it’s a permanent home for your song, lyrics, and story. Your MP4 share video is ready to post on Facebook or play at a service, your lyric sheet prints for a frame or a program, and your album art works as a print or profile photo. The page isn’t publicly listed, but anyone with the link can view or share it.'],['Is my song one-of-a-kind?','Every song is built around your story from scratch. Names, memories, and the details that matter to you shape the finished song.'],['What if the finished song misses the mark?','I start over from scratch. The remake guarantee is included in your custom song.']];
+const faq=[['How does it work?','Message me on Facebook, text or call 304-677-1113, or book a time for me to call you, whatever’s easiest. I answer myself, usually the same day. Just share your first name, the occasion and any date; the rest comes out in conversation. I write your lyrics, work with you on a round of revisions, and produce your custom song.'],['How fast will I get my song?','Every song is ready in 48–72 hours, guaranteed. Memorial songs always receive 24-hour delivery at no extra charge. For other songs, rush delivery is an additional $50. Mention your date when you reach out and I’ll confirm what’s possible.'],['Can I pick the style and approve the lyrics?','Absolutely. Choose the genre and feeling — romantic, funny, emotional, nostalgic, solemn, or whatever fits your story. You receive the lyrics first, with one round of revisions before production.'],['How do I share my song?','Send your keepsake page link by text or email: it’s a permanent home for your song, lyrics, and story. Your MP4 share video is ready to post on Facebook or play at a service, your lyric sheet prints for a frame or a program, and your album art works as a print or profile photo. The page isn’t publicly listed, but anyone with the link can view or share it.'],['What if the finished song misses the mark?','I start over from scratch. The remake guarantee is included in your custom song.']];
 for(const [q,a] of faq){const d=document.createElement('details');const s=document.createElement('summary');s.textContent=q;const p=document.createElement('p');p.textContent=a;d.append(s,p);document.querySelector('#questions').append(d)}
 
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');

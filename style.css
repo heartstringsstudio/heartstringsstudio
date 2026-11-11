@@ -582,3 +582,82 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
   .mobile-cta .button:first-child { flex:1; justify-content:center; gap:14px; }
   .mobile-cta .button.ghost { background:var(--bg); box-shadow:inset 0 0 0 1.5px var(--accent),0 14px 30px #000a; }
 }
+
+/* Seven screens (November 2026). The phone page ran 14 screens and almost
+   nobody reached the price. The order is now: hero, this week's song, three
+   more songs, the memorial band, reviews, how-it-works + price in one
+   section, callback, about, FAQ, closing. The keepsake section, the jukebox
+   block and two FAQ entries are gone; the porch statement is desktop-only. */
+.more-songs { padding-block:70px 80px; }
+.more-songs .section-head { margin-bottom:40px; }
+.more-songs h2 { font-size:clamp(2.4rem,3.6vw,3.6rem); line-height:1.1; }
+.all-songs { margin-top:50px; border-top:1px solid var(--cream-line); border-bottom-color:var(--cream-line); }
+.all-songs summary { color:var(--cream-ink); font-weight:600; }
+.all-songs summary:after { color:var(--cream-accent); }
+.all-songs summary:focus-visible { outline-color:var(--cream-accent); }
+.all-songs .song-grid { padding-block:20px 50px; }
+
+.memorial-band { background:var(--panel); border-block:1px solid var(--line); padding-block:76px; text-align:center; }
+.memorial-band .wrap { max-width:760px; }
+.memorial-band .eyebrow { margin-bottom:18px; }
+.memorial-band h2 { font-size:clamp(2.4rem,3.8vw,3.6rem); line-height:1.12; }
+.memorial-band h2+p { max-width:520px; margin:20px auto 30px; font-size:1.05rem; color:var(--ink-soft); }
+.memorial-band .reach-options { margin-top:20px; color:var(--ink-soft); }
+.memorial-band .reach-options a { color:var(--ink); }
+
+.offer .price-layout { align-items:start; gap:80px; }
+.offer h2 { font-size:clamp(2.6rem,4vw,4.2rem); line-height:1.05; }
+.offer .steps { grid-template-columns:1fr; gap:4px; margin-top:40px; }
+.offer .steps article { position:relative; padding:22px 0 22px 64px; }
+.offer .steps span { position:absolute; left:0; top:18px; font-size:2.5rem; }
+.offer .steps h3 { margin:0 0 8px; font-size:1.5rem; }
+/* Prices and deliverables are read, not admired: the card sits square. */
+.offer .price-card { transform:none; }
+
+@media (max-width:760px) {
+  .section-pad { padding-block:52px; }
+  .home-story { display:none; }
+  .more-songs { padding-block:40px 44px; }
+  .more-songs .section-head { gap:12px; margin-bottom:20px; }
+  .more-songs h2 { font-size:2.1rem; }
+  .all-songs { margin-top:22px; }
+  .all-songs .song-grid { padding-block:8px 18px; }
+  .memorial-band { padding-block:46px; }
+  .memorial-band h2 { font-size:2.3rem; }
+  .memorial-band h2+p { margin:14px auto 22px; font-size:1rem; }
+  .memorial-band .button { width:100%; }
+  .memorial-band .reach-options { margin-top:10px; }
+  .featured-reaction { padding-block:36px; gap:14px; }
+  .featured-reaction blockquote { font-size:1.12rem; margin:8px 0 10px; }
+  .reviews figure+figure { margin-top:22px; }
+  .offer .price-layout { gap:34px; }
+  .offer h2 { font-size:2.5rem; }
+  .offer .steps { margin-top:22px; }
+  .offer .steps article { padding-block:14px; }
+  .offer .steps h3 { font-size:1.35rem; margin-bottom:4px; }
+  .price-card li { padding-block:4px; }
+  .amount { font-size:4.6rem; line-height:1.3; }
+  .price-card .guarantee { margin:18px 0; }
+  .about .pullquote { display:none; }
+  .portrait { width:68%; }
+  .portrait img { height:300px; object-position:center 18%; }
+  .closing { padding-block:52px; }
+  /* Tighter still: every one of these is height with nothing to read in it. */
+  .hero .scene-frame { aspect-ratio:auto; height:230px; }
+  .weekly-copy .text-link { display:none; }
+  .weekly-copy>p:not(.eyebrow) { margin-bottom:0; }
+  .more-songs h2 { display:none; }
+  .more-songs .section-head { flex-direction:row; align-items:center; justify-content:space-between; }
+  .more-songs .section-head .eyebrow { margin:0; }
+  .more-songs .song p { display:none; }
+  .more-songs .song { padding-bottom:16px; }
+  .featured-reaction figcaption small { display:inline; margin-left:10px; }
+  .callback { padding-block:36px 44px; }
+  .callback-card { padding:28px 22px; }
+  .about { gap:22px; }
+  .portrait { width:150px; margin:0 0 0 6px; border-width:6px; transform:rotate(-3deg); box-shadow:8px 10px 0 #755238,12px 16px 22px #0006; }
+  .portrait img { height:180px; }
+  .portrait span { display:none; }
+  .about>div:last-child { margin-top:0; }
+  .about .text-link { display:inline-block; margin-top:22px; }
+}
