@@ -38,7 +38,18 @@ function buildFace(song,featured=false){
   thumb.type='button';
   thumb.className='song-image thumb-btn';
   thumb.setAttribute('aria-label','Play “'+title+'”');
-  thumb.innerHTML=`<img class="scene-thumb" src="assets/${sceneFor(img)}.webp" alt="" loading="lazy"><img src="${thumbnail}" onerror="this.hidden=true" alt="" loading="${featured?'eager':'lazy'}"><span class="play" aria-hidden="true">▶</span>`;
+  /* Gallery cards show a cover at a third of its size, so they ask for the
+     800px copy (tools/build-song-thumbs.py) and fall back to the full file.
+     The scene backdrop is only fetched if the artwork fails altogether: it
+     used to load behind every card, where nobody could see it. */
+  const small=artwork&&!featured?artwork.replace(/\.(webp|jpg)$/,'-800.$1'):'';
+  thumb.innerHTML=`<img src="${small||thumbnail}" alt="" loading="${featured?'eager':'lazy'}"><span class="play" aria-hidden="true">▶</span>`;
+  const art=thumb.querySelector('img');
+  art.addEventListener('error',()=>{
+    if(small&&art.getAttribute('src')===small){art.src=thumbnail;return;}
+    art.hidden=true;
+    if(!thumb.querySelector('.scene-thumb')){const scene=document.createElement('img');scene.className='scene-thumb';scene.src=`assets/${sceneFor(img)}.webp`;scene.alt='';thumb.prepend(scene);}
+  });
   thumb.addEventListener('click',()=>startSong(face.closest('.song'),song));
   const meta=document.createElement('div');
   meta.className='card-body';
@@ -386,15 +397,21 @@ document.addEventListener('visibilitychange',setupMobileMotion);
   }
   if ('IntersectionObserver' in window) {
     const seen = {};
+    /* "Seen" means half the section is on screen, or the section fills half
+       the screen. The second half matters: a section taller than two phone
+       screens (the price section was) can never be 50% visible, so it was
+       never counted. */
+    const steps = Array.from({ length: 21 }, (_, i) => i / 20);
     const io = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
+        if (entry.intersectionRatio < .5 && entry.intersectionRect.height < innerHeight * .5) return;
         const name = sectionName(entry.target);
         if (seen[name]) return;
         seen[name] = true;
         gtag('event', 'section_view', { section: name, event_category: 'engagement', event_label: name, non_interaction: true });
       });
-    }, { threshold: .5 });
+    }, { threshold: steps });
     document.querySelectorAll('section').forEach(el => io.observe(el));
   }
 

@@ -175,6 +175,18 @@ test('no inline order form on the page', () => {
 /* The song cards are in-page players (the Jukebox pattern), so nothing in the
    listen section links out to youtube.com and no iframe is built until a
    visitor presses play. */
+/* Gallery cards load an 800px copy of each local cover; script.js falls back
+   to the full file, so a missing copy only costs bytes, but it should exist. */
+test('every local song cover has its 800px gallery copy', () => {
+  const body = js.match(/const songs=\[([\s\S]*?)\];/)[1];
+  const covers = [...body.matchAll(/'(assets\/[^']+\.(?:webp|jpg))'\]/g)].map((m) => m[1]);
+  assert.ok(covers.length > 0);
+  for (const cover of covers) {
+    const small = cover.replace(/\.(webp|jpg)$/, '-800.$1');
+    assert.ok(fs.existsSync(path.join(root, small)), `${small} is missing; run tools/build-song-thumbs.py`);
+  }
+});
+
 test('song cards play in place instead of linking out to YouTube', () => {
   /* Three songs are shown; the rest sit in the More songs drawer, so every
      entry in the ItemList is still on the page. */
