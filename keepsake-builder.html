@@ -632,6 +632,12 @@
         + (videoUrl
           ? '      <a class="video-link" href="' + escAttr(videoUrl) + '" target="_blank" rel="noopener">Watch the video</a>\n'
           : '')
+        // One quiet line for whoever the song was shared with: most people who
+        // open a keepsake never reach the footer. Delivered keepsakes only;
+        // a first listen is for the client alone.
+        + (songSrc && !premiere
+          ? '      <p class="studio-ask">This song was written for one family. I\u2019d be honored to write yours. <a class="ask-link" href="https://m.me/61584734289007" target="_blank" rel="noopener">Message me&nbsp;&rarr;</a><span class="ask-sign">Tim, Heartstrings Studio</span></p>\n'
+          : '')
         + '    </section>';
 
       // Low-key, and last: the page is where the song lives.
@@ -686,7 +692,7 @@
         + '<p class="share-status" role="status" aria-live="polite"></p>'
         + '<p class="share-link"><input type="text" readonly aria-label="Link to share" value="' + escAttr(shareUrl) + '" /></p>'
         + '</div></section>';
-      var clientExtras = '<style>.first-listen-note{margin:.2rem 0 0;text-align:center;font-family:var(--serif-alt);font-style:italic;font-size:1.02rem;color:var(--text-muted)}.keepsake-downloads,.share{max-width:460px;margin:0 auto}.keepsake-downloads{display:grid;gap:.85rem}.keepsake-download{display:flex;flex-direction:column;padding:1rem 1.2rem;background:var(--cream-warm);border:1px solid rgba(161,124,82,.42);border-radius:3px;box-shadow:0 10px 28px rgba(63,50,39,.07)}.keepsake-download strong{font-family:var(--serif-alt);font-size:1.25rem;color:var(--charcoal)}.keepsake-download span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}html.sharing section[aria-labelledby="downloads-heading"],html.sharing .song-download{display:none}.share{text-align:center}.share-note{font-family:var(--serif-alt);font-style:italic;font-size:1.05rem;line-height:1.6;color:var(--text-muted);margin:0 0 1.5rem}.share-note-guest{display:none}html.sharing .share-note-owner{display:none}html.sharing .share-note-guest{display:block}.share-btn{display:none;font:700 italic 1.05rem var(--serif-alt);color:var(--rose-deep);background:transparent;border:1px solid var(--rose);padding:.8rem 2.2rem;cursor:pointer;transition:color .4s var(--ease),background-color .4s var(--ease)}.share.share-ready .share-btn{display:inline-block}.share-btn:hover{color:var(--cream);background:var(--rose-deep);border-color:var(--rose-deep)}.share-btn:focus-visible{outline:2px solid var(--rose);outline-offset:3px}.share-status{min-height:1.5em;margin:.85rem 0 0;font-family:var(--serif-alt);font-style:italic;font-size:.98rem;color:var(--rose-deep)}.share-link{margin:1.05rem 0 0}.share.share-ready .share-link{display:none}.share.share-ready .share-link.is-shown{display:block}.share-link input{width:100%;padding:.7rem .8rem;font-family:var(--sans);font-size:.9rem;color:var(--text-body);background:var(--cream-warm);border:1px solid rgba(161,124,82,.42);text-align:center}body.occasion-memorial-tribute,body.occasion-celebration-of-life{--rose:#7d6247;--rose-light:#e8cfa6;--rose-deep:#5e4936}body.occasion-wedding,body.occasion-anniversary{--rose:#8a4f1f;--rose-light:#f5c684}@media (prefers-reduced-motion: reduce){.share-btn{transition:none}}@media print{.listen,.also-youtube,.share,.site-footer{display:none!important}html.js .reveal{opacity:1!important;transform:none!important}.lyrics>summary{display:none}}</style>' + downloadsSection + shareSection + youtubeNote;
+      var clientExtras = '<style>.studio-ask{max-width:460px;margin:1.5rem auto 0;text-align:center;font-family:var(--serif-alt);font-style:italic;font-size:1.05rem;line-height:1.6;color:var(--text-body)}.ask-link{display:inline-block;padding:.5rem .1rem;border-bottom:0;font-family:var(--sans);font-style:normal;font-weight:700;color:var(--rose-deep);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}.ask-link:hover{color:var(--rose)}.ask-sign{display:block;margin-top:.2rem;font-family:var(--sans);font-style:normal;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#6e5b47}.first-listen-note{margin:.2rem 0 0;text-align:center;font-family:var(--serif-alt);font-style:italic;font-size:1.02rem;color:var(--text-muted)}.keepsake-downloads,.share{max-width:460px;margin:0 auto}.keepsake-downloads{display:grid;gap:.85rem}.keepsake-download{display:flex;flex-direction:column;padding:1rem 1.2rem;background:var(--cream-warm);border:1px solid rgba(161,124,82,.42);border-radius:3px;box-shadow:0 10px 28px rgba(63,50,39,.07)}.keepsake-download strong{font-family:var(--serif-alt);font-size:1.25rem;color:var(--charcoal)}.keepsake-download span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}html.sharing section[aria-labelledby="downloads-heading"],html.sharing .song-download{display:none}.share{text-align:center}.share-note{font-family:var(--serif-alt);font-style:italic;font-size:1.05rem;line-height:1.6;color:var(--text-muted);margin:0 0 1.5rem}.share-note-guest{display:none}html.sharing .share-note-owner{display:none}html.sharing .share-note-guest{display:block}.share-btn{display:none;font:700 italic 1.05rem var(--serif-alt);color:var(--rose-deep);background:transparent;border:1px solid var(--rose);padding:.8rem 2.2rem;cursor:pointer;transition:color .4s var(--ease),background-color .4s var(--ease)}.share.share-ready .share-btn{display:inline-block}.share-btn:hover{color:var(--cream);background:var(--rose-deep);border-color:var(--rose-deep)}.share-btn:focus-visible{outline:2px solid var(--rose);outline-offset:3px}.share-status{min-height:1.5em;margin:.85rem 0 0;font-family:var(--serif-alt);font-style:italic;font-size:.98rem;color:var(--rose-deep)}.share-link{margin:1.05rem 0 0}.share.share-ready .share-link{display:none}.share.share-ready .share-link.is-shown{display:block}.share-link input{width:100%;padding:.7rem .8rem;font-family:var(--sans);font-size:.9rem;color:var(--text-body);background:var(--cream-warm);border:1px solid rgba(161,124,82,.42);text-align:center}body.occasion-memorial-tribute,body.occasion-celebration-of-life{--rose:#7d6247;--rose-light:#e8cfa6;--rose-deep:#5e4936}body.occasion-wedding,body.occasion-anniversary{--rose:#8a4f1f;--rose-light:#f5c684}@media (prefers-reduced-motion: reduce){.share-btn{transition:none}}@media print{.listen,.also-youtube,.share,.site-footer{display:none!important}html.js .reveal{opacity:1!important;transform:none!important}.lyrics>summary{display:none}}</style>' + downloadsSection + shareSection + youtubeNote;
 
       var pageHtml = '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8" />\n  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n\n  <!-- ============================================================= -->\n  <!--  HEARTSTRINGS STUDIO · KEEPSAKE PAGE · VERSION 2               -->\n  <!--  Lumberport, WV                                               -->\n  <!-- ============================================================= -->\n\n  <!-- VARIABLE: SONG_TITLE -->\n  <title>' +
         titleHtml +
@@ -710,7 +716,7 @@
         clientExtras +
         '\n\n  </main>\n\n  <!-- ===================== FOOTER · ONE LINK HOME ===================== -->\n  <footer class="site-footer reveal">\n    <span class="footer-mark"><img src="' +
         LOGO_DATA_URI +
-        '" alt="" width="100" height="100" /></span>\n    <p class="footer-line">Written by hand and made to be kept.</p>\n    <!-- The ONE call to action on the page. Do not add others. -->\n    <p class="footer-ask">Have someone worth a song? <a class="cta" href="https://heartstringsstudio.github.io/heartstringsstudio/">Visit Heartstrings Studio&nbsp;&rarr;</a></p>\n    <p class="studio-mark">Heartstrings Studio · Lumberport, West Virginia</p>\n  </footer>\n\n  <script>\n    // Gentle fade-up on scroll. Skipped entirely under reduced-motion.\n    (function () {\n      var reduce = window.matchMedia(\'(prefers-reduced-motion: reduce)\').matches;\n      var items = document.querySelectorAll(\'.reveal\');\n      if (reduce || !(\'IntersectionObserver\' in window)) {\n        items.forEach(function (el) { el.classList.add(\'is-visible\'); });\n        return;\n      }\n      var io = new IntersectionObserver(function (entries) {\n        entries.forEach(function (entry) {\n          if (entry.isIntersecting) {\n            entry.target.classList.add(\'is-visible\');\n            io.unobserve(entry.target);\n          }\n        });\n      }, { threshold: 0.12, rootMargin: \'0px 0px -8% 0px\' });\n      items.forEach(function (el) { io.observe(el); });\n    })();\n  <\/script>\n</body>\n</html>\n';
+        '" alt="" width="100" height="100" /></span>\n    <p class="footer-line">Written by hand and made to be kept.</p>\n    <!-- The one link home. The only other ask on the page is the Message me line under the player. Do not add more. -->\n    <p class="footer-ask">Have someone worth a song? <a class="cta" href="https://heartstringsstudio.github.io/heartstringsstudio/">Visit Heartstrings Studio&nbsp;&rarr;</a></p>\n    <p class="studio-mark">Heartstrings Studio · Lumberport, West Virginia</p>\n  </footer>\n\n  <script>\n    // Gentle fade-up on scroll. Skipped entirely under reduced-motion.\n    (function () {\n      var reduce = window.matchMedia(\'(prefers-reduced-motion: reduce)\').matches;\n      var items = document.querySelectorAll(\'.reveal\');\n      if (reduce || !(\'IntersectionObserver\' in window)) {\n        items.forEach(function (el) { el.classList.add(\'is-visible\'); });\n        return;\n      }\n      var io = new IntersectionObserver(function (entries) {\n        entries.forEach(function (entry) {\n          if (entry.isIntersecting) {\n            entry.target.classList.add(\'is-visible\');\n            io.unobserve(entry.target);\n          }\n        });\n      }, { threshold: 0.12, rootMargin: \'0px 0px -8% 0px\' });\n      items.forEach(function (el) { io.observe(el); });\n    })();\n  <\/script>\n</body>\n</html>\n';
       /* The big Play button is revealed by scripts and drives the native
          player under it; with scripts off the native controls stand alone. */
       var playerScript = "    (function () {\n"
@@ -732,6 +738,29 @@
         + "        }\n"
         + "      });\n"
         + "      ['play', 'pause', 'ended'].forEach(function (name) { audio.addEventListener(name, sync); });\n"
+        + "    })();\n"
+        // Measurement: a play, a tap on Message me, a tap on the link home.
+        // Silent when the analytics tag is blocked.
+        + "    (function () {\n"
+        + "      if (typeof gtag !== 'function') return;\n"
+        + "      var song = document.title.split(' \u00b7 ')[0];\n"
+        + "      var audio = document.getElementById('song-audio');\n"
+        + "      var played = false;\n"
+        + "      if (audio) audio.addEventListener('play', function () {\n"
+        + "        if (played) return;\n"
+        + "        played = true;\n"
+        + "        gtag('event', 'song_play', { event_category: 'engagement', event_label: song });\n"
+        + "      });\n"
+        + "      document.addEventListener('click', function (e) {\n"
+        + "        var link = e.target.closest ? e.target.closest('a.ask-link, a.cta') : null;\n"
+        + "        if (!link) return;\n"
+        + "        if (link.className === 'ask-link') {\n"
+        + "          gtag('event', 'messenger_click', { event_category: 'engagement', event_label: song, placement: 'keepsake' });\n"
+        + "          gtag('event', 'generate_lead', { event_category: 'conversion', event_label: song, method: 'messenger', placement: 'keepsake' });\n"
+        + "        } else {\n"
+        + "          gtag('event', 'studio_click', { event_category: 'engagement', event_label: song });\n"
+        + "        }\n"
+        + "      });\n"
         + "    })();\n";
 
       var occasionClass = 'occasion-' + slugify(occasion);

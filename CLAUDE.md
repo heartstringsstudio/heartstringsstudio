@@ -266,7 +266,8 @@ the steps, the count-up, and the rotating reviews. What is left:
   channel event plus a single `generate_lead`; an email tap fires
   `generate_lead` alone. `generate_lead` carries `method` (`messenger`,
   `callback`, `sms`, `tel`, `email`) and `placement` (`header`, `hero`,
-  `pricing`, `callback_section`, `closing`, `sticky`, `footer`). `cta_click` now fires only for jukebox links
+  `pricing`, `callback_section`, `closing`, `sticky`, `footer`; `keepsake`
+  comes from keepsake pages). `cta_click` now fires only for jukebox links
   (`hear_songs`); it must not be sent beside `generate_lead` again, because
   that counted every lead twice. In GA, `generate_lead` should be the only
   key event.
@@ -280,28 +281,30 @@ the steps, the count-up, and the rotating reviews. What is left:
 - `sitemap.xml` has to be submitted directly in Google Search Console — the
   project-site `robots.txt` is never read. Bump its `lastmod` on real changes.
 
-## REMINDER FOR THE OWNER: keepsakes still need "Message me" (open)
+## Keepsakes and the studio ask (November 2026)
 
-**If a session touches `keepsake-builder.html`, `keepsaketemplate.html`,
-`KEEPSAKE-OPERATIONS.md` or the keepsakes repository, tell the owner about
-this before doing anything else.** They asked to be reminded (11 November
-2026) because they will otherwise forget.
+The November 2026 audit found keepsake pages are the real front door: 270 of
+303 sessions landed on one, with 0 leads, and the only link to the studio
+was one line in the footer.
 
-- The November 2026 audit (kept by the owner, not in this repo) found keepsake pages are the real front
-  door: 270 of 303 sessions landed on one, with 0 leads, and the only link to
-  the studio is one line in the footer.
-- Agreed change, **for new keepsakes only**: a quiet line directly under the
-  song player that opens Messenger to the studio's Facebook Page
-  (`https://m.me/61584734289007`), e.g. "I write songs like this for
-  families. Message me →". The owner has not approved final wording yet; ask.
+- **New keepsakes carry one quiet line under the song player**, built by
+  `keepsake-builder.html`: "This song was written for one family. I’d be
+  honored to write yours. Message me →", signed "Tim, Heartstrings Studio".
+  The owner chose that wording. The link (`a.ask-link`) opens Messenger to
+  the studio's Facebook Page, `https://m.me/61584734289007`.
+- It appears on *Keepsake delivery* pages only, once a song is attached.
+  **Never on a *First listen* page**, which is for the client alone. It is
+  not hidden on `?share` links: the people a song is shared with are exactly
+  who it is for.
 - **Do not edit keepsakes that have already been delivered.** The owner
-  decided those stay exactly as the families received them.
-- The builder's rule "The ONE call to action on the page. Do not add others"
-  and the matching check in `tests/keepsake-builder.test.mjs` both have to
-  change with it. Keep it off *First listen* pages.
-- Also add a `song_play` event on the audio player and a click event on the
-  studio link; keepsakes send neither today.
-- Delete this section once the builder ships the change.
+  decided those stay exactly as the families received them. This applies to
+  the keepsakes repository as a whole.
+- The footer's "Have someone worth a song? Visit Heartstrings Studio →"
+  (`a.cta`) stays as the one link home. Those two are the only asks on the
+  page; don't add a third.
+- Keepsakes now send `song_play` (first press of play), `messenger_click` +
+  `generate_lead` (`method: messenger`, `placement: keepsake`) for the ask,
+  and `studio_click` for the footer link.
 
 ## The satellite pages (404, keepsake builder, keepsake template)
 

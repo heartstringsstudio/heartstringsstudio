@@ -207,6 +207,8 @@ test('a first-listen page is the song and the lyrics, nothing else', () => {
   assert.match(html, /Your first listen\. Your downloads come with your finished keepsake\./);
   // No story either: art, song and lyrics only.
   assert.doesNotMatch(html, /id="story-heading"|class="story-open"|This is where the story begins/);
+  // No studio ask either: a first listen is for the client alone.
+  assert.doesNotMatch(html, /class="studio-ask"|m\.me\//);
   for (const gone of [/Download your song/, /Download the lyric sheet/, /Download your share video/, /id="downloads-heading"/,
     /class="video-link"/, /Watch the video/, /Share this song/, /class="share-btn"/, /also-youtube"/, /data:application\/pdf/]) {
     assert.doesNotMatch(html, gone);
@@ -219,6 +221,7 @@ test('a first-listen page is the song and the lyrics, nothing else', () => {
       assert.match(delivered, back);
     }
     assert.doesNotMatch(delivered, /first-listen-note">/);
+    assert.match(delivered, /class="studio-ask"/);
     assert.match(delivered, /<p class="story-open">This is where the story begins\.<\/p>/);
     assert.doesNotMatch(delivered, /controlslist/);
   }
@@ -235,6 +238,30 @@ test('the builder offers the first-listen switch and only asks for the deliverab
     assert.ok(builder.includes(`<div class="field" data-keepsake-only>\n        <label for="${id}">`), id);
   }
   assert.ok(builder.includes("if (keepsake && !els.storyOpen.value.trim()) errors.push('Story opening');"));
+});
+
+/* Most people who open a keepsake were sent it by someone else and never
+   reach the footer, so one quiet line under the player asks for them. It
+   opens Messenger to the studio's Facebook Page, it is signed, and it is the
+   only ask besides the footer's link home. */
+test('a delivered keepsake carries one Message me line under the player', () => {
+  const app = loadBuilder();
+  const html = app.buildPage(Object.assign({}, keepsake, { publish: true, videoLink: 'https://drive.google.com/x' }));
+  assert.equal((html.match(/class="studio-ask"/g) || []).length, 1);
+  assert.match(html, /This song was written for one family\. I\u2019d be honored to write yours\. <a class="ask-link" href="https:\/\/m\.me\/61584734289007" target="_blank" rel="noopener">Message me/);
+  assert.match(html, /<span class="ask-sign">Tim, Heartstrings Studio<\/span>/);
+  // Under the player, above the story.
+  const ask = html.indexOf('class="studio-ask"');
+  assert.ok(html.indexOf('id="song-audio"') < ask && ask < html.indexOf('id="story-heading"'));
+  // Shown to the people it was shared with, not hidden like the downloads.
+  assert.doesNotMatch(html, /html\.sharing \.studio-ask/);
+  // No song yet, no ask.
+  const empty = app.buildPage(Object.assign({}, keepsake, { songMp3: '' }));
+  assert.doesNotMatch(empty, /class="studio-ask"/);
+  // Plays and taps are measured.
+  for (const event of ['song_play', 'messenger_click', 'generate_lead', 'studio_click']) {
+    assert.ok(html.includes(`'${event}'`), `missing ${event}`);
+  }
 });
 
 test('page copy speaks as one songwriter and names no tools', () => {
