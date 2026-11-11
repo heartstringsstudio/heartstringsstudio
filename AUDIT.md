@@ -237,18 +237,26 @@ Handwritten-headline reveal, underline swash, count-up number, fireflies, auto-r
 > I write custom songs from your memories.
 > $150 flat · Ready in 48–72 hours, guaranteed
 > [ Message me for a song ]  [ Book a callback ]
+> Or [text me] · [call 304-677-1113]
 > 100+ songs · As seen on WBOY's 304 Today · ★★★★★
 
 **Memorial band**
 > **Lost someone?**
 > Tell me about them. Memorial songs are ready in 24 hours, and I never charge a rush fee for one.
 > [ Message me ]
+> Or [text me] · [call 304-677-1113]
 
 **Closing**
 > **You already have the story.**
 > Send me a message and tell me who the song is for. I'll take it from there.
 > [ Message me for a song ]  [ Book a callback ]
 > Or text or call me: 304-677-1113
+
+**The rule for every Message button (hero, memorial band, price card, closing):**
+- The button opens Messenger to the **Heartstrings Studio Page** (the Page the footer already links to, `facebook.com/profile.php?id=61584734289007`). Never a personal profile.
+- Directly under it, within a thumb's reach, sit the two alternatives as **tappable links**, not plain text: **Text me** (`sms:+13046771113`) and **Call 304-677-1113** (`tel:+13046771113`). Each at least 44px tall.
+- Nothing else in that group. No email, no Story Room. Book a callback is the separate outlined button.
+- The pinned bar is the one exception: it has room for Message me and Call me back only. The text and call links are never more than one screen away.
 
 **The link itself.** Messenger links take the form `https://m.me/` followed by your Page's username. Your Page currently has a numeric address (`facebook.com/profile.php?id=61584734289007`). Claim a Page username first; `heartstringsstudiowv` would match your YouTube and TikTok handles, giving `m.me/heartstringsstudiowv`. Confirm that messaging is switched on for the Page and that the link opens the **Page's** inbox, not a personal profile. I could not test this from here (Facebook is not reachable from the audit environment).
 
@@ -479,6 +487,7 @@ Customer quotes ("I would have him write…", "Tim took over…") are the custom
 │  ┌────────────────────────────────┐  │
 │  │   Book a callback              │  │  outlined, secondary → calendar
 │  └────────────────────────────────┘  │
+│   Or text me · call 304-677-1113     │  both tappable
 │                                      │
 │   ▶ Hear a song                      │  small chip, scrolls to player
 │                                      │
@@ -502,6 +511,7 @@ Customer quotes ("I would have him write…", "Tim took over…") are the custom
 │  are ready in 24 hours, and I never  │
 │  charge a rush fee for one.          │
 │  [ Message me ]                      │
+│  Or text me · call 304-677-1113      │
 ├──────────────────────────────────────┤
 │  ★★★★★ "My daughter cried, as well   │
 │  as I did…"              — Jane H.   │
@@ -527,6 +537,7 @@ Customer quotes ("I would have him write…", "Tim took over…") are the custom
 │  │  If it misses the mark, I      │  │
 │  │  start over.                   │  │
 │  │  [ Message me for a song ]     │  │
+│  │  Or text me · call 304-677-1113│  │
 │  │  Commercial license +$100      │  │
 │  │  Rush +$50 (never on memorials)│  │
 │  └────────────────────────────────┘  │
