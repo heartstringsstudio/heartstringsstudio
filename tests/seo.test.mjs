@@ -159,6 +159,9 @@ test('copy keeps the business rules', () => {
   }
   assert.ok(visible.includes('48–72 hours, guaranteed'));
   assert.ok(html.includes('Rush is never charged on memorial songs.'));
+  /* Wherever the FAQ prices rush, the free memorial promise comes first. */
+  const fast = js.match(/'How fast will I get my song\?','([^']*)'/)[1];
+  assert.ok(fast.indexOf('Memorial songs always receive 24-hour delivery at no extra charge') < fast.indexOf('rush delivery in 24 hours, guaranteed, is an additional $50'));
 });
 
 test('structured data carries the public phone number', () => {
@@ -225,11 +228,17 @@ test('songs, the memorial band and reviews come before the price', () => {
   const price = html.indexOf('id="pricing"');
   const callback = html.indexOf('id="callback"');
   assert.ok(weekly > 0 && weekly < gallery && gallery < memorial && memorial < reaction && reaction < offer && offer < price && price < callback);
-  /* The 24-hour promise lives in memorial context only. */
+  /* The 24-hour figure has two homes and no others: the memorial band (free,
+     always) and the price card's rush add-on (paid, with the memorial
+     exception stated right beside it). */
   const band = html.slice(memorial, html.indexOf('</section>', memorial));
   assert.ok(band.includes('24 hours'));
+  const addons = html.match(/<div class="addons">.*?<\/div>/)[0];
+  assert.ok(addons.includes('<b>+$50</b>Rush delivery, 24 hours guaranteed'));
+  assert.ok(addons.includes('Rush is never charged on memorial songs. They are always ready in 24 hours.'));
   const visible = html.slice(html.indexOf('<body>'));
-  assert.equal((visible.match(/24[- ]hours?/g) || []).length, 1, 'the 24-hour figure belongs in the memorial band only');
+  const elsewhere = visible.replace(band, '').replace(addons, '');
+  assert.ok(!/24[- ]hours?/.test(elsewhere), 'the 24-hour figure belongs in the memorial band and the rush add-on only');
   assert.ok(html.includes('id="weekly-player"'), 'weekly player mount missing');
   const testimony = html.slice(reaction, html.indexOf('</section>', reaction));
   assert.ok(testimony.includes('Jane H.'));

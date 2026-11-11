@@ -94,8 +94,9 @@ text link in the gallery head), the pricing column's own headline and its
 entries on gifting and one-of-a-kind. On phones the gallery cards drop their
 descriptions and the About pull quote is hidden.
 
-**The 24-hour figure appears once in the page body: in the memorial band.**
-A test counts it.
+**The 24-hour figure appears in two places in the page body and no others:**
+the memorial band (free, always) and the price card's rush add-on (paid,
+with the memorial exception beside it). A test checks it.
 
 Before adding a section, measure: the phone page is about 8.5 screens at
 390 × 844. Anything new should replace something.
@@ -399,18 +400,35 @@ dashboard repo carries its own four.
   afterwards. A pure resize or cleanup of the existing shape leaves it alone.
   Either way it is not one of the four files above.
 
-## Memorial rush wording
+## Delivery and rush wording
 
-- Memorial songs are **always delivered within 24 hours at no extra cost**.
-  Any copy that prices the $50 rush must state this exception — never imply
-  memorial families pay for speed.
-- Standard delivery is always written as "48–72 hours, guaranteed". Never
-  "most songs".
-- The 24-hour figure appears **only** in memorial context.
-- The price card lists two add-ons: "Rush delivery +$50" and "Commercial
-  license +$100", with "Rush is never charged on memorial songs." under them.
-  The 24-hour promise itself is stated in the memorial band, not the card. The owner confirmed on 2026-10-29 that the license is a
-  real, current offer, so leave it there.
+The owner set these (the rush definition on 12 November 2026):
+
+- **Standard delivery is "48–72 hours, guaranteed".** Never "most songs".
+- **Memorial songs are always ready in 24 hours at no extra cost.** Never
+  imply a memorial family pays for speed.
+- **Paid rush is a 24-hour turnaround, guaranteed, for +$50.** It applies to
+  non-memorial songs only.
+- **Any copy that prices rush must state the memorial exception right beside
+  it.** The price card reads "Rush delivery, 24 hours guaranteed +$50" with
+  "Rush is never charged on memorial songs. They are always ready in 24
+  hours." under it. In the markup each price `<b>` comes before its label, so
+  the floated price stays on the label's first line on narrow phones. The FAQ
+  states the free memorial promise before it prices rush.
+- The 24-hour figure belongs in those places only: the memorial band, the
+  rush add-on, and the "How fast" FAQ answer. Don't use it as a general
+  promise in the hero, the steps or the meta descriptions; those say
+  48–72 hours.
+- **What $150 includes, confirmed by the owner (12 November 2026):** a fully
+  produced custom song, a one-on-one consultation, one round of lyric
+  revisions, a permanent keepsake page, an MP3, a printable lyric sheet, an
+  MP4 share video (delivered through Google Drive), custom album art, and
+  the remake guarantee ("If the finished song misses the mark, I start over
+  from scratch"). All of these are real; don't trim them from the price
+  card. YouTube is not a deliverable.
+- The price card's other add-on is "Commercial license +$100". The owner
+  confirmed on 2026-10-29 that the license is a real, current offer, so
+  leave it there.
 
 ## Commission path (Message me first, text or call beside it)
 
