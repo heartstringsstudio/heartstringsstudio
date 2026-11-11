@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=31-seven-screens">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=32-callback-hours">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -396,8 +396,10 @@ Facebook, so the primary action keeps them in it.
   outlined button) so it reads as second to the amber Message me. It is in
   the hero, its own `#callback` section right after the price card ("Rather
   talk it through?"), the closing section, and the pinned phone bar ("Call me
-  back"). The copy states no call length and no hours; the owner has not
-  given any.
+  back"). The `#callback` card states the hours and length under its button:
+  "I take calls every day, 9 to noon and 4 to 6 Eastern. Calls are about 15
+  minutes." Those come from the owner's appointment schedule (15-minute
+  slots); if the schedule changes, change this line with it.
 - Nothing else on the page is a `class="button"`: the jukebox is a
   `text-link` ("Explore the jukebox"). The hero has no listen link of its
   own; the scroll cue and the postcard lead to the weekly song.
