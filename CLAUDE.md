@@ -203,7 +203,7 @@ what crawlers or scripts-off visitors get.
 this before doing anything else.** They asked to be reminded (11 November
 2026) because they will otherwise forget.
 
-- The November 2026 audit (`AUDIT.md`) found keepsake pages are the real front
+- The November 2026 audit (kept by the owner, not in this repo) found keepsake pages are the real front
   door: 270 of 303 sessions landed on one, with 0 leads, and the only link to
   the studio is one line in the footer.
 - Agreed change, **for new keepsakes only**: a quiet line directly under the
@@ -326,7 +326,7 @@ dashboard repo carries its own four.
 
 ## Commission path (Message me first, text or call beside it)
 
-Changed November 2026 after the audit in `AUDIT.md`: visitors arrive from
+Changed November 2026 after a conversion audit: visitors arrive from
 Facebook, so the primary action keeps them in it.
 
 - **Primary path on every commission CTA is "Message me"**: a Messenger link
@@ -378,7 +378,8 @@ Facebook, so the primary action keeps them in it.
 
 - `docs/archive/` holds `AUDIT.md` (July 2026) and `AUDIT-REPORT.md` (August
   2026). Both predate the September rebuild and are stale; don't act on them.
-  The current one is the root `AUDIT.md` (November 2026).
+  The November 2026 audit was deliberately kept out of the repo (it quotes
+  analytics, and GitHub Pages would serve it); the owner has a copy.
 
 ## Design skill (Impeccable)
 
