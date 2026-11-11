@@ -661,3 +661,8 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
   .about>div:last-child { margin-top:0; }
   .about .text-link { display:inline-block; margin-top:22px; }
 }
+
+/* Callback hours (November 2026): when the owner takes calls, under the button. */
+.callback-hours { margin-top:22px; font-size:.95rem; }
+.callback-hours+.callback-alt { margin-top:6px; }
+@media (max-width:760px) { .callback-hours+.callback-alt { margin-top:0; } }
