@@ -145,8 +145,6 @@ function startSong(card,song){
   if(typeof gtag==='function')gtag('event','song_play',{event_category:'engagement',event_label:song[3]});
   const face=card.querySelector('.card-face');
   if(face)face.remove();
-  card.style.setProperty('--tilt-x','0deg');
-  card.style.setProperty('--tilt-y','0deg');
   const player=document.createElement('div');
   player.className='player-face';
   fillPlayer(player,song,null,()=>!!playing&&playing.card===card);
@@ -275,7 +273,6 @@ function updateScroll(){scheduled=false;if(reduceMotion.matches||phoneLayout.mat
 function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(updateScroll)}}
 addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);updateScroll();
 reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches){document.documentElement.classList.remove('motion-ready');animated.forEach(el=>el.classList.add('seen'));story.style.setProperty('--journey',0);hero.style.setProperty('--hero-progress',0)}else{setupReveal();updateScroll()}});
-if(matchMedia('(pointer:fine)').matches){document.querySelectorAll('.song:not(.weekly-player),.hero-postcard,.price-card').forEach(card=>{card.addEventListener('pointermove',e=>{if(reduceMotion.matches||card.classList.contains('is-playing'))return;const r=card.getBoundingClientRect();card.style.setProperty('--tilt-x',`${-((e.clientY-r.top)/r.height-.5)*16}deg`);card.style.setProperty('--tilt-y',`${((e.clientX-r.left)/r.width-.5)*20}deg`)});card.addEventListener('pointerleave',()=>{card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg')})});}
 
 /* Fireflies over the porch at dusk — built only when motion is welcome, and
    only animating while the porch is on screen. */
@@ -308,52 +305,7 @@ if(mobileCta&&'IntersectionObserver' in window){
   document.querySelectorAll('.hero,.closing,footer').forEach(el=>ctaObserver.observe(el));
 }
 
-/* "Your song, step by step": a dot travels the line through the three process
-   steps as the section scrolls past, lighting each step as it arrives. The
-   line runs across the top on wide screens and down the side on phones. */
-const steps=document.querySelector('.steps');
-if(steps&&!reduceMotion.matches){
-  const stepCards=[...steps.querySelectorAll('article')];
-  const dot=document.createElement('span');
-  dot.className='steps-dot';
-  dot.setAttribute('aria-hidden','true');
-  steps.append(dot);
-  steps.classList.add('timeline');
-  let stepsQueued=false;
-  function updateSteps(){
-    stepsQueued=false;
-    const vertical=stepCards[1].offsetTop>stepCards[0].offsetTop;
-    steps.classList.toggle('timeline-vertical',vertical);
-    const r=steps.getBoundingClientRect();
-    const p=Math.max(0,Math.min(1,(innerHeight*.8-r.top)/(innerHeight*.5)));
-    steps.style.setProperty('--p',p);
-    const reach=p*(vertical?steps.offsetHeight:steps.offsetWidth);
-    stepCards.forEach(card=>card.classList.toggle('lit',reach>=(vertical?card.offsetTop:card.offsetLeft)-2));
-  }
-  const queueSteps=()=>{if(!stepsQueued){stepsQueued=true;requestAnimationFrame(updateSteps)}};
-  addEventListener('scroll',queueSteps,{passive:true});
-  addEventListener('resize',queueSteps);
-  updateSteps();
-}
-
-/* Ambient phone motion runs only while its section is visible. */
-const ambientScenes=document.querySelectorAll('.scene-frame,.hero-copy,.closing-content');
-let ambientObserver;
-function setupMobileMotion(){
-  if(ambientObserver)ambientObserver.disconnect();
-  ambientScenes.forEach(el=>el.classList.remove('in-view'));
-  const enabled=phoneLayout.matches&&!reduceMotion.matches&&!document.hidden&&'IntersectionObserver' in window;
-  document.documentElement.classList.toggle('mobile-motion-ready',enabled);
-  if(!enabled)return;
-  ambientObserver=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>entry.target.classList.toggle('in-view',entry.isIntersecting));
-  },{threshold:0});
-  ambientScenes.forEach(el=>ambientObserver.observe(el));
-}
-setupMobileMotion();
-phoneLayout.addEventListener('change',()=>{setupMobileMotion();updateScroll()});
-reduceMotion.addEventListener('change',setupMobileMotion);
-document.addEventListener('visibilitychange',setupMobileMotion);
+phoneLayout.addEventListener('change',updateScroll);
 
 /* ENGAGEMENT TRACKING (scroll depth · section views · CTA clicks).
    Restores the four GA4 events the pre-rebuild site sent. Silent no-op if

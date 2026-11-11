@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=33-type-speed">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=34-hero">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -52,8 +52,8 @@ older single-file version:
 - `script.js` — holds the page's content as arrays and renders it at load:
   `songs`, `faq`. It also carries the scroll/reveal motion, the
   song-card player, and the GA event tracking.
-- `assets/` — `studio.webp` (hero), `porch.webp`, `porch-postcard.webp` (480px
-  cut of `porch.webp` for the hero postcard), `wedding.webp`, `tim.jpeg`,
+- `assets/` — `tim-hero.webp` (hero portrait), `studio.webp`, `porch.webp`,
+  `wedding.webp`, `tim.jpeg` (the source of the hero cut),
   `logo.png`. The root `logo.png` and `favicon.png` are still used by
   `404.html` and `keepsake-builder.html`, so don't delete them. The header
   mark on this page is `favicon.png` too (256px, a third the weight of the
@@ -74,7 +74,8 @@ The audit found almost nobody reached the price, which sat nine phone
 screens down. The page is now ordered for someone deciding in seconds on a
 phone, and `tests/seo.test.mjs` pins the order:
 
-1. Hero: name, price line, Message me, Book a callback, text/call, proof line
+1. Hero: the studio name as the headline, Tim's real portrait, price line,
+   Message me, Book a callback, text/call, proof line
 2. This week's song (`#weekly-song`)
 3. Three more songs (`#listen`) plus the "N more songs" drawer
 4. Memorial band (`#memorial`): the 24-hour promise and a Message me button
@@ -91,13 +92,12 @@ the price card's list), the dark jukebox invite block (the jukebox is one
 text link in the gallery head), the pricing column's own headline and its
 "A little less to carry" memorial note (now the memorial band), and the FAQ
 entries on gifting and one-of-a-kind. On phones the gallery cards drop their
-descriptions, the About portrait is small with no caption, and its pull
-quote is hidden.
+descriptions and the About pull quote is hidden.
 
 **The 24-hour figure appears once in the page body: in the memorial band.**
 A test counts it.
 
-Before adding a section, measure: the phone page is about 8.6 screens at
+Before adding a section, measure: the phone page is about 8.5 screens at
 390 × 844. Anything new should replace something.
 
 - **Gallery and drawer.** `featured` in `script.js` holds three YouTube ids,
@@ -152,28 +152,48 @@ Before adding a section, measure: the phone page is about 8.6 screens at
   `art.jpg` at its public address. With no art chosen yet, the studio banner
   stands in.
 
-## Page flair (September 2026)
+## The hero (rebuilt November 2026)
+
+- **The `h1` is the studio name**: "Heartstrings" upright, "Studio" in the
+  inked italic with the swash under it (`<span class="ink">`). The old
+  headline, "Who would you give a song to?", is the italic line under it
+  (`.hero-question`). Before this the name was 14px tall in the header.
+- **The picture is the real portrait**, `assets/tim-hero.webp` (a WebP cut
+  of `assets/tim.jpeg`), not the illustrated `studio.webp` scene. Most
+  visitors know Tim. On wide screens it holds the right 48% and fades into
+  the ground; on phones it is a 300px band above the copy. If
+  `tim.jpeg` is ever replaced, re-cut `tim-hero.webp` and bump its `?v=`.
+  It is another appearance of the mark (the shirt), like `tim.jpeg` itself.
+- **Phones have no header.** Its nav and button were already hidden there;
+  the name is the headline now.
+- **The postcard is gone**, and the About section no longer has a portrait
+  (the hero introduces him). The scroll cue is the hero's one link to the
+  weekly song.
+- `studio.webp` is still used: second `og:image`, the JSON-LD `image`, and
+  the `teacher` card backdrop. `studio-hero-mobile.webp` and
+  `porch-postcard.webp` are no longer referenced by this page.
+- No fireflies here: they belong to the dusk porch, not a studio portrait.
+
+## Page flair
 
 All of it stands down under `prefers-reduced-motion`, and none of it changes
-what crawlers or scripts-off visitors get.
+what crawlers or scripts-off visitors get. **The owner asked for fewer
+animations (November 2026). These were removed and should stay removed:**
+the slow drift on phone images, the 3D tilt on hover, the travelling dot on
+the steps, the count-up, and the rotating reviews. What is left:
 
-- **Handwritten headline** — the hero's `<span class="ink">` wraps "song to?"
-  and an SVG swash; CSS inks the words in and then draws the swash. Keep the
-  words inside the `em` so the headline text is unchanged.
+- **Handwritten headline** — the hero's `<span class="ink">` wraps "Studio"
+  and an SVG swash; CSS inks the word in and then draws the swash.
+- **Fade-in on scroll** — `.reveal` blocks rise in once as they arrive.
 - **Fireflies** — `script.js` builds `.fireflies` inside `.home-sticky` and only
-  runs them while the porch is on screen (desktop only now; the porch section
+  runs them while the porch is on screen (desktop only; the porch section
   is hidden on phones).
 - **Pinned bar (phones)** — `.mobile-cta` after `</main>` is a `<div>` holding
   the two commission actions: "Message me" (wide, amber, Messenger) and "Call
   me back" (outlined, the calendar link). Both stay on one line at 375px. It
   shows once the hero is off screen and hides over the closing section and
   footer.
-- **Reviews** — the three `.reviews` figures simply stack, all visible. They
-  used to rotate one at a time, which hid two of three from most visitors;
-  don't bring the rotation back.
-- **Step timeline** — `script.js` adds `.timeline` to `.steps` and drives `--p`
-  as it scrolls past; a dot rides the line (across the top on wide screens,
-  down the side on phones) and lights each step as it arrives.
+- **Reviews** — the three `.reviews` figures simply stack, all visible.
 - **Now-playing pill** — when a playing card scrolls away, `.now-playing` offers
   the way back to it and a stop button. `startSong`/`stopSong` drive it.
 
@@ -425,7 +445,7 @@ Facebook, so the primary action keeps them in it.
   slots); if the schedule changes, change this line with it.
 - Nothing else on the page is a `class="button"`: the jukebox is a
   `text-link` ("Explore the jukebox"). The hero has no listen link of its
-  own; the scroll cue and the postcard lead to the weekly song.
+  own; the scroll cue leads to the weekly song.
 - Message me is also the button in the memorial band, with the text and
   call links under it.
   `tests/seo.test.mjs` pins all of this, plus
