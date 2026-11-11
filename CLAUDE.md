@@ -194,6 +194,29 @@ what crawlers or scripts-off visitors get.
 - `sitemap.xml` has to be submitted directly in Google Search Console — the
   project-site `robots.txt` is never read. Bump its `lastmod` on real changes.
 
+## REMINDER FOR THE OWNER: keepsakes still need "Message me" (open)
+
+**If a session touches `keepsake-builder.html`, `keepsaketemplate.html`,
+`KEEPSAKE-OPERATIONS.md` or the keepsakes repository, tell the owner about
+this before doing anything else.** They asked to be reminded (11 November
+2026) because they will otherwise forget.
+
+- The November 2026 audit (`AUDIT.md`) found keepsake pages are the real front
+  door: 270 of 303 sessions landed on one, with 0 leads, and the only link to
+  the studio is one line in the footer.
+- Agreed change, **for new keepsakes only**: a quiet line directly under the
+  song player that opens Messenger to the studio's Facebook Page
+  (`https://m.me/61584734289007`), e.g. "I write songs like this for
+  families. Message me →". The owner has not approved final wording yet; ask.
+- **Do not edit keepsakes that have already been delivered.** The owner
+  decided those stay exactly as the families received them.
+- The builder's rule "The ONE call to action on the page. Do not add others"
+  and the matching check in `tests/keepsake-builder.test.mjs` both have to
+  change with it. Keep it off *First listen* pages.
+- Also add a `song_play` event on the audio player and a click event on the
+  studio link; keepsakes send neither today.
+- Delete this section once the builder ships the change.
+
 ## The satellite pages (404, keepsake builder, keepsake template)
 
 `404.html`, `keepsake-builder.html` and `keepsaketemplate.html` were on the

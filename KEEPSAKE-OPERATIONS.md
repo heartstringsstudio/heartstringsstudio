@@ -76,3 +76,9 @@ Until separate hosting is configured, the builder can create and preview a finis
 ## Drafts
 
 Draft files are downloaded locally and can include the complete story, artwork, MP3, and PDF. Store them as client-confidential files and delete them when no longer needed.
+
+## Open item: "Message me" on new keepsakes
+
+Not built yet. New keepsakes should carry one quiet Messenger line under the
+song player (see the reminder at the top of the keepsake section in
+`CLAUDE.md`). Keepsakes already delivered are never changed.
