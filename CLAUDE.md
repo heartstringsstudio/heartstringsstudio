@@ -14,12 +14,15 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=34-hero">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=35-memorial">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
   eyebrow fix (`#113`), which looked broken on the live site until `#114` bumped
   the number. Use a short descriptive suffix, e.g. `?v=5-pricing`.
+  **`memorial/index.html` loads the same stylesheet and must carry the same
+  `?v=`**; `tests/memorial.test.mjs` fails if the two differ. Bump
+  `script.js?v=` the same way whenever `script.js` changes.
 
 ## How the page is put together
 
@@ -108,6 +111,35 @@ Before adding a section, measure: the phone page is about 8.5 screens at
   `ItemList` never describes a song that isn't on the page. If a featured
   song is removed from `songs`, or becomes the weekly song, it simply drops
   out of the three; pick a replacement id.
+
+## The memorial page (`memorial/`, November 2026)
+
+`https://heartstringsstudio.github.io/heartstringsstudio/memorial/` is the
+page to link from memorial posts: a grieving visitor lands on something that
+speaks only to them. About 4.6 phone screens.
+
+- **Files:** `memorial/index.html`, `memorial/memorial.css` (only what is the
+  page's own; everything else comes from `../style.css`), and
+  `memorial/memorial.js` (the in-place player and the contact tracking).
+  `script.js` is not loaded there; it is tied to the home page's markup.
+- **Order:** quiet type-only opening ("A song for someone you love and
+  miss."), three songs, three steps, two reviews, the price, closing. Wide
+  screens show the dusk porch beside the opening; phones do not load it.
+- **Promise line:** "Ready in 24 hours · $150 flat · Never a rush fee". The
+  page never prices rush and never mentions 48–72 hours; a test checks both.
+- **Same commission path** as the home page: Message me, text/call under it,
+  Book a callback as the outlined button. **No pinned bar** and no extra
+  motion, on purpose: the page is short and the tone is quiet.
+- **Songs** are three real `youtu.be` links (so they work with scripts off)
+  that `memorial.js` upgrades to the in-place nocookie player. Each must also
+  be in the home page's `songs` array; a test checks it. Pick memorial or
+  celebration-of-life songs only.
+- The home page's memorial band links here ("More about memorial songs →").
+  The page is in `sitemap.xml`.
+- Leads from it carry `placement` `memorial_hero`, `memorial_closing` or
+  `memorial_page`.
+- Its hours line ("I take calls every day, 9 to noon and 4 to 6 Eastern")
+  has to change with the home page's when the owner's schedule changes.
 
 ## Type rules (November 2026)
 
@@ -416,7 +448,7 @@ The owner set these (the rush definition on 12 November 2026):
   the floated price stays on the label's first line on narrow phones. The FAQ
   states the free memorial promise before it prices rush.
 - The 24-hour figure belongs in those places only: the memorial band, the
-  rush add-on, and the "How fast" FAQ answer. Don't use it as a general
+  rush add-on, the "How fast" FAQ answer, and the memorial page. Don't use it as a general
   promise in the hero, the steps or the meta descriptions; those say
   48–72 hours.
 - **What $150 includes, confirmed by the owner (12 November 2026):** a fully

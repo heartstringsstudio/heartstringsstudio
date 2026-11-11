@@ -717,3 +717,7 @@ footer>p,.now-playing small { font-size:.875rem; }
   .hero-question { margin-top:12px; font-size:1.25rem; }
   .hero .intro { margin-top:8px; }
 }
+
+/* The memorial band links to the dedicated memorial page (November 2026). */
+.memorial-more { margin-top:22px; }
+@media (max-width:760px) { .memorial-more { margin-top:16px; } }
