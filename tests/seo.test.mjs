@@ -14,7 +14,7 @@ const SITE = 'https://heartstringsstudio.github.io/heartstringsstudio/';
 const node = (type) =>
   ld['@graph'].find((n) => [].concat(n['@type']).includes(type));
 
-/* The page builds its FAQ, songs and occasion pills from arrays in script.js,
+/* The page builds its FAQ and songs from arrays in script.js,
    so the structured data in index.html has to be updated in the same pass.
    These tests fail loudly when the two drift apart. */
 function jsPairs(name) {
@@ -82,9 +82,8 @@ test('review markup matches the testimonials the page shows', () => {
   assert.equal(product.aggregateRating.reviewCount, String(visible.length));
 });
 
-test('the Product offer points at the price card, where Text Tim lives', () => {
-  // Offer.url has to be a web address (sms: is not one), so it names the
-  // pricing section, whose primary button is Text Tim.
+test('the Product offer points at the price card, where Message me lives', () => {
+  // Offer.url names the pricing section, whose primary button is Message me.
   const offer = node('Product').offers;
   assert.equal(offer.url, 'https://heartstringsstudio.github.io/heartstringsstudio/#pricing');
   assert.ok(html.includes('id="pricing"'), 'the #pricing section must exist');
@@ -103,30 +102,56 @@ test('social and canonical metadata are present', () => {
 
 test('analytics tag and its events are wired up', () => {
   assert.ok(html.includes("gtag('config', 'G-TB4NQVQ8VZ')"), 'GA4 config missing');
-  for (const event of ['scroll_depth', 'section_view', 'cta_click', 'generate_lead', 'song_play', 'sms_click', 'tel_click']) {
+  for (const event of ['scroll_depth', 'section_view', 'cta_click', 'generate_lead', 'song_play', 'messenger_click', 'sms_click', 'tel_click']) {
     assert.ok(js.includes(`'${event}'`), `missing ${event} event`);
   }
 });
 
-/* Commission CTAs are Text Tim (sms:). The Story Room is the secondary
-   "write it out" text-link, never a button. The two listening buttons are the
-   intentional exceptions: the hero's goes to the on-page weekly player, and
-   the jukebox invite under the song grid goes to the Jukebox. */
-test('commission CTAs text Tim; the Story Room is a secondary text-link', () => {
-  const SMS = 'sms:+13046771113';
-  const ROOM = 'https://heartstringsstudio.github.io/storyroom/';
+/* Commission CTAs are "Message me": Messenger to the studio's Facebook Page.
+   Text and call sit beside every one as tappable links. The one other button
+   is the jukebox invite under the song grid. The Story Room is gone from this
+   page (November 2026) and must not come back. */
+test('commission CTAs open Messenger, with text and call beside them', () => {
+  const MSG = 'https://m.me/61584734289007';
   const ctas = [...html.matchAll(/<a class="button[^"]*" href="([^"]+)"/g)].map((m) => m[1]);
-  const sms = ctas.filter((href) => href === SMS);
-  const others = ctas.filter((href) => href !== SMS);
-  assert.ok(sms.length >= 3, 'expected at least three Text Tim buttons');
-  assert.deepEqual(others, ['#weekly-song', 'https://heartstringsstudio.github.io/jukebox/'], 'only the weekly and jukebox listening CTAs may skip Text Tim');
-  assert.match(html, /<a class="button mobile-cta" href="sms:\+13046771113"/, 'pinned phone CTA must be Text Tim');
-  assert.ok(!new RegExp(`<a class="button[^"]*" href="${ROOM}`).test(html), 'no button may link to the Story Room');
-  assert.match(html, new RegExp(`<a class="text-link" href="${ROOM}">Rather write it out\\?`), 'missing the Story Room text-link');
-  assert.ok(html.includes('href="tel:+13046771113"'), 'missing the call link');
+  const msg = ctas.filter((href) => href === MSG);
+  const others = ctas.filter((href) => href !== MSG);
+  assert.ok(msg.length >= 5, 'expected Message me in the header, hero, price card, closing and pinned bar');
+  assert.deepEqual(others, ['https://heartstringsstudio.github.io/jukebox/'], 'only the jukebox listening CTA may skip Message me');
+  assert.match(html, /<a class="button mobile-cta" href="https:\/\/m\.me\/61584734289007"/, 'pinned phone CTA must be Message me');
+  /* Every Message me button in the page body is followed by the text and
+     call links: hero, price card, closing. */
+  const reach = html.match(/<p class="reach-options">Or <a href="sms:\+13046771113">text me<\/a> · <a href="tel:\+13046771113">call 304-677-1113<\/a><\/p>/g) || [];
+  assert.equal(reach.length, 3, 'text and call links belong under the hero, price card and closing buttons');
+  assert.ok(!/storyroom|Story Room/i.test(html + js), 'the Story Room was removed from this page');
   assert.ok(html.includes('href="mailto:heartstringsstudiowv@gmail.com"'), 'missing the email link');
-  assert.ok(html.includes('id="weekly-song"'), 'listening CTA target must exist');
-  assert.equal(js.match(/const base='([^']+)'/)[1], ROOM);
+  assert.ok(html.includes('id="weekly-song"'), 'listening target must exist');
+});
+
+/* One tap is one lead. cta_click used to fire beside generate_lead on every
+   contact tap, which counted each conversion twice. */
+test('contact taps send one conversion, with its placement', () => {
+  const handler = js.slice(js.indexOf('Contact taps.'));
+  assert.equal((handler.match(/'cta_click'/g) || []).length, 1, 'cta_click is for the jukebox only');
+  assert.ok(handler.includes('method, placement'), 'generate_lead must carry method and placement');
+});
+
+/* Facebook uses the first og:image, and nearly all traffic is Facebook, so
+   the card with the studio name on it has to lead. */
+test('the branded share card is the first og:image', () => {
+  const first = html.match(/<meta property="og:image" content="([^"]+)"/)[1];
+  assert.ok(first.includes('assets/share-card.jpg'), `first og:image is ${first}`);
+});
+
+/* Business rules for the copy: first person, a guaranteed window, and no
+   rush price without the memorial exception. */
+test('copy keeps the business rules', () => {
+  const visible = html.slice(html.indexOf('<body>')) + js.match(/const faq=\[[\s\S]*?\];/)[0];
+  for (const phrase of ['Text Tim', 'Email Tim', 'Tim answers', 'Tim writes', 'Tim starts', 'Tim will', 'with Tim', 'We create', 'Most songs']) {
+    assert.ok(!visible.includes(phrase), `"${phrase}" breaks the first-person / guarantee rules`);
+  }
+  assert.ok(visible.includes('48–72 hours, guaranteed'));
+  assert.ok(html.includes('Rush is never charged on memorial songs.'));
 });
 
 test('structured data carries the public phone number', () => {
@@ -174,10 +199,9 @@ test('the weekly player and attributed reaction lead the scroll journey', () => 
   const testimony = html.slice(reaction, html.indexOf('</section>', reaction));
   assert.ok(testimony.includes('Jane H.'));
   assert.ok(testimony.includes('HEARTSTRINGS CLIENT'));
-  /* All three reviews rotate in this one spot rather than splitting across
-     the page. */
+  /* All three reviews are shown together in this one spot. */
   for (const name of ['Jane H.', 'Dolores B.', 'Susan H.']) {
-    assert.ok(testimony.includes(name), `${name} should be in the rotating reviews`);
+    assert.ok(testimony.includes(name), `${name} should be in the reviews`);
   }
   /* Read the weekly title out of script.js so this guard keeps biting after
      the song is swapped, instead of quietly checking last week's title. */

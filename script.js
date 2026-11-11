@@ -1,6 +1,3 @@
-const base='https://heartstringsstudio.github.io/storyroom/';
-const occasions=[['Weddings','Wedding'],['Memorials & Tributes','Memorial / Tribute'],['Anniversaries','Anniversary'],['Birthdays','Birthday'],['Retirements','Retirement'],['Military Tributes','Military Tribute'],['Celebrations of Life','Celebration of Life'],['Gratitude & Thank You','Gratitude / Thank You'],['Just Because','Just Because']];
-for(const [label,value] of occasions){const a=document.createElement('a');a.href=base+'?occasion='+encodeURIComponent(value);a.textContent=label;document.querySelector('.occasions').append(a)}
 const songs=[['6nAH7Mwp6UE','military','This week’s song','Grandpa’s Footlocker','A Veterans Day song for the grandpa who never talked about the war — a footlocker in the attic, a folded flag, and everything he never said himself.','assets/grandpas-footlocker-youtube.webp'],['hzpk-CxvldM','memorial','Memorial','Rest Now, Chief','A memorial for a fire chief who answered thirty-nine years of night calls — and the town and family now carrying him the rest of the way.','assets/rest-now-chief-youtube.webp'],['RTF8mwCbI48','living','Living tribute','I Never Had To Ask','A living tribute to the best friend who never had to be called — forty years of moving days, waiting rooms and showing up first.','assets/i-never-had-to-ask-youtube.webp'],['wel8YZL3RxE','living','Living tribute','You Still Knock','A living tribute to the one who keeps showing up — the everyday love behind a familiar knock at the door.','assets/you-still-knock-youtube.webp'],['a50GgjTQago','memorial','Memorial','I’m Still Here','A memorial song sung from the other side of goodbye — a gentle promise that the ones we love never really leave us.'],['scwM7dTLA1Q','memorial','Memorial','The Quiet After','A memorial song for the stillness that settles in after someone’s gone — and the love that keeps filling it.'],['934_133GQiI','living','Father’s Day','First Man','A Father’s Day song for every daughter whose first hero taught her what love should look like.'],['o2EaIok0q6E','military','First responder tribute','The Ones Who Run Toward Fire','For the ones who head in when everyone else is heading out — and the families who wait for them to come home.'],['ppbdNuOdGng','teacher','Community tribute','We Love You, Mrs. Gaynor','Decades of alumni memories honoring the woman who helped raise generations of Lincoln High Cougars.'],['iCzuyECSoFY','celebration','Celebration of life','She Left Us a Party','A celebration of Lenay, whose friends and coworkers gathered in Washington, D.C., and at Margaritaville in Florida to honor her life.','assets/lenay-youtube.jpg'],['NdHBikaJI0U','wedding','Wedding','You Still Walked Me Down','A daughter’s walk down the aisle, and the father who promised he’d be there for it — and was.','assets/you-still-walked-me-down-youtube.jpg'],['jmSfTesTUcw','military','Military tribute','Worth Every Mile','For the sacrifice, service, and homecoming — and the people who wait.'],['ky9qr3PdKr8','faith','Milestone','I Knew All the Words','Written from Tina’s own words: a lifetime in the church pew, every verse by heart — and the day love asked her to finally learn the song.','assets/i-knew-all-the-words-youtube.webp']];
 
 /* The cards play in place, the same way the Jukebox's cards do: the artwork is
@@ -238,7 +235,7 @@ if(typeof HTMLDialogElement==='function'&&HTMLDialogElement.prototype.showModal)
   }
 }
 
-const faq=[['How does it work?','Text Tim at 304-677-1113, call, or email heartstringsstudiowv@gmail.com, whatever’s easiest. Tim answers himself, usually same day. Just share your first name, the occasion and any date; the rest comes out in conversation. Rather write it out? Tell your story in the Story Room. Tim writes your lyrics, works with you on a round of revisions, and produces your custom song.'],['How fast will I get my song?','Most songs arrive in 48–72 hours. Memorial songs always receive 24-hour delivery at no extra charge. For other songs, rush delivery is an additional $50. Mention your date when you reach out and Tim will confirm what’s possible.'],['Can I pick the style and approve the lyrics?','Absolutely. Choose the genre and feeling — romantic, funny, emotional, nostalgic, solemn, or whatever fits your story. You receive the lyrics first, with one round of revisions before production.'],['Can I give this as a gift?','Yes. A custom song makes a personal wedding gift, birthday surprise, anniversary present, or tribute. Share your keepsake page with someone you love, or play your downloaded MP3 at an event.'],['How do I share my song?','Send your keepsake page link by text or email: it’s a permanent home for your song, lyrics, and story. Your MP4 share video is ready to post on Facebook or play at a service, your lyric sheet prints for a frame or a program, and your album art works as a print or profile photo. The page isn’t publicly listed, but anyone with the link can view or share it.'],['Is my song one-of-a-kind?','Every song is built around your story from scratch. Names, memories, and the details that matter to you shape the finished song.'],['What if the finished song misses the mark?','Tim starts over from scratch. The remake guarantee is included in your custom song.']];
+const faq=[['How does it work?','Message me on Facebook, or text or call 304-677-1113, whatever’s easiest. I answer myself, usually the same day. Just share your first name, the occasion and any date; the rest comes out in conversation. I write your lyrics, work with you on a round of revisions, and produce your custom song.'],['How fast will I get my song?','Every song is ready in 48–72 hours, guaranteed. Memorial songs always receive 24-hour delivery at no extra charge. For other songs, rush delivery is an additional $50. Mention your date when you reach out and I’ll confirm what’s possible.'],['Can I pick the style and approve the lyrics?','Absolutely. Choose the genre and feeling — romantic, funny, emotional, nostalgic, solemn, or whatever fits your story. You receive the lyrics first, with one round of revisions before production.'],['Can I give this as a gift?','Yes. A custom song makes a personal wedding gift, birthday surprise, anniversary present, or tribute. Share your keepsake page with someone you love, or play your downloaded MP3 at an event.'],['How do I share my song?','Send your keepsake page link by text or email: it’s a permanent home for your song, lyrics, and story. Your MP4 share video is ready to post on Facebook or play at a service, your lyric sheet prints for a frame or a program, and your album art works as a print or profile photo. The page isn’t publicly listed, but anyone with the link can view or share it.'],['Is my song one-of-a-kind?','Every song is built around your story from scratch. Names, memories, and the details that matter to you shape the finished song.'],['What if the finished song misses the mark?','I start over from scratch. The remake guarantee is included in your custom song.']];
 for(const [q,a] of faq){const d=document.createElement('details');const s=document.createElement('summary');s.textContent=q;const p=document.createElement('p');p.textContent=a;d.append(s,p);document.querySelector('#questions').append(d)}
 
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
@@ -254,24 +251,6 @@ function onScroll(){if(!scheduled){scheduled=true;requestAnimationFrame(updateSc
 addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);updateScroll();
 reduceMotion.addEventListener('change',()=>{if(reduceMotion.matches){document.documentElement.classList.remove('motion-ready');animated.forEach(el=>el.classList.add('seen'));story.style.setProperty('--journey',0);hero.style.setProperty('--hero-progress',0)}else{setupReveal();updateScroll()}});
 if(matchMedia('(pointer:fine)').matches){document.querySelectorAll('.song:not(.weekly-player),.hero-postcard,.price-card').forEach(card=>{card.addEventListener('pointermove',e=>{if(reduceMotion.matches||card.classList.contains('is-playing'))return;const r=card.getBoundingClientRect();card.style.setProperty('--tilt-x',`${-((e.clientY-r.top)/r.height-.5)*16}deg`);card.style.setProperty('--tilt-y',`${((e.clientX-r.left)/r.width-.5)*20}deg`)});card.addEventListener('pointerleave',()=>{card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg')})});}
-
-/* The proof bar's song count ticks up the first time it scrolls into view.
-   The served HTML keeps the real number, so crawlers, scripts-off and
-   reduced-motion visitors (and anyone who loads with it on screen) just
-   read 115. */
-const counter=document.querySelector('[data-count]');
-if(counter&&!reduceMotion.matches&&'IntersectionObserver' in window&&counter.getBoundingClientRect().top>innerHeight){
-  const target=+counter.dataset.count;
-  counter.textContent='0';
-  const countObserver=new IntersectionObserver(([entry])=>{
-    if(!entry.isIntersecting)return;
-    countObserver.disconnect();
-    const start=performance.now();
-    const tick=now=>{const t=Math.min(1,(now-start)/1600);counter.textContent=Math.round(target*(1-Math.pow(1-t,3)));if(t<1)requestAnimationFrame(tick)};
-    requestAnimationFrame(tick);
-  },{threshold:.6});
-  countObserver.observe(counter);
-}
 
 /* Fireflies over the porch at dusk — built only when motion is welcome, and
    only animating while the porch is on screen. */
@@ -290,7 +269,7 @@ if(porch&&!reduceMotion.matches&&'IntersectionObserver' in window){
   new IntersectionObserver(([entry])=>flies.classList.toggle('lit',entry.isIntersecting)).observe(porch);
 }
 
-/* On phones the header's Text Tim button is hidden, so a pinned text-first one takes
+/* On phones the header's Message me button is hidden, so a pinned one takes
    over between the hero and the closing section (each has its own). */
 const mobileCta=document.querySelector('.mobile-cta');
 if(mobileCta&&'IntersectionObserver' in window){
@@ -301,54 +280,6 @@ if(mobileCta&&'IntersectionObserver' in window){
     mobileCta.inert=!!inView.size;
   });
   document.querySelectorAll('.hero,.closing,footer').forEach(el=>ctaObserver.observe(el));
-}
-
-/* Rotating reviews: the three testimonials share one spot near the top and
-   fade through in turn. Without scripts they simply stack. Dots pick one, the
-   pause button stops the rotation (it also rests on hover, on focus, while
-   the section is off screen, and never starts for reduced motion). */
-const reviews=document.querySelector('.reviews');
-const reviewFigures=reviews?[...reviews.querySelectorAll('figure')]:[];
-if(reviewFigures.length>1){
-  let current=0,timer=null,paused=reduceMotion.matches,hovered=false,visible=false;
-  const controls=document.createElement('div');
-  controls.className='review-controls';
-  const dots=reviewFigures.map((fig,i)=>{
-    const dot=document.createElement('button');
-    dot.type='button';
-    dot.className='review-dot';
-    dot.setAttribute('aria-label','Show review '+(i+1)+' of '+reviewFigures.length);
-    dot.addEventListener('click',()=>{show(i);schedule()});
-    return dot;
-  });
-  const toggle=document.createElement('button');
-  toggle.type='button';
-  toggle.className='review-toggle';
-  toggle.addEventListener('click',()=>{paused=!paused;renderToggle();schedule()});
-  function renderToggle(){toggle.textContent=paused?'▶ Play':'❚❚ Pause';toggle.setAttribute('aria-label',paused?'Play the reviews':'Pause the reviews')}
-  controls.append(...dots,toggle);
-  reviews.append(controls);
-  reviews.classList.add('rotating');
-  function show(i){
-    current=i;
-    reviewFigures.forEach((fig,n)=>{fig.classList.toggle('current',n===i);fig.inert=n!==i});
-    dots.forEach((dot,n)=>dot.setAttribute('aria-current',n===i?'true':'false'));
-  }
-  function schedule(){
-    clearTimeout(timer);
-    if(paused||hovered||!visible||document.hidden)return;
-    timer=setTimeout(()=>{show((current+1)%reviewFigures.length);schedule()},7000);
-  }
-  reviews.addEventListener('pointerenter',()=>{hovered=true;schedule()});
-  reviews.addEventListener('pointerleave',()=>{hovered=false;schedule()});
-  reviews.addEventListener('focusin',()=>{hovered=true;schedule()});
-  reviews.addEventListener('focusout',e=>{if(!reviews.contains(e.relatedTarget)){hovered=false;schedule()}});
-  document.addEventListener('visibilitychange',schedule);
-  if('IntersectionObserver' in window)new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;schedule()}).observe(reviews);
-  else{visible=true}
-  renderToggle();
-  show(0);
-  schedule();
 }
 
 /* "Your song, step by step": a dot travels the line through the three process
@@ -452,30 +383,35 @@ document.addEventListener('visibilitychange',setupMobileMotion);
     document.querySelectorAll('section').forEach(el => io.observe(el));
   }
 
-  /* Primary CTA clicks. */
+  /* Contact taps. One tap = one channel event + one generate_lead, and
+     generate_lead is the only conversion: it says how they reached out
+     (method) and which button they used (placement). */
+  const placementOf = el =>
+    el.classList.contains('mobile-cta') ? 'sticky'
+    : el.closest('header') ? 'header'
+    : el.closest('.hero') ? 'hero'
+    : el.closest('.price-card') ? 'pricing'
+    : el.closest('.closing') ? 'closing'
+    : el.closest('footer') ? 'footer'
+    : 'other';
   addEventListener('click', e => {
     const el = e.target.closest('a, button');
     if (!el) return;
     const txt = (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 50);
     const href = el.getAttribute('href') || '';
-    const lead = (method, occasion) => gtag('event', 'generate_lead', { event_category: 'conversion', event_label: txt, method, occasion });
-    if (href.startsWith('sms:')) {
-      gtag('event', 'sms_click', { event_category: 'engagement', event_label: txt });
-      gtag('event', 'cta_click', { cta: 'text_tim', event_category: 'engagement', event_label: txt });
-      lead('sms', 'unspecified');
+    const placement = placementOf(el);
+    const lead = method => gtag('event', 'generate_lead', { event_category: 'conversion', event_label: txt, method, placement });
+    if (href.startsWith('https://m.me/')) {
+      gtag('event', 'messenger_click', { event_category: 'engagement', event_label: txt, placement });
+      lead('messenger');
+    } else if (href.startsWith('sms:')) {
+      gtag('event', 'sms_click', { event_category: 'engagement', event_label: txt, placement });
+      lead('sms');
     } else if (href.startsWith('tel:')) {
-      gtag('event', 'tel_click', { event_category: 'engagement', event_label: txt });
-      gtag('event', 'cta_click', { cta: 'call_tim', event_category: 'engagement', event_label: txt });
-      lead('tel', 'unspecified');
+      gtag('event', 'tel_click', { event_category: 'engagement', event_label: txt, placement });
+      lead('tel');
     } else if (href.startsWith('mailto:')) {
-      gtag('event', 'cta_click', { cta: 'email_tim', event_category: 'engagement', event_label: txt });
-      lead('email', 'unspecified');
-    } else if (href.includes('/storyroom/')) {
-      gtag('event', 'cta_click', { cta: 'begin_song', event_category: 'engagement', event_label: txt });
-      /* The story room lives off-site, so GA can't observe the submit —
-         a click through to it is the closest conversion signal we have. */
-      const occ = (href.split('occasion=')[1] || '').split('&')[0];
-      lead('storyroom', occ ? decodeURIComponent(occ) : 'unspecified');
+      lead('email');
     } else if (href.includes('/jukebox/')) {
       gtag('event', 'cta_click', { cta: 'hear_songs', event_category: 'engagement', event_label: txt });
     }

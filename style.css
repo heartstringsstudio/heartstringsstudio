@@ -509,3 +509,39 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
   .mobile-cta { white-space:nowrap; justify-content:center; font-size:.95rem; }
   .price-card .button { font-size:.9rem; padding-inline:18px; gap:10px; }
 }
+
+/* Message me (November 2026). Messenger is the primary action on every
+   commission CTA, with text and call as tappable links right under it. The
+   hero now leads with the price and that button, then one line of proof
+   (the old proof bar sat two screens down). */
+.hero .fine { margin-top:20px; font-size:.95rem; color:var(--ink-soft); }
+.hero .actions { margin-top:22px; }
+.hero .reach-options { margin-top:20px; text-align:left; color:var(--ink-soft); }
+.hero .reach-options a { color:var(--ink); }
+.hero-proof { display:flex; flex-wrap:wrap; align-items:center; gap:4px 0; margin-top:20px; font-size:.875rem; letter-spacing:.03em; color:var(--ink-soft); }
+.hero-proof>span+span::before { content:'·'; margin-inline:12px; color:var(--accent); }
+.hero-proof a { text-decoration:underline; text-underline-offset:3px; }
+.hero-proof>span:last-child { color:var(--accent); letter-spacing:.12em; }
+.addons small { display:block; margin-top:4px; font-size:.8rem; line-height:1.5; color:var(--cream-muted); }
+@media (prefers-reduced-motion:no-preference) {
+  .hero .reach-options,.hero-proof { animation:arrive 1.3s .3s both; }
+}
+@media (max-width:760px) {
+  /* The nav row cost a sixth of the first screen and the studio name was
+     14px. The row goes; the name gets its room. */
+  header nav { display:none; }
+  header { padding:16px 20px; }
+  header .brand { font-size:1.05rem; letter-spacing:.14em; gap:14px; }
+  header .brand img { width:48px; height:48px; }
+  header .brand small { font-size:.75rem; }
+  .hero .fine { margin-top:16px; }
+  .hero .reach-options { margin-top:14px; }
+  .hero .reach-options a { display:inline-block; }
+  .hero-proof { margin-top:8px; font-size:.8rem; letter-spacing:0; }
+  .hero-proof>span+span::before { margin-inline:8px; }
+  .proof-wide { display:none; }
+  .hero-proof>span:last-child { letter-spacing:.04em; }
+  /* The scroll cue just below already leads to the song; on a phone the
+     text and call links belong directly under the button instead. */
+  .hero .actions .text-link { display:none; }
+}
