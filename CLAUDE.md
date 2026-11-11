@@ -14,7 +14,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=32-callback-hours">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=33-type-speed">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -108,6 +108,16 @@ Before adding a section, measure: the phone page is about 8.6 screens at
   song is removed from `songs`, or becomes the weekly song, it simply drops
   out of the three; pick a replacement id.
 
+## Type rules (November 2026)
+
+- **Every upright heading is Libre Caslon Display**, including card titles
+  (`.song h3`) and step titles (`.steps h3`), which used to be Georgia and
+  looked like a failed font load beside the Caslon headings. Georgia is for
+  italics and quotes only, because Caslon Display has no italic.
+- **Nothing is set below 14px (`.875rem`).** The audience skews older and
+  arrives on phones. That includes eyebrows, labels, captions and the footer
+  line.
+
 ## Song playback
 
 - Song cards play **in place**, using the Jukebox's player pattern: the artwork
@@ -189,8 +199,17 @@ what crawlers or scripts-off visitors get.
   PSNR at 25% fewer bytes, but a flatter image can land much closer.
 - `buildFace(song, true)` builds the weekly thumbnail; `stopSong` restores that
   same featured face when the player closes.
+- **Every local cover needs an 800px gallery copy.** The weekly spotlight
+  shows the full 1280×720 file; gallery and drawer cards show it at a third
+  of that, so `buildFace` asks for `<name>-800.<ext>` there and falls back to
+  the full file if it is missing. After adding or replacing a cover, run
+  `python3 tools/build-song-thumbs.py` and commit the `-800` file with it;
+  `tests/seo.test.mjs` fails if one is missing. This roughly halved the
+  phone's first load.
 - `sceneKeyword` picks the fallback backdrop: `wedding` and `kitchen` →
   `wedding.webp`, `teacher` → `studio.webp`, anything else → `porch.webp`.
+  The backdrop is only fetched when a card's artwork fails to load; it is
+  not in the card's markup otherwise.
 - When changing the actual weekly selection, update the Jukebox's `songs.json`
   spotlight in the same pass. A layout-only change does not change its selection.
 - Changing any entry also means updating the `ItemList` in `index.html`'s JSON-LD
@@ -231,6 +250,10 @@ what crawlers or scripts-off visitors get.
   (`hear_songs`); it must not be sent beside `generate_lead` again, because
   that counted every lead twice. In GA, `generate_lead` should be the only
   key event.
+- `section_view` fires when half a section is on screen **or** the section
+  fills half the screen. The second condition is there because a section
+  taller than two phone screens can never be 50% visible; the old price
+  section was never counted on phones for that reason.
 - Song and FAQ content is injected by JavaScript, so it isn't in the served
   HTML. The FAQ is covered by the FAQPage JSON-LD; keep that in mind before
   moving any more copy into `script.js`.

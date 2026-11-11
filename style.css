@@ -666,3 +666,23 @@ figcaption small,.proof small,.proof b span,.review-toggle { font-size:.75rem; l
 .callback-hours { margin-top:22px; font-size:.95rem; }
 .callback-hours+.callback-alt { margin-top:6px; }
 @media (max-width:760px) { .callback-hours+.callback-alt { margin-top:0; } }
+
+/* Type pass (November 2026). Card and step titles were Georgia under Libre
+   Caslon headings, which read as a font that failed to load: every upright
+   heading is Caslon now (italics stay Georgia; Caslon has none). And nothing
+   on the page is set below 14px: the audience skews older and arrives on
+   phones. */
+.song h3,.steps h3 { font-family:'Libre Caslon Display',Georgia,serif; font-weight:400; letter-spacing:-.01em; }
+.song h3 { font-size:1.6rem; line-height:1.2; }
+.offer .steps h3 { font-size:1.65rem; }
+.eyebrow,.hero-copy .eyebrow,.statement .eyebrow { font-size:.875rem; letter-spacing:.11em; }
+.brand small,header .brand small,figcaption small,.price-title span,.song small,.song-count,.scroll-cue,.scene-caption,.portrait span,.addons small,.price-card .guarantee { font-size:.875rem; }
+.addons { font-size:.9rem; }
+footer>p,.now-playing small { font-size:.875rem; }
+.memorial-band h2,.callback-card h2 { text-wrap:balance; }
+@media (max-width:760px) {
+  .hero-proof { font-size:.875rem; }
+  .hero-proof>span+span::before { margin-inline:6px; }
+  .song h3 { font-size:1.5rem; }
+  .offer .steps h3 { font-size:1.45rem; }
+}
