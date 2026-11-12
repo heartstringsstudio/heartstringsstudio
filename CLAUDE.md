@@ -1,5 +1,23 @@
 # Heartstrings Studio — project notes
 
+## The site's address (changed 12 November 2026)
+
+- **The site lives at `https://heartstringswv.com/`.** The owner bought the
+  domain at Namecheap; its DNS has four A records to GitHub Pages and a
+  `www` CNAME to `heartstringsstudio.github.io`.
+- **Never delete the root `CNAME` file.** GitHub created it when the domain
+  was set; without it the site drops back to the old address.
+- The old address, `https://heartstringsstudio.github.io/heartstringsstudio/`,
+  forwards to the new one page for page, so links already posted still work.
+  Don't use it in new markup.
+- **Keepsakes and the Jukebox did not move.** They are still under
+  `https://heartstringsstudio.github.io/keepsakes/…` and `/jukebox/`.
+  Delivered keepsakes hardcode those addresses, and the old studio address
+  for their banner and link home; the forwarding is what keeps them working.
+- Every absolute address in `index.html`, `memorial/index.html`, `404.html`,
+  `sitemap.xml`, `robots.txt`, the keepsake builder and the tests uses the
+  new domain.
+
 ## Editing `index.html`
 
 - **Do not use the "upload index.html" path in the GitHub web UI.** It replaces
@@ -114,7 +132,7 @@ Before adding a section, measure: the phone page is about 8.5 screens at
 
 ## The memorial page (`memorial/`, November 2026)
 
-`https://heartstringsstudio.github.io/heartstringsstudio/memorial/` is the
+`https://heartstringswv.com/memorial/` is the
 page to link from memorial posts: a grieving visitor lands on something that
 speaks only to them. About 4.6 phone screens.
 
@@ -311,8 +329,9 @@ the steps, the count-up, and the rotating reviews. What is left:
 - Song and FAQ content is injected by JavaScript, so it isn't in the served
   HTML. The FAQ is covered by the FAQPage JSON-LD; keep that in mind before
   moving any more copy into `script.js`.
-- `sitemap.xml` has to be submitted directly in Google Search Console — the
-  project-site `robots.txt` is never read. Bump its `lastmod` on real changes.
+- `robots.txt` is at the domain root now and names the sitemap, so crawlers
+  find it. Still submit `sitemap.xml` in Google Search Console for the
+  `heartstringswv.com` property, and bump its `lastmod` on real changes.
 
 ## Keepsakes and the studio ask (November 2026)
 
@@ -510,7 +529,7 @@ Facebook, so the primary action keeps them in it.
 - Step 01, the FAQ and its JSON-LD describe the same path (message, text,
   call, or book a callback); change them together.
 - The Product JSON-LD `offers.url` is the price card,
-  `https://heartstringsstudio.github.io/heartstringsstudio/#pricing`.
+  `https://heartstringswv.com/#pricing`.
   `tests/seo.test.mjs` pins it.
 - `404.html` follows the same path: its commission link is "Message me for a
   song", beside "Back to the studio" and "Hear the songs".
