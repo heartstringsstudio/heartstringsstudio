@@ -93,7 +93,7 @@ test('generated keepsake contains privacy, playback, and permanent downloads', (
   assert.doesNotMatch(html, /tinyurl\.com/);
   // One quiet link home, always: for another song, or a shared copy in a new pair of hands.
   assert.equal((html.match(/class="cta"/g) || []).length, 1);
-  assert.match(html, /<a class="cta" href="https:\/\/heartstringsstudio\.github\.io\/heartstringsstudio\/">Visit Heartstrings Studio/);
+  assert.match(html, /<a class="cta" href="https:\/\/heartstringswv\.com\/">Visit Heartstrings Studio/);
   // A light signature, not a dark band.
   assert.doesNotMatch(html, /\.site-footer \{[^}]*charcoal/);
 });

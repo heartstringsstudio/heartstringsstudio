@@ -10,7 +10,7 @@ const js = fs.readFileSync(path.join(root, 'script.js'), 'utf8');
 const ld = JSON.parse(
   html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]
 );
-const SITE = 'https://heartstringsstudio.github.io/heartstringsstudio/';
+const SITE = 'https://heartstringswv.com/';
 const node = (type) =>
   ld['@graph'].find((n) => [].concat(n['@type']).includes(type));
 
@@ -85,7 +85,7 @@ test('review markup matches the testimonials the page shows', () => {
 test('the Product offer points at the price card, where Message me lives', () => {
   // Offer.url names the pricing section, whose primary button is Message me.
   const offer = node('Product').offers;
-  assert.equal(offer.url, 'https://heartstringsstudio.github.io/heartstringsstudio/#pricing');
+  assert.equal(offer.url, 'https://heartstringswv.com/#pricing');
   assert.ok(html.includes('id="pricing"'), 'the #pricing section must exist');
 });
 

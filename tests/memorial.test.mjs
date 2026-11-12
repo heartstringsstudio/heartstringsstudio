@@ -73,9 +73,9 @@ test('the memorial page shares the stylesheet version, analytics and metadata', 
   for (const event of ['generate_lead', 'messenger_click', 'callback_click', 'sms_click', 'tel_click', 'song_play']) {
     assert.ok(js.includes(`'${event}'`), `missing ${event}`);
   }
-  assert.ok(html.includes('<link rel="canonical" href="https://heartstringsstudio.github.io/heartstringsstudio/memorial/">'));
+  assert.ok(html.includes('<link rel="canonical" href="https://heartstringswv.com/memorial/">'));
   assert.match(html, /<meta property="og:image" content="[^"]*assets\/share-card\.jpg/);
-  assert.ok(read('sitemap.xml').includes('https://heartstringsstudio.github.io/heartstringsstudio/memorial/'));
+  assert.ok(read('sitemap.xml').includes('https://heartstringswv.com/memorial/'));
   /* The main page's memorial band leads here. */
   assert.match(home, /<a class="text-link" href="memorial\/">More about memorial songs/);
 });
