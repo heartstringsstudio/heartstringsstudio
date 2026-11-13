@@ -156,7 +156,7 @@ speaks only to them. About 4.6 phone screens.
   The page is in `sitemap.xml`.
 - Leads from it carry `placement` `memorial_hero`, `memorial_closing` or
   `memorial_page`.
-- Its hours line ("I take calls every day, 9 to noon and 4 to 6 Eastern")
+- Its hours line ("I take calls every day, 8 to noon and 4 to 6 Eastern")
   has to change with the home page's when the owner's schedule changes.
 
 ## Type rules (November 2026)
@@ -512,7 +512,7 @@ Facebook, so the primary action keeps them in it.
   the hero, its own `#callback` section right after the price card ("Rather
   talk it through?"), the closing section, and the pinned phone bar ("Call me
   back"). The `#callback` card states the hours and length under its button:
-  "I take calls every day, 9 to noon and 4 to 6 Eastern. Calls are about 15
+  "I take calls every day, 8 to noon and 4 to 6 Eastern. Calls are about 15
   minutes." Those come from the owner's appointment schedule (15-minute
   slots); if the schedule changes, change this line with it.
 - Nothing else on the page is a `class="button"`: the jukebox is a
