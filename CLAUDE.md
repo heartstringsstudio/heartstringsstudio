@@ -32,7 +32,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=35-memorial">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=36-reviews">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -100,7 +100,7 @@ phone, and `tests/seo.test.mjs` pins the order:
 2. This week's song (`#weekly-song`)
 3. Three more songs (`#listen`) plus the "N more songs" drawer
 4. Memorial band (`#memorial`): the 24-hour promise and a Message me button
-5. Reviews, all three visible
+5. Reviews, all five visible
 6. Porch statement (`#heart`): **desktop only**, hidden at 760px and below
 7. How it works + price in one section (`#process`; the price card is
    `#pricing`). The price card is no longer tilted
@@ -244,7 +244,8 @@ the steps, the count-up, and the rotating reviews. What is left:
   me back" (outlined, the calendar link). Both stay on one line at 375px. It
   shows once the hero is off screen and hides over the closing section and
   footer.
-- **Reviews** — the three `.reviews` figures simply stack, all visible.
+- **Reviews** — the five `.reviews` figures simply stack, all visible. On
+  phones each figure's stars sit on its caption line to save height.
 - **Now-playing pill** — when a playing card scrolls away, `.now-playing` offers
   the way back to it and a stop button. `startSong`/`stopSong` drive it.
 
@@ -286,9 +287,13 @@ the steps, the count-up, and the rotating reviews. What is left:
 - Changing any entry also means updating the `ItemList` in `index.html`'s JSON-LD
   in the same commit; `tests/seo.test.mjs` enforces it.
 - The testimonials are general studio feedback in their own section after the
-  spotlight, not a claimed reaction to the weekly song. All three (Jane,
-  Dolores, Susan) live in `.featured-reaction`'s `.reviews`, stacked;
-  their text and authors remain intact. There is no lower testimonials
+  memorial band, not a claimed reaction to the weekly song. All five (Dolores,
+  Jane, Madison & Matthew, Tina, Susan; November 2026) live in
+  `.featured-reaction`'s `.reviews`, stacked, each captioned with its
+  occasion (`MEMORIAL SONG`, `WEDDING`, …) in the `<small>`. The quotes are
+  trimmed from the clients' own words; the owner holds the full texts.
+  Dolores' memorial quote ("It felt like Pat was right there with me…") and
+  Susan's are also the two on the memorial page. There is no lower testimonials
   section any more.
 
 ## Structured data and analytics
@@ -307,7 +312,7 @@ the steps, the count-up, and the rotating reviews. What is left:
   switching these to `VideoObject` would open up video rich results, but only
   with the real upload dates — don't invent them.
 - Review markup must describe only the testimonials actually visible on the page
-  (currently three), and `aggregateRating.reviewCount` must match.
+  (currently five), and `aggregateRating.reviewCount` must match.
 - GA4 tag is `G-TB4NQVQ8VZ`. The tracked events are `scroll_depth`,
   `section_view`, `generate_lead`, `messenger_click`, `callback_click`,
   `sms_click`, `tel_click`, `cta_click` and `song_play` (fired when a song card's — or the
