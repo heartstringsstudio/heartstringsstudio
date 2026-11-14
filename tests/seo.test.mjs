@@ -75,7 +75,7 @@ test('song structured data matches the songs the page renders', () => {
 
 test('review markup matches the testimonials the page shows', () => {
   const visible = [...html.matchAll(/<blockquote>“(.*?)”<\/blockquote><figcaption>(.*?) <small>/g)]
-    .map((m) => [m[2], m[1]]);
+    .map((m) => [m[2].replace(/&amp;/g, '&'), m[1]]);
   const product = node('Product');
   const marked = product.review.map((r) => [r.author.name, r.reviewBody]);
   assert.deepEqual(marked, visible);
@@ -242,9 +242,8 @@ test('songs, the memorial band and reviews come before the price', () => {
   assert.ok(html.includes('id="weekly-player"'), 'weekly player mount missing');
   const testimony = html.slice(reaction, html.indexOf('</section>', reaction));
   assert.ok(testimony.includes('Jane H.'));
-  assert.ok(testimony.includes('HEARTSTRINGS CLIENT'));
-  /* All three reviews are shown together in this one spot. */
-  for (const name of ['Jane H.', 'Dolores B.', 'Susan H.']) {
+  /* All five reviews are shown together in this one spot. */
+  for (const name of ['Dolores B.', 'Jane H.', 'Madison &amp; Matthew R.', 'Tina M.', 'Susan H.']) {
     assert.ok(testimony.includes(name), `${name} should be in the reviews`);
   }
   /* Read the weekly title out of script.js so this guard keeps biting after

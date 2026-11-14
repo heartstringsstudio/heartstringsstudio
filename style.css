@@ -365,7 +365,7 @@ a[data-video] { cursor:pointer; }
 .now-playing-stop:hover { background:#f0b86f26; }
 
 /* ===== Rotating reviews =====
-   Jane, Dolores and Susan share the spot below the weekly song. Scripts-off
+   The reviews share the spot below the memorial band. Scripts-off
    they stack; with scripts all three sit in one grid cell (so the height is
    the tallest quote's and nothing jumps) and cross-fade. */
 .reviews figure+figure { margin-top:30px; }
@@ -721,3 +721,15 @@ footer>p,.now-playing small { font-size:.875rem; }
 /* The memorial band links to the dedicated memorial page (November 2026). */
 .memorial-more { margin-top:22px; }
 @media (max-width:760px) { .memorial-more { margin-top:16px; } }
+
+/* Five reviews (November 2026). On phones the stars sit on the caption's
+   line instead of their own, which keeps the five-quote stack close to the
+   three-quote height it replaced. */
+@media (max-width:760px) {
+  .reviews figure { display:grid; grid-template-columns:1fr auto; align-items:baseline; column-gap:12px; }
+  .reviews blockquote { grid-column:1/-1; grid-row:1; margin-top:0; }
+  .reviews figure>span { grid-column:2; grid-row:2; font-size:.875rem; letter-spacing:.04em; }
+  .reviews figure+figure { margin-top:18px; }
+}
+/* A five-quote stack is tall; keep its label at the top, not floating mid-way. */
+.featured-reaction { align-items:start; }
