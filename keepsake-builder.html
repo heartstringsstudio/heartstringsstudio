@@ -340,11 +340,11 @@
       </div>
 
       <div class="field">
-        <label for="pageCode">Private page code <span class="required">required</span></label>
-        <span class="hint">Creates an opaque filename that does not reveal the song title or recipient.</span>
+        <label for="pageCode">Folder name <span class="required">required</span></label>
+        <span class="hint">Fills in from the song title as <strong>hs-</strong> plus each word with a hyphen (e.g. <strong>hs-love-you-more</strong>). Name the folder on GitHub exactly this.</span>
         <div class="inline-row">
-          <input type="text" id="pageCode" minlength="10" maxlength="24" pattern="[a-z0-9-]+" required />
-          <button type="button" class="btn-secondary btn-compact" id="newCode">New code</button>
+          <input type="text" id="pageCode" minlength="4" maxlength="80" pattern="[a-z0-9-]+" required />
+          <button type="button" class="btn-secondary btn-compact" id="newCode">Reset from title</button>
         </div>
       </div>
       </section>
@@ -851,19 +851,29 @@
       return buildPage(Object.assign(collect(), { publish: true }));
     }
 
+    // Folder name = "hs-" + the title, one hyphen between words. Apostrophes
+    // are dropped first so "Don't" becomes "dont", not "don-t".
     function makePageCode() {
-      var bytes = new Uint8Array(8);
-      if (window.crypto && window.crypto.getRandomValues) window.crypto.getRandomValues(bytes);
-      else bytes.forEach(function (_, i) { bytes[i] = Math.floor(Math.random() * 256); });
-      return Array.from(bytes).map(function (b) { return b.toString(36).padStart(2, '0'); }).join('').slice(0, 12);
+      var t = String(els.title.value || '').replace(/['\u2018\u2019]/g, '').trim();
+      return t ? 'hs-' + slugify(t) : '';
     }
+    // Follow the title while the folder name is still the automatic one;
+    // once it's typed over by hand, leave it alone.
+    var lastAutoCode = '';
+    els.title.addEventListener('input', function () {
+      if (els.pageCode.value === lastAutoCode) {
+        lastAutoCode = makePageCode();
+        els.pageCode.value = lastAutoCode;
+        render();
+      }
+    });
 
     function validationErrors() {
       var errors = [];
       var keepsake = currentStage() === 'keepsake';
       if (!els.title.value.trim()) errors.push('Song title');
       if (!els.dedication.value.trim()) errors.push('Dedication');
-      if (!els.pageCode.value.trim() || !/^[a-z0-9-]{10,24}$/.test(els.pageCode.value.trim())) errors.push('Valid private page code');
+      if (!els.pageCode.value.trim() || !/^[a-z0-9-]{4,80}$/.test(els.pageCode.value.trim())) errors.push('Valid folder name');
       if (keepsake && els.youtube.value.trim() && !youTubeId(els.youtube.value)) errors.push('Valid YouTube link (or leave it blank)');
       if (keepsake && !els.videoLink.value.trim()) errors.push('Share video link (MP4 on Google Drive)');
       else if (keepsake && !videoLink(els.videoLink.value)) errors.push('Valid share video link starting with https://');
@@ -932,7 +942,7 @@
       els[id].addEventListener('change', render);
     });
     document.getElementById('consent').addEventListener('change', render);
-    document.getElementById('newCode').addEventListener('click', function () { els.pageCode.value = makePageCode(); render(); });
+    document.getElementById('newCode').addEventListener('click', function () { lastAutoCode = els.pageCode.value = makePageCode(); render(); });
 
     // Crop the artwork square (1:1, from the centre), cap it at 1600px and
     // save it as a JPEG, so whatever was picked becomes a sensible art.jpg.
@@ -1118,7 +1128,7 @@
     document.getElementById('mobilePreview').addEventListener('click', function () { document.getElementById('previewPane').classList.add('mobile'); });
 
     // First paint.
-    els.pageCode.value = makePageCode();
+    lastAutoCode = els.pageCode.value = makePageCode();
     render();
   </script>
 </body>
