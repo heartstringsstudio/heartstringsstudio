@@ -70,6 +70,7 @@ older single-file version:
   | `--card` / `--card-edge` | `#fff3dc` / `#baa27d` | Song card face and offset shadow |
   | `--price-edge` | `#b48c5f` | Price card offset shadow |
   | `--pill-line` / `--cream-line` | `#ac805655` / `#795b3544` | Occasion pill border, rules on cream |
+| `--cranberry` / `--cranberry-deep` / `--cranberry-wash` | `#6b1d22` / `#4a1217` / `#f8e1da` | Seasonal sale only: ribbon ground, sale chips and badge, price-note tint |
 - `script.js` — holds the page's content as arrays and renders it at load:
   `songs`, `faq`. It also carries the scroll/reveal motion, the
   song-card player, and the GA event tracking.
@@ -486,6 +487,13 @@ switches the copy by the date in Eastern time; `tests/promo.test.mjs` pins it.
   ribbon ships `hidden`, so no edit is needed to end the sale. Link-preview
   descriptions no longer name a price at all, so shared links never show a
   stale one. Preview any day with `?promo=2026-11-27`, or `?promo=off`.
+- **The sale is the one festive thing on the page** (owner, 21 Nov 2026):
+  a cranberry ribbon with a static string of porch lights, the hero's sale
+  price as a cranberry chip, a badge and cranberry price on the price card,
+  and the sale price riding above the pinned phone bar. No snow, no motion,
+  no site-wide holiday theme: December visitors include grieving families,
+  so the memorial band and memorial page stay untouched. Preview the
+  sold-out state with `?promo=soldout`.
 - After the season, `promo.js`, its two `<script>` tags, the `data-promo`
   hooks, the ribbon styles at the bottom of `style.css` and
   `tests/promo.test.mjs` can all be removed together; leaving them is harmless.

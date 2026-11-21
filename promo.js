@@ -40,6 +40,7 @@
   const GIFT = 'Gift certificates: $99 on Black Friday, $125 through December 20. Each is good for one song for a year from the day you buy it. Message me, and pay by Venmo, Cash App, cash or check.';
   const GIFT_FAQ = ['Can I give a song as a gift?', 'Yes. Through December 20 I offer gift certificates: $99 on Black Friday, November 27, and $125 the rest of the season. Each one is good for one custom song for a year from the day you buy it. Message me to get one; you can pay by Venmo, Cash App, cash or check.'];
   const was = '<s><span class="promo-sr">Regular price </span>$150</s> ';
+  const deal = (t) => `<span class="deal">${t}</span>`;
 
   function easternToday() {
     try {
@@ -66,7 +67,7 @@
 
   const days = Math.round((Date.parse(BLACK_FRIDAY) - Date.parse(today)) / 864e5);
   const RIBBON = {
-    teaser: ['BLACK FRIDAY · NOV 27', 'Every custom song <b>$99</b>, one day only.', `First 25 songs. Gift certificates too. ${days === 1 ? 'Starts tomorrow.' : `Starts in ${days} days.`}`],
+    teaser: ['BLACK FRIDAY · NOV 27', 'Every custom song <b>$99</b>, one day only.', `First 25 songs. Gift certificates too. ${days === 1 ? 'Starts tomorrow.' : `Starts in ${days}&nbsp;days.`}`],
     blackfriday: ['BLACK FRIDAY · TODAY ONLY', 'Every custom song <b>$99</b> until midnight.', 'First 25 songs, written in the order received. Gift certificates $99 too.'],
     soldout: ['BLACK FRIDAY', 'All 25 Black Friday songs are spoken for. Thank you.', 'The <b class="promo-small">$125</b> holiday price starts now. Gift certificates are still $99 until midnight.'],
     holiday: ['HOLIDAY PRICE · THROUGH DEC 20', 'Every custom song <b>$125</b>.', 'Order by December 20, in time for Christmas. Gift certificates available.']
@@ -77,12 +78,24 @@
   const COPY = {
     /* Home page */
     'hero-price': {
-      blackfriday: `${was}$99 today only · First 25 songs · Written in the order received`,
-      holiday: `${was}$125 through Dec 20 · Ready in 48–72 hours, guaranteed`
+      blackfriday: `${was}${deal('$99 today only')} First 25 songs · Written in the order received`,
+      holiday: `${was}${deal('$125 through Dec 20')} Ready in 48–72 hours, guaranteed`
     },
     'price-amount': {
-      blackfriday: `${was}$99 <small>today only</small>`,
-      holiday: `${was}$125 <small>through Dec 20</small>`
+      blackfriday: `${was}<span class="sale">$99</span> <small>today only</small>`,
+      holiday: `${was}<span class="sale">$125</span> <small>through Dec 20</small>`
+    },
+    'price-badge': {
+      teaser: 'BLACK FRIDAY · NOV 27 · $99',
+      blackfriday: 'BLACK FRIDAY · TODAY ONLY',
+      soldout: 'HOLIDAY PRICE · STARTS NOW',
+      holiday: 'HOLIDAY PRICE · TO DEC 20'
+    },
+    /* The pinned phone bar: the one thing always on screen. */
+    'sticky-deal': {
+      teaser: 'Black Friday, Nov 27: every song <b>$99</b>',
+      blackfriday: 'Black Friday: <b>$99</b> today only',
+      holiday: 'Holiday price: <b>$125</b> through Dec 20'
     },
     'price-note': {
       teaser: `<b>Black Friday, November 27:</b> every song $99, one day only, for the first 25 songs. Then $125 through December 20.<br><b>Gift certificates</b> too. ${GIFT.replace('Gift certificates: ', '')}`,
@@ -115,7 +128,7 @@
   const ribbon = document.getElementById('promo');
   if (ribbon && RIBBON[phase]) {
     const [tag, main, sub] = RIBBON[phase];
-    ribbon.innerHTML = `<div class="promo-inner wrap"><span class="promo-tag">${tag}</span><p class="promo-main">${main}<span class="promo-sub">${sub}</span></p><a class="promo-link" href="${MSG}">Message me <span aria-hidden="true">↗</span></a></div>`;
+    ribbon.innerHTML = `<div class="promo-inner wrap"><span class="promo-tag">${tag}</span><p class="promo-main">${main}<span class="promo-sub">${sub}</span></p><a class="button small promo-button" href="${MSG}">Message me <span aria-hidden="true">↗</span></a></div>`;
     ribbon.hidden = false;
     document.documentElement.classList.add('has-promo');
   }
