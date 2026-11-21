@@ -128,7 +128,7 @@
   const ribbon = document.getElementById('promo');
   if (ribbon && RIBBON[phase]) {
     const [tag, main, sub] = RIBBON[phase];
-    ribbon.innerHTML = `<div class="promo-inner wrap"><span class="promo-tag">${tag}</span><p class="promo-main">${main}<span class="promo-sub">${sub}</span></p><a class="button small promo-button" href="${MSG}">Message me <span aria-hidden="true">↗</span></a></div>`;
+    ribbon.innerHTML = `<div class="promo-inner wrap"><span class="promo-tag">${tag}</span><p class="promo-main">${main}<span class="promo-sub">${sub}</span></p><a class="button small promo-button" href="${MSG}">Message me <span aria-hidden="true">↗</span></a></div><span class="promo-lights" aria-hidden="true"><i></i><i></i><i></i><i></i></span>`;
     ribbon.hidden = false;
     document.documentElement.classList.add('has-promo');
   }
