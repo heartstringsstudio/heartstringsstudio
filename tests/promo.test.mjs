@@ -35,6 +35,8 @@ test('Black Friday copy never promises the 48–72 hour window', () => {
     assert.ok(!/48–72 hours?, guaranteed|Ready in 48/.test(line), `Black Friday line promises the window: ${line}`);
   }
   assert.ok(promo.includes('the 48–72 hour guarantee doesn’t apply to them'));
+  assert.ok(promo.includes('Rush delivery isn’t available on Black Friday orders.'));
+  assert.ok(promo.includes('don’t count toward the 25'));
 });
 
 test('sale copy keeps the 24-hour and memorial rules', () => {

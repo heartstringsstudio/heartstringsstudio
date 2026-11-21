@@ -467,7 +467,9 @@ switches the copy by the date in Eastern time; `tests/promo.test.mjs` pins it.
 - **Fri Nov 27, Black Friday:** $99, midnight to midnight, **first 25 songs**.
   Black Friday songs are written in the order received, so the 48–72 hour
   guarantee does not apply to them; no Black Friday line may promise it.
-  Memorial songs still come first. When the 25 are taken, set
+  Memorial songs still come first. No paid rush on Black Friday orders.
+  Gift certificates don't count toward the 25 and stay $99 all day. When
+  the 25 are taken, the owner says so and Claude sets
   `SOLD_OUT = true` in `promo.js` (a one-line edit; the GitHub web editor is
   fine for this, the "upload" path is not).
 - **Nov 28 – Dec 20, holiday:** $125, 48–72 hours guaranteed as usual.
