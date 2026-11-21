@@ -471,7 +471,8 @@ switches the copy by the date in Eastern time; `tests/promo.test.mjs` pins it.
   Gift certificates don't count toward the 25 and stay $99 all day. When
   the 25 are taken, the owner says so and Claude sets
   `SOLD_OUT = true` in `promo.js` (a one-line edit; the GitHub web editor is
-  fine for this, the "upload" path is not).
+  fine for this, the "upload" path is not). The $125 holiday price then
+  starts early for the rest of Friday; gift certificates stay $99.
 - **Nov 28 – Dec 20, holiday:** $125, 48–72 hours guaranteed as usual.
 - **Gift certificates:** $99 on Black Friday, $125 after; good for one song
   for a year from purchase; bought by messaging, paid by Venmo, Cash App,

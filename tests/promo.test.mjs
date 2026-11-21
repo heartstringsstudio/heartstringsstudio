@@ -37,6 +37,9 @@ test('Black Friday copy never promises the 48–72 hour window', () => {
   assert.ok(promo.includes('the 48–72 hour guarantee doesn’t apply to them'));
   assert.ok(promo.includes('Rush delivery isn’t available on Black Friday orders.'));
   assert.ok(promo.includes('don’t count toward the 25'));
+  /* Once the 25 are taken, $125 starts early for the rest of Friday. */
+  assert.match(promo, /const SOLD_OUT = false;/);
+  assert.ok(promo.includes("phase === 'soldout' && !('soldout' in set) ? set.holiday"));
 });
 
 test('sale copy keeps the 24-hour and memorial rules', () => {
