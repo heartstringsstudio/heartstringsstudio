@@ -32,7 +32,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=36-reviews">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=37-holiday">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -70,6 +70,7 @@ older single-file version:
   | `--card` / `--card-edge` | `#fff3dc` / `#baa27d` | Song card face and offset shadow |
   | `--price-edge` | `#b48c5f` | Price card offset shadow |
   | `--pill-line` / `--cream-line` | `#ac805655` / `#795b3544` | Occasion pill border, rules on cream |
+| `--cranberry` / `--cranberry-deep` / `--cranberry-wash` | `#6b1d22` / `#4a1217` / `#f8e1da` | Seasonal sale only: ribbon ground, sale chips and badge, price-note tint |
 - `script.js` — holds the page's content as arrays and renders it at load:
   `songs`, `faq`. It also carries the scroll/reveal motion, the
   song-card player, and the GA event tracking.
@@ -455,6 +456,47 @@ dashboard repo carries its own four.
   file, so budget the reshoot into that change instead of finding it
   afterwards. A pure resize or cleanup of the existing shape leaves it alone.
   Either way it is not one of the four files above.
+
+## Black Friday and holiday pricing (2026 season)
+
+Set by the owner on 21 November 2026. `promo.js` (loaded by `index.html` and
+`memorial/index.html`, before their own scripts) holds the whole schedule and
+switches the copy by the date in Eastern time; `tests/promo.test.mjs` pins it.
+
+- **Nov 21–26, teaser:** the ribbon (`#promo`, above the header) announces
+  Black Friday; prices stay $150.
+- **Fri Nov 27, Black Friday:** $99, midnight to midnight, **first 25 songs**.
+  Black Friday songs are written in the order received, so the 48–72 hour
+  guarantee does not apply to them; no Black Friday line may promise it.
+  Memorial songs still come first. No paid rush on Black Friday orders.
+  Gift certificates don't count toward the 25 and stay $99 all day. When
+  the 25 are taken, the owner says so and Claude sets
+  `SOLD_OUT = true` in `promo.js` (a one-line edit; the GitHub web editor is
+  fine for this, the "upload" path is not). The $125 holiday price then
+  starts early for the rest of Friday; gift certificates stay $99.
+- **Nov 28 – Dec 20, holiday:** $125, 48–72 hours guaranteed as usual.
+- **Gift certificates:** $99 on Black Friday, $125 after; good for one song
+  for a year from purchase; bought by messaging, paid by Venmo, Cash App,
+  cash or check. A seasonal sixth FAQ question carries this; it is added
+  by script only and deliberately not in the FAQPage JSON-LD.
+- **Memorial songs get the sale price.** The memorial page shows it in two
+  quiet swaps (the promise chip and the price heading): no ribbon, no
+  "Black Friday", nothing about 48–72 hours.
+- Add-ons are unchanged (rush +$50, commercial license +$100).
+- **From Dec 21 nothing runs**: the served HTML always says $150 and the
+  ribbon ships `hidden`, so no edit is needed to end the sale. Link-preview
+  descriptions no longer name a price at all, so shared links never show a
+  stale one. Preview any day with `?promo=2026-11-27`, or `?promo=off`.
+- **The sale is the one festive thing on the page** (owner, 21 Nov 2026):
+  a cranberry ribbon with a static string of porch lights, the hero's sale
+  price as a cranberry chip, a badge and cranberry price on the price card,
+  and the sale price riding above the pinned phone bar. No snow, no motion,
+  no site-wide holiday theme: December visitors include grieving families,
+  so the memorial band and memorial page stay untouched. Preview the
+  sold-out state with `?promo=soldout`.
+- After the season, `promo.js`, its two `<script>` tags, the `data-promo`
+  hooks, the ribbon styles at the bottom of `style.css` and
+  `tests/promo.test.mjs` can all be removed together; leaving them is harmless.
 
 ## Delivery and rush wording
 
