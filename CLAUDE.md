@@ -488,9 +488,11 @@ switches the copy by the date in Eastern time; `tests/promo.test.mjs` pins it.
   descriptions no longer name a price at all, so shared links never show a
   stale one. Preview any day with `?promo=2026-11-27`, or `?promo=off`.
 - **The sale is the one festive thing on the page** (owner, 21 Nov 2026):
-  a cranberry ribbon with a static string of porch lights, the hero's sale
+  a cranberry ribbon with a string of porch lights that twinkle softly
+  (the owner asked for it; steady under reduced motion), the hero's sale
   price as a cranberry chip, a badge and cranberry price on the price card,
-  and the sale price riding above the pinned phone bar. No snow, no motion,
+  and the sale price riding above the pinned phone bar. No snow, no other
+  motion,
   no site-wide holiday theme: December visitors include grieving families,
   so the memorial band and memorial page stay untouched. Preview the
   sold-out state with `?promo=soldout`.
