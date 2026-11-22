@@ -32,7 +32,7 @@
   `tests/seo.test.mjs`, the site's structured data, analytics wiring, and the
   commission CTA rules below.
 - **Bump the `?v=` on the `style.css` link whenever you change `style.css`.**
-  The tag reads `<link rel="stylesheet" href="style.css?v=37-holiday">`; returning
+  The tag reads `<link rel="stylesheet" href="style.css?v=40-hero-song">`; returning
   visitors cache that exact URL, so a CSS-only change under an unchanged query
   string never reaches them — not even on a hard refresh, since phone browsers
   reload the HTML but reuse cached subresources. This bit the mobile hero
@@ -96,8 +96,9 @@ The audit found almost nobody reached the price, which sat nine phone
 screens down. The page is now ordered for someone deciding in seconds on a
 phone, and `tests/seo.test.mjs` pins the order:
 
-1. Hero: the studio name as the headline, Tim's real portrait, price line,
-   Message me, Book a callback, text/call, proof line
+1. Hero: "Who would you give a song to?" as the headline, Tim's real
+   portrait, price line, **one** button that plays this week's song, then
+   "Or message me · text me · call", proof line
 2. This week's song (`#weekly-song`)
 3. Three more songs (`#listen`) plus the "N more songs" drawer
 4. Memorial band (`#memorial`): the 24-hour promise and a Message me button
@@ -204,12 +205,31 @@ speaks only to them. About 4.6 phone screens.
   `art.jpg` at its public address. With no art chosen yet, the studio banner
   stands in.
 
-## The hero (rebuilt November 2026)
+## The hero (rebuilt November 2026, revised 22 November)
 
-- **The `h1` is the studio name**: "Heartstrings" upright, "Studio" in the
-  inked italic with the swash under it (`<span class="ink">`). The old
-  headline, "Who would you give a song to?", is the italic line under it
-  (`.hero-question`). Before this the name was 14px tall in the header.
+- **Why it changed again (owner's GA, Oct 25 – Nov 21):** the home page on
+  the new domain (Nov 12 on, studio-name headline, Message me first) held
+  visitors **7 seconds** and converted 1.3%. The same page at the old address
+  (`/heartstringsstudio`, before the Nov 11 rebuild: question headline,
+  "Hear this week's song" as the main button) held them 30 seconds and
+  converted 8.7%, 6 of the period's 7 leads. Song pages hold people 1.5–3
+  minutes. Lead with the song, not the ask.
+- **The `h1` is "Who would you give a *song* to?"**, with "song" in the
+  inked italic and swash (`<span class="ink">`). The studio name is the
+  eyebrow above it ("HEARTSTRINGS STUDIO · WEST VIRGINIA"), shown on phones
+  too, since phones have no header.
+- **The hero has exactly one button**, `a.button.hero-play`
+  (`href="#weekly-song"`, `data-play-weekly`): "Hear a song I wrote for a
+  family". `script.js` scrolls to the weekly spotlight and starts it in
+  place; scripts off, it is a plain jump. Under it, one reach line: "Or
+  message me · text me · call 304-677-1113". No Book a callback in the hero;
+  the pinned bar (Message me + Call me back) appears as soon as the hero
+  scrolls away. `tests/seo.test.mjs` pins this.
+- **While the sale ribbon shows, phones** get a 150px portrait band, no
+  ribbon button (the pinned bar carries the sale price and Message me), and
+  no ribbon small print in the teaser and Black Friday phases (the hero's
+  price line repeats it). `promo.js` sets `data-phase` on the ribbon for
+  this. Goal: the play button on the first screen of a 390 × 844 phone.
 - **The picture is the real portrait**, `assets/tim-hero.webp` (a WebP cut
   of `assets/tim.jpeg`), not the illustrated `studio.webp` scene. Most
   visitors know Tim. On wide screens it holds the right 48% and fades into
@@ -537,11 +557,11 @@ Facebook, so the primary action keeps them in it.
 
 - **Primary path on every commission CTA is "Message me"**: a Messenger link
   to the Heartstrings Studio **Facebook Page** (never a personal profile),
-  `https://m.me/61584734289007`. It is in the header ("Message me"), the hero,
-  the pricing card, the closing section and the pinned phone button
+  `https://m.me/61584734289007`. It is in the header ("Message me"), the hero
+  (as a text link under the play button), the pricing card, the closing section and the pinned phone button
   ("Message me for a song"). If the Page claims a username, swap the link
   everywhere at once (`index.html`, `404.html`, `tests/seo.test.mjs`).
-- **Directly under the hero, memorial band, pricing and closing buttons** sits
+- **Directly under the memorial band, pricing and closing buttons** sits
   `<p class="reach-options">`: "Or text me · call 304-677-1113", both tappable
   (`sms:+13046771113`, `tel:+13046771113`). Nothing else goes in that group.
   The public number is 304-677-1113 and the visible form is always
@@ -558,21 +578,21 @@ Facebook, so the primary action keeps them in it.
   appointment page, `https://calendar.app.google/oDX7GcemevPmH2u1A`, opened
   in a new tab and never embedded. It is always `class="button ghost"` (the
   outlined button) so it reads as second to the amber Message me. It is in
-  the hero, its own `#callback` section right after the price card ("Rather
+  its own `#callback` section right after the price card ("Rather
   talk it through?"), the closing section, and the pinned phone bar ("Call me
   back"). The `#callback` card states the hours and length under its button:
   "I take calls every day, 8 to noon and 4 to 6 Eastern. Calls are about 15
   minutes." Those come from the owner's appointment schedule (15-minute
   slots); if the schedule changes, change this line with it.
-- Nothing else on the page is a `class="button"`: the jukebox is a
-  `text-link` ("Explore the jukebox"). The hero has no listen link of its
-  own; the scroll cue leads to the weekly song.
+- Nothing else on the page is a `class="button"` except the hero's play
+  button (see The hero): the jukebox is a `text-link` ("Explore the
+  jukebox").
 - Message me is also the button in the memorial band, with the text and
   call links under it.
   `tests/seo.test.mjs` pins all of this, plus
   `telephone: "+1-304-677-1113"` on the `#business` JSON-LD node.
 - The hero carries the price line ("$150 flat · Ready in 48–72 hours,
-  guaranteed") above the button and one proof line (`.hero-proof`: 100+
+  guaranteed") above the play button and one proof line (`.hero-proof`: 100+
   songs, the WBOY link, the stars) below it. The old four-cell proof bar and
   its count-up are gone; "100+" needs no upkeep.
 - Step 01, the FAQ and its JSON-LD describe the same path (message, text,
