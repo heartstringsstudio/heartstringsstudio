@@ -179,6 +179,14 @@ const weeklyPlayer=document.querySelector('#weekly-player');
 document.querySelector('#weekly-title').textContent=weeklySong[3];
 document.querySelector('#weekly-description').textContent=weeklySong[4];
 weeklyPlayer.append(buildFace(weeklySong,true));
+/* The hero's one button plays this week's song where it sits, right under
+   the hero, so a visitor hears the work in one tap. Scripts off, it is a
+   plain jump to the section. */
+document.querySelectorAll('[data-play-weekly]').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  weeklyPlayer.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+  startSong(weeklyPlayer,weeklySong);
+}));
 /* The gallery shows three songs, one each for the occasions people most
    often come for (memorial, wedding, tribute). Every other song sits in the
    "More songs" drawer under them, so the page stays short but nothing in the

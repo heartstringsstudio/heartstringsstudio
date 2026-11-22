@@ -790,3 +790,27 @@ footer>p,.now-playing small { font-size:.875rem; }
   .cta-deal b { color:var(--accent); font-size:1rem; }
   .has-promo .mobile-cta.show ~ .now-playing { bottom:calc(126px + env(safe-area-inset-bottom)); }
 }
+
+/* Hero, November 2026 (2): the question is the headline again, the studio
+   name sits above it, and the one button plays this week's song. */
+.hero h1 { font-size:clamp(3.6rem,5.4vw,5.8rem); line-height:1.04; }
+.hero .button.hero-play { justify-content:flex-start; gap:14px; }
+.hero-play .play-mark { display:inline-grid; place-items:center; width:2em; height:2em; border-radius:50%; background:var(--cream-ink); color:var(--button); font-size:.8em; padding-left:.15em; }
+@media (max-width:760px) {
+  .hero-copy .eyebrow { display:block; margin-bottom:10px; font-size:.875rem; }
+  .hero h1 { font-size:clamp(2.4rem,10.6vw,3.1rem); white-space:normal; line-height:1.08; }
+  .hero .actions { margin-top:18px; }
+  .hero .button.hero-play { min-height:60px; font-size:1.05rem; }
+  /* While the sale ribbon sits above the hero, a shorter portrait keeps the
+     play button on the first screen. */
+  .has-promo .hero .scene-frame { height:150px; }
+  .has-promo .hero .scene-frame img { object-position:50% 12%; }
+  .has-promo .hero-copy { padding-top:0; }
+  /* Phones: the ribbon announces, the pinned bar (sale price + Message me)
+     asks. Its small print goes in the teaser days, and on Black Friday, when
+     the hero's price line already says "First 25 songs · Written in the order
+     received". Sold out and holiday keep it: their terms appear nowhere else
+     on the first screen. */
+  .promo .promo-button { display:none; }
+  .promo[data-phase="teaser"] .promo-sub,.promo[data-phase="blackfriday"] .promo-sub { display:none; }
+}

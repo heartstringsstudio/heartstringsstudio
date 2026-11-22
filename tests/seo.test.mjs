@@ -118,18 +118,26 @@ test('commission CTAs open Messenger, with text, call and a callback beside them
   const ctas = [...html.matchAll(/<a class="button([^"]*)" href="([^"]+)"/g)].map((m) => ({ cls: m[1], href: m[2] }));
   const msg = ctas.filter((c) => c.href === MSG);
   const cal = ctas.filter((c) => c.href === CAL);
-  const others = ctas.filter((c) => c.href !== MSG && c.href !== CAL).map((c) => c.href);
-  assert.ok(msg.length >= 6, 'expected Message me in the header, hero, memorial band, price card, closing and pinned bar');
+  const others = ctas.filter((c) => c.href !== MSG && c.href !== CAL && c.href !== '#weekly-song').map((c) => c.href);
+  assert.ok(msg.length >= 5, 'expected Message me in the header, memorial band, price card, closing and pinned bar');
   assert.ok(msg.every((c) => !c.cls.includes('ghost')), 'Message me is always the solid button');
-  assert.equal(cal.length, 4, 'expected Book a callback in the hero, its own section, closing and pinned bar');
+  assert.equal(cal.length, 3, 'expected Book a callback in its own section, closing and pinned bar');
   assert.ok(cal.every((c) => c.cls.includes('ghost')), 'the callback button is always the outlined one');
-  assert.deepEqual(others, [], 'every button on the page is one of the two commission actions');
+  assert.deepEqual(others, [], 'every button on the page is a commission action or the hero\'s play button');
+  /* The hero's one button plays this week's song (November 2026 data: the
+     page that led with a listen button held visitors and converted; the one
+     that led with Message me lost them in seconds). Message me, text and call
+     sit under it as links. */
+  const hero = html.slice(html.indexOf('<section class="hero">'), html.indexOf('id="weekly-song"'));
+  assert.equal((hero.match(/class="button/g) || []).length, 1, 'the hero has exactly one button');
+  assert.match(hero, /<a class="button hero-play" href="#weekly-song" data-play-weekly>/, 'the hero button plays this week\'s song');
+  assert.ok(hero.includes('<p class="reach-options">Or <a href="https://m.me/61584734289007">message me</a> · <a href="sms:+13046771113">text me</a> · <a href="tel:+13046771113">call 304-677-1113</a></p>'), 'Message me, text and call sit under the hero button');
   assert.match(html, /<div class="mobile-cta" inert><a class="button" href="https:\/\/m\.me\/61584734289007">/, 'pinned phone bar must lead with Message me');
   assert.ok(html.includes('id="callback"'), 'the callback section must exist');
   /* Every Message me button in the page body is followed by the text and
      call links: hero, memorial band, price card, closing. */
   const reach = html.match(/<p class="reach-options">Or <a href="sms:\+13046771113">text me<\/a> · <a href="tel:\+13046771113">call 304-677-1113<\/a><\/p>/g) || [];
-  assert.equal(reach.length, 4, 'text and call links belong under the hero, memorial band, price card and closing buttons');
+  assert.equal(reach.length, 3, 'text and call links belong under the memorial band, price card and closing buttons');
   assert.ok(!/storyroom|Story Room/i.test(html + js), 'the Story Room was removed from this page');
   assert.ok(html.includes('href="mailto:heartstringsstudiowv@gmail.com"'), 'missing the email link');
   assert.ok(html.includes('id="weekly-song"'), 'listening target must exist');
